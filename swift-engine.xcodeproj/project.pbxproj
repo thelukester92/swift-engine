@@ -7,13 +7,27 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		A318A2CE19412F3400B88B62 /* LGComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = A318A2CD19412F3400B88B62 /* LGComponent.swift */; };
+		A318A2D019412F4A00B88B62 /* LGEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = A318A2CF19412F4A00B88B62 /* LGEntity.swift */; };
+		A318A2D21941303C00B88B62 /* LGEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = A318A2D11941303C00B88B62 /* LGEngine.swift */; };
+		A318A2D4194130DE00B88B62 /* LGScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = A318A2D3194130DE00B88B62 /* LGScene.swift */; };
+		A318A2D6194130FF00B88B62 /* LGSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = A318A2D5194130FF00B88B62 /* LGSystem.swift */; };
+		A318A2D81941311B00B88B62 /* LGUpdatePhase.swift in Sources */ = {isa = PBXBuildFile; fileRef = A318A2D71941311B00B88B62 /* LGUpdatePhase.swift */; };
+		A33CADA6194360AF00AC8E27 /* LGSpriteSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = A33CADA5194360AF00AC8E27 /* LGSpriteSheet.swift */; };
+		A33CADA81943613200AC8E27 /* LGPosition.swift in Sources */ = {isa = PBXBuildFile; fileRef = A33CADA71943613200AC8E27 /* LGPosition.swift */; };
+		A33CADAA194361C000AC8E27 /* LGSprite.swift in Sources */ = {isa = PBXBuildFile; fileRef = A33CADA9194361C000AC8E27 /* LGSprite.swift */; };
+		A33CADAC194361E900AC8E27 /* LGPhysicalSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = A33CADAB194361E900AC8E27 /* LGPhysicalSystem.swift */; };
+		A33CADAE1943626300AC8E27 /* LGPositionSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = A33CADAD1943626300AC8E27 /* LGPositionSystem.swift */; };
+		A33CADB0194362A600AC8E27 /* LGSpriteSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = A33CADAF194362A600AC8E27 /* LGSpriteSystem.swift */; };
+		A33CADB21943630F00AC8E27 /* LGPhysicsBody.swift in Sources */ = {isa = PBXBuildFile; fileRef = A33CADB11943630F00AC8E27 /* LGPhysicsBody.swift */; };
+		A33CADB41943635C00AC8E27 /* LGNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = A33CADB31943635C00AC8E27 /* LGNode.swift */; };
 		A3B2AEA9193EBFE20097B3A7 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3B2AEA8193EBFE20097B3A7 /* AppDelegate.swift */; };
-		A3B2AEAB193EBFE20097B3A7 /* GameScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = A3B2AEAA193EBFE20097B3A7 /* GameScene.sks */; };
 		A3B2AEAD193EBFE20097B3A7 /* GameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3B2AEAC193EBFE20097B3A7 /* GameScene.swift */; };
 		A3B2AEAF193EBFE20097B3A7 /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3B2AEAE193EBFE20097B3A7 /* GameViewController.swift */; };
 		A3B2AEB2193EBFE20097B3A7 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A3B2AEB0193EBFE20097B3A7 /* Main.storyboard */; };
 		A3B2AEB4193EBFE20097B3A7 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A3B2AEB3193EBFE20097B3A7 /* Images.xcassets */; };
 		A3B2AEC0193EBFE20097B3A7 /* swift_engineTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3B2AEBF193EBFE20097B3A7 /* swift_engineTests.swift */; };
+		A3EFA8171943FA2D00C85CF8 /* Player.png in Resources */ = {isa = PBXBuildFile; fileRef = A3EFA8161943FA2D00C85CF8 /* Player.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -27,17 +41,31 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		A318A2CD19412F3400B88B62 /* LGComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LGComponent.swift; sourceTree = "<group>"; };
+		A318A2CF19412F4A00B88B62 /* LGEntity.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LGEntity.swift; sourceTree = "<group>"; };
+		A318A2D11941303C00B88B62 /* LGEngine.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LGEngine.swift; sourceTree = "<group>"; };
+		A318A2D3194130DE00B88B62 /* LGScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LGScene.swift; sourceTree = "<group>"; };
+		A318A2D5194130FF00B88B62 /* LGSystem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LGSystem.swift; sourceTree = "<group>"; };
+		A318A2D71941311B00B88B62 /* LGUpdatePhase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LGUpdatePhase.swift; sourceTree = "<group>"; };
+		A33CADA5194360AF00AC8E27 /* LGSpriteSheet.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LGSpriteSheet.swift; path = Classes/LGSpriteSheet.swift; sourceTree = "<group>"; };
+		A33CADA71943613200AC8E27 /* LGPosition.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LGPosition.swift; sourceTree = "<group>"; };
+		A33CADA9194361C000AC8E27 /* LGSprite.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LGSprite.swift; sourceTree = "<group>"; };
+		A33CADAB194361E900AC8E27 /* LGPhysicalSystem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LGPhysicalSystem.swift; sourceTree = "<group>"; };
+		A33CADAD1943626300AC8E27 /* LGPositionSystem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LGPositionSystem.swift; sourceTree = "<group>"; };
+		A33CADAF194362A600AC8E27 /* LGSpriteSystem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LGSpriteSystem.swift; sourceTree = "<group>"; };
+		A33CADB11943630F00AC8E27 /* LGPhysicsBody.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LGPhysicsBody.swift; sourceTree = "<group>"; };
+		A33CADB31943635C00AC8E27 /* LGNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LGNode.swift; sourceTree = "<group>"; };
 		A3B2AEA3193EBFE20097B3A7 /* swift-engine.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "swift-engine.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		A3B2AEA7193EBFE20097B3A7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A3B2AEA8193EBFE20097B3A7 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		A3B2AEAA193EBFE20097B3A7 /* GameScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = GameScene.sks; sourceTree = "<group>"; };
-		A3B2AEAC193EBFE20097B3A7 /* GameScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameScene.swift; sourceTree = "<group>"; };
+		A3B2AEAC193EBFE20097B3A7 /* GameScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = GameScene.swift; path = Game/GameScene.swift; sourceTree = "<group>"; };
 		A3B2AEAE193EBFE20097B3A7 /* GameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameViewController.swift; sourceTree = "<group>"; };
 		A3B2AEB1193EBFE20097B3A7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		A3B2AEB3193EBFE20097B3A7 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		A3B2AEB9193EBFE20097B3A7 /* swift-engineTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "swift-engineTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		A3B2AEBE193EBFE20097B3A7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A3B2AEBF193EBFE20097B3A7 /* swift_engineTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = swift_engineTests.swift; sourceTree = "<group>"; };
+		A3EFA8161943FA2D00C85CF8 /* Player.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Player.png; path = Game/Resources/Player.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -58,6 +86,59 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		A318A2C919412F2800B88B62 /* Engine */ = {
+			isa = PBXGroup;
+			children = (
+				A33CADA41943609D00AC8E27 /* Classes */,
+				A318A2CA19412F2800B88B62 /* Components */,
+				A318A2CB19412F2800B88B62 /* Enums */,
+				A318A2CC19412F2800B88B62 /* Systems */,
+				A318A2CD19412F3400B88B62 /* LGComponent.swift */,
+				A318A2CF19412F4A00B88B62 /* LGEntity.swift */,
+				A318A2D11941303C00B88B62 /* LGEngine.swift */,
+				A318A2D3194130DE00B88B62 /* LGScene.swift */,
+				A318A2D5194130FF00B88B62 /* LGSystem.swift */,
+			);
+			path = Engine;
+			sourceTree = "<group>";
+		};
+		A318A2CA19412F2800B88B62 /* Components */ = {
+			isa = PBXGroup;
+			children = (
+				A33CADA71943613200AC8E27 /* LGPosition.swift */,
+				A33CADA9194361C000AC8E27 /* LGSprite.swift */,
+				A33CADB11943630F00AC8E27 /* LGPhysicsBody.swift */,
+				A33CADB31943635C00AC8E27 /* LGNode.swift */,
+			);
+			path = Components;
+			sourceTree = "<group>";
+		};
+		A318A2CB19412F2800B88B62 /* Enums */ = {
+			isa = PBXGroup;
+			children = (
+				A318A2D71941311B00B88B62 /* LGUpdatePhase.swift */,
+			);
+			path = Enums;
+			sourceTree = "<group>";
+		};
+		A318A2CC19412F2800B88B62 /* Systems */ = {
+			isa = PBXGroup;
+			children = (
+				A33CADAB194361E900AC8E27 /* LGPhysicalSystem.swift */,
+				A33CADAD1943626300AC8E27 /* LGPositionSystem.swift */,
+				A33CADAF194362A600AC8E27 /* LGSpriteSystem.swift */,
+			);
+			path = Systems;
+			sourceTree = "<group>";
+		};
+		A33CADA41943609D00AC8E27 /* Classes */ = {
+			isa = PBXGroup;
+			children = (
+				A33CADA5194360AF00AC8E27 /* LGSpriteSheet.swift */,
+			);
+			name = Classes;
+			sourceTree = "<group>";
+		};
 		A3B2AE9A193EBFE10097B3A7 = {
 			isa = PBXGroup;
 			children = (
@@ -79,9 +160,9 @@
 		A3B2AEA5193EBFE20097B3A7 /* swift-engine */ = {
 			isa = PBXGroup;
 			children = (
+				A318A2C919412F2800B88B62 /* Engine */,
+				A3EFA8141943F9B100C85CF8 /* Game */,
 				A3B2AEA8193EBFE20097B3A7 /* AppDelegate.swift */,
-				A3B2AEAA193EBFE20097B3A7 /* GameScene.sks */,
-				A3B2AEAC193EBFE20097B3A7 /* GameScene.swift */,
 				A3B2AEAE193EBFE20097B3A7 /* GameViewController.swift */,
 				A3B2AEB0193EBFE20097B3A7 /* Main.storyboard */,
 				A3B2AEB3193EBFE20097B3A7 /* Images.xcassets */,
@@ -113,6 +194,23 @@
 				A3B2AEBE193EBFE20097B3A7 /* Info.plist */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		A3EFA8141943F9B100C85CF8 /* Game */ = {
+			isa = PBXGroup;
+			children = (
+				A3EFA8151943F9F000C85CF8 /* Resources */,
+				A3B2AEAC193EBFE20097B3A7 /* GameScene.swift */,
+			);
+			name = Game;
+			sourceTree = "<group>";
+		};
+		A3EFA8151943F9F000C85CF8 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				A3EFA8161943FA2D00C85CF8 /* Player.png */,
+			);
+			name = Resources;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -196,7 +294,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				A3B2AEB4193EBFE20097B3A7 /* Images.xcassets in Resources */,
-				A3B2AEAB193EBFE20097B3A7 /* GameScene.sks in Resources */,
+				A3EFA8171943FA2D00C85CF8 /* Player.png in Resources */,
 				A3B2AEB2193EBFE20097B3A7 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -215,9 +313,23 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A318A2D019412F4A00B88B62 /* LGEntity.swift in Sources */,
+				A318A2D6194130FF00B88B62 /* LGSystem.swift in Sources */,
+				A33CADB21943630F00AC8E27 /* LGPhysicsBody.swift in Sources */,
+				A33CADAE1943626300AC8E27 /* LGPositionSystem.swift in Sources */,
+				A33CADAC194361E900AC8E27 /* LGPhysicalSystem.swift in Sources */,
 				A3B2AEAD193EBFE20097B3A7 /* GameScene.swift in Sources */,
 				A3B2AEAF193EBFE20097B3A7 /* GameViewController.swift in Sources */,
+				A318A2CE19412F3400B88B62 /* LGComponent.swift in Sources */,
+				A318A2D21941303C00B88B62 /* LGEngine.swift in Sources */,
+				A33CADB0194362A600AC8E27 /* LGSpriteSystem.swift in Sources */,
+				A33CADB41943635C00AC8E27 /* LGNode.swift in Sources */,
+				A33CADA81943613200AC8E27 /* LGPosition.swift in Sources */,
+				A33CADAA194361C000AC8E27 /* LGSprite.swift in Sources */,
+				A318A2D4194130DE00B88B62 /* LGScene.swift in Sources */,
+				A33CADA6194360AF00AC8E27 /* LGSpriteSheet.swift in Sources */,
 				A3B2AEA9193EBFE20097B3A7 /* AppDelegate.swift in Sources */,
+				A318A2D81941311B00B88B62 /* LGUpdatePhase.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -407,6 +519,7 @@
 				A3B2AEC5193EBFE20097B3A7 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		A3B2AEC6193EBFE20097B3A7 /* Build configuration list for PBXNativeTarget "swift-engineTests" */ = {
 			isa = XCConfigurationList;
@@ -415,6 +528,7 @@
 				A3B2AEC8193EBFE20097B3A7 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
