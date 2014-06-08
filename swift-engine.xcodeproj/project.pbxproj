@@ -28,6 +28,7 @@
 		A3B2AEB4193EBFE20097B3A7 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A3B2AEB3193EBFE20097B3A7 /* Images.xcassets */; };
 		A3B2AEC0193EBFE20097B3A7 /* swift_engineTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3B2AEBF193EBFE20097B3A7 /* swift_engineTests.swift */; };
 		A3EFA8171943FA2D00C85CF8 /* Player.png in Resources */ = {isa = PBXBuildFile; fileRef = A3EFA8161943FA2D00C85CF8 /* Player.png */; };
+		A3EFA81919441B6F00C85CF8 /* README.md in Sources */ = {isa = PBXBuildFile; fileRef = A3EFA81819441B6F00C85CF8 /* README.md */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -66,6 +67,7 @@
 		A3B2AEBE193EBFE20097B3A7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A3B2AEBF193EBFE20097B3A7 /* swift_engineTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = swift_engineTests.swift; sourceTree = "<group>"; };
 		A3EFA8161943FA2D00C85CF8 /* Player.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Player.png; path = Game/Resources/Player.png; sourceTree = "<group>"; };
+		A3EFA81819441B6F00C85CF8 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -142,6 +144,7 @@
 		A3B2AE9A193EBFE10097B3A7 = {
 			isa = PBXGroup;
 			children = (
+				A3EFA81819441B6F00C85CF8 /* README.md */,
 				A3B2AEA5193EBFE20097B3A7 /* swift-engine */,
 				A3B2AEBC193EBFE20097B3A7 /* swift-engineTests */,
 				A3B2AEA4193EBFE20097B3A7 /* Products */,
@@ -319,6 +322,7 @@
 				A33CADAE1943626300AC8E27 /* LGPositionSystem.swift in Sources */,
 				A33CADAC194361E900AC8E27 /* LGPhysicalSystem.swift in Sources */,
 				A3B2AEAD193EBFE20097B3A7 /* GameScene.swift in Sources */,
+				A3EFA81919441B6F00C85CF8 /* README.md in Sources */,
 				A3B2AEAF193EBFE20097B3A7 /* GameViewController.swift in Sources */,
 				A318A2CE19412F3400B88B62 /* LGComponent.swift in Sources */,
 				A318A2D21941303C00B88B62 /* LGEngine.swift in Sources */,
