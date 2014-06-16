@@ -37,7 +37,7 @@
 	{
 		for component in componentsToPut
 		{
-			 components[component.type()] = component
+			components[component.type()] = component
 		}
 	}
 	

@@ -15,15 +15,18 @@ class LGScene: SKScene
 	var systemsByPhase	= Dictionary<LGUpdatePhase, LGSystem[]>()
 	var entities		= LGEntity[]()
 	
-	func add(entity: LGEntity)
+	func add(entitiesToAdd: LGEntity...)
 	{
-		entities += entity
-		
-		for system in systems
+		for entity in entitiesToAdd
 		{
-			if system.accepts(entity)
+			entities += entity
+			
+			for system in systems
 			{
-				system.add(entity)
+				if system.accepts(entity)
+				{
+					system.add(entity)
+				}
 			}
 		}
 	}

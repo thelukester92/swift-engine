@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		A3126424194F4CB7005F5629 /* LGNodeSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3126423194F4CB7005F5629 /* LGNodeSystem.swift */; };
 		A318A2CE19412F3400B88B62 /* LGComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = A318A2CD19412F3400B88B62 /* LGComponent.swift */; };
 		A318A2D019412F4A00B88B62 /* LGEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = A318A2CF19412F4A00B88B62 /* LGEntity.swift */; };
 		A318A2D21941303C00B88B62 /* LGEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = A318A2D11941303C00B88B62 /* LGEngine.swift */; };
@@ -28,7 +29,6 @@
 		A3B2AEB4193EBFE20097B3A7 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A3B2AEB3193EBFE20097B3A7 /* Images.xcassets */; };
 		A3B2AEC0193EBFE20097B3A7 /* swift_engineTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3B2AEBF193EBFE20097B3A7 /* swift_engineTests.swift */; };
 		A3EFA8171943FA2D00C85CF8 /* Player.png in Resources */ = {isa = PBXBuildFile; fileRef = A3EFA8161943FA2D00C85CF8 /* Player.png */; };
-		A3EFA81919441B6F00C85CF8 /* README.md in Sources */ = {isa = PBXBuildFile; fileRef = A3EFA81819441B6F00C85CF8 /* README.md */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -42,6 +42,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		A3126423194F4CB7005F5629 /* LGNodeSystem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LGNodeSystem.swift; sourceTree = "<group>"; };
 		A318A2CD19412F3400B88B62 /* LGComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LGComponent.swift; sourceTree = "<group>"; };
 		A318A2CF19412F4A00B88B62 /* LGEntity.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LGEntity.swift; sourceTree = "<group>"; };
 		A318A2D11941303C00B88B62 /* LGEngine.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LGEngine.swift; sourceTree = "<group>"; };
@@ -126,6 +127,7 @@
 		A318A2CC19412F2800B88B62 /* Systems */ = {
 			isa = PBXGroup;
 			children = (
+				A3126423194F4CB7005F5629 /* LGNodeSystem.swift */,
 				A33CADAB194361E900AC8E27 /* LGPhysicalSystem.swift */,
 				A33CADAD1943626300AC8E27 /* LGPositionSystem.swift */,
 				A33CADAF194362A600AC8E27 /* LGSpriteSystem.swift */,
@@ -322,8 +324,8 @@
 				A33CADAE1943626300AC8E27 /* LGPositionSystem.swift in Sources */,
 				A33CADAC194361E900AC8E27 /* LGPhysicalSystem.swift in Sources */,
 				A3B2AEAD193EBFE20097B3A7 /* GameScene.swift in Sources */,
-				A3EFA81919441B6F00C85CF8 /* README.md in Sources */,
 				A3B2AEAF193EBFE20097B3A7 /* GameViewController.swift in Sources */,
+				A3126424194F4CB7005F5629 /* LGNodeSystem.swift in Sources */,
 				A318A2CE19412F3400B88B62 /* LGComponent.swift in Sources */,
 				A318A2D21941303C00B88B62 /* LGEngine.swift in Sources */,
 				A33CADB0194362A600AC8E27 /* LGSpriteSystem.swift in Sources */,

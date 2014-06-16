@@ -5,17 +5,15 @@
 //  Created by Luke Godfrey on 6/7/14.
 //  Copyright (c) 2014 Luke Godfrey. All rights reserved.
 //
+//	Attaches an entity's LGSprite to its LGNode
+//	Animates sprites each frame
 
 import SpriteKit
 
 class LGSpriteSystem: LGSystem
 {
-	var scene: SKScene
-	
-	init(scene: SKScene)
+	init()
 	{
-		self.scene = scene
-		
 		super.init()
 		self.updatePhase = .Last
 	}
@@ -41,8 +39,6 @@ class LGSpriteSystem: LGSystem
 		sprite.node = node.sknode as SKSpriteNode
 		sprite.node.texture = sprite.spriteSheet?.textureAtPosition(pos)
 		sprite.node.size = sprite.node.texture.size()
-		
-		scene.addChild(sprite.node)
 	}
 	
 	override func update()
@@ -50,6 +46,7 @@ class LGSpriteSystem: LGSystem
 		for entity in self.entities
 		{
 			let sprite: LGSprite = entity.get( LGSprite.type() ) as LGSprite
+			
 			if let state = sprite.currentState
 			{
 				if(++state.counter > state.duration)

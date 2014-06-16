@@ -8,7 +8,7 @@
 
 import SpriteKit
 
-class LGPhysicsBody: SKPhysicsBody, LGComponent
+class LGPhysicsBody: LGComponent
 {
 	class func type() -> String
 	{
@@ -18,5 +18,25 @@ class LGPhysicsBody: SKPhysicsBody, LGComponent
 	func type() -> String
 	{
 		return LGPhysicsBody.type()
+	}
+	
+	var skphysicsbody: SKPhysicsBody
+	
+	init(skphysicsbody: SKPhysicsBody)
+	{
+		self.skphysicsbody = skphysicsbody
+		
+		// Initial settings for the physics body
+		// TODO: Expose these as computed properties
+		skphysicsbody.mass = 1
+		skphysicsbody.friction = 0
+		skphysicsbody.restitution = 0
+		skphysicsbody.linearDamping = 0
+		skphysicsbody.allowsRotation = false
+	}
+	
+	convenience init()
+	{
+		self.init(skphysicsbody: SKPhysicsBody())
 	}
 }

@@ -31,6 +31,11 @@ class LGSpriteSheet
 		self.height		= Int(texture.size().height) / rows
 	}
 	
+	convenience init(textureName: String, rows: Int, cols: Int)
+	{
+		self.init(texture: SKTexture(imageNamed: textureName), rows: rows, cols: cols)
+	}
+	
 	func textureAtRow(row: Int, col: Int) -> SKTexture
 	{
 		let rect = CGRect(

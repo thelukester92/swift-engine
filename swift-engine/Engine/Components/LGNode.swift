@@ -26,4 +26,14 @@ class LGNode: LGComponent
 	{
 		self.sknode = sknode
 	}
+	
+	convenience init()
+	{
+		self.init(sknode: SKNode())
+	}
+	
+	convenience init(sprite: Bool)
+	{
+		self.init(sknode: sprite ? SKSpriteNode() : SKNode())
+	}
 }
