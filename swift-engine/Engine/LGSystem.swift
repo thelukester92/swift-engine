@@ -10,7 +10,6 @@ class LGSystem
 {
 	var entities	= LGEntity[]()
 	var updatePhase	= LGUpdatePhase.First
-	var priority	= 100
 	
 	func accepts(entity: LGEntity) -> Bool
 	{
@@ -22,18 +21,8 @@ class LGSystem
 		entities += entity
 	}
 	
-	func check(entity: LGEntity)
-	{
-		if accepts(entity)
-		{
-			add(entity)
-		}
-	}
-	
 	func remove(entity: LGEntity)
 	{
-		// TODO: implement more efficient remove
-		
 		for i in 0..entities.count
 		{
 			if entities[i] === entity
@@ -45,4 +34,44 @@ class LGSystem
 	}
 	
 	func update() {}
+}
+
+extension LGSystem: LGEntityObserver
+{
+	func added(entity: LGEntity)
+	{
+		if accepts(entity)
+		{
+			add(entity)
+		}
+	}
+	
+	func removed(entity: LGEntity)
+	{
+		remove(entity)
+	}
+	
+	func changed(entity: LGEntity)
+	{
+		var contained = false
+		
+		for i in 0..entities.count
+		{
+			if entities[i] === entity
+			{
+				contained = true
+				break
+			}
+		}
+		
+		if !contained && accepts(entity)
+		{
+			add(entity)
+		}
+		
+		if contained && !accepts(entity)
+		{
+			remove(entity)
+		}
+	}
 }

@@ -35,9 +35,9 @@ class GameScene: LGScene
 		)
 		
 		let sprite = player.get(LGSprite.type()) as LGSprite
-		sprite.addState(LGSprite.SpriteState(position: 1), name: "idle")
-		sprite.addState(LGSprite.SpriteState(start: 8, end: 9, loops: true), name: "walk")
-		sprite.addState(LGSprite.SpriteState(position: 7), name: "fall")
+		sprite.addState(LGSpriteState(position: 1), name: "idle")
+		sprite.addState(LGSpriteState(start: 8, end: 9, loops: true), name: "walk")
+		sprite.addState(LGSpriteState(position: 7), name: "fall")
 		
 		sprite.currentState = sprite.stateNamed("walk")
 		

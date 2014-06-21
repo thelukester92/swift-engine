@@ -6,7 +6,6 @@
 //  Copyright (c) 2014 Luke Godfrey. All rights reserved.
 //
 
-import UIKit
 import SpriteKit
 
 class LGScene: SKScene
@@ -14,6 +13,7 @@ class LGScene: SKScene
 	var systems			= LGSystem[]()
 	var systemsByPhase	= Dictionary<LGUpdatePhase, LGSystem[]>()
 	var entities		= LGEntity[]()
+	var removed			= LGEntity[]()
 	
 	func add(entitiesToAdd: LGEntity...)
 	{
@@ -25,7 +25,7 @@ class LGScene: SKScene
 			{
 				if system.accepts(entity)
 				{
-					system.add(entity)
+					system.added(entity)
 				}
 			}
 		}
@@ -33,21 +33,28 @@ class LGScene: SKScene
 	
 	func remove(entity: LGEntity)
 	{
-		// TODO: implement more efficient remove
-		
-		for i in 0..entities.count
+		removed += entity
+	}
+	
+	func processRemovedEntities()
+	{
+		for entity in removed
 		{
-			if entities[i] === entity
+			for i in 0..entities.count
 			{
-				entities.removeAtIndex(i)
-				break
+				if entities[i] === entity
+				{
+					entities.removeAtIndex(i)
+					break
+				}
+			}
+			
+			for system in systems
+			{
+				system.removed(entity)
 			}
 		}
-		
-		for system in systems
-		{
-			system.remove(entity)
-		}
+		removed = []
 	}
 	
 	func add(systemsToAdd: LGSystem...)
@@ -70,7 +77,7 @@ class LGScene: SKScene
 			{
 				if system.accepts(entity)
 				{
-					system.add(entity)
+					system.added(entity)
 				}
 			}
 		}
@@ -78,8 +85,6 @@ class LGScene: SKScene
 	
 	func remove(system: LGSystem)
 	{
-		// TODO: implement more efficient remove
-		
 		for i in 0..systems.count
 		{
 			if systems[i] === system
@@ -102,40 +107,30 @@ class LGScene: SKScene
 		}
 	}
 	
-	func updateSystems(systemsToUpdate: LGSystem[])
+	func updateSystemsByPhase(phase: LGUpdatePhase)
 	{
-		for system in systemsToUpdate
+		if let systemsToUpdate = systemsByPhase[phase]
 		{
-			system.update()
+			for system in systemsToUpdate
+			{
+				system.update()
+			}
 		}
 	}
 	
 	override func update(currentTime: NSTimeInterval)
 	{
-		if let systemsToUpdate = systemsByPhase[.First]
-		{
-			updateSystems(systemsToUpdate)
-		}
+		updateSystemsByPhase(.First)
 	}
 	
 	override func didEvaluateActions()
 	{
-		if let systemsToUpdate = systemsByPhase[.AfterActions]
-		{
-			updateSystems(systemsToUpdate)
-		}
+		updateSystemsByPhase(.AfterActions)
 	}
 	
 	override func didSimulatePhysics()
 	{
-		if let systemsToUpdate = systemsByPhase[.AfterPhysics]
-		{
-			updateSystems(systemsToUpdate)
-		}
-		
-		if let systemsToUpdate = systemsByPhase[.Last]
-		{
-			updateSystems(systemsToUpdate)
-		}
+		updateSystemsByPhase(.AfterPhysics)
+		updateSystemsByPhase(.Last)
 	}
 }

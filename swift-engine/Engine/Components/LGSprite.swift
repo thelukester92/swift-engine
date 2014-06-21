@@ -24,8 +24,8 @@ class LGSprite: LGComponent
 	var node: SKSpriteNode!
 	
 	var spriteSheet: LGSpriteSheet?
-	var states = Dictionary<String, SpriteState>()
-	var currentState: SpriteState?
+	var states = Dictionary<String, LGSpriteState>()
+	var currentState: LGSpriteState?
 	
 	init() {}
 	
@@ -41,52 +41,13 @@ class LGSprite: LGComponent
 		self.spriteSheet = LGSpriteSheet(texture: SKTexture(imageNamed: image), rows: 1, cols: 1)
 	}
 	
-	func addState(state: SpriteState, name: String)
+	func addState(state: LGSpriteState, name: String)
 	{
 		states[name] = state
 	}
 	
-	func stateNamed(name: String) -> SpriteState?
+	func stateNamed(name: String) -> LGSpriteState?
 	{
 		return states[name]
-	}
-	
-	class SpriteState
-	{
-		var start: Int
-		var end: Int
-		var position: Int
-		var loops: Bool
-		var duration: Int
-		var counter: Int = 0
-		
-		init(start: Int, end: Int, loops: Bool, duration: Int)
-		{
-			self.start		= start
-			self.end		= end
-			self.position	= start
-			self.loops		= loops
-			self.duration	= duration
-		}
-		
-		convenience init(start: Int, end: Int, duration: Int)
-		{
-			self.init(start: start, end: end, loops: false, duration: duration)
-		}
-		
-		convenience init(start: Int, end: Int, loops: Bool)
-		{
-			self.init(start: start, end: end, loops: loops, duration: 5)
-		}
-		
-		convenience init(start: Int, end: Int)
-		{
-			self.init(start: start, end: end, loops: false)
-		}
-		
-		convenience init(position: Int)
-		{
-			self.init(start: position, end: position)
-		}
 	}
 }
