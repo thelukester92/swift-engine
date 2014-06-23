@@ -10,13 +10,23 @@ import SpriteKit
 
 class GameScene: LGScene
 {
+	var tileSystem: LGTileSystem!
+	
+	init(size: CGSize)
+	{
+		super.init(size: size)
+	}
+	
 	override func didMoveToView(view: SKView)
 	{
+		tileSystem = LGTileSystem(scene: self)
+		
 		self.add(
 			LGNodeSystem(scene: self),
 			LGSpriteSystem(),
 			LGPositionSystem(),
-			LGPhysicalSystem()
+			LGPhysicalSystem(),
+			tileSystem
 		)
 		
 		let player = LGEntity()
@@ -24,14 +34,14 @@ class GameScene: LGScene
 			LGPosition(x: CGRectGetMidX(self.frame), y: CGRectGetMidY(self.frame)),
 			LGSprite(spriteSheet: LGSpriteSheet(textureName: "Player", rows: 1, cols: 9)),
 			LGNode(sprite: true),
-			LGPhysicsBody(skphysicsbody: SKPhysicsBody(rectangleOfSize: CGSize(width: 100, height: 100)))
+			LGPhysicsBody(skphysicsbody: SKPhysicsBody(rectangleOfSize: CGSize(width: 20, height: 35)))
 		)
 		
 		let floor = LGEntity()
 		floor.put(
-			LGPosition(x: 0, y: 50),
+			LGPosition(x: 0, y: 64),
 			LGNode(),
-			LGPhysicsBody(skphysicsbody: SKPhysicsBody(edgeLoopFromRect: CGRect(x: 0, y: 0, width: self.frame.size.width, height: 50)))
+			LGPhysicsBody(skphysicsbody: SKPhysicsBody(edgeLoopFromRect: CGRect(x: 0, y: 0, width: self.frame.size.width, height: 32)))
 		)
 		
 		let sprite = player.get(LGSprite.type()) as LGSprite
@@ -43,6 +53,34 @@ class GameScene: LGScene
 		
 		self.add(player, floor)
 		self.player = player
+		
+		let spriteSheet = LGSpriteSheet(textureName: "Tileset", rows: 3, cols: 6)
+		let map = LGTileMap(spriteSheet: spriteSheet, width: 20, height: 4, tileWidth: 32, tileHeight: 32)
+		
+		var states = LGSpriteState[][]()
+		let layerdata = [
+			0,0,0,0,0,0,0,0,0,15,0,0,0,0,0,0,0,0,0,0,
+			0,0,0,0,0,0,0,0,13,13,13,13,13,13,13,0,0,0,0,0,
+			0,0,0,0,0,14,0,0,17,17,17,17,17,17,17,13,13,13,13,13,
+			13,13,13,13,13,13,13,13,17,17,17,17,17,17,17,17,17,17,17,17
+		]
+		
+		for i in 0..4
+		{
+			states += LGSpriteState[]()
+			
+			for j in 0..20
+			{
+				states[i] += LGSpriteState(position: layerdata[i * 20 + j])
+			}
+		}
+		
+		var layer = LGTileLayer()
+		layer.data = states
+		
+		map.add(layer)
+		
+		tileSystem.loadMap(map)
 	}
 	
 	var player: LGEntity?
@@ -69,10 +107,15 @@ class GameScene: LGScene
 				sprite.currentState = sprite.stateNamed("idle")
 			}
 		}
+		
+		
 	}
 	
 	override func touchesBegan(touches: NSSet!, withEvent event: UIEvent!)
 	{
+		// TODO: This logic should go in a separate system that acts as a delegate for receiving these inputs
+		//       Putting it here breaks the ECS paradigm, but it simplifies development while testing things out
+		
 		if let body = player?.get(LGPhysicsBody.type()) as? LGPhysicsBody
 		{
 			body.skphysicsbody.applyImpulse(CGVectorMake(0, 250))

@@ -36,19 +36,27 @@ class LGSpriteSheet
 		self.init(texture: SKTexture(imageNamed: textureName), rows: rows, cols: cols)
 	}
 	
-	func textureAtRow(row: Int, col: Int) -> SKTexture
+	func textureAt(#row: Int, col: Int) -> SKTexture?
 	{
+		if row < 0 || col < 0
+		{
+			return nil
+		}
+		
 		let rect = CGRect(
 			x: Double(col * width) / texture.size().width,
-			y: Double(row * height) / texture.size().height,
+			y: Double((rows - row - 1) * height) / texture.size().height,
 			width: Double(width) / texture.size().width,
 			height: Double(height) / texture.size().height
 		)
+		
+		// rows - row - 1 so that coordinates are inverted to make more sense
+		
 		return SKTexture(rect: rect, inTexture: texture)
 	}
 	
-	func textureAtPosition(pos: Int) -> SKTexture
+	func textureAtPosition(pos: Int) -> SKTexture?
 	{
-		return textureAtRow((pos - 1) / cols, col: (pos - 1) % cols)
+		return textureAt(row: (pos - 1) / cols, col: (pos - 1) % cols)
 	}
 }

@@ -6,15 +6,17 @@
 //  Copyright (c) 2014 Luke Godfrey. All rights reserved.
 //
 
-import UIKit
+import SpriteKit
 
 class LGTileSystem : LGSystem
 {
-	/*
+	var scene: LGScene
 	var map: LGTileMap!
 	
-	init()
+	init(scene: LGScene)
 	{
+		self.scene = scene
+		
 		super.init()
 		self.updatePhase = .None
 	}
@@ -32,12 +34,16 @@ class LGTileSystem : LGSystem
 				for j in 0..map.width
 				{
 					let sprite = LGSprite(spriteSheet: map.spriteSheet)
-					sprite.currentState = layer.stateAt(row: i, col: j)
+					sprite.currentState = layer.spriteStateAt(row: i, col: j)
+					
+					let node = LGNode(sprite: true)
+					let snode = node.sknode as SKSpriteNode
+					snode.anchorPoint = CGPointMake(0, 0)
 					
 					let tile = LGEntity()
 					tile.put(
-						LGPosition(x: map.tileWidth * j, y: map.tileHeight * i),
-						LGNode(sprite: true),
+						LGPosition(x: Double(map.tileWidth * j), y: Double(map.tileHeight * (map.height - i - 1))),
+						node,
 						sprite
 					)
 					
@@ -52,5 +58,4 @@ class LGTileSystem : LGSystem
 	{
 		// TODO: Add/remove rows/cols as necessary using a tileEntity pool once the camera system is in place
 	}
-	*/
 }

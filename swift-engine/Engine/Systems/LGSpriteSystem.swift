@@ -37,19 +37,26 @@ class LGSpriteSystem: LGSystem
 		}
 		
 		sprite.node = node.sknode as SKSpriteNode
-		sprite.node.texture = sprite.spriteSheet?.textureAtPosition(pos)
-		sprite.node.size = sprite.node.texture.size()
+		
+		if let texture = sprite.spriteSheet?.textureAtPosition(pos)
+		{
+			texture.filteringMode = .Nearest
+			sprite.node.texture = texture
+			sprite.node.size = texture.size()
+		}
 	}
 	
 	override func update()
 	{
 		for entity in self.entities
 		{
-			let sprite: LGSprite = entity.get( LGSprite.type() ) as LGSprite
+			let sprite = entity.get( LGSprite.type() ) as LGSprite
 			
 			if let state = sprite.currentState
 			{
-				if(++state.counter > state.duration)
+				// TODO: Don't make it fetch a new texture using textureAtPosition every time...
+				
+				if ++state.counter > state.duration
 				{
 					state.position++
 					if state.position > state.end
@@ -63,7 +70,6 @@ class LGSpriteSystem: LGSystem
 							state.position = state.end
 						}
 					}
-					
 					sprite.node.texture = sprite.spriteSheet?.textureAtPosition(state.position)
 					state.counter = 0
 				}

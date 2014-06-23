@@ -15,6 +15,11 @@ class LGSpriteState
 	var duration: Int
 	var counter: Int = 0
 	
+	var isAnimated: Bool
+	{
+		return end > start
+	}
+	
 	init(start: Int, end: Int, loops: Bool, duration: Int)
 	{
 		self.start		= start

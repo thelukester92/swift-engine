@@ -26,3 +26,6 @@ The engine right now can render textures, simulate gravity and collisions, and a
 * Reimplement tile system.
 * Reimplement player input system.
 * Reimplement Lua support.
+* Figure out a way to access LGSprite.node before LGNodeSystem has connected the node
+* Stop sprites from fetching a new texture every frame if the texture isn't changing
+* Get the correct sprite from row and col
