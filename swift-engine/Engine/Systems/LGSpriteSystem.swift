@@ -20,23 +20,20 @@ class LGSpriteSystem: LGSystem
 	
 	override func accepts(entity: LGEntity) -> Bool
 	{
-		return entity.has( LGSprite.type(), LGNode.type() )
+		return entity.has(LGSprite)
 	}
 	
 	override func add(entity: LGEntity)
 	{
 		super.add(entity)
 		
-		let sprite	= entity.get( LGSprite.type() ) as LGSprite
-		let node	= entity.get( LGNode.type() ) as LGNode
+		let sprite	= entity.get(LGSprite)!
 		var pos		= 1
 		
 		if let state = sprite.currentState
 		{
 			pos = state.position
 		}
-		
-		sprite.node = node.sknode as SKSpriteNode
 		
 		if let texture = sprite.spriteSheet?.textureAtPosition(pos)
 		{
@@ -50,7 +47,7 @@ class LGSpriteSystem: LGSystem
 	{
 		for entity in self.entities
 		{
-			let sprite = entity.get( LGSprite.type() ) as LGSprite
+			let sprite = entity.get(LGSprite)!
 			
 			if let state = sprite.currentState
 			{

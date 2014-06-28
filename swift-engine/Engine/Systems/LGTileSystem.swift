@@ -36,14 +36,15 @@ class LGTileSystem : LGSystem
 					let sprite = LGSprite(spriteSheet: map.spriteSheet)
 					sprite.currentState = LGSpriteState(position: layer.tileAt(row: i, col: j)!.pos)
 					
+					/* TODO: Make sure anchor points are good
 					let node = LGNode(sprite: true)
 					let snode = node.sknode as SKSpriteNode
 					snode.anchorPoint = CGPointMake(0, 0)
+					*/
 					
 					let tile = LGEntity()
 					tile.put(
 						LGPosition(x: Double(map.tileWidth * j), y: Double(map.tileHeight * (map.height - i - 1))),
-						node,
 						sprite
 					)
 					

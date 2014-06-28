@@ -22,10 +22,7 @@ class GameScene: LGScene
 		tileSystem = LGTileSystem(scene: self)
 		
 		self.add(
-			LGNodeSystem(scene: self),
 			LGSpriteSystem(),
-			LGPositionSystem(),
-			LGPhysicalSystem(),
 			tileSystem
 		)
 		
@@ -33,18 +30,16 @@ class GameScene: LGScene
 		player.put(
 			LGPosition(x: Double(CGRectGetMidX(self.frame)), y: Double(CGRectGetMidY(self.frame))),
 			LGSprite(spriteSheet: LGSpriteSheet(textureName: "Player", rows: 1, cols: 9)),
-			LGNode(sprite: true),
 			LGPhysicsBody(skphysicsbody: SKPhysicsBody(rectangleOfSize: CGSize(width: 20, height: 35)))
 		)
 		
 		let floor = LGEntity()
 		floor.put(
 			LGPosition(x: 0, y: 64),
-			LGNode(),
 			LGPhysicsBody(skphysicsbody: SKPhysicsBody(edgeLoopFromRect: CGRect(x: 0, y: 0, width: self.frame.size.width, height: 32)))
 		)
 		
-		let sprite = player.get(LGSprite.type()) as LGSprite
+		let sprite = player.get(LGSprite)!
 		sprite.addState(LGSpriteState(position: 1), name: "idle")
 		sprite.addState(LGSpriteState(start: 8, end: 9, loops: true), name: "walk")
 		sprite.addState(LGSpriteState(position: 7), name: "fall")
@@ -94,9 +89,8 @@ class GameScene: LGScene
 		
 		if let entity = player
 		{
-			let body = entity.get(LGPhysicsBody.type()) as LGPhysicsBody
-			let node = entity.get(LGNode.type()) as LGNode
-			let sprite = entity.get(LGSprite.type()) as LGSprite
+			let body = entity.get(LGPhysicsBody)!
+			let sprite = entity.get(LGSprite)!
 			
 			if(abs(body.skphysicsbody.velocity.dy) > 0)
 			{
@@ -116,7 +110,7 @@ class GameScene: LGScene
 		// TODO: This logic should go in a separate system that acts as a delegate for receiving these inputs
 		//       Putting it here breaks the ECS paradigm, but it simplifies development while testing things out
 		
-		if let body = player?.get(LGPhysicsBody.type()) as? LGPhysicsBody
+		if let body = player?.get(LGPhysicsBody)
 		{
 			body.skphysicsbody.applyImpulse(CGVectorMake(0, 250))
 		}

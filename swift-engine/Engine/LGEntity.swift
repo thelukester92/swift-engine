@@ -16,28 +16,31 @@
 		put(components)
 	}
 	
-	func has(types: String...) -> Bool
+	func get<T: LGComponent>(type: T.Type) -> T?
 	{
-		for type in types
-		{
-			if !components[type]
-			{
-				return false
-			}
-		}
-		return true
+		return components[type.type()] as? T
 	}
 	
-	func get(type: String) -> LGComponent?
+	func has(type: String) -> Bool
 	{
-		return components[type]
+		return components[type].getLogicValue()
+	}
+	
+	func has<T: LGComponent>(type: T.Type) -> Bool
+	{
+		return has(type.type())
+	}
+	
+	func put(#component: LGComponent)
+	{
+		components[component.type()] = component
 	}
 	
 	func put(componentsToPut: LGComponent[])
 	{
 		for component in componentsToPut
 		{
-			components[component.type()] = component
+			put(component: component)
 		}
 	}
 	

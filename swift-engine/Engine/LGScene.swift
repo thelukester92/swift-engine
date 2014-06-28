@@ -15,6 +15,16 @@ class LGScene: SKScene
 	var entities		= LGEntity[]()
 	var removed			= LGEntity[]()
 	
+	init(size: CGSize)
+	{
+		super.init(size: size)
+		
+		// It's strange that this would have to always be included
+		// It's also strange that we're depending on it being added first
+		// TODO: Investigate alternatives
+		systems += LGSpriteKitSystem(scene: self)
+	}
+	
 	func add(entitiesToAdd: LGEntity...)
 	{
 		for entity in entitiesToAdd
