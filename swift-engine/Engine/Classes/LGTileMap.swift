@@ -14,15 +14,20 @@ class LGTileMap
 	var tileHeight: Int
 	
 	var layers = LGTileLayer[]()
-	var spriteSheet: LGSpriteSheet
+	var spriteSheet: LGSpriteSheet!
 	
-	init(spriteSheet: LGSpriteSheet, width: Int, height: Int, tileWidth: Int, tileHeight: Int)
+	init(width: Int, height: Int, tileWidth: Int, tileHeight: Int)
 	{
-		self.spriteSheet	= spriteSheet
 		self.width			= width
 		self.height			= height
 		self.tileWidth		= tileWidth
 		self.tileHeight		= tileHeight
+	}
+	
+	convenience init(spriteSheet: LGSpriteSheet, width: Int, height: Int, tileWidth: Int, tileHeight: Int)
+	{
+		self.init(width: width, height: height, tileWidth: tileWidth, tileHeight: tileHeight)
+		self.spriteSheet = spriteSheet
 	}
 	
 	func add(layer: LGTileLayer)

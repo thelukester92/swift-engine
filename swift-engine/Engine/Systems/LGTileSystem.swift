@@ -34,7 +34,7 @@ class LGTileSystem : LGSystem
 				for j in 0..map.width
 				{
 					let sprite = LGSprite(spriteSheet: map.spriteSheet)
-					sprite.currentState = layer.spriteStateAt(row: i, col: j)
+					sprite.currentState = LGSpriteState(position: layer.tileAt(row: i, col: j)!.pos)
 					
 					let node = LGNode(sprite: true)
 					let snode = node.sknode as SKSpriteNode

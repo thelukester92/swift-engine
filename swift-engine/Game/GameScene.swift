@@ -31,7 +31,7 @@ class GameScene: LGScene
 		
 		let player = LGEntity()
 		player.put(
-			LGPosition(x: CGRectGetMidX(self.frame), y: CGRectGetMidY(self.frame)),
+			LGPosition(x: Double(CGRectGetMidX(self.frame)), y: Double(CGRectGetMidY(self.frame))),
 			LGSprite(spriteSheet: LGSpriteSheet(textureName: "Player", rows: 1, cols: 9)),
 			LGNode(sprite: true),
 			LGPhysicsBody(skphysicsbody: SKPhysicsBody(rectangleOfSize: CGSize(width: 20, height: 35)))
@@ -57,7 +57,7 @@ class GameScene: LGScene
 		let spriteSheet = LGSpriteSheet(textureName: "Tileset", rows: 3, cols: 6)
 		let map = LGTileMap(spriteSheet: spriteSheet, width: 20, height: 4, tileWidth: 32, tileHeight: 32)
 		
-		var states = LGSpriteState[][]()
+		var states = LGTile[][]()
 		let layerdata = [
 			0,0,0,0,0,0,0,0,0,15,0,0,0,0,0,0,0,0,0,0,
 			0,0,0,0,0,0,0,0,13,13,13,13,13,13,13,0,0,0,0,0,
@@ -67,11 +67,11 @@ class GameScene: LGScene
 		
 		for i in 0..4
 		{
-			states += LGSpriteState[]()
+			states += LGTile[]()
 			
 			for j in 0..20
 			{
-				states[i] += LGSpriteState(position: layerdata[i * 20 + j])
+				states[i] += LGTile(gid: UInt32(layerdata[i * 20 + j]))
 			}
 		}
 		
@@ -98,7 +98,7 @@ class GameScene: LGScene
 			let node = entity.get(LGNode.type()) as LGNode
 			let sprite = entity.get(LGSprite.type()) as LGSprite
 			
-			if(fabs(body.skphysicsbody.velocity.dy) > 0)
+			if(abs(body.skphysicsbody.velocity.dy) > 0)
 			{
 				sprite.currentState = sprite.stateNamed("fall")
 			}

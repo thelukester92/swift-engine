@@ -9,16 +9,16 @@
 class LGTileLayer: LGSystem
 {
 	var opacity		= 100.0
-	var zOrder		= 0
 	var offsetX		= 0
 	var offsetY		= 0
+	var renderLayer	= LGRenderLayer.Background
 	
 	var isVisible	= true
 	var isCollision	= false
 	
-	var data		= LGSpriteState[][]()
+	var data		= LGTile[][]()
 	
-	func spriteStateAt(#row: Int, col: Int) -> LGSpriteState?
+	func tileAt(#row: Int, col: Int) -> LGTile?
 	{
 		if row >= 0 && row < data.count && col >= 0 && col < data[row].count
 		{
@@ -31,9 +31,9 @@ class LGTileLayer: LGSystem
 	{
 		if isCollision
 		{
-			if let sprite = spriteStateAt(row: row, col: col)
+			if let tile = tileAt(row: row, col: col)
 			{
-				return sprite.start == 0 && sprite.end == 0
+				return tile.pos == 0
 			}
 		}
 		return true

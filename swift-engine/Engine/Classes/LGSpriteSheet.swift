@@ -44,10 +44,10 @@ class LGSpriteSheet
 		}
 		
 		let rect = CGRect(
-			x: Double(col * width) / texture.size().width,
-			y: Double((rows - row - 1) * height) / texture.size().height,
-			width: Double(width) / texture.size().width,
-			height: Double(height) / texture.size().height
+			x: CGFloat(col * width) / texture.size().width,
+			y: CGFloat((rows - row - 1) * height) / texture.size().height,
+			width: CGFloat(width) / texture.size().width,
+			height: CGFloat(height) / texture.size().height
 		)
 		
 		// rows - row - 1 so that coordinates are inverted to make more sense
