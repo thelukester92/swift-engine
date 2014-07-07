@@ -47,6 +47,8 @@ class GameScene: LGScene
 		let map = LGTileMap(spriteSheet: spriteSheet, width: 20, height: 4, tileWidth: 32, tileHeight: 32)
 		
 		var states = LGTile[][]()
+		var collisionStates = LGTile[][]()
+		
 		let layerdata = [
 			0,0,0,0,0,0,0,0,0,15,0,0,0,0,0,0,0,0,0,0,
 			0,0,0,0,0,0,0,0,13,13,13,13,13,13,13,0,0,0,0,0,
@@ -57,17 +59,26 @@ class GameScene: LGScene
 		for i in 0..4
 		{
 			states += LGTile[]()
+			collisionStates += LGTile[]()
 			
 			for j in 0..20
 			{
-				states[i] += LGTile(gid: UInt32(layerdata[i * 20 + j]))
+				let gid = UInt32(layerdata[i * 20 + j])
+				
+				states[i] += LGTile(gid: gid)
+				collisionStates[i] += LGTile(gid: (gid > 0 && gid != 15 && gid != 14 ? 1 : 0))
 			}
 		}
 		
 		var layer = LGTileLayer()
 		layer.data = states
 		
+		var collisionlayer = LGTileLayer()
+		collisionlayer.isCollision = true
+		collisionlayer.data = collisionStates
+		
 		map.add(layer)
+		map.add(collisionlayer)
 		
 		tileSystem.loadMap(map)
 	}

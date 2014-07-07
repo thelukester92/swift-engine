@@ -33,9 +33,9 @@ class LGTileLayer: LGSystem
 		{
 			if let tile = tileAt(row: row, col: col)
 			{
-				return tile.pos == 0
+				return tile.pos != 0
 			}
 		}
-		return true
+		return false
 	}
 }

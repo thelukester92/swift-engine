@@ -33,22 +33,25 @@ class LGTileSystem : LGSystem
 			{
 				for j in 0..map.width
 				{
-					let sprite = LGSprite(spriteSheet: map.spriteSheet)
-					sprite.currentState = LGSpriteState(position: layer.tileAt(row: i, col: j)!.pos)
-					
 					let tile = LGEntity()
-					tile.put(
-						LGPosition(x: Double(map.tileWidth * j), y: Double(map.tileHeight * (map.height - i - 1))),
-						sprite
-					)
+					tile.put(LGPosition(x: Double(map.tileWidth * j), y: Double(map.tileHeight * (map.height - i - 1))))
 					
-					// TODO: only do this for a single layer -- the collision layer
-					// TODO: use an algorithm to create only a few physics bodies instead of one per tile
-					if let pos = sprite.currentState?.position
+					if !layer.isCollision
 					{
-						if pos > 0
+						let sprite = LGSprite(spriteSheet: map.spriteSheet)
+						sprite.currentState = LGSpriteState(position: layer.tileAt(row: i, col: j)!.pos)
+						tile.put(sprite)
+					}
+					
+					// TODO: use an algorithm to create only a few physics bodies instead of one per tile
+					if layer.isCollision
+					{
+						if let pos = layer.tileAt(row: i, col: j)?.pos
 						{
-							tile.put(LGPhysicsBody(skphysicsbody: SKPhysicsBody(edgeLoopFromRect: CGRect(x: 0, y: 0, width: map.tileWidth, height: map.tileHeight))))
+							if pos > 0
+							{
+								tile.put(LGPhysicsBody(skphysicsbody: SKPhysicsBody(edgeLoopFromRect: CGRect(x: 0, y: 0, width: map.tileWidth, height: map.tileHeight))))
+							}
 						}
 					}
 					
