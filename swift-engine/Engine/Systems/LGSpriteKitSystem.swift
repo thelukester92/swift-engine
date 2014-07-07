@@ -33,6 +33,7 @@ class LGSpriteKitSystem: LGSystem
 		{
 			node = SKSpriteNode()
 			sprite.node = node as SKSpriteNode
+			sprite.node.anchorPoint = CGPointMake(0, 0)
 		}
 		else
 		{

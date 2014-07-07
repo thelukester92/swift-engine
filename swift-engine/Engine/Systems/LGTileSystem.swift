@@ -36,17 +36,21 @@ class LGTileSystem : LGSystem
 					let sprite = LGSprite(spriteSheet: map.spriteSheet)
 					sprite.currentState = LGSpriteState(position: layer.tileAt(row: i, col: j)!.pos)
 					
-					/* TODO: Make sure anchor points are good
-					let node = LGNode(sprite: true)
-					let snode = node.sknode as SKSpriteNode
-					snode.anchorPoint = CGPointMake(0, 0)
-					*/
-					
 					let tile = LGEntity()
 					tile.put(
 						LGPosition(x: Double(map.tileWidth * j), y: Double(map.tileHeight * (map.height - i - 1))),
 						sprite
 					)
+					
+					// TODO: only do this for a single layer -- the collision layer
+					// TODO: use an algorithm to create only a few physics bodies instead of one per tile
+					if let pos = sprite.currentState?.position
+					{
+						if pos > 0
+						{
+							tile.put(LGPhysicsBody(skphysicsbody: SKPhysicsBody(edgeLoopFromRect: CGRect(x: 0, y: 0, width: map.tileWidth, height: map.tileHeight))))
+						}
+					}
 					
 					entities += tile
 					scene.add(tile)

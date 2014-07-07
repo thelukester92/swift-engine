@@ -33,12 +33,6 @@ class GameScene: LGScene
 			LGPhysicsBody(skphysicsbody: SKPhysicsBody(rectangleOfSize: CGSize(width: 20, height: 35)))
 		)
 		
-		let floor = LGEntity()
-		floor.put(
-			LGPosition(x: 0, y: 64),
-			LGPhysicsBody(skphysicsbody: SKPhysicsBody(edgeLoopFromRect: CGRect(x: 0, y: 0, width: self.frame.size.width, height: 32)))
-		)
-		
 		let sprite = player.get(LGSprite)!
 		sprite.addState(LGSpriteState(position: 1), name: "idle")
 		sprite.addState(LGSpriteState(start: 8, end: 9, loops: true), name: "walk")
@@ -46,7 +40,7 @@ class GameScene: LGScene
 		
 		sprite.currentState = sprite.stateNamed("walk")
 		
-		self.add(player, floor)
+		self.add(player)
 		self.player = player
 		
 		let spriteSheet = LGSpriteSheet(textureName: "Tileset", rows: 3, cols: 6)
