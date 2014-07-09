@@ -8,7 +8,7 @@
 
 @final class LGEntity
 {
-	var components = Dictionary<String, LGComponent>()
+	var components: [String: LGComponent] = [:]
 	
 	convenience init(components: LGComponent...)
 	{
@@ -36,7 +36,7 @@
 		components[component.type()] = component
 	}
 	
-	func put(componentsToPut: LGComponent[])
+	func put(componentsToPut: [LGComponent])
 	{
 		for component in componentsToPut
 		{

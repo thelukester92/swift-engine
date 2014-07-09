@@ -21,6 +21,11 @@ class LGTileSystem : LGSystem
 		self.updatePhase = .None
 	}
 	
+	func constructPhysicsBody(layer: LGTileLayer, tile: LGEntity, row: Int, col: Int)
+	{
+		// tile.put(LGPhysicsBody(width: Double(map.tileWidth), height: Double(map.tileHeight)))
+	}
+	
 	func loadMap(map: LGTileMap)
 	{
 		self.map = map
@@ -29,12 +34,12 @@ class LGTileSystem : LGSystem
 		
 		for layer in map.layers
 		{
-			for i in 0..map.height
+			for i in 0 ..< map.height
 			{
-				for j in 0..map.width
+				for j in 0 ..< map.width
 				{
 					let tile = LGEntity()
-					tile.put(LGPosition(x: Double(map.tileWidth * j), y: Double(map.tileHeight * (map.height - i - 1))))
+					tile.put(LGPosition(x: Double(map.tileWidth * j), y: Double(map.tileHeight * i)))
 					
 					if !layer.isCollision
 					{
@@ -44,15 +49,9 @@ class LGTileSystem : LGSystem
 					}
 					
 					// TODO: use an algorithm to create only a few physics bodies instead of one per tile
-					if layer.isCollision
+					if layer.isCollision && layer.collidesAt(row: i, col: j)
 					{
-						if let pos = layer.tileAt(row: i, col: j)?.pos
-						{
-							if pos > 0
-							{
-								tile.put(LGPhysicsBody(skphysicsbody: SKPhysicsBody(edgeLoopFromRect: CGRect(x: 0, y: 0, width: map.tileWidth, height: map.tileHeight))))
-							}
-						}
+						constructPhysicsBody(layer, tile: tile, row: i, col: j)
 					}
 					
 					entities += tile

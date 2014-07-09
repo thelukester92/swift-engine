@@ -21,8 +21,11 @@ class GameScene: LGScene
 	{
 		tileSystem = LGTileSystem(scene: self)
 		
+		var physicsSystem = LGPhysicsSystem()
+		
 		self.add(
-			LGSpriteSystem(),
+			LGSpriteSystem(scene: self),
+			physicsSystem,
 			tileSystem
 		)
 		
@@ -30,7 +33,7 @@ class GameScene: LGScene
 		player.put(
 			LGPosition(x: Double(CGRectGetMidX(self.frame)), y: Double(CGRectGetMidY(self.frame))),
 			LGSprite(spriteSheet: LGSpriteSheet(textureName: "Player", rows: 1, cols: 9)),
-			LGPhysicsBody(skphysicsbody: SKPhysicsBody(rectangleOfSize: CGSize(width: 20, height: 35)))
+			LGPhysicsBody(width: 20, height: 35)
 		)
 		
 		let sprite = player.get(LGSprite)!
@@ -43,27 +46,35 @@ class GameScene: LGScene
 		self.add(player)
 		self.player = player
 		
-		let spriteSheet = LGSpriteSheet(textureName: "Tileset", rows: 3, cols: 6)
-		let map = LGTileMap(spriteSheet: spriteSheet, width: 20, height: 4, tileWidth: 32, tileHeight: 32)
+		let WIDTH = 15
+		let HEIGHT = 9
 		
-		var states = LGTile[][]()
-		var collisionStates = LGTile[][]()
+		let spriteSheet = LGSpriteSheet(textureName: "Tileset", rows: 3, cols: 6)
+		let map = LGTileMap(spriteSheet: spriteSheet, width: WIDTH, height: HEIGHT, tileWidth: 32, tileHeight: 32)
+		
+		var states = [[LGTile]]()
+		var collisionStates = [[LGTile]]()
 		
 		let layerdata = [
-			0,0,0,0,0,0,0,0,0,15,0,0,0,0,0,0,0,0,0,0,
-			0,0,0,0,0,0,0,0,13,13,13,13,13,13,13,0,0,0,0,0,
-			0,0,0,0,0,14,0,0,17,17,17,17,17,17,17,13,13,13,13,13,
-			13,13,13,13,13,13,13,13,17,17,17,17,17,17,17,17,17,17,17,17
+			17,13,13,13,13,13,13,13,17,17,17,17,17,17,17,
+			17,0,0,0,0,14,0,0,17,17,17,17,17,17,17,
+			13,0,0,0,0,0,0,0,13,13,13,13,13,13,13,
+			0,0,0,0,0,0,0,0,0,15,0,0,0,0,0,
+			0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+			0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+			0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+			0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+			0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 		]
 		
-		for i in 0..4
+		for i in 0 ..< HEIGHT
 		{
-			states += LGTile[]()
-			collisionStates += LGTile[]()
+			states += [LGTile]()
+			collisionStates += [LGTile]()
 			
-			for j in 0..20
+			for j in 0 ..< WIDTH
 			{
-				let gid = UInt32(layerdata[i * 20 + j])
+				let gid = UInt32(layerdata[i * WIDTH + j])
 				
 				states[i] += LGTile(gid: gid)
 				collisionStates[i] += LGTile(gid: (gid > 0 && gid != 15 && gid != 14 ? 1 : 0))
@@ -78,7 +89,9 @@ class GameScene: LGScene
 		collisionlayer.data = collisionStates
 		
 		map.add(layer)
-		map.add(collisionlayer)
+		// map.add(collisionlayer)
+		
+		physicsSystem.collisionLayer = collisionlayer
 		
 		tileSystem.loadMap(map)
 	}
@@ -97,9 +110,9 @@ class GameScene: LGScene
 			let body = entity.get(LGPhysicsBody)!
 			let sprite = entity.get(LGSprite)!
 			
-			if(abs(body.skphysicsbody.velocity.dy) > 0)
+			if false // if(abs(body.skphysicsbody.velocity.dy) > 0)
 			{
-				sprite.currentState = sprite.stateNamed("fall")
+				// sprite.currentState = sprite.stateNamed("fall")
 			}
 			else
 			{
@@ -117,7 +130,19 @@ class GameScene: LGScene
 		
 		if let body = player?.get(LGPhysicsBody)
 		{
-			body.skphysicsbody.applyImpulse(CGVectorMake(0, 250))
+			if let touch = touches.anyObject() as? UITouch
+			{
+				if touch.locationInView(self.view).x > self.view.frame.size.width / 2
+				{
+					body.velocity.x += 1
+				}
+				else
+				{
+					body.velocity.x += -1
+				}
+			}
+			
+			body.velocity.y = 10
 		}
 	}
 }

@@ -10,6 +10,8 @@ import SpriteKit
 
 class LGPhysicsBody: LGComponent
 {
+	typealias Point = (x: Double, y: Double)
+	
 	class func type() -> String
 	{
 		return "LGPhysicsBody"
@@ -20,23 +22,16 @@ class LGPhysicsBody: LGComponent
 		return LGPhysicsBody.type()
 	}
 	
-	var skphysicsbody: SKPhysicsBody
+	var isStatic			= false
+	var velocity:Point		= (x: 0, y: 0)
+	var acceleration:Point	= (x: 0, y: 0)
 	
-	init(skphysicsbody: SKPhysicsBody)
-	{
-		self.skphysicsbody = skphysicsbody
-		
-		// Initial settings for the physics body
-		// TODO: Expose these as computed properties
-		skphysicsbody.mass = 1
-		skphysicsbody.friction = 0
-		skphysicsbody.restitution = 0
-		skphysicsbody.linearDamping = 0
-		skphysicsbody.allowsRotation = false
-	}
+	var width: Double
+	var height: Double
 	
-	convenience init()
+	init(width: Double, height: Double)
 	{
-		self.init(skphysicsbody: SKPhysicsBody())
+		self.width	= width
+		self.height	= height
 	}
 }

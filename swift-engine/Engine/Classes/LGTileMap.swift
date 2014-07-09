@@ -13,7 +13,7 @@ class LGTileMap
 	var tileWidth: Int
 	var tileHeight: Int
 	
-	var layers = LGTileLayer[]()
+	var layers = [LGTileLayer]()
 	var spriteSheet: LGSpriteSheet!
 	
 	init(width: Int, height: Int, tileWidth: Int, tileHeight: Int)

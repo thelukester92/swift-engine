@@ -21,6 +21,8 @@
 		A33CADAA194361C000AC8E27 /* LGSprite.swift in Sources */ = {isa = PBXBuildFile; fileRef = A33CADA9194361C000AC8E27 /* LGSprite.swift */; };
 		A33CADB0194362A600AC8E27 /* LGSpriteSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = A33CADAF194362A600AC8E27 /* LGSpriteSystem.swift */; };
 		A33CADB21943630F00AC8E27 /* LGPhysicsBody.swift in Sources */ = {isa = PBXBuildFile; fileRef = A33CADB11943630F00AC8E27 /* LGPhysicsBody.swift */; };
+		A3542B9F196CBC8000ED00E8 /* LGPhysicsSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3542B9E196CBC8000ED00E8 /* LGPhysicsSystem.swift */; };
+		A3845A8F196CC976004498A2 /* LGSpatialGrid.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3845A8E196CC976004498A2 /* LGSpatialGrid.swift */; };
 		A3870DB5196AE232000B4352 /* lapi.c in Sources */ = {isa = PBXBuildFile; fileRef = A3870D7C196AE232000B4352 /* lapi.c */; };
 		A3870DB6196AE232000B4352 /* lauxlib.c in Sources */ = {isa = PBXBuildFile; fileRef = A3870D7E196AE232000B4352 /* lauxlib.c */; };
 		A3870DB7196AE232000B4352 /* lbaselib.c in Sources */ = {isa = PBXBuildFile; fileRef = A3870D80196AE232000B4352 /* lbaselib.c */; };
@@ -56,7 +58,6 @@
 		A3870DF6196AF025000B4352 /* LGLuaBridge.m in Sources */ = {isa = PBXBuildFile; fileRef = A3870DF5196AF025000B4352 /* LGLuaBridge.m */; };
 		A3870DF9196AF233000B4352 /* LGLuaBridge.lua in Resources */ = {isa = PBXBuildFile; fileRef = A3870DF8196AF233000B4352 /* LGLuaBridge.lua */; };
 		A3981C9819511C5C0072E4A3 /* LGTileSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3981C9719511C5C0072E4A3 /* LGTileSystem.swift */; };
-		A3A27195195E77C7003F40C4 /* LGSpriteKitSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3A27194195E77C7003F40C4 /* LGSpriteKitSystem.swift */; };
 		A3B2AEA9193EBFE20097B3A7 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3B2AEA8193EBFE20097B3A7 /* AppDelegate.swift */; };
 		A3B2AEAD193EBFE20097B3A7 /* GameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3B2AEAC193EBFE20097B3A7 /* GameScene.swift */; };
 		A3B2AEAF193EBFE20097B3A7 /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3B2AEAE193EBFE20097B3A7 /* GameViewController.swift */; };
@@ -96,6 +97,8 @@
 		A33CADA9194361C000AC8E27 /* LGSprite.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LGSprite.swift; sourceTree = "<group>"; };
 		A33CADAF194362A600AC8E27 /* LGSpriteSystem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LGSpriteSystem.swift; sourceTree = "<group>"; };
 		A33CADB11943630F00AC8E27 /* LGPhysicsBody.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LGPhysicsBody.swift; sourceTree = "<group>"; };
+		A3542B9E196CBC8000ED00E8 /* LGPhysicsSystem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LGPhysicsSystem.swift; sourceTree = "<group>"; };
+		A3845A8E196CC976004498A2 /* LGSpatialGrid.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LGSpatialGrid.swift; path = Classes/LGSpatialGrid.swift; sourceTree = "<group>"; };
 		A3870D7C196AE232000B4352 /* lapi.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = lapi.c; sourceTree = "<group>"; };
 		A3870D7D196AE232000B4352 /* lapi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = lapi.h; sourceTree = "<group>"; };
 		A3870D7E196AE232000B4352 /* lauxlib.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = lauxlib.c; sourceTree = "<group>"; };
@@ -158,7 +161,6 @@
 		A3870DF5196AF025000B4352 /* LGLuaBridge.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LGLuaBridge.m; sourceTree = "<group>"; };
 		A3870DF8196AF233000B4352 /* LGLuaBridge.lua */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LGLuaBridge.lua; sourceTree = "<group>"; };
 		A3981C9719511C5C0072E4A3 /* LGTileSystem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LGTileSystem.swift; sourceTree = "<group>"; };
-		A3A27194195E77C7003F40C4 /* LGSpriteKitSystem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LGSpriteKitSystem.swift; sourceTree = "<group>"; };
 		A3B2AEA3193EBFE20097B3A7 /* swift-engine.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "swift-engine.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		A3B2AEA7193EBFE20097B3A7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A3B2AEA8193EBFE20097B3A7 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -239,7 +241,7 @@
 			children = (
 				A33CADAF194362A600AC8E27 /* LGSpriteSystem.swift */,
 				A3981C9719511C5C0072E4A3 /* LGTileSystem.swift */,
-				A3A27194195E77C7003F40C4 /* LGSpriteKitSystem.swift */,
+				A3542B9E196CBC8000ED00E8 /* LGPhysicsSystem.swift */,
 			);
 			path = Systems;
 			sourceTree = "<group>";
@@ -255,6 +257,7 @@
 		A33CADA41943609D00AC8E27 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				A3845A8E196CC976004498A2 /* LGSpatialGrid.swift */,
 				A33CADA5194360AF00AC8E27 /* LGSpriteSheet.swift */,
 				A31FE26919554DE200B1E14A /* LGSpriteState.swift */,
 				A3FE99C0195A790A00D6A781 /* LGTile.swift */,
@@ -566,7 +569,7 @@
 				A3870DC6196AE232000B4352 /* lmem.c in Sources */,
 				A33CADB0194362A600AC8E27 /* LGSpriteSystem.swift in Sources */,
 				A3870DBA196AE232000B4352 /* lcorolib.c in Sources */,
-				A3A27195195E77C7003F40C4 /* LGSpriteKitSystem.swift in Sources */,
+				A3542B9F196CBC8000ED00E8 /* LGPhysicsSystem.swift in Sources */,
 				A3870DB5196AE232000B4352 /* lapi.c in Sources */,
 				A3981C9819511C5C0072E4A3 /* LGTileSystem.swift in Sources */,
 				A3870DC1196AE232000B4352 /* lgc.c in Sources */,
@@ -584,6 +587,7 @@
 				A3E735BD195618F700FA6025 /* LGTileMap.swift in Sources */,
 				A3870DC0196AE232000B4352 /* lfunc.c in Sources */,
 				A3870DF6196AF025000B4352 /* LGLuaBridge.m in Sources */,
+				A3845A8F196CC976004498A2 /* LGSpatialGrid.swift in Sources */,
 				A3870DC7196AE232000B4352 /* loadlib.c in Sources */,
 				A3870DCC196AE232000B4352 /* lstate.c in Sources */,
 				A3870DD4196AE232000B4352 /* lzio.c in Sources */,
