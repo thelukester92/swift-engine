@@ -9,7 +9,7 @@
 			var WIDTH		= 480;
 			var HEIGHT		= 320;
 			var FPS			= 30;
-			var GRAVITY		= -0.5;
+			var GRAVITY		= 0.8;
 			var TILESIZE	= 32;
 			var MAX_SPEED	= 32;
 			var SPEED		= 1;
@@ -221,7 +221,7 @@
 					// x: use half tent
 					{
 						var rows = [ tileAt(entity.y), tileAt(entity.y + entity.height) ];
-						var cols = [ tileAt(entity.tent.x - 1), tileAt(entity.tent.x + entity.width + 0.5) ];
+						var cols = [ tileAt(entity.tent.x - 1), tileAt(entity.tent.x + entity.width + 1) ];
 						
 						outerLoop:
 						for(var j = 0; j < cols.length; j++)
@@ -240,7 +240,7 @@
 					
 					// y: use tent
 					{
-						var rows = [ tileAt(entity.tent.y - 1), tileAt(entity.tent.y + entity.height + 0.5) ];
+						var rows = [ tileAt(entity.tent.y - 1), tileAt(entity.tent.y + entity.height + 1) ];
 						var cols = [ tileAt(entity.tent.x), tileAt(entity.tent.x + entity.width) ];
 						
 						outerLoop:
@@ -439,8 +439,8 @@
 				{
 					return !
 					(
-						a.tent.x > b.tent.x + b.width + 0.5
-						|| a.tent.x < b.tent.x - a.width - 0.5
+						a.tent.x > b.tent.x + b.width + 0.9
+						|| a.tent.x < b.tent.x - a.width - 0.9
 						|| a.y > b.y + b.height
 						|| a.y < b.y - a.height
 					);
@@ -451,8 +451,8 @@
 					(
 						a.tent.x > b.tent.x + b.width
 						|| a.tent.x < b.tent.x - a.width
-						|| a.tent.y > b.tent.y + b.height + 0.5
-						|| a.tent.y < b.tent.y - a.height - 0.5
+						|| a.tent.y > b.tent.y + b.height + 0.9
+						|| a.tent.y < b.tent.y - a.height - 0.9
 					);
 				}
 			}
