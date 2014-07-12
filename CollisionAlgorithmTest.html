@@ -8,10 +8,11 @@
 		<script type="text/javascript">
 			var WIDTH		= 480;
 			var HEIGHT		= 320;
-			var FPS			= 15;
+			var FPS			= 30;
 			var GRAVITY		= -0.5;
 			var TILESIZE	= 32;
 			var MAX_SPEED	= 32;
+			var SPEED		= 1;
 			
 			var canvasElement = $("<canvas width=\"" + WIDTH + "\" height=\"" + HEIGHT + "\" style=\"border: 1px solid #ddd\"></canvas>");
 			var canvas = canvasElement.get(0).getContext("2d");
@@ -43,8 +44,7 @@
 					tent: { x: 0, y: 0 },
 					width: 32,
 					height: 32,
-					velocity: { x: 0, y: 0 },
-					tentVelocity: { x: 0, y: 0 }
+					velocity: { x: 0, y: 0 }
 				});
 			}
 			
@@ -86,6 +86,47 @@
 			
 			function update()
 			{
+				for(var keyCode in keys)
+				{
+					if(!keys[keyCode])
+					{
+						continue;
+					}
+					
+					if(keyCode == 37)
+					{
+						entities[0].velocity.x -= SPEED;
+					}
+					else if(keyCode == 38)
+					{
+						entities[0].velocity.y += SPEED;
+					}
+					else if(keyCode == 39)
+					{
+						entities[0].velocity.x += SPEED;
+					}
+					else if(keyCode == 40)
+					{
+						entities[0].velocity.y -= SPEED;
+					}
+					else if(keyCode == 65)
+					{
+						entities[1].velocity.x -= SPEED;
+					}
+					else if(keyCode == 87)
+					{
+						entities[1].velocity.y += SPEED;
+					}
+					else if(keyCode == 68)
+					{
+						entities[1].velocity.x += SPEED;
+					}
+					else if(keyCode == 83)
+					{
+						entities[1].velocity.y -= SPEED;
+					}
+				}
+				
 				updatePhysics();
 				performDynamicCollisions();
 				performStaticCollisions();
@@ -121,9 +162,6 @@
 				for(var i = 0; i < entities.length; i++)
 				{
 					var entity = entities[i];
-					
-					entity.velocity.x = entity.tentVelocity.x;
-					entity.velocity.y = entity.tentVelocity.y;
 					
 					entity.velocity.y += GRAVITY;
 					
@@ -183,7 +221,7 @@
 					// x: use half tent
 					{
 						var rows = [ tileAt(entity.y), tileAt(entity.y + entity.height) ];
-						var cols = [ tileAt(entity.tent.x - 1), tileAt(entity.tent.x + entity.width) ];
+						var cols = [ tileAt(entity.tent.x - 1), tileAt(entity.tent.x + entity.width + 0.5) ];
 						
 						outerLoop:
 						for(var j = 0; j < cols.length; j++)
@@ -325,12 +363,13 @@
 			
 			function resolveStatic(entity, rect, axis)
 			{
-				var test = false;
+				var toProcess = [ { entity: entity, rect: rect } ];
 				
-				var chain = true;
-				while(chain)
+				while(toProcess.length > 0)
 				{
-					chain = false;
+					entity = toProcess[0].entity;
+					rect = toProcess[0].rect;
+					toProcess.shift();
 					
 					if(axis == "x")
 					{
@@ -351,10 +390,11 @@
 						{
 							if(entity != entities[i] && overlapsTent(entity, entities[i], true))
 							{
-								rect = { x: entity.tent.x, y: entity.tent.y, width: entity.width, height: entity.height };
-								entity = entities[i];
-								chain = true;
-								break;
+								toProcess.push(
+								{
+									rect: { x: entity.tent.x, y: entity.tent.y, width: entity.width, height: entity.height },
+									entity: entities[i]
+								});
 							}
 						}
 					}
@@ -379,10 +419,11 @@
 						{
 							if(entity != entities[i] && overlapsTent(entity, entities[i], false))
 							{
-								rect = { x: entity.tent.x, y: entity.tent.y, width: entity.width, height: entity.height };
-								entity = entities[i];
-								chain = true;
-								break;
+								toProcess.push(
+								{
+									rect: { x: entity.tent.x, y: entity.tent.y, width: entity.width, height: entity.height },
+									entity: entities[i]
+								});
 							}
 						}
 						
@@ -398,8 +439,8 @@
 				{
 					return !
 					(
-						a.tent.x > b.tent.x + b.width
-						|| a.tent.x < b.tent.x - a.width
+						a.tent.x > b.tent.x + b.width + 0.5
+						|| a.tent.x < b.tent.x - a.width - 0.5
 						|| a.y > b.y + b.height
 						|| a.y < b.y - a.height
 					);
@@ -432,76 +473,12 @@
 			
 			$("body").keydown(function(e)
 			{
-				var keyCode = e.keyCode;
-				if(keyCode == 37)
-				{
-					entities[0].tentVelocity.x = entities[0].velocity.x - 2;
-				}
-				else if(keyCode == 38)
-				{
-					entities[0].tentVelocity.y = entities[0].velocity.y + 2;
-				}
-				else if(keyCode == 39)
-				{
-					entities[0].tentVelocity.x = entities[0].velocity.x + 2;
-				}
-				else if(keyCode == 40)
-				{
-					entities[0].tentVelocity.y = entities[0].velocity.y - 2;
-				}
-				else if(keyCode == 65)
-				{
-					entities[1].tentVelocity.x = entities[1].velocity.x - 2;
-				}
-				else if(keyCode == 87)
-				{
-					entities[1].tentVelocity.y = entities[1].velocity.y + 2;
-				}
-				else if(keyCode == 68)
-				{
-					entities[1].tentVelocity.x = entities[1].velocity.x + 2;
-				}
-				else if(keyCode == 83)
-				{
-					entities[1].tentVelocity.y = entities[1].velocity.y - 2;
-				}
+				keys[e.keyCode] = true;
 			});
 			
 			$("body").keyup(function(e)
 			{
-				var keyCode = e.keyCode;
-				if(keyCode == 37)
-				{
-					entities[0].tentVelocity.x = 0;
-				}
-				else if(keyCode == 38)
-				{
-					entities[0].tentVelocity.y = 0;
-				}
-				else if(keyCode == 39)
-				{
-					entities[0].tentVelocity.x = 0;
-				}
-				else if(keyCode == 40)
-				{
-					entities[0].tentVelocity.y = 0;
-				}
-				else if(keyCode == 65)
-				{
-					entities[1].tentVelocity.x = 0;
-				}
-				else if(keyCode == 87)
-				{
-					entities[1].tentVelocity.y = 0;
-				}
-				else if(keyCode == 68)
-				{
-					entities[1].tentVelocity.x = 0;
-				}
-				else if(keyCode == 83)
-				{
-					entities[1].tentVelocity.y = 0;
-				}
+				keys[e.keyCode] = false;
 			});
 		</script>
 	</body>
