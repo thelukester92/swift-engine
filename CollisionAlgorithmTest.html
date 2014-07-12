@@ -8,8 +8,8 @@
 		<script type="text/javascript">
 			var WIDTH		= 480;
 			var HEIGHT		= 320;
-			var FPS			= 15;
-			var GRAVITY		= 0.5;
+			var FPS			= 30;
+			var GRAVITY		= -0.5;
 			var TILESIZE	= 32;
 			var MAX_SPEED	= 32;
 			
@@ -43,7 +43,8 @@
 					tent: { x: 0, y: 0 },
 					width: 32,
 					height: 32,
-					velocity: { x: 0, y: 0 }
+					velocity: { x: 0, y: 0 },
+					tentVelocity: { x: 0, y: 0 }
 				});
 			}
 			
@@ -85,47 +86,6 @@
 			
 			function update()
 			{
-				for(var keyCode in keys)
-				{
-					if(!keys[keyCode])
-					{
-						continue;
-					}
-					
-					if(keyCode == 37)
-					{
-						entities[0].velocity.x -= 2;
-					}
-					else if(keyCode == 38)
-					{
-						entities[0].velocity.y += 2;
-					}
-					else if(keyCode == 39)
-					{
-						entities[0].velocity.x += 2;
-					}
-					else if(keyCode == 40)
-					{
-						entities[0].velocity.y -= 2;
-					}
-					else if(keyCode == 65)
-					{
-						entities[1].velocity.x -= 2;
-					}
-					else if(keyCode == 87)
-					{
-						entities[1].velocity.y += 2;
-					}
-					else if(keyCode == 68)
-					{
-						entities[1].velocity.x += 2;
-					}
-					else if(keyCode == 83)
-					{
-						entities[1].velocity.y -= 2;
-					}
-				}
-				
 				updatePhysics();
 				performDynamicCollisions();
 				performStaticCollisions();
@@ -161,6 +121,9 @@
 				for(var i = 0; i < entities.length; i++)
 				{
 					var entity = entities[i];
+					
+					entity.velocity.x = entity.tentVelocity.x;
+					entity.velocity.y = entity.tentVelocity.y;
 					
 					entity.velocity.y += GRAVITY;
 					
@@ -469,12 +432,76 @@
 			
 			$("body").keydown(function(e)
 			{
-				keys[e.keyCode] = true;
+				var keyCode = e.keyCode;
+				if(keyCode == 37)
+				{
+					entities[0].tentVelocity.x = entites[0].velocity.x - 2;
+				}
+				else if(keyCode == 38)
+				{
+					entities[0].tentVelocity.y = entities[0].velocity.y + 2;
+				}
+				else if(keyCode == 39)
+				{
+					entities[0].tentVelocity.x = entities[0].velocity.x + 2;
+				}
+				else if(keyCode == 40)
+				{
+					entities[0].tentVelocity.y = entities[0].velocity.y - 2;
+				}
+				else if(keyCode == 65)
+				{
+					entities[1].tentVelocity.x = entities[1].velocity.x - 2;
+				}
+				else if(keyCode == 87)
+				{
+					entities[1].tentVelocity.y = entities[1].velocity.y + 2;
+				}
+				else if(keyCode == 68)
+				{
+					entities[1].tentVelocity.x = entities[1].velocity.x + 2;
+				}
+				else if(keyCode == 83)
+				{
+					entities[1].tentVelocity.y = entities[1].velocity.y - 2;
+				}
 			});
 			
 			$("body").keyup(function(e)
 			{
-				keys[e.keyCode] = false;
+				var keyCode = e.keyCode;
+				if(keyCode == 37)
+				{
+					entities[0].tentVelocity.x = 0;
+				}
+				else if(keyCode == 38)
+				{
+					entities[0].tentVelocity.y = 0;
+				}
+				else if(keyCode == 39)
+				{
+					entities[0].tentVelocity.x = 0;
+				}
+				else if(keyCode == 40)
+				{
+					entities[0].tentVelocity.y = 0;
+				}
+				else if(keyCode == 65)
+				{
+					entities[1].tentVelocity.x = 0;
+				}
+				else if(keyCode == 87)
+				{
+					entities[1].tentVelocity.y = 0;
+				}
+				else if(keyCode == 68)
+				{
+					entities[1].tentVelocity.x = 0;
+				}
+				else if(keyCode == 83)
+				{
+					entities[1].tentVelocity.y = 0;
+				}
 			});
 		</script>
 	</body>
