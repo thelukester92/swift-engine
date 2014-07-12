@@ -36,6 +36,7 @@ class LGTileLayer: LGSystem
 				return tile.pos != 0
 			}
 		}
+		
 		return true
 	}
 }

@@ -1,0 +1,481 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Collision</title>
+		<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.3/jquery.min.js"></script>
+	</head>
+	<body>
+		<script type="text/javascript">
+			var WIDTH		= 480;
+			var HEIGHT		= 320;
+			var FPS			= 15;
+			var GRAVITY		= 0.5;
+			var TILESIZE	= 32;
+			var MAX_SPEED	= 32;
+			
+			var canvasElement = $("<canvas width=\"" + WIDTH + "\" height=\"" + HEIGHT + "\" style=\"border: 1px solid #ddd\"></canvas>");
+			var canvas = canvasElement.get(0).getContext("2d");
+			canvas.translate(0, HEIGHT);
+			canvas.scale(1, -1);
+			canvas.lineWidth = 1;
+			canvas.strokeStyle = "#000";
+			
+			canvasElement.appendTo("body");
+			
+			setInterval(function()
+			{
+				update();
+				draw();
+			}, 1000 / FPS);
+			
+			var keys = {};
+			
+			var entities = [];
+			var eid = 0;
+			
+			function addEntity(x, y)
+			{
+				entities.push(
+				{
+					id: eid++,
+					x: x,
+					y: y,
+					tent: { x: 0, y: 0 },
+					width: 32,
+					height: 32,
+					velocity: { x: 0, y: 0 }
+				});
+			}
+			
+			addEntity(120, 220);
+			addEntity(180, 220);
+			addEntity(240, 220);
+			addEntity(340, 140);
+			addEntity(350, 100);
+			
+			var tiles =
+			[
+				[ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ],
+				[ 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0 ],
+				[ 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0 ],
+				[ 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0 ],
+				[ 0, 1, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 1, 0 ],
+				[ 0, 1, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 1, 0 ],
+				[ 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0 ],
+				[ 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0 ],
+				[ 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0 ],
+				[ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ]
+			];
+			
+			var zeroes =
+			[
+				[ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ],
+				[ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ],
+				[ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ],
+				[ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ],
+				[ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ],
+				[ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ],
+				[ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ],
+				[ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ],
+				[ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ],
+				[ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ]
+			];
+			
+			// tiles = zeroes;
+			
+			function update()
+			{
+				for(var keyCode in keys)
+				{
+					if(!keys[keyCode])
+					{
+						continue;
+					}
+					
+					if(keyCode == 37)
+					{
+						entities[0].velocity.x -= 2;
+					}
+					else if(keyCode == 38)
+					{
+						entities[0].velocity.y += 2;
+					}
+					else if(keyCode == 39)
+					{
+						entities[0].velocity.x += 2;
+					}
+					else if(keyCode == 40)
+					{
+						entities[0].velocity.y -= 2;
+					}
+					else if(keyCode == 65)
+					{
+						entities[1].velocity.x -= 2;
+					}
+					else if(keyCode == 87)
+					{
+						entities[1].velocity.y += 2;
+					}
+					else if(keyCode == 68)
+					{
+						entities[1].velocity.x += 2;
+					}
+					else if(keyCode == 83)
+					{
+						entities[1].velocity.y -= 2;
+					}
+				}
+				
+				updatePhysics();
+				performDynamicCollisions();
+				performStaticCollisions();
+				commitTentatives();
+			}
+			
+			function draw()
+			{
+				canvas.clearRect(0, 0, WIDTH, HEIGHT);
+				
+				for(var i = 0; i < tiles.length; i++)
+				{
+					for(var j = 0; j < tiles[i].length; j++)
+					{
+						if(tiles[i][j] == 1)
+						{
+							canvas.strokeRect(TILESIZE * j + 0.5, TILESIZE * i + 0.5, TILESIZE, TILESIZE);
+						}
+					}
+				}
+				
+				for(var i = 0; i < entities.length; i++)
+				{
+					entity = entities[i];
+					canvas.strokeRect(entity.x + 0.5, entity.y + 0.5, entity.width, entity.height);
+				}
+			}
+			
+			// Update functions
+			
+			function updatePhysics()
+			{
+				for(var i = 0; i < entities.length; i++)
+				{
+					var entity = entities[i];
+					
+					entity.velocity.y += GRAVITY;
+					
+					if(entity.velocity.x > 0)
+					{
+						entity.velocity.x = Math.min(entity.velocity.x, MAX_SPEED);
+					}
+					else
+					{
+						entity.velocity.x = Math.max(entity.velocity.x, -MAX_SPEED);
+					}
+					
+					if(entity.velocity.y > 0)
+					{
+						entity.velocity.y = Math.min(entity.velocity.y, MAX_SPEED);
+					}
+					else
+					{
+						entity.velocity.y = Math.max(entity.velocity.y, -MAX_SPEED);
+					}
+					
+					entity.tent.x = entity.x + entity.velocity.x;
+					entity.tent.y = entity.y + entity.velocity.y;
+				}
+			}
+			
+			function performDynamicCollisions()
+			{
+				for(var i = 0; i < entities.length; i++)
+				{
+					var a = entities[i];
+					for(var j = i + 1; j < entities.length; j++)
+					{
+						var b = entities[j];
+						if(overlapsTent(a, b, true))
+						{
+							resolveDynamic(a, b, "x");
+						}
+					}
+					for(var j = i + 1; j < entities.length; j++)
+					{
+						var b = entities[j];
+						if(overlapsTent(a, b, false))
+						{
+							resolveDynamic(a, b, "y");
+						}
+					}
+				}
+			}
+			
+			function performStaticCollisions()
+			{
+				for(var i = 0; i < entities.length; i++)
+				{
+					var entity = entities[i];
+					
+					// x: use half tent
+					{
+						var rows = [ tileAt(entity.y), tileAt(entity.y + entity.height) ];
+						var cols = [ tileAt(entity.tent.x - 1), tileAt(entity.tent.x + entity.width) ];
+						
+						outerLoop:
+						for(var j = 0; j < cols.length; j++)
+						{
+							var col = cols[j];
+							for(var row = rows[0]; row <= rows[1]; row++)
+							{
+								if(collidesAt(row, col))
+								{
+									resolveStatic(entity, { x: TILESIZE * col, y: TILESIZE * row, width: TILESIZE, height: TILESIZE }, "x");
+									break outerLoop;
+								}
+							}
+						}
+					}
+					
+					// y: use tent
+					{
+						var rows = [ tileAt(entity.tent.y - 1), tileAt(entity.tent.y + entity.height + 0.5) ];
+						var cols = [ tileAt(entity.tent.x), tileAt(entity.tent.x + entity.width) ];
+						
+						outerLoop:
+						for(var j = 0; j < rows.length; j++)
+						{
+							var row = rows[j];
+							for(var col = cols[0]; col <= cols[1]; col++)
+							{
+								if(collidesAt(row, col))
+								{
+									resolveStatic(entity, { x: TILESIZE * col, y: TILESIZE * row, width: TILESIZE, height: TILESIZE }, "y");
+									break outerLoop;
+								}
+							}
+						}
+					}
+				}
+			}
+			
+			function commitTentatives()
+			{
+				for(var i = 0; i < entities.length; i++)
+				{
+					var entity = entities[i];
+					entity.x = entity.tent.x;
+					entity.y = entity.tent.y;
+				}
+			}
+			
+			// Resolution functions
+			
+			function resolveDynamic(a, b, axis)
+			{
+				if(axis == "x")
+				{
+					var resolution = 0;
+					
+					if(a.tent.x > b.tent.x)
+					{
+						resolution = b.tent.x + b.width - a.tent.x + 1;
+						a.velocity.x = Math.max(0, a.velocity.x);
+						b.velocity.x = Math.min(0, b.velocity.x);
+					}
+					else
+					{
+						resolution = b.tent.x - (a.tent.x + a.width) - 1;
+						a.velocity.x = Math.min(0, a.velocity.x);
+						b.velocity.x = Math.max(0, b.velocity.x);
+					}
+					
+					// Resolve collision by splitting the difference
+					// TODO: Use mass to split it appropriately (instead of assuming equal masses) (and use a resolution minimum)
+					// TODO: Instead of just limiting velocity, apply an impulse
+					a.tent.x += resolution / 2;
+					b.tent.x -= resolution / 2;
+					
+					// Block chained collisions
+					// TODO: Allow full chaining, enable with a boolean
+					for(var i = 0; i < entities.length; i++)
+					{
+						if(a != entities[i] && b != entities[i])
+						{
+							if(overlapsTent(a, entities[i], true))
+							{
+								resolveStatic(a, { x: entities[i].tent.x, y: entities[i].tent.y, width: entities[i].width, height: entities[i].height }, "x");
+								break;
+							}
+							else if(overlapsTent(b, entities[i], true))
+							{
+								resolveStatic(b, { x: entities[i].tent.x, y: entities[i].tent.y, width: entities[i].width, height: entities[i].height }, "x");
+								break;
+							}
+						}
+					}
+				}
+				
+				if(axis == "y")
+				{
+					var resolution = 0;
+					
+					if(a.tent.y > b.tent.y)
+					{
+						resolution = b.tent.y + b.height - a.tent.y + 1;
+						a.velocity.y = Math.max(0, a.velocity.y);
+						b.velocity.y = Math.min(0, b.velocity.y);
+					}
+					else
+					{
+						resolution = b.tent.y - (a.tent.y + a.height) - 1;
+						a.velocity.y = Math.min(0, a.velocity.y);
+						b.velocity.y = Math.max(0, b.velocity.y);
+					}
+					
+					// Resolve collision by splitting the difference
+					// TODO: Use mass to split it appropriately (instead of assuming equal masses)
+					// TODO: Instead of just limiting velocity, apply an impulse
+					a.tent.y += resolution / 2;
+					b.tent.y -= resolution / 2;
+					
+					// Block chained collisions
+					// TODO: Allow full chaining, enable with a boolean
+					for(var i = 0; i < entities.length; i++)
+					{
+						if(a != entities[i] && b != entities[i])
+						{
+							if(overlapsTent(a, entities[i], false))
+							{
+								resolveStatic(a, { x: entities[i].tent.x, y: entities[i].tent.y, width: entities[i].width, height: entities[i].height }, "y");
+								break;
+							}
+							else if(overlapsTent(b, entities[i], false))
+							{
+								resolveStatic(b, { x: entities[i].tent.x, y: entities[i].tent.y, width: entities[i].width, height: entities[i].height }, "y");
+								break;
+							}
+						}
+					}
+				}
+			}
+			
+			function resolveStatic(entity, rect, axis)
+			{
+				var test = false;
+				
+				var chain = true;
+				while(chain)
+				{
+					chain = false;
+					
+					if(axis == "x")
+					{
+						// Resolve collision by moving dynamic object
+						if(entity.tent.x > rect.x)
+						{
+							entity.tent.x = rect.x + rect.width + 1;
+							entity.velocity.x = Math.max(0, entity.velocity.x);
+						}
+						else
+						{
+							entity.tent.x = rect.x - entity.width - 1;
+							entity.velocity.x = Math.min(0, entity.velocity.x);
+						}
+						
+						// Chain the collision
+						for(var i = 0; i < entities.length; i++)
+						{
+							if(entity != entities[i] && overlapsTent(entity, entities[i], true))
+							{
+								rect = { x: entity.tent.x, y: entity.tent.y, width: entity.width, height: entity.height };
+								entity = entities[i];
+								chain = true;
+								break;
+							}
+						}
+					}
+					
+					if(axis == "y")
+					{
+						// Resolve collision by moving dynamic object
+						if(entity.tent.y > rect.y)
+						{
+							entity.tent.y = rect.y + rect.height + 1;
+							entity.velocity.y = Math.max(0, entity.velocity.y);
+						}
+						else
+						{
+							entity.tent.y = rect.y - entity.height - 1;
+							entity.velocity.y = Math.min(0, entity.velocity.y);
+						}
+						
+						// Chain the collision
+						
+						for(var i = 0; i < entities.length; i++)
+						{
+							if(entity != entities[i] && overlapsTent(entity, entities[i], false))
+							{
+								rect = { x: entity.tent.x, y: entity.tent.y, width: entity.width, height: entity.height };
+								entity = entities[i];
+								chain = true;
+								break;
+							}
+						}
+						
+					}
+				}
+			}
+			
+			// Helper functions
+			
+			function overlapsTent(a, b, half)
+			{
+				if(half)
+				{
+					return !
+					(
+						a.tent.x > b.tent.x + b.width
+						|| a.tent.x < b.tent.x - a.width
+						|| a.y > b.y + b.height
+						|| a.y < b.y - a.height
+					);
+				}
+				else
+				{
+					return !
+					(
+						a.tent.x > b.tent.x + b.width
+						|| a.tent.x < b.tent.x - a.width
+						|| a.tent.y > b.tent.y + b.height + 0.5
+						|| a.tent.y < b.tent.y - a.height - 0.5
+					);
+				}
+			}
+			
+			function tileAt(px)
+			{
+				return Math.floor(px / TILESIZE);
+			}
+			
+			function collidesAt(row, col)
+			{
+				if(row >= 0 && row < tiles.length && col >= 0 && col < tiles[row].length)
+				{
+					return tiles[row][col] == 1;
+				}
+				return false;
+			}
+			
+			$("body").keydown(function(e)
+			{
+				keys[e.keyCode] = true;
+			});
+			
+			$("body").keyup(function(e)
+			{
+				keys[e.keyCode] = false;
+			});
+		</script>
+	</body>
+</html>

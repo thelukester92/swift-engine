@@ -97,6 +97,7 @@
 		A33CADA9194361C000AC8E27 /* LGSprite.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LGSprite.swift; sourceTree = "<group>"; };
 		A33CADAF194362A600AC8E27 /* LGSpriteSystem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LGSpriteSystem.swift; sourceTree = "<group>"; };
 		A33CADB11943630F00AC8E27 /* LGPhysicsBody.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LGPhysicsBody.swift; sourceTree = "<group>"; };
+		A344D4F5197198F80065A876 /* CollisionAlgorithmTest.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = CollisionAlgorithmTest.html; sourceTree = "<group>"; };
 		A3542B9E196CBC8000ED00E8 /* LGPhysicsSystem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LGPhysicsSystem.swift; sourceTree = "<group>"; };
 		A3845A8E196CC976004498A2 /* LGSpatialGrid.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LGSpatialGrid.swift; path = Classes/LGSpatialGrid.swift; sourceTree = "<group>"; };
 		A3870D7C196AE232000B4352 /* lapi.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = lapi.c; sourceTree = "<group>"; };
@@ -361,6 +362,7 @@
 			isa = PBXGroup;
 			children = (
 				A3EFA81819441B6F00C85CF8 /* README.md */,
+				A344D4F5197198F80065A876 /* CollisionAlgorithmTest.html */,
 				A3B2AEA5193EBFE20097B3A7 /* swift-engine */,
 				A3B2AEBC193EBFE20097B3A7 /* swift-engineTests */,
 				A3B2AEA4193EBFE20097B3A7 /* Products */,

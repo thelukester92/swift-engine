@@ -108,9 +108,9 @@ class LGPhysicsSystem: LGSystem
 			position.y -= body.velocity.y
 			
 			outerLoop:
-			for i in tileAt(position.y)...tileAt(position.y + body.height)
+			for j in [tileAt(position.x), tileAt(position.x + body.width)]
 			{
-				for j in [tileAt(position.x), tileAt(position.x + body.width)]
+				for i in tileAt(position.y)...tileAt(position.y + body.height)
 				{
 					if collisionLayer.collidesAt(row: i, col: j)
 					{
@@ -163,7 +163,7 @@ class LGPhysicsSystem: LGSystem
 		{
 			if position.x > rect.x
 			{
-				position.x = rect.x + rect.width
+				position.x = rect.x + rect.width + 120
 			}
 			else
 			{

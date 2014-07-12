@@ -32,3 +32,13 @@ The engine right now can render textures, simulate gravity and collisions, and a
 * Engine interface should be agnostic of the underlying framework, i.e. it should not be so tightly coupled to SpriteKit; we should remove the node system and explicit passing of SK classes.
 * Sprites may not always need states (i.e. tiles only have one frame always)
 * LGTileLayer.data should be LGTile[][]
+
+
+***
+
+# Custom Physics Engine
+
+1. Step physics -> Tent
+2. Dynamic collisions -> Tent
+3. Static collisions -> Tent
+4. Tent -> Entity
