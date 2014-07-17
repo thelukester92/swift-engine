@@ -16,6 +16,8 @@ class LGTileLayer: LGSystem
 	var isVisible	= true
 	var isCollision	= false
 	
+	var tilesize	= 0.0
+	
 	var data		= [[LGTile]]()
 	
 	func tileAt(#row: Int, col: Int) -> LGTile?

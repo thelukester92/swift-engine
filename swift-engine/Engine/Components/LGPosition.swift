@@ -19,41 +19,18 @@ class LGPosition: LGComponent
 	{
 		return LGPosition.type()
 	}
-	
-	// node is required for SpriteKit integration
-	var node: SKNode!
-	
-	var _x: Double
-	var _y: Double
 		
 	var x: Double
-	{
-		get { if node { return Double(node.position.x) } else { return _x } }
-		set { if node { node.position.x = CGFloat(newValue) } else { _x = newValue } }
-	}
-	
 	var y: Double
+	
+	init(x: Double, y: Double)
 	{
-		get { if node { return Double(node.position.y) } else { return _y } }
-		set { if node { node.position.y = CGFloat(newValue) } else { _y = newValue } }
+		self.x = x
+		self.y = y
 	}
 	
-	init()
+	convenience init()
 	{
-		_x = 0
-		_y = 0
-	}
-	
-	convenience init(node: SKNode)
-	{
-		self.init()
-		self.node = node
-	}
-	
-	convenience init(x: Double, y: Double)
-	{
-		self.init()
-		self._x = x
-		self._y = y
+		self.init(x: 0, y: 0)
 	}
 }

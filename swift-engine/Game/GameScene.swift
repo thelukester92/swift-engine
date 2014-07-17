@@ -24,7 +24,8 @@ class GameScene: LGScene
 		var physicsSystem = LGPhysicsSystem()
 		
 		self.add(
-			LGSpriteSystem(scene: self),
+			LGRenderingSystem(scene: self),
+			LGSpriteSystem(),
 			physicsSystem,
 			tileSystem
 		)
@@ -83,13 +84,12 @@ class GameScene: LGScene
 		
 		var layer = LGTileLayer()
 		layer.data = states
+		map.add(layer)
 		
 		var collisionlayer = LGTileLayer()
 		collisionlayer.isCollision = true
+		collisionlayer.tilesize = 32
 		collisionlayer.data = collisionStates
-		
-		map.add(layer)
-		// map.add(collisionlayer)
 		
 		physicsSystem.collisionLayer = collisionlayer
 		
@@ -98,31 +98,6 @@ class GameScene: LGScene
 	
 	var player: LGEntity?
 	
-	override func update(currentTime: NSTimeInterval)
-	{
-		super.update(currentTime)
-		
-		// TODO: This logic should go in a separate system for managing player animation states
-		//       Putting it here breaks the ECS paradigm, but it simplifies development while testing things out
-		
-		if let entity = player
-		{
-			let body = entity.get(LGPhysicsBody)!
-			let sprite = entity.get(LGSprite)!
-			
-			if false // if(abs(body.skphysicsbody.velocity.dy) > 0)
-			{
-				// sprite.currentState = sprite.stateNamed("fall")
-			}
-			else
-			{
-				sprite.currentState = sprite.stateNamed("idle")
-			}
-		}
-		
-		
-	}
-	
 	override func touchesBegan(touches: NSSet!, withEvent event: UIEvent!)
 	{
 		// TODO: This logic should go in a separate system that acts as a delegate for receiving these inputs
@@ -130,19 +105,7 @@ class GameScene: LGScene
 		
 		if let body = player?.get(LGPhysicsBody)
 		{
-			if let touch = touches.anyObject() as? UITouch
-			{
-				if touch.locationInView(self.view).x > self.view.frame.size.width / 2
-				{
-					body.velocity.x += 1
-				}
-				else
-				{
-					body.velocity.x += -1
-				}
-			}
-			
-			body.velocity.y = 10
+			body.velocity.y = 5
 		}
 	}
 }

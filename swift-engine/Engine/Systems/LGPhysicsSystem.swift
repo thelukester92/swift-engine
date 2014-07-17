@@ -9,16 +9,18 @@
 class LGPhysicsSystem: LGSystem
 {
 	typealias Rect = (x: Double, y: Double, width: Double, height: Double)
-	typealias Vector = (x: Double, y: Double)
 	
-	let TERMINAL_VELOCITY: Double = 32
-	let GRAVITY: Vector = (0, -0.5)
+	let TERMINAL_VELOCITY	= 30.0
+	let GRAVITY				= LGVector(x: 0, y: -0.1)
 	
-	let AXIS_X: UInt8 = 0x1 << 0
-	let AXIS_Y: UInt8 = 0x1 << 1
+	var allEntities = [Int]()
+	var dynamicEntities = [Int]()
+	var staticEntities = [Int]()
 	
-	var dynamicEntities = [LGEntity]()
-	var staticEntities = [LGEntity]()
+	var position	= [LGPosition]()
+	var body		= [LGPhysicsBody]()
+	var tent		= [LGVector]()
+	
 	var collisionLayer: LGTileLayer!
 	
 	// MARK: LGSystem Overrides
@@ -26,6 +28,7 @@ class LGPhysicsSystem: LGSystem
 	init()
 	{
 		super.init()
+		self.updatePhase = .Physics
 	}
 	
 	override func accepts(entity: LGEntity) -> Bool
@@ -35,168 +38,311 @@ class LGPhysicsSystem: LGSystem
 	
 	override func add(entity: LGEntity)
 	{
+		// TODO: Don't depend on super's ordering in array
 		super.add(entity)
 		
-		if entity.get(LGPhysicsBody)!.isStatic
+		// Assign local entity ID based on entities.count
+		
+		let localId = entities.count - 1
+		
+		allEntities += localId
+		if entity.get(LGPhysicsBody)!.dynamic
 		{
-			staticEntities += entity
+			dynamicEntities += localId
 		}
 		else
 		{
-			dynamicEntities += entity
+			staticEntities += localId
 		}
+		
+		// Cache entity information
+		
+		let pos	= entity.get(LGPosition)!
+		let bod	= entity.get(LGPhysicsBody)!
+		
+		position	+= pos
+		body		+= bod
+		tent		+= LGVector()
 	}
 	
 	override func update()
 	{
-		for entity in dynamicEntities
+		for id in allEntities
 		{
-			applyPhysicsToEntity(entity)
+			applyPhysics(id)
 		}
 		
-		for entity in dynamicEntities
+		for id in dynamicEntities
 		{
-			resolveCollisionsForEntity(entity)
+			// resolveDynamicCollisions(id)
+		}
+		
+		for id in dynamicEntities
+		{
+			resolveStaticCollisions(id)
+		}
+		
+		for id in dynamicEntities
+		{
+			position[id].x = tent[id].x
+			position[id].y = tent[id].y
 		}
 	}
 	
 	// MARK: Update Methods
 	
-	func applyPhysicsToEntity(entity: LGEntity)
+	func applyPhysics(id: Int)
 	{
-		let position	= entity.get(LGPosition)!
-		let body		= entity.get(LGPhysicsBody)!
+		body[id].velocity += GRAVITY
+		limit(&body[id].velocity, maximum: TERMINAL_VELOCITY)
 		
-		body.acceleration = GRAVITY
-		
-		body.velocity.x += body.acceleration.x
-		body.velocity.y += body.acceleration.y
-		
-		if body.velocity.x > TERMINAL_VELOCITY
-		{
-			body.velocity.x = TERMINAL_VELOCITY
-		}
-		else if body.velocity.x < -TERMINAL_VELOCITY
-		{
-			body.velocity.x = -TERMINAL_VELOCITY
-		}
-		
-		if body.velocity.y > TERMINAL_VELOCITY
-		{
-			body.velocity.y = TERMINAL_VELOCITY
-		}
-		else if body.velocity.y < -TERMINAL_VELOCITY
-		{
-			body.velocity.y = -TERMINAL_VELOCITY
-		}
-		
-		position.x += body.velocity.x
-		position.y += body.velocity.y
+		tent[id].x = position[id].x + body[id].velocity.x
+		tent[id].y = position[id].y + body[id].velocity.y
 	}
 	
-	func resolveCollisionsForEntity(entity: LGEntity)
+	func resolveDynamicCollisions(id: Int)
 	{
-		let position	= entity.get(LGPosition)!
-		let body		= entity.get(LGPhysicsBody)!
-		let rect		= rectForPosition(position, body: body)
+		for other in dynamicEntities
+		{
+			if overlap(id, other, axis: .X)
+			{
+				resolveDynamicCollision(id, other, axis: .X)
+			}
+		}
 		
-		// Static tile collisions
+		for other in dynamicEntities
+		{
+			if overlap(id, other, axis: .Y)
+			{
+				resolveDynamicCollision(id, other, axis: .Y)
+			}
+		}
+	}
+	
+	func resolveDynamicCollision(a: Int, _ b: Int, axis: LGAxis)
+	{
+		switch axis
+		{
+			case .X:
+			
+			// Calculate resolution and update velocity
+			
+			var resolution = 0.0
+			if tent[a].x > tent[b].x
+			{
+				resolution = tent[b].x + body[b].width - tent[a].x + 1
+				body[a].velocity.x = max(0, body[a].velocity.x)
+				body[b].velocity.x = min(0, body[b].velocity.x)
+			}
+			else
+			{
+				resolution = tent[b].x - (tent[a].x - body[a].width) - 1
+				body[a].velocity.x = min(0, body[a].velocity.x)
+				body[b].velocity.x = max(0, body[b].velocity.x)
+			}
+			
+			// Update position (tentative)
+			
+			tent[a].x += resolution / 2
+			tent[b].x -= resolution / 2
+			
+			case .Y:
+			
+			// Calculate resolution and update velocity
+			
+			var resolution = 0.0
+			if tent[a].y > tent[b].y
+			{
+				resolution = tent[b].y + body[b].height - tent[a].y + 1
+				body[a].velocity.y = max(0, body[a].velocity.y)
+				body[b].velocity.y = min(0, body[b].velocity.y)
+			}
+			else
+			{
+				resolution = tent[b].y - (tent[a].y - body[a].height) - 1
+				body[a].velocity.y = min(0, body[a].velocity.y)
+				body[b].velocity.y = max(0, body[b].velocity.y)
+			}
+			
+			// Update position (tentative)
+			
+			tent[a].y += resolution / 2
+			tent[b].y -= resolution / 2
+		}
+		
+		// Block chained collisions
+		
+		for id in dynamicEntities
+		{
+			if id != a && id != b
+			{
+				if overlap(id, a, axis: axis)
+				{
+					resolveStaticCollision(a, tentRect(id), axis: axis)
+					break
+				}
+				else if overlap(id, b, axis: axis)
+				{
+					resolveStaticCollision(b, tentRect(id), axis: axis)
+				}
+			}
+		}
+	}
+	
+	func resolveStaticCollisions(id: Int)
+	{
 		if collisionLayer
 		{
-			// AXIS_X
+			// x-axis
 			
-			position.y -= body.velocity.y
+			var rows = [ tileAt(position[id].y), tileAt(position[id].y + body[id].height) ]
+			var cols = [ tileAt(tent[id].x - 1), tileAt(tent[id].x + body[id].width + 1) ]
+			/*
+			// Loop through cols by endpoint; sweep rows
 			
 			outerLoop:
-			for j in [tileAt(position.x), tileAt(position.x + body.width)]
+			for col in cols
 			{
-				for i in tileAt(position.y)...tileAt(position.y + body.height)
+				for row in rows[0]...rows[1]
 				{
-					if collisionLayer.collidesAt(row: i, col: j)
+					if collisionLayer.collidesAt(row: row, col: col)
 					{
-						resolve(dynamicEntity: entity, withPosition: position, andBody: body, withStaticRect: rectForTile(row: i, col: j), onAxis: AXIS_X)
+						resolveStaticCollision(id, tileRect(row, col), axis: .X)
 						break outerLoop
 					}
 				}
 			}
 			
-			position.y += body.velocity.y
+			// y-axis
+			*/
+			rows = [ tileAt(tent[id].y - 1), tileAt(tent[id].y - body[id].height + 1) ]
+			cols = [ tileAt(tent[id].x), tileAt(tent[id].x + body[id].width) ]
 			
-			// AXIS_Y
-			
-			position.x -= body.velocity.x
+			// Loop through rows by endpoint; sweep cols
 			
 			outerLoop:
-			for i in [tileAt(position.y), tileAt(position.y + body.height)]
+			for row in rows
 			{
-				for j in tileAt(position.x)...tileAt(position.x + body.width)
+				for col in cols[0]...cols[1]
 				{
-					if collisionLayer.collidesAt(row: i, col: j)
+					if collisionLayer.collidesAt(row: row, col: col)
 					{
-						resolve(dynamicEntity: entity, withPosition: position, andBody: body, withStaticRect: rectForTile(row: i, col: j), onAxis: AXIS_Y)
+						resolveStaticCollision(id, tileRect(row, col), axis: .Y)
 						break outerLoop
 					}
 				}
 			}
-			
-			position.x += body.velocity.x
 		}
 	}
 	
-	// MARK: Collision Resolution Methods
-	
-	func resolve(dynamicEntity entity: LGEntity, withPosition position: LGPosition, andBody body: LGPhysicsBody, withStaticRect rect: Rect, onAxis axis: UInt8)
+	func resolveStaticCollision(var id: Int, var _ rect: Rect, axis: LGAxis)
 	{
-		if axis & AXIS_Y > 0
+		var collisions: [(id: Int, rect: Rect)] = [ (id: id, rect: rect) ]
+		while collisions.count > 0
 		{
-			if position.y > rect.y
+			id = collisions[0].id
+			rect = collisions[0].rect
+			collisions.removeAtIndex(0)
+			
+			switch axis
 			{
-				position.y = rect.y + rect.height
+				case .X:
+				
+				if tent[id].x > rect.x
+				{
+					tent[id].x = rect.x + rect.width + 1
+					body[id].velocity.x = max(0, body[id].velocity.x)
+				}
+				else
+				{
+					tent[id].x = rect.x - body[id].width - 1
+					body[id].velocity.x = min(0, body[id].velocity.x)
+				}
+				
+				case .Y:
+				
+				if tent[id].y > rect.y
+				{
+					tent[id].y = rect.y + rect.height + 1
+					body[id].velocity.y = max(0, body[id].velocity.y)
+				}
+				else
+				{
+					tent[id].y = rect.y - body[id].height - 1
+					body[id].velocity.y = min(0, body[id].velocity.y)
+				}
 			}
-			else
+			
+			// Chain collisions
+			
+			for other in dynamicEntities
 			{
-				position.y = rect.y - body.height
+				if id != other && overlap(id, other, axis: axis)
+				{
+					collisions += (id: other, rect: tentRect(id))
+				}
 			}
-			body.velocity.y = 0
-		}
-		else if axis & AXIS_X > 0
-		{
-			if position.x > rect.x
-			{
-				position.x = rect.x + rect.width + 120
-			}
-			else
-			{
-				position.x = rect.x - body.width
-			}
-			body.velocity.x = 0
 		}
 	}
+	
 	
 	// MARK: Helper Methods
 	
+	func overlap(a: Int, _ b: Int, axis: LGAxis) -> Bool
+	{
+		switch axis
+		{
+			case .X:
+			
+			return !(tent[a].x > tent[b].x + body[b].width + 0.9
+				|| tent[a].x < tent[b].x - body[a].width - 0.9
+				|| position[a].y > position[b].y + body[b].height
+				|| position[a].y < position[b].y - body[a].height
+			)
+			
+			case .Y:
+			
+			return !(tent[a].x > tent[b].x + body[b].width
+				|| tent[a].x < tent[b].x - body[a].width
+				|| tent[a].y > tent[b].y + body[b].height + 0.9
+				|| tent[a].y < tent[b].y - body[a].height - 0.9
+			)
+		}
+	}
+	
+	func limit(inout vector: LGVector, maximum: Double)
+	{
+		if vector.x > maximum
+		{
+			vector.x = maximum
+		}
+		else if vector.x < -maximum
+		{
+			vector.x = -maximum
+		}
+		
+		if vector.y > maximum
+		{
+			vector.y = maximum
+		}
+		else if vector.y < -maximum
+		{
+			vector.y = -maximum
+		}
+	}
+	
+	func tentRect(id: Int) -> Rect
+	{
+		return (x: tent[id].x, y: tent[id].y, width: body[id].width, height: body[id].height)
+	}
+	
+	func tileRect(row: Int, _ col: Int) -> Rect
+	{
+		return (x: Double(col) * collisionLayer.tilesize, y: Double(row) * collisionLayer.tilesize, width: collisionLayer.tilesize, height: collisionLayer.tilesize)
+	}
+	
 	func tileAt(px: Double) -> Int
 	{
-		return Int(px / 32)
-	}
-	
-	func rectForTile(#row: Int, col: Int) -> Rect
-	{
-		return (x: Double(col * 32), y: Double(row * 32), width: 32, height: 32)
-	}
-	
-	func rectForPosition(position: LGPosition, body: LGPhysicsBody) -> Rect
-	{
-		return (x: position.x, y: position.y, width: body.width, height: body.height)
-	}
-	
-	func resolutionForRects(a: Rect, _ b: Rect) -> Vector
-	{
-		var resolution: Vector = (0, 0)
-		
-		resolution.x = b.x > a.x ? b.x - a.x - a.width : b.x + b.width - a.x;
-		resolution.y = b.y > a.y ? b.y - a.y - a.height : b.y + b.height - a.y;
-		
-		return resolution
+		return Int(px / collisionLayer.tilesize)
 	}
 }

@@ -9,7 +9,7 @@
 class LGSystem
 {
 	var entities	= [LGEntity]()
-	var updatePhase	= LGUpdatePhase.First
+	var updatePhase	= LGUpdatePhase.Main
 	
 	func accepts(entity: LGEntity) -> Bool
 	{

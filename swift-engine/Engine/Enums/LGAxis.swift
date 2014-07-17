@@ -1,9 +1,12 @@
 //
-//  Bridging-Header.h
+//  LGAxis.swift
 //  swift-engine
 //
-//  Created by Luke Godfrey on 7/7/14.
+//  Created by Luke Godfrey on 7/14/14.
 //  Copyright (c) 2014 Luke Godfrey. All rights reserved.
 //
 
-#include "LGLuaBridge.h"
+enum LGAxis
+{
+	case X, Y
+}

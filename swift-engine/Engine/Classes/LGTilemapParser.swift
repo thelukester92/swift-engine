@@ -194,7 +194,7 @@ extension LGTilemapParser: NSXMLParserDelegate
 				currentData = ""
 			
 			default:
-				println() // can't have an empty default but must have a default... ugh
+				break
 		}
 	}
 	

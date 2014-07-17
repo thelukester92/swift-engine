@@ -125,17 +125,9 @@ class LGScene: SKScene
 	
 	override func update(currentTime: NSTimeInterval)
 	{
-		updateSystemsByPhase(.First)
-	}
-	
-	override func didEvaluateActions()
-	{
-		updateSystemsByPhase(.AfterActions)
-	}
-	
-	override func didSimulatePhysics()
-	{
-		updateSystemsByPhase(.AfterPhysics)
-		updateSystemsByPhase(.Last)
+		updateSystemsByPhase(.Input)
+		updateSystemsByPhase(.Physics)
+		updateSystemsByPhase(.Main)
+		updateSystemsByPhase(.Render)
 	}
 }

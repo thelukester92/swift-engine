@@ -10,8 +10,6 @@ import SpriteKit
 
 class LGPhysicsBody: LGComponent
 {
-	typealias Point = (x: Double, y: Double)
-	
 	class func type() -> String
 	{
 		return "LGPhysicsBody"
@@ -22,9 +20,8 @@ class LGPhysicsBody: LGComponent
 		return LGPhysicsBody.type()
 	}
 	
-	var isStatic			= false
-	var velocity:Point		= (x: 0, y: 0)
-	var acceleration:Point	= (x: 0, y: 0)
+	var dynamic		= true
+	var velocity	= LGVector()
 	
 	var width: Double
 	var height: Double

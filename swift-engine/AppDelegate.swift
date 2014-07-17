@@ -14,6 +14,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate
 	var window: UIWindow?
 
 	func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: NSDictionary?) -> Bool {
+		LGLuaBridge.sharedBridge().runScript("print('Application did finish launching. Lua support functional.')")
 		// Override point for customization after application launch.
 		return true
 	}

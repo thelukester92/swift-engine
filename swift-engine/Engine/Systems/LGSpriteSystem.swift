@@ -12,14 +12,10 @@ import SpriteKit
 
 class LGSpriteSystem: LGSystem
 {
-	var scene: LGScene
-	
-	init(scene: LGScene)
+	init()
 	{
-		self.scene = scene
-		
 		super.init()
-		self.updatePhase = .Last
+		self.updatePhase = .Render
 	}
 	
 	override func accepts(entity: LGEntity) -> Bool
@@ -34,16 +30,15 @@ class LGSpriteSystem: LGSystem
 		let sprite	= entity.get(LGSprite)!
 		var pos		= 1
 		
-		let node = SKSpriteNode()
-		node.anchorPoint = CGPoint(x: 0, y: 0)
-		sprite.node = node
-		scene.addChild(node)
-		
-		if let position = entity.get(LGPosition)
+		var node: SKSpriteNode!
+		if let _ = sprite.node
 		{
-			node.position.x = CGFloat(position.x)
-			node.position.y = CGFloat(position.y)
-			position.node = node
+			node = sprite.node
+		}
+		else
+		{
+			node = SKSpriteNode()
+			sprite.node = node
 		}
 		
 		if let state = sprite.currentState
