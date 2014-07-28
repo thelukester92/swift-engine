@@ -7,7 +7,11 @@ The purpose of this project is to provide the functionality required to create s
 
 **This is a work-in-progress!** This engine is in early alpha, which is why there are no instructions as to how it works yet. Once all of the core functionality is implemented, some basic instructions will be found here.
 
-For more information, go to [the devblog for this engine.](http://devblog.lukesterwebdesign.com/) My todos and known problems are listed under [issues for this repository.](https://github.com/thelukester92/swift-engine/issues)
+For more information, see the below links.
+
+* [The devblog for this engine.](http://devblog.lukesterwebdesign.com/)
+* [Todos and known issues.](https://github.com/thelukester92/swift-engine/issues)
+* [Wiki documentation.](https://github.com/thelukester92/swift-engine/wiki)
 
 # Feature List
 

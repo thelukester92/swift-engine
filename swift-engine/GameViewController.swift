@@ -9,27 +9,31 @@
 import UIKit
 import SpriteKit
 
-extension SKNode {
-    class func unarchiveFromFile(file : NSString) -> SKNode? {
-        
-        let path = NSBundle.mainBundle().pathForResource(file, ofType: "sks")
-        
-        var sceneData = NSData.dataWithContentsOfFile(path, options: .DataReadingMappedIfSafe, error: nil)
-        var archiver = NSKeyedUnarchiver(forReadingWithData: sceneData)
-        
-        archiver.setClass(self.classForKeyedUnarchiver(), forClassName: "SKScene")
-        let scene = archiver.decodeObjectForKey(NSKeyedArchiveRootObjectKey) as GameScene
-        archiver.finishDecoding()
-        return scene
+extension SKNode
+{
+	class func unarchiveFromFile(file : NSString) -> SKNode?
+	{
+		let path = NSBundle.mainBundle().pathForResource(file, ofType: "sks")
+		
+		var sceneData = NSData.dataWithContentsOfFile(path, options: .DataReadingMappedIfSafe, error: nil)
+		
+		var archiver = NSKeyedUnarchiver(forReadingWithData: sceneData)
+		archiver.setClass(self.classForKeyedUnarchiver(), forClassName: "SKScene")
+		
+		let scene = archiver.decodeObjectForKey(NSKeyedArchiveRootObjectKey) as GameScene
+		archiver.finishDecoding()
+		
+		return scene
     }
 }
 
-class GameViewController: UIViewController {
-
-    override func viewDidLoad() {
-        super.viewDidLoad()
+class GameViewController: UIViewController
+{
+	override func viewDidLoad()
+	{
+		super.viewDidLoad()
 		
-        let scene = GameScene(size: self.view.frame.size)
+		let scene = GameScene(size: self.view.frame.size)
 		
 		// Configure the view.
 		let skView = self.view as SKView
@@ -44,8 +48,8 @@ class GameViewController: UIViewController {
 		scene.scaleMode = .AspectFill
 		
 		skView.presentScene(scene)
-    }
-
+	}
+	
     override func shouldAutorotate() -> Bool {
         return true
     }

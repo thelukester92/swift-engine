@@ -5,8 +5,6 @@
 //  Created by Luke Godfrey on 6/7/14.
 //  Copyright (c) 2014 Luke Godfrey. All rights reserved.
 //
-//	Attaches an entity's LGSprite to its LGNode
-//	Animates sprites each frame
 
 import SpriteKit
 

@@ -17,20 +17,6 @@ class GameScene: LGScene
 		super.init(size: size)
 	}
 	
-	/* uncomment this to watch execution in slow motion
-	var useless = 0
-	let maxUseless = 20
-	override func update(currentTime: NSTimeInterval)
-	{
-		useless++
-		
-		if useless > maxUseless
-		{
-			super.update(currentTime)
-			useless = 0
-		}
-	} */
-	
 	override func didMoveToView(view: SKView)
 	{
 		tileSystem = LGTileSystem(scene: self)
@@ -141,8 +127,21 @@ class GameScene: LGScene
 		}
 	}
 	
+	var useless = 0
+	let maxUseless = 50
+	
 	override func update(currentTime: NSTimeInterval)
 	{
+		// /*
+		if ++useless > maxUseless
+		{
+			useless = 0
+		}
+		else
+		{
+			return
+		} // */
+		
 		super.update(currentTime)
 		
 		let body = player!.get(LGPhysicsBody)!

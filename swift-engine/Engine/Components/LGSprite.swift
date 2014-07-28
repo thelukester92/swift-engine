@@ -24,7 +24,7 @@ class LGSprite: LGComponent
 	var node: SKSpriteNode!
 	
 	var spriteSheet: LGSpriteSheet?
-	var states = Dictionary<String, LGSpriteState>()
+	var states = [String:LGSpriteState]()
 	var currentState: LGSpriteState?
 	
 	var offset = LGVector()

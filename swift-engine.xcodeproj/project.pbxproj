@@ -24,7 +24,6 @@
 		A33CADB0194362A600AC8E27 /* LGSpriteSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = A33CADAF194362A600AC8E27 /* LGSpriteSystem.swift */; };
 		A33CADB21943630F00AC8E27 /* LGPhysicsBody.swift in Sources */ = {isa = PBXBuildFile; fileRef = A33CADB11943630F00AC8E27 /* LGPhysicsBody.swift */; };
 		A3542B9F196CBC8000ED00E8 /* LGPhysicsSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3542B9E196CBC8000ED00E8 /* LGPhysicsSystem.swift */; };
-		A36A302A1986BA3B007DB06D /* GameViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A36A30291986BA3B007DB06D /* GameViewController.xib */; };
 		A3845A8F196CC976004498A2 /* LGSpatialGrid.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3845A8E196CC976004498A2 /* LGSpatialGrid.swift */; };
 		A3981C9819511C5C0072E4A3 /* LGTileSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3981C9719511C5C0072E4A3 /* LGTileSystem.swift */; };
 		A3A581CF19744A3200489EAC /* LGRenderingSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3A581CE19744A3200489EAC /* LGRenderingSystem.swift */; };
@@ -69,7 +68,6 @@
 		A33CADAF194362A600AC8E27 /* LGSpriteSystem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LGSpriteSystem.swift; sourceTree = "<group>"; };
 		A33CADB11943630F00AC8E27 /* LGPhysicsBody.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LGPhysicsBody.swift; sourceTree = "<group>"; };
 		A3542B9E196CBC8000ED00E8 /* LGPhysicsSystem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LGPhysicsSystem.swift; sourceTree = "<group>"; };
-		A36A30291986BA3B007DB06D /* GameViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GameViewController.xib; sourceTree = "<group>"; };
 		A3845A8E196CC976004498A2 /* LGSpatialGrid.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LGSpatialGrid.swift; path = Classes/LGSpatialGrid.swift; sourceTree = "<group>"; };
 		A3870DE7196AE566000B4352 /* Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Bridging-Header.h"; sourceTree = "<group>"; };
 		A3981C9719511C5C0072E4A3 /* LGTileSystem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LGTileSystem.swift; sourceTree = "<group>"; };
@@ -207,7 +205,6 @@
 				A3EFA8141943F9B100C85CF8 /* Game */,
 				A3B2AEA8193EBFE20097B3A7 /* AppDelegate.swift */,
 				A3B2AEAE193EBFE20097B3A7 /* GameViewController.swift */,
-				A36A30291986BA3B007DB06D /* GameViewController.xib */,
 				A3B2AEB3193EBFE20097B3A7 /* Images.xcassets */,
 				A3B2AEA6193EBFE20097B3A7 /* Supporting Files */,
 			);
@@ -339,7 +336,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A36A302A1986BA3B007DB06D /* GameViewController.xib in Resources */,
 				A3EA911F19561EF100297EEB /* Tileset.png in Resources */,
 				A3B2AEB4193EBFE20097B3A7 /* Images.xcassets in Resources */,
 				A3EFA8171943FA2D00C85CF8 /* Player.png in Resources */,
