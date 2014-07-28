@@ -16,6 +16,7 @@ For more information, go to [the devblog for this engine.](http://devblog.lukest
 * Entity-component-system framework
 * Rendering system that uses SpriteKit by mapping the position component to a SKSpriteNode position
 * Sprite system for displaying textures and sprites with animated states
+* Tile system for creating entities for tilemaps
 * Physics system for basic platformer physics
 
 The engine right now can render textures, simulate gravity and collisions, and accept single-tap input to test out different sprite states (jumping and idling).
@@ -24,10 +25,11 @@ The engine right now can render textures, simulate gravity and collisions, and a
 
 # Todo
 
-* [ ] Fix first frame so that it doesn't display nonpositioned entities
-* [ ] Create a camera system
 * [x] Reimplement tile system.
+* [ ] Reimplement .tmx file format support.
+* [ ] Fix first frame so that it doesn't display nonpositioned entities.
+* [ ] Create a camera system.
 * [ ] Reimplement player input system.
 * [ ] Reimplement Lua support.
-* [ ] Stop sprites from fetching a new texture every frame if the texture isn't changing
-* [ ] Sprites may not always need states (i.e. tiles only have one frame always)
+* [ ] Stop sprites from fetching a new texture every frame if the texture isn't changing.
+* [ ] Don't force sprites to have states (when only a single frame is needed).
