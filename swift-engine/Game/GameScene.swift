@@ -17,6 +17,20 @@ class GameScene: LGScene
 		super.init(size: size)
 	}
 	
+	/* uncomment this to watch execution in slow motion
+	var useless = 0
+	let maxUseless = 20
+	override func update(currentTime: NSTimeInterval)
+	{
+		useless++
+		
+		if useless > maxUseless
+		{
+			super.update(currentTime)
+			useless = 0
+		}
+	} */
+	
 	override func didMoveToView(view: SKView)
 	{
 		tileSystem = LGTileSystem(scene: self)
@@ -39,7 +53,7 @@ class GameScene: LGScene
 		
 		let block = LGEntity()
 		block.put(
-			LGPosition(x: Double(CGRectGetMidX(self.frame)), y: Double(CGRectGetMidY(self.frame) + 20)),
+			LGPosition(x: Double(CGRectGetMidX(self.frame)), y: Double(CGRectGetMidY(self.frame) + 50)),
 			LGSprite(),
 			LGPhysicsBody(width: 20, height: 35)
 		)
@@ -48,7 +62,7 @@ class GameScene: LGScene
 		sprite.addState(LGSpriteState(position: 1), name: "idle")
 		sprite.addState(LGSpriteState(start: 8, end: 9, loops: true), name: "walk")
 		sprite.addState(LGSpriteState(position: 7), name: "fall")
-		sprite.currentState = sprite.stateNamed("walk")
+		sprite.currentState = sprite.stateNamed("idle")
 		sprite.offset.x = -12
 		
 		self.add(player, block)
@@ -103,16 +117,15 @@ class GameScene: LGScene
 		tileSystem.loadMap(map)
 	}
 	
+	// TODO: The following logic should go in a separate system that acts as a delegate for receiving inputs and updating player sprites. It's only here temporarily due to convenience of development.
+	
 	var player: LGEntity?
 	
 	override func touchesBegan(touches: NSSet!, withEvent event: UIEvent!)
 	{
-		// TODO: This logic should go in a separate system that acts as a delegate for receiving these inputs
-		//       Putting it here breaks the ECS paradigm, but it simplifies development while testing things out
-		
 		if let body = player?.get(LGPhysicsBody)
 		{
-			body.velocity.y = 5
+			body.velocity.y = 2
 			
 			if let touch = touches.anyObject() as? UITouch
 			{
@@ -125,6 +138,32 @@ class GameScene: LGScene
 					body.velocity.x -= 1
 				}
 			}
+		}
+	}
+	
+	override func update(currentTime: NSTimeInterval)
+	{
+		super.update(currentTime)
+		
+		let body = player!.get(LGPhysicsBody)!
+		let sprite = player!.get(LGSprite)!
+		
+		if body.velocity.y != 0
+		{
+			sprite.currentState = sprite.stateNamed("fall")
+		}
+		else if body.velocity.x != 0
+		{
+			sprite.currentState = sprite.stateNamed("walk")
+		}
+		else
+		{
+			sprite.currentState = sprite.stateNamed("idle")
+		}
+		
+		if body.velocity.x != 0
+		{
+			sprite.direction = body.velocity.x > 0 ? 1 : -1
 		}
 	}
 }

@@ -44,7 +44,7 @@ class LGRenderingSystem: LGSystem
 		else
 		{
 			node = SKSpriteNode()
-			node.anchorPoint = CGPoint(x: 0, y: 0)
+			node.anchorPoint = CGPoint(x: 0.5, y: 0)
 			sprite.node = node
 		}
 		
@@ -56,10 +56,12 @@ class LGRenderingSystem: LGSystem
 	
 	override func update()
 	{
+		// TODO: Don't render everything every time... only render moved things
 		for id in 0 ..< entities.count
 		{
-			sprites[id].node.position.x = CGFloat(positions[id].x + sprites[id].offset.x)
-			sprites[id].node.position.y = CGFloat(positions[id].y + sprites[id].offset.y)
+			let sprite = sprites[id]
+			sprite.node.position.x = CGFloat(positions[id].x + sprite.offset.x + Double(sprite.node.size.width / 2))
+			sprite.node.position.y = CGFloat(positions[id].y + sprite.offset.y)
 		}
 	}
 }

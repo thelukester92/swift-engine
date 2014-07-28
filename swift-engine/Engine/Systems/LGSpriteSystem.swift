@@ -61,14 +61,14 @@ class LGSpriteSystem: LGSystem
 	}
 	
 	override func update()
-	{/*
+	{
 		for entity in self.entities
 		{
 			let sprite = entity.get(LGSprite)!
 			
 			if let state = sprite.currentState
 			{
-				// TODO: Don't make it fetch a new texture using textureAtPosition every time...
+				// TODO: Don't make it fetch a new texture using textureAtPosition every time
 				
 				if ++state.counter > state.duration
 				{
@@ -88,6 +88,8 @@ class LGSpriteSystem: LGSystem
 					state.counter = 0
 				}
 			}
-		}*/
+			
+			sprite.node.xScale = CGFloat(sprite.direction)
+		}
 	}
 }

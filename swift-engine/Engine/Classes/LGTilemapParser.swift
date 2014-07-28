@@ -219,7 +219,7 @@ extension LGTilemapParser: NSXMLParserDelegate
 				currentData = ""
 			
 			default:
-				println()
+				break
 		}
 	}
 }

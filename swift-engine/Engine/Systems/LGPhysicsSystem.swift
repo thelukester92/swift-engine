@@ -13,13 +13,13 @@ class LGPhysicsSystem: LGSystem
 	let TERMINAL_VELOCITY	= 30.0
 	let GRAVITY				= LGVector(x: 0, y: -0.1)
 	
-	var allEntities = [Int]()
-	var dynamicEntities = [Int]()
-	var staticEntities = [Int]()
+	final var allEntities		= [Int]()
+	final var dynamicEntities	= [Int]()
+	final var staticEntities	= [Int]()
 	
-	var position	= [LGPosition]()
-	var body		= [LGPhysicsBody]()
-	var tent		= [LGVector]()
+	final var position	= [LGPosition]()
+	final var body		= [LGPhysicsBody]()
+	final var tent		= [LGVector]()
 	
 	var collisionLayer: LGTileLayer!
 	
@@ -73,7 +73,7 @@ class LGPhysicsSystem: LGSystem
 		
 		for id in dynamicEntities
 		{
-			// resolveDynamicCollisions(id)
+			resolveDynamicCollisions(id)
 		}
 		
 		for id in dynamicEntities
@@ -103,7 +103,7 @@ class LGPhysicsSystem: LGSystem
 	{
 		for other in dynamicEntities
 		{
-			if overlap(id, other, axis: .X)
+			if id != other && overlap(id, other, axis: .X)
 			{
 				resolveDynamicCollision(id, other, axis: .X)
 			}
@@ -111,7 +111,7 @@ class LGPhysicsSystem: LGSystem
 		
 		for other in dynamicEntities
 		{
-			if overlap(id, other, axis: .Y)
+			if id != other && overlap(id, other, axis: .Y)
 			{
 				resolveDynamicCollision(id, other, axis: .Y)
 			}
@@ -135,7 +135,7 @@ class LGPhysicsSystem: LGSystem
 			}
 			else
 			{
-				resolution = tent[b].x - (tent[a].x - body[a].width) - 1
+				resolution = tent[b].x - (tent[a].x + body[a].width) - 1
 				body[a].velocity.x = min(0, body[a].velocity.x)
 				body[b].velocity.x = max(0, body[b].velocity.x)
 			}
@@ -158,7 +158,7 @@ class LGPhysicsSystem: LGSystem
 			}
 			else
 			{
-				resolution = tent[b].y - (tent[a].y - body[a].height) - 1
+				resolution = tent[b].y - (tent[a].y + body[a].height) - 1
 				body[a].velocity.y = min(0, body[a].velocity.y)
 				body[b].velocity.y = max(0, body[b].velocity.y)
 			}
@@ -183,6 +183,7 @@ class LGPhysicsSystem: LGSystem
 				else if overlap(id, b, axis: axis)
 				{
 					resolveStaticCollision(b, tentRect(id), axis: axis)
+					break
 				}
 			}
 		}
@@ -273,7 +274,7 @@ class LGPhysicsSystem: LGSystem
 			}
 			
 			// Chain collisions
-			/*
+			
 			for other in dynamicEntities
 			{
 				if id != other && overlap(id, other, axis: axis)
@@ -281,7 +282,6 @@ class LGPhysicsSystem: LGSystem
 					collisions += (id: other, rect: tentRect(id))
 				}
 			}
-			*/
 		}
 	}
 	

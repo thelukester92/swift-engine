@@ -28,6 +28,7 @@ class LGSprite: LGComponent
 	var currentState: LGSpriteState?
 	
 	var offset = LGVector()
+	var direction = 1
 	
 	init() {}
 	
