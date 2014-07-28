@@ -49,8 +49,14 @@ class LGSpriteSystem: LGSystem
 		if let texture = sprite.spriteSheet?.textureAtPosition(pos)
 		{
 			texture.filteringMode = .Nearest
+			
 			sprite.node.texture = texture
 			sprite.node.size = texture.size()
+		}
+		else if let body = entity.get(LGPhysicsBody)
+		{
+			sprite.node.color = UIColor.whiteColor()
+			sprite.node.size = CGSize(width: CGFloat(body.width), height: CGFloat(body.height))
 		}
 	}
 	

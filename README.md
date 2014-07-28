@@ -1,7 +1,9 @@
 Swift Engine
 ===
 
-This project is a game engine designed for the iPhone platform. It is built in Apple's brand-new [Swift programming language](https://developer.apple.com/swift/), and uses the Entity-Component-System architecture. The project was originally written in Objective-C (see the [old project](https://github.com/thelukester92/ecs-engine-for-iphone/)).
+This project is a game engine designed for the iPhone platform. It is built in Apple's new [Swift programming language](https://developer.apple.com/swift/), and uses the Entity-Component-System architecture. The project was originally written in Objective-C (see the [old project](https://github.com/thelukester92/ecs-engine-for-iphone/)).
+
+The purpose of this project is to provide the functionality required to create simple 2D games. In addition to the basic ECS framework, the project will implement common systems required by most games, such as physics and rendering, so that game developers can jump right into the design and implementation of their games. Abstracting away those common functions will facilitate rapid game development.
 
 **This is a work-in-progress!** This engine is in early alpha, which is why there are no instructions as to how it works yet. Once all of the core functionality is implemented, some basic instructions will be found here.
 
@@ -21,6 +23,7 @@ The engine right now can render textures, simulate gravity and collisions, and a
 
 # Todo
 
+* Fix first frame so that it doesn't display nonpositioned entities
 * Convert LGTileMap from Objective-C to Swift
 * Create a camera system
 * Reimplement tile system.
@@ -31,14 +34,3 @@ The engine right now can render textures, simulate gravity and collisions, and a
 * Get the correct sprite from row and col
 * Engine interface should be agnostic of the underlying framework, i.e. it should not be so tightly coupled to SpriteKit; we should remove the node system and explicit passing of SK classes.
 * Sprites may not always need states (i.e. tiles only have one frame always)
-* LGTileLayer.data should be LGTile[][]
-
-
-***
-
-# Custom Physics Engine
-
-1. Step physics -> Tent
-2. Dynamic collisions -> Tent
-3. Static collisions -> Tent
-4. Tent -> Entity

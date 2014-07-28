@@ -27,6 +27,8 @@ class LGSprite: LGComponent
 	var states = Dictionary<String, LGSpriteState>()
 	var currentState: LGSpriteState?
 	
+	var offset = LGVector()
+	
 	init() {}
 	
 	convenience init(spriteSheet: LGSpriteSheet)

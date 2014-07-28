@@ -42,7 +42,6 @@ class LGPhysicsSystem: LGSystem
 		super.add(entity)
 		
 		// Assign local entity ID based on entities.count
-		
 		let localId = entities.count - 1
 		
 		allEntities += localId
@@ -197,7 +196,7 @@ class LGPhysicsSystem: LGSystem
 			
 			var rows = [ tileAt(position[id].y), tileAt(position[id].y + body[id].height) ]
 			var cols = [ tileAt(tent[id].x - 1), tileAt(tent[id].x + body[id].width + 1) ]
-			/*
+			
 			// Loop through cols by endpoint; sweep rows
 			
 			outerLoop:
@@ -214,8 +213,8 @@ class LGPhysicsSystem: LGSystem
 			}
 			
 			// y-axis
-			*/
-			rows = [ tileAt(tent[id].y - 1), tileAt(tent[id].y - body[id].height + 1) ]
+			
+			rows = [ tileAt(tent[id].y - 1), tileAt(tent[id].y + body[id].height + 1) ]
 			cols = [ tileAt(tent[id].x), tileAt(tent[id].x + body[id].width) ]
 			
 			// Loop through rows by endpoint; sweep cols
@@ -274,7 +273,7 @@ class LGPhysicsSystem: LGSystem
 			}
 			
 			// Chain collisions
-			
+			/*
 			for other in dynamicEntities
 			{
 				if id != other && overlap(id, other, axis: axis)
@@ -282,6 +281,7 @@ class LGPhysicsSystem: LGSystem
 					collisions += (id: other, rect: tentRect(id))
 				}
 			}
+			*/
 		}
 	}
 	

@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		A3172DCF197892A200814DE5 /* lua.5.2.3.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A3172DCE197892A200814DE5 /* lua.5.2.3.a */; };
 		A318A2CE19412F3400B88B62 /* LGComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = A318A2CD19412F3400B88B62 /* LGComponent.swift */; };
 		A318A2D019412F4A00B88B62 /* LGEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = A318A2CF19412F4A00B88B62 /* LGEntity.swift */; };
 		A318A2D21941303C00B88B62 /* LGEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = A318A2D11941303C00B88B62 /* LGEngine.swift */; };
@@ -25,15 +24,13 @@
 		A33CADB0194362A600AC8E27 /* LGSpriteSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = A33CADAF194362A600AC8E27 /* LGSpriteSystem.swift */; };
 		A33CADB21943630F00AC8E27 /* LGPhysicsBody.swift in Sources */ = {isa = PBXBuildFile; fileRef = A33CADB11943630F00AC8E27 /* LGPhysicsBody.swift */; };
 		A3542B9F196CBC8000ED00E8 /* LGPhysicsSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3542B9E196CBC8000ED00E8 /* LGPhysicsSystem.swift */; };
+		A36A302A1986BA3B007DB06D /* GameViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A36A30291986BA3B007DB06D /* GameViewController.xib */; };
 		A3845A8F196CC976004498A2 /* LGSpatialGrid.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3845A8E196CC976004498A2 /* LGSpatialGrid.swift */; };
-		A3870DF6196AF025000B4352 /* LGLuaBridge.m in Sources */ = {isa = PBXBuildFile; fileRef = A3870DF5196AF025000B4352 /* LGLuaBridge.m */; };
-		A3870DF9196AF233000B4352 /* LGLuaBridge.lua in Resources */ = {isa = PBXBuildFile; fileRef = A3870DF8196AF233000B4352 /* LGLuaBridge.lua */; };
 		A3981C9819511C5C0072E4A3 /* LGTileSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3981C9719511C5C0072E4A3 /* LGTileSystem.swift */; };
 		A3A581CF19744A3200489EAC /* LGRenderingSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3A581CE19744A3200489EAC /* LGRenderingSystem.swift */; };
 		A3B2AEA9193EBFE20097B3A7 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3B2AEA8193EBFE20097B3A7 /* AppDelegate.swift */; };
 		A3B2AEAD193EBFE20097B3A7 /* GameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3B2AEAC193EBFE20097B3A7 /* GameScene.swift */; };
 		A3B2AEAF193EBFE20097B3A7 /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3B2AEAE193EBFE20097B3A7 /* GameViewController.swift */; };
-		A3B2AEB2193EBFE20097B3A7 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A3B2AEB0193EBFE20097B3A7 /* Main.storyboard */; };
 		A3B2AEB4193EBFE20097B3A7 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A3B2AEB3193EBFE20097B3A7 /* Images.xcassets */; };
 		A3B2AEC0193EBFE20097B3A7 /* swift_engineTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3B2AEBF193EBFE20097B3A7 /* swift_engineTests.swift */; };
 		A3E735BD195618F700FA6025 /* LGTileMap.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3E735BC195618F700FA6025 /* LGTileMap.swift */; };
@@ -55,11 +52,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		A3172DCE197892A200814DE5 /* lua.5.2.3.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = lua.5.2.3.a; sourceTree = "<group>"; };
-		A3172DD0197892C400814DE5 /* lauxlib.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = lauxlib.h; sourceTree = "<group>"; };
-		A3172DD1197892C400814DE5 /* lua.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = lua.h; sourceTree = "<group>"; };
-		A3172DD2197892C400814DE5 /* lualib.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = lualib.h; sourceTree = "<group>"; };
-		A3172DD3197892DC00814DE5 /* luaconf.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = luaconf.h; sourceTree = "<group>"; };
 		A318A2CD19412F3400B88B62 /* LGComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LGComponent.swift; sourceTree = "<group>"; };
 		A318A2CF19412F4A00B88B62 /* LGEntity.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LGEntity.swift; sourceTree = "<group>"; };
 		A318A2D11941303C00B88B62 /* LGEngine.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LGEngine.swift; sourceTree = "<group>"; };
@@ -76,13 +68,10 @@
 		A33CADA9194361C000AC8E27 /* LGSprite.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LGSprite.swift; sourceTree = "<group>"; };
 		A33CADAF194362A600AC8E27 /* LGSpriteSystem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LGSpriteSystem.swift; sourceTree = "<group>"; };
 		A33CADB11943630F00AC8E27 /* LGPhysicsBody.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LGPhysicsBody.swift; sourceTree = "<group>"; };
-		A344D4F5197198F80065A876 /* CollisionAlgorithmTest.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = CollisionAlgorithmTest.html; sourceTree = "<group>"; };
 		A3542B9E196CBC8000ED00E8 /* LGPhysicsSystem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LGPhysicsSystem.swift; sourceTree = "<group>"; };
+		A36A30291986BA3B007DB06D /* GameViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GameViewController.xib; sourceTree = "<group>"; };
 		A3845A8E196CC976004498A2 /* LGSpatialGrid.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LGSpatialGrid.swift; path = Classes/LGSpatialGrid.swift; sourceTree = "<group>"; };
 		A3870DE7196AE566000B4352 /* Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Bridging-Header.h"; sourceTree = "<group>"; };
-		A3870DF4196AF025000B4352 /* LGLuaBridge.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LGLuaBridge.h; sourceTree = "<group>"; };
-		A3870DF5196AF025000B4352 /* LGLuaBridge.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LGLuaBridge.m; sourceTree = "<group>"; };
-		A3870DF8196AF233000B4352 /* LGLuaBridge.lua */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LGLuaBridge.lua; sourceTree = "<group>"; };
 		A3981C9719511C5C0072E4A3 /* LGTileSystem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LGTileSystem.swift; sourceTree = "<group>"; };
 		A3A581CE19744A3200489EAC /* LGRenderingSystem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LGRenderingSystem.swift; sourceTree = "<group>"; };
 		A3B2AEA3193EBFE20097B3A7 /* swift-engine.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "swift-engine.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -90,7 +79,6 @@
 		A3B2AEA8193EBFE20097B3A7 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		A3B2AEAC193EBFE20097B3A7 /* GameScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = GameScene.swift; path = Game/GameScene.swift; sourceTree = "<group>"; };
 		A3B2AEAE193EBFE20097B3A7 /* GameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameViewController.swift; sourceTree = "<group>"; };
-		A3B2AEB1193EBFE20097B3A7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		A3B2AEB3193EBFE20097B3A7 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		A3B2AEB9193EBFE20097B3A7 /* swift-engineTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "swift-engineTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		A3B2AEBE193EBFE20097B3A7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -109,7 +97,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A3172DCF197892A200814DE5 /* lua.5.2.3.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -129,9 +116,7 @@
 				A33CADA41943609D00AC8E27 /* Classes */,
 				A318A2CA19412F2800B88B62 /* Components */,
 				A318A2CB19412F2800B88B62 /* Enums */,
-				A3870DF3196AF01E000B4352 /* ObjC */,
 				A31CEC2D19554BD9004F0395 /* Protocols */,
-				A3870DF7196AF227000B4352 /* Scripts */,
 				A318A2CC19412F2800B88B62 /* Systems */,
 				A318A2CD19412F3400B88B62 /* LGComponent.swift */,
 				A318A2CF19412F4A00B88B62 /* LGEntity.swift */,
@@ -196,48 +181,10 @@
 			name = Classes;
 			sourceTree = "<group>";
 		};
-		A3870D7A196AE232000B4352 /* Libraries */ = {
-			isa = PBXGroup;
-			children = (
-				A3870D7B196AE232000B4352 /* lua */,
-			);
-			path = Libraries;
-			sourceTree = "<group>";
-		};
-		A3870D7B196AE232000B4352 /* lua */ = {
-			isa = PBXGroup;
-			children = (
-				A3172DD3197892DC00814DE5 /* luaconf.h */,
-				A3172DD0197892C400814DE5 /* lauxlib.h */,
-				A3172DD1197892C400814DE5 /* lua.h */,
-				A3172DD2197892C400814DE5 /* lualib.h */,
-				A3172DCE197892A200814DE5 /* lua.5.2.3.a */,
-			);
-			path = lua;
-			sourceTree = "<group>";
-		};
-		A3870DF3196AF01E000B4352 /* ObjC */ = {
-			isa = PBXGroup;
-			children = (
-				A3870DF4196AF025000B4352 /* LGLuaBridge.h */,
-				A3870DF5196AF025000B4352 /* LGLuaBridge.m */,
-			);
-			path = ObjC;
-			sourceTree = "<group>";
-		};
-		A3870DF7196AF227000B4352 /* Scripts */ = {
-			isa = PBXGroup;
-			children = (
-				A3870DF8196AF233000B4352 /* LGLuaBridge.lua */,
-			);
-			path = Scripts;
-			sourceTree = "<group>";
-		};
 		A3B2AE9A193EBFE10097B3A7 = {
 			isa = PBXGroup;
 			children = (
 				A3EFA81819441B6F00C85CF8 /* README.md */,
-				A344D4F5197198F80065A876 /* CollisionAlgorithmTest.html */,
 				A3B2AEA5193EBFE20097B3A7 /* swift-engine */,
 				A3B2AEBC193EBFE20097B3A7 /* swift-engineTests */,
 				A3B2AEA4193EBFE20097B3A7 /* Products */,
@@ -258,10 +205,9 @@
 			children = (
 				A318A2C919412F2800B88B62 /* Engine */,
 				A3EFA8141943F9B100C85CF8 /* Game */,
-				A3870D7A196AE232000B4352 /* Libraries */,
 				A3B2AEA8193EBFE20097B3A7 /* AppDelegate.swift */,
 				A3B2AEAE193EBFE20097B3A7 /* GameViewController.swift */,
-				A3B2AEB0193EBFE20097B3A7 /* Main.storyboard */,
+				A36A30291986BA3B007DB06D /* GameViewController.xib */,
 				A3B2AEB3193EBFE20097B3A7 /* Images.xcassets */,
 				A3B2AEA6193EBFE20097B3A7 /* Supporting Files */,
 			);
@@ -393,11 +339,10 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A36A302A1986BA3B007DB06D /* GameViewController.xib in Resources */,
 				A3EA911F19561EF100297EEB /* Tileset.png in Resources */,
 				A3B2AEB4193EBFE20097B3A7 /* Images.xcassets in Resources */,
 				A3EFA8171943FA2D00C85CF8 /* Player.png in Resources */,
-				A3B2AEB2193EBFE20097B3A7 /* Main.storyboard in Resources */,
-				A3870DF9196AF233000B4352 /* LGLuaBridge.lua in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -437,7 +382,6 @@
 				A31CEC2F19554BF1004F0395 /* LGEntityObserver.swift in Sources */,
 				A32CF34E197417EA00B6C4D4 /* LGAxis.swift in Sources */,
 				A3E735BD195618F700FA6025 /* LGTileMap.swift in Sources */,
-				A3870DF6196AF025000B4352 /* LGLuaBridge.m in Sources */,
 				A3845A8F196CC976004498A2 /* LGSpatialGrid.swift in Sources */,
 				A3B2AEA9193EBFE20097B3A7 /* AppDelegate.swift in Sources */,
 				A3A581CF19744A3200489EAC /* LGRenderingSystem.swift in Sources */,
@@ -463,17 +407,6 @@
 			targetProxy = A3B2AEBA193EBFE20097B3A7 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
-
-/* Begin PBXVariantGroup section */
-		A3B2AEB0193EBFE20097B3A7 /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				A3B2AEB1193EBFE20097B3A7 /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
-/* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
 		A3B2AEC1193EBFE20097B3A7 /* Debug */ = {

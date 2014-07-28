@@ -37,14 +37,21 @@ class GameScene: LGScene
 			LGPhysicsBody(width: 20, height: 35)
 		)
 		
+		let block = LGEntity()
+		block.put(
+			LGPosition(x: Double(CGRectGetMidX(self.frame)), y: Double(CGRectGetMidY(self.frame) + 20)),
+			LGSprite(),
+			LGPhysicsBody(width: 20, height: 35)
+		)
+		
 		let sprite = player.get(LGSprite)!
 		sprite.addState(LGSpriteState(position: 1), name: "idle")
 		sprite.addState(LGSpriteState(start: 8, end: 9, loops: true), name: "walk")
 		sprite.addState(LGSpriteState(position: 7), name: "fall")
-		
 		sprite.currentState = sprite.stateNamed("walk")
+		sprite.offset.x = -12
 		
-		self.add(player)
+		self.add(player, block)
 		self.player = player
 		
 		let WIDTH = 15
@@ -106,6 +113,18 @@ class GameScene: LGScene
 		if let body = player?.get(LGPhysicsBody)
 		{
 			body.velocity.y = 5
+			
+			if let touch = touches.anyObject() as? UITouch
+			{
+				if touch.locationInView(self.view).x > self.view.frame.size.width / 2
+				{
+					body.velocity.x += 1
+				}
+				else
+				{
+					body.velocity.x -= 1
+				}
+			}
 		}
 	}
 }

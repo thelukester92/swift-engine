@@ -5,14 +5,15 @@
 //  Created by Luke Godfrey on 7/14/14.
 //  Copyright (c) 2014 Luke Godfrey. All rights reserved.
 //
+//  Maps an entity's position component to its SKSpriteNode's position
 
 import SpriteKit
 
 class LGRenderingSystem: LGSystem
 {
 	var scene: LGScene
-	var positions = [LGPosition]()
-	var nodes = [SKSpriteNode]()
+	final var positions	= [LGPosition]()
+	final var sprites	= [LGSprite]()
 	
 	init(scene: LGScene)
 	{
@@ -50,15 +51,15 @@ class LGRenderingSystem: LGSystem
 		scene.addChild(node)
 		
 		positions += position
-		nodes += node
+		sprites += sprite
 	}
 	
 	override func update()
 	{
 		for id in 0 ..< entities.count
 		{
-			nodes[id].position.x = CGFloat(positions[id].x)
-			nodes[id].position.y = CGFloat(positions[id].y)
+			sprites[id].node.position.x = CGFloat(positions[id].x + sprites[id].offset.x)
+			sprites[id].node.position.y = CGFloat(positions[id].y + sprites[id].offset.y)
 		}
 	}
 }

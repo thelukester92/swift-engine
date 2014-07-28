@@ -6,7 +6,7 @@
 //  Copyright (c) 2014 Luke Godfrey. All rights reserved.
 //
 
-@final class LGEntity
+final class LGEntity
 {
 	var components: [String: LGComponent] = [:]
 	
