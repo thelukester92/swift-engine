@@ -24,10 +24,10 @@ The engine right now can render textures, simulate gravity and collisions, and a
 
 # Todo
 
-[ ] Fix first frame so that it doesn't display nonpositioned entities
-[ ] Create a camera system
-[x] Reimplement tile system.
-[ ] Reimplement player input system.
-[ ] Reimplement Lua support.
-[ ] Stop sprites from fetching a new texture every frame if the texture isn't changing
-[ ] Sprites may not always need states (i.e. tiles only have one frame always)
+* [ ] Fix first frame so that it doesn't display nonpositioned entities
+* [ ] Create a camera system
+* [x] Reimplement tile system.
+* [ ] Reimplement player input system.
+* [ ] Reimplement Lua support.
+* [ ] Stop sprites from fetching a new texture every frame if the texture isn't changing
+* [ ] Sprites may not always need states (i.e. tiles only have one frame always)
