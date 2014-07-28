@@ -14,8 +14,9 @@ For more information, go to [the devblog for this engine.](http://devblog.lukest
 # Current Features
 
 * Entity-component-system framework
-* Various systems decomposing the SKNode/SKSpriteNode so that the engine can be ECS and use SpriteKit
-* Sprite system for displaying textures and sprites with animated "states"
+* Rendering system that uses SpriteKit by mapping the position component to a SKSpriteNode position
+* Sprite system for displaying textures and sprites with animated states
+* Physics system for basic platformer physics
 
 The engine right now can render textures, simulate gravity and collisions, and accept single-tap input to test out different sprite states (jumping and idling).
 
@@ -23,14 +24,10 @@ The engine right now can render textures, simulate gravity and collisions, and a
 
 # Todo
 
-* Fix first frame so that it doesn't display nonpositioned entities
-* Convert LGTileMap from Objective-C to Swift
-* Create a camera system
-* Reimplement tile system.
-* Reimplement player input system.
-* Reimplement Lua support.
-* Figure out a way to access LGSprite.node before LGNodeSystem has connected the node
-* Stop sprites from fetching a new texture every frame if the texture isn't changing
-* Get the correct sprite from row and col
-* Engine interface should be agnostic of the underlying framework, i.e. it should not be so tightly coupled to SpriteKit; we should remove the node system and explicit passing of SK classes.
-* Sprites may not always need states (i.e. tiles only have one frame always)
+[ ] Fix first frame so that it doesn't display nonpositioned entities
+[ ] Create a camera system
+[x] Reimplement tile system.
+[ ] Reimplement player input system.
+[ ] Reimplement Lua support.
+[ ] Stop sprites from fetching a new texture every frame if the texture isn't changing
+[ ] Sprites may not always need states (i.e. tiles only have one frame always)
