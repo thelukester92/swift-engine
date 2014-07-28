@@ -10,19 +10,14 @@ import SpriteKit
 
 class LGScene: SKScene
 {
-	var systems			= LGSystem[]()
-	var systemsByPhase	= Dictionary<LGUpdatePhase, LGSystem[]>()
-	var entities		= LGEntity[]()
-	var removed			= LGEntity[]()
+	var systems			= [LGSystem]()
+	var systemsByPhase	= [LGUpdatePhase: [LGSystem]]()
+	var entities		= [LGEntity]()
+	var removed			= [LGEntity]()
 	
 	init(size: CGSize)
 	{
 		super.init(size: size)
-		
-		// It's strange that this would have to always be included
-		// It's also strange that we're depending on it being added first
-		// TODO: Investigate alternatives
-		systems += LGSpriteKitSystem(scene: self)
 	}
 	
 	func add(entitiesToAdd: LGEntity...)
@@ -50,7 +45,7 @@ class LGScene: SKScene
 	{
 		for entity in removed
 		{
-			for i in 0..entities.count
+			for i in 0 ..< entities.count
 			{
 				if entities[i] === entity
 				{
@@ -95,7 +90,7 @@ class LGScene: SKScene
 	
 	func remove(system: LGSystem)
 	{
-		for i in 0..systems.count
+		for i in 0 ..< systems.count
 		{
 			if systems[i] === system
 			{
@@ -104,9 +99,9 @@ class LGScene: SKScene
 			}
 		}
 		
-		for i in 0..systemsByPhase[system.updatePhase]!.count
+		for i in 0 ..< systemsByPhase[system.updatePhase]!.count
 		{
-			var phase: LGSystem[] = systemsByPhase[system.updatePhase]!
+			var phase: [LGSystem] = systemsByPhase[system.updatePhase]!
 
 			if phase[i] === system
 			{
@@ -130,17 +125,9 @@ class LGScene: SKScene
 	
 	override func update(currentTime: NSTimeInterval)
 	{
-		updateSystemsByPhase(.First)
-	}
-	
-	override func didEvaluateActions()
-	{
-		updateSystemsByPhase(.AfterActions)
-	}
-	
-	override func didSimulatePhysics()
-	{
-		updateSystemsByPhase(.AfterPhysics)
-		updateSystemsByPhase(.Last)
+		updateSystemsByPhase(.Input)
+		updateSystemsByPhase(.Physics)
+		updateSystemsByPhase(.Main)
+		updateSystemsByPhase(.Render)
 	}
 }

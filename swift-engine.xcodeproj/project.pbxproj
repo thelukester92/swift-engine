@@ -15,52 +15,22 @@
 		A318A2D81941311B00B88B62 /* LGUpdatePhase.swift in Sources */ = {isa = PBXBuildFile; fileRef = A318A2D71941311B00B88B62 /* LGUpdatePhase.swift */; };
 		A31CEC2F19554BF1004F0395 /* LGEntityObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = A31CEC2E19554BF1004F0395 /* LGEntityObserver.swift */; };
 		A31FE26A19554DE200B1E14A /* LGSpriteState.swift in Sources */ = {isa = PBXBuildFile; fileRef = A31FE26919554DE200B1E14A /* LGSpriteState.swift */; };
+		A32CF34E197417EA00B6C4D4 /* LGAxis.swift in Sources */ = {isa = PBXBuildFile; fileRef = A32CF34D197417EA00B6C4D4 /* LGAxis.swift */; };
+		A32CF35019741AB800B6C4D4 /* LGVector.swift in Sources */ = {isa = PBXBuildFile; fileRef = A32CF34F19741AB800B6C4D4 /* LGVector.swift */; };
 		A32F0F2D1955D7680083CBF3 /* LGTileLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = A32F0F2C1955D7680083CBF3 /* LGTileLayer.swift */; };
 		A33CADA6194360AF00AC8E27 /* LGSpriteSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = A33CADA5194360AF00AC8E27 /* LGSpriteSheet.swift */; };
 		A33CADA81943613200AC8E27 /* LGPosition.swift in Sources */ = {isa = PBXBuildFile; fileRef = A33CADA71943613200AC8E27 /* LGPosition.swift */; };
 		A33CADAA194361C000AC8E27 /* LGSprite.swift in Sources */ = {isa = PBXBuildFile; fileRef = A33CADA9194361C000AC8E27 /* LGSprite.swift */; };
 		A33CADB0194362A600AC8E27 /* LGSpriteSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = A33CADAF194362A600AC8E27 /* LGSpriteSystem.swift */; };
 		A33CADB21943630F00AC8E27 /* LGPhysicsBody.swift in Sources */ = {isa = PBXBuildFile; fileRef = A33CADB11943630F00AC8E27 /* LGPhysicsBody.swift */; };
-		A3870DB5196AE232000B4352 /* lapi.c in Sources */ = {isa = PBXBuildFile; fileRef = A3870D7C196AE232000B4352 /* lapi.c */; };
-		A3870DB6196AE232000B4352 /* lauxlib.c in Sources */ = {isa = PBXBuildFile; fileRef = A3870D7E196AE232000B4352 /* lauxlib.c */; };
-		A3870DB7196AE232000B4352 /* lbaselib.c in Sources */ = {isa = PBXBuildFile; fileRef = A3870D80196AE232000B4352 /* lbaselib.c */; };
-		A3870DB8196AE232000B4352 /* lbitlib.c in Sources */ = {isa = PBXBuildFile; fileRef = A3870D81196AE232000B4352 /* lbitlib.c */; };
-		A3870DB9196AE232000B4352 /* lcode.c in Sources */ = {isa = PBXBuildFile; fileRef = A3870D82196AE232000B4352 /* lcode.c */; };
-		A3870DBA196AE232000B4352 /* lcorolib.c in Sources */ = {isa = PBXBuildFile; fileRef = A3870D84196AE232000B4352 /* lcorolib.c */; };
-		A3870DBB196AE232000B4352 /* lctype.c in Sources */ = {isa = PBXBuildFile; fileRef = A3870D85196AE232000B4352 /* lctype.c */; };
-		A3870DBC196AE232000B4352 /* ldblib.c in Sources */ = {isa = PBXBuildFile; fileRef = A3870D87196AE232000B4352 /* ldblib.c */; };
-		A3870DBD196AE232000B4352 /* ldebug.c in Sources */ = {isa = PBXBuildFile; fileRef = A3870D88196AE232000B4352 /* ldebug.c */; };
-		A3870DBE196AE232000B4352 /* ldo.c in Sources */ = {isa = PBXBuildFile; fileRef = A3870D8A196AE232000B4352 /* ldo.c */; };
-		A3870DBF196AE232000B4352 /* ldump.c in Sources */ = {isa = PBXBuildFile; fileRef = A3870D8C196AE232000B4352 /* ldump.c */; };
-		A3870DC0196AE232000B4352 /* lfunc.c in Sources */ = {isa = PBXBuildFile; fileRef = A3870D8D196AE232000B4352 /* lfunc.c */; };
-		A3870DC1196AE232000B4352 /* lgc.c in Sources */ = {isa = PBXBuildFile; fileRef = A3870D8F196AE232000B4352 /* lgc.c */; };
-		A3870DC2196AE232000B4352 /* linit.c in Sources */ = {isa = PBXBuildFile; fileRef = A3870D91196AE232000B4352 /* linit.c */; };
-		A3870DC3196AE232000B4352 /* liolib.c in Sources */ = {isa = PBXBuildFile; fileRef = A3870D92196AE232000B4352 /* liolib.c */; };
-		A3870DC4196AE232000B4352 /* llex.c in Sources */ = {isa = PBXBuildFile; fileRef = A3870D93196AE232000B4352 /* llex.c */; };
-		A3870DC5196AE232000B4352 /* lmathlib.c in Sources */ = {isa = PBXBuildFile; fileRef = A3870D96196AE232000B4352 /* lmathlib.c */; };
-		A3870DC6196AE232000B4352 /* lmem.c in Sources */ = {isa = PBXBuildFile; fileRef = A3870D97196AE232000B4352 /* lmem.c */; };
-		A3870DC7196AE232000B4352 /* loadlib.c in Sources */ = {isa = PBXBuildFile; fileRef = A3870D99196AE232000B4352 /* loadlib.c */; };
-		A3870DC8196AE232000B4352 /* lobject.c in Sources */ = {isa = PBXBuildFile; fileRef = A3870D9A196AE232000B4352 /* lobject.c */; };
-		A3870DC9196AE232000B4352 /* lopcodes.c in Sources */ = {isa = PBXBuildFile; fileRef = A3870D9C196AE232000B4352 /* lopcodes.c */; };
-		A3870DCA196AE232000B4352 /* loslib.c in Sources */ = {isa = PBXBuildFile; fileRef = A3870D9E196AE232000B4352 /* loslib.c */; };
-		A3870DCB196AE232000B4352 /* lparser.c in Sources */ = {isa = PBXBuildFile; fileRef = A3870D9F196AE232000B4352 /* lparser.c */; };
-		A3870DCC196AE232000B4352 /* lstate.c in Sources */ = {isa = PBXBuildFile; fileRef = A3870DA1196AE232000B4352 /* lstate.c */; };
-		A3870DCD196AE232000B4352 /* lstring.c in Sources */ = {isa = PBXBuildFile; fileRef = A3870DA3196AE232000B4352 /* lstring.c */; };
-		A3870DCE196AE232000B4352 /* lstrlib.c in Sources */ = {isa = PBXBuildFile; fileRef = A3870DA5196AE232000B4352 /* lstrlib.c */; };
-		A3870DCF196AE232000B4352 /* ltable.c in Sources */ = {isa = PBXBuildFile; fileRef = A3870DA6196AE232000B4352 /* ltable.c */; };
-		A3870DD0196AE232000B4352 /* ltablib.c in Sources */ = {isa = PBXBuildFile; fileRef = A3870DA8196AE232000B4352 /* ltablib.c */; };
-		A3870DD1196AE232000B4352 /* ltm.c in Sources */ = {isa = PBXBuildFile; fileRef = A3870DA9196AE232000B4352 /* ltm.c */; };
-		A3870DD2196AE232000B4352 /* lundump.c in Sources */ = {isa = PBXBuildFile; fileRef = A3870DAF196AE232000B4352 /* lundump.c */; };
-		A3870DD3196AE232000B4352 /* lvm.c in Sources */ = {isa = PBXBuildFile; fileRef = A3870DB1196AE232000B4352 /* lvm.c */; };
-		A3870DD4196AE232000B4352 /* lzio.c in Sources */ = {isa = PBXBuildFile; fileRef = A3870DB3196AE232000B4352 /* lzio.c */; };
-		A3870DF6196AF025000B4352 /* LGLuaBridge.m in Sources */ = {isa = PBXBuildFile; fileRef = A3870DF5196AF025000B4352 /* LGLuaBridge.m */; };
-		A3870DF9196AF233000B4352 /* LGLuaBridge.lua in Resources */ = {isa = PBXBuildFile; fileRef = A3870DF8196AF233000B4352 /* LGLuaBridge.lua */; };
+		A3542B9F196CBC8000ED00E8 /* LGPhysicsSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3542B9E196CBC8000ED00E8 /* LGPhysicsSystem.swift */; };
+		A36A302A1986BA3B007DB06D /* GameViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A36A30291986BA3B007DB06D /* GameViewController.xib */; };
+		A3845A8F196CC976004498A2 /* LGSpatialGrid.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3845A8E196CC976004498A2 /* LGSpatialGrid.swift */; };
 		A3981C9819511C5C0072E4A3 /* LGTileSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3981C9719511C5C0072E4A3 /* LGTileSystem.swift */; };
-		A3A27195195E77C7003F40C4 /* LGSpriteKitSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3A27194195E77C7003F40C4 /* LGSpriteKitSystem.swift */; };
+		A3A581CF19744A3200489EAC /* LGRenderingSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3A581CE19744A3200489EAC /* LGRenderingSystem.swift */; };
 		A3B2AEA9193EBFE20097B3A7 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3B2AEA8193EBFE20097B3A7 /* AppDelegate.swift */; };
 		A3B2AEAD193EBFE20097B3A7 /* GameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3B2AEAC193EBFE20097B3A7 /* GameScene.swift */; };
 		A3B2AEAF193EBFE20097B3A7 /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3B2AEAE193EBFE20097B3A7 /* GameViewController.swift */; };
-		A3B2AEB2193EBFE20097B3A7 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A3B2AEB0193EBFE20097B3A7 /* Main.storyboard */; };
 		A3B2AEB4193EBFE20097B3A7 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A3B2AEB3193EBFE20097B3A7 /* Images.xcassets */; };
 		A3B2AEC0193EBFE20097B3A7 /* swift_engineTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3B2AEBF193EBFE20097B3A7 /* swift_engineTests.swift */; };
 		A3E735BD195618F700FA6025 /* LGTileMap.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3E735BC195618F700FA6025 /* LGTileMap.swift */; };
@@ -90,81 +60,25 @@
 		A318A2D71941311B00B88B62 /* LGUpdatePhase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LGUpdatePhase.swift; sourceTree = "<group>"; };
 		A31CEC2E19554BF1004F0395 /* LGEntityObserver.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LGEntityObserver.swift; sourceTree = "<group>"; };
 		A31FE26919554DE200B1E14A /* LGSpriteState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LGSpriteState.swift; path = Classes/LGSpriteState.swift; sourceTree = "<group>"; };
+		A32CF34D197417EA00B6C4D4 /* LGAxis.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LGAxis.swift; sourceTree = "<group>"; };
+		A32CF34F19741AB800B6C4D4 /* LGVector.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LGVector.swift; path = Classes/LGVector.swift; sourceTree = "<group>"; };
 		A32F0F2C1955D7680083CBF3 /* LGTileLayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LGTileLayer.swift; path = Classes/LGTileLayer.swift; sourceTree = "<group>"; };
 		A33CADA5194360AF00AC8E27 /* LGSpriteSheet.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LGSpriteSheet.swift; path = Classes/LGSpriteSheet.swift; sourceTree = "<group>"; };
 		A33CADA71943613200AC8E27 /* LGPosition.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LGPosition.swift; sourceTree = "<group>"; };
 		A33CADA9194361C000AC8E27 /* LGSprite.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LGSprite.swift; sourceTree = "<group>"; };
 		A33CADAF194362A600AC8E27 /* LGSpriteSystem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LGSpriteSystem.swift; sourceTree = "<group>"; };
 		A33CADB11943630F00AC8E27 /* LGPhysicsBody.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LGPhysicsBody.swift; sourceTree = "<group>"; };
-		A3870D7C196AE232000B4352 /* lapi.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = lapi.c; sourceTree = "<group>"; };
-		A3870D7D196AE232000B4352 /* lapi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = lapi.h; sourceTree = "<group>"; };
-		A3870D7E196AE232000B4352 /* lauxlib.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = lauxlib.c; sourceTree = "<group>"; };
-		A3870D7F196AE232000B4352 /* lauxlib.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = lauxlib.h; sourceTree = "<group>"; };
-		A3870D80196AE232000B4352 /* lbaselib.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = lbaselib.c; sourceTree = "<group>"; };
-		A3870D81196AE232000B4352 /* lbitlib.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = lbitlib.c; sourceTree = "<group>"; };
-		A3870D82196AE232000B4352 /* lcode.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = lcode.c; sourceTree = "<group>"; };
-		A3870D83196AE232000B4352 /* lcode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = lcode.h; sourceTree = "<group>"; };
-		A3870D84196AE232000B4352 /* lcorolib.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = lcorolib.c; sourceTree = "<group>"; };
-		A3870D85196AE232000B4352 /* lctype.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = lctype.c; sourceTree = "<group>"; };
-		A3870D86196AE232000B4352 /* lctype.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = lctype.h; sourceTree = "<group>"; };
-		A3870D87196AE232000B4352 /* ldblib.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = ldblib.c; sourceTree = "<group>"; };
-		A3870D88196AE232000B4352 /* ldebug.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = ldebug.c; sourceTree = "<group>"; };
-		A3870D89196AE232000B4352 /* ldebug.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ldebug.h; sourceTree = "<group>"; };
-		A3870D8A196AE232000B4352 /* ldo.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = ldo.c; sourceTree = "<group>"; };
-		A3870D8B196AE232000B4352 /* ldo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ldo.h; sourceTree = "<group>"; };
-		A3870D8C196AE232000B4352 /* ldump.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = ldump.c; sourceTree = "<group>"; };
-		A3870D8D196AE232000B4352 /* lfunc.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = lfunc.c; sourceTree = "<group>"; };
-		A3870D8E196AE232000B4352 /* lfunc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = lfunc.h; sourceTree = "<group>"; };
-		A3870D8F196AE232000B4352 /* lgc.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = lgc.c; sourceTree = "<group>"; };
-		A3870D90196AE232000B4352 /* lgc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = lgc.h; sourceTree = "<group>"; };
-		A3870D91196AE232000B4352 /* linit.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = linit.c; sourceTree = "<group>"; };
-		A3870D92196AE232000B4352 /* liolib.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = liolib.c; sourceTree = "<group>"; };
-		A3870D93196AE232000B4352 /* llex.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = llex.c; sourceTree = "<group>"; };
-		A3870D94196AE232000B4352 /* llex.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = llex.h; sourceTree = "<group>"; };
-		A3870D95196AE232000B4352 /* llimits.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = llimits.h; sourceTree = "<group>"; };
-		A3870D96196AE232000B4352 /* lmathlib.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = lmathlib.c; sourceTree = "<group>"; };
-		A3870D97196AE232000B4352 /* lmem.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = lmem.c; sourceTree = "<group>"; };
-		A3870D98196AE232000B4352 /* lmem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = lmem.h; sourceTree = "<group>"; };
-		A3870D99196AE232000B4352 /* loadlib.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = loadlib.c; sourceTree = "<group>"; };
-		A3870D9A196AE232000B4352 /* lobject.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = lobject.c; sourceTree = "<group>"; };
-		A3870D9B196AE232000B4352 /* lobject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = lobject.h; sourceTree = "<group>"; };
-		A3870D9C196AE232000B4352 /* lopcodes.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = lopcodes.c; sourceTree = "<group>"; };
-		A3870D9D196AE232000B4352 /* lopcodes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = lopcodes.h; sourceTree = "<group>"; };
-		A3870D9E196AE232000B4352 /* loslib.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = loslib.c; sourceTree = "<group>"; };
-		A3870D9F196AE232000B4352 /* lparser.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = lparser.c; sourceTree = "<group>"; };
-		A3870DA0196AE232000B4352 /* lparser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = lparser.h; sourceTree = "<group>"; };
-		A3870DA1196AE232000B4352 /* lstate.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = lstate.c; sourceTree = "<group>"; };
-		A3870DA2196AE232000B4352 /* lstate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = lstate.h; sourceTree = "<group>"; };
-		A3870DA3196AE232000B4352 /* lstring.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = lstring.c; sourceTree = "<group>"; };
-		A3870DA4196AE232000B4352 /* lstring.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = lstring.h; sourceTree = "<group>"; };
-		A3870DA5196AE232000B4352 /* lstrlib.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = lstrlib.c; sourceTree = "<group>"; };
-		A3870DA6196AE232000B4352 /* ltable.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = ltable.c; sourceTree = "<group>"; };
-		A3870DA7196AE232000B4352 /* ltable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ltable.h; sourceTree = "<group>"; };
-		A3870DA8196AE232000B4352 /* ltablib.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = ltablib.c; sourceTree = "<group>"; };
-		A3870DA9196AE232000B4352 /* ltm.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = ltm.c; sourceTree = "<group>"; };
-		A3870DAA196AE232000B4352 /* ltm.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ltm.h; sourceTree = "<group>"; };
-		A3870DAB196AE232000B4352 /* lua.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = lua.h; sourceTree = "<group>"; };
-		A3870DAC196AE232000B4352 /* lua.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = lua.hpp; sourceTree = "<group>"; };
-		A3870DAD196AE232000B4352 /* luaconf.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = luaconf.h; sourceTree = "<group>"; };
-		A3870DAE196AE232000B4352 /* lualib.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = lualib.h; sourceTree = "<group>"; };
-		A3870DAF196AE232000B4352 /* lundump.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = lundump.c; sourceTree = "<group>"; };
-		A3870DB0196AE232000B4352 /* lundump.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = lundump.h; sourceTree = "<group>"; };
-		A3870DB1196AE232000B4352 /* lvm.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = lvm.c; sourceTree = "<group>"; };
-		A3870DB2196AE232000B4352 /* lvm.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = lvm.h; sourceTree = "<group>"; };
-		A3870DB3196AE232000B4352 /* lzio.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = lzio.c; sourceTree = "<group>"; };
-		A3870DB4196AE232000B4352 /* lzio.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = lzio.h; sourceTree = "<group>"; };
+		A3542B9E196CBC8000ED00E8 /* LGPhysicsSystem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LGPhysicsSystem.swift; sourceTree = "<group>"; };
+		A36A30291986BA3B007DB06D /* GameViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GameViewController.xib; sourceTree = "<group>"; };
+		A3845A8E196CC976004498A2 /* LGSpatialGrid.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LGSpatialGrid.swift; path = Classes/LGSpatialGrid.swift; sourceTree = "<group>"; };
 		A3870DE7196AE566000B4352 /* Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Bridging-Header.h"; sourceTree = "<group>"; };
-		A3870DF4196AF025000B4352 /* LGLuaBridge.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LGLuaBridge.h; sourceTree = "<group>"; };
-		A3870DF5196AF025000B4352 /* LGLuaBridge.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LGLuaBridge.m; sourceTree = "<group>"; };
-		A3870DF8196AF233000B4352 /* LGLuaBridge.lua */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LGLuaBridge.lua; sourceTree = "<group>"; };
 		A3981C9719511C5C0072E4A3 /* LGTileSystem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LGTileSystem.swift; sourceTree = "<group>"; };
-		A3A27194195E77C7003F40C4 /* LGSpriteKitSystem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LGSpriteKitSystem.swift; sourceTree = "<group>"; };
+		A3A581CE19744A3200489EAC /* LGRenderingSystem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LGRenderingSystem.swift; sourceTree = "<group>"; };
 		A3B2AEA3193EBFE20097B3A7 /* swift-engine.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "swift-engine.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		A3B2AEA7193EBFE20097B3A7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A3B2AEA8193EBFE20097B3A7 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		A3B2AEAC193EBFE20097B3A7 /* GameScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = GameScene.swift; path = Game/GameScene.swift; sourceTree = "<group>"; };
 		A3B2AEAE193EBFE20097B3A7 /* GameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameViewController.swift; sourceTree = "<group>"; };
-		A3B2AEB1193EBFE20097B3A7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		A3B2AEB3193EBFE20097B3A7 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		A3B2AEB9193EBFE20097B3A7 /* swift-engineTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "swift-engineTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		A3B2AEBE193EBFE20097B3A7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -202,9 +116,7 @@
 				A33CADA41943609D00AC8E27 /* Classes */,
 				A318A2CA19412F2800B88B62 /* Components */,
 				A318A2CB19412F2800B88B62 /* Enums */,
-				A3870DF3196AF01E000B4352 /* ObjC */,
 				A31CEC2D19554BD9004F0395 /* Protocols */,
-				A3870DF7196AF227000B4352 /* Scripts */,
 				A318A2CC19412F2800B88B62 /* Systems */,
 				A318A2CD19412F3400B88B62 /* LGComponent.swift */,
 				A318A2CF19412F4A00B88B62 /* LGEntity.swift */,
@@ -230,6 +142,7 @@
 			children = (
 				A3FE99C4195A7E8A00D6A781 /* LGRenderLayer.swift */,
 				A318A2D71941311B00B88B62 /* LGUpdatePhase.swift */,
+				A32CF34D197417EA00B6C4D4 /* LGAxis.swift */,
 			);
 			path = Enums;
 			sourceTree = "<group>";
@@ -237,9 +150,10 @@
 		A318A2CC19412F2800B88B62 /* Systems */ = {
 			isa = PBXGroup;
 			children = (
+				A3A581CE19744A3200489EAC /* LGRenderingSystem.swift */,
 				A33CADAF194362A600AC8E27 /* LGSpriteSystem.swift */,
 				A3981C9719511C5C0072E4A3 /* LGTileSystem.swift */,
-				A3A27194195E77C7003F40C4 /* LGSpriteKitSystem.swift */,
+				A3542B9E196CBC8000ED00E8 /* LGPhysicsSystem.swift */,
 			);
 			path = Systems;
 			sourceTree = "<group>";
@@ -255,103 +169,16 @@
 		A33CADA41943609D00AC8E27 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				A3845A8E196CC976004498A2 /* LGSpatialGrid.swift */,
 				A33CADA5194360AF00AC8E27 /* LGSpriteSheet.swift */,
 				A31FE26919554DE200B1E14A /* LGSpriteState.swift */,
 				A3FE99C0195A790A00D6A781 /* LGTile.swift */,
 				A32F0F2C1955D7680083CBF3 /* LGTileLayer.swift */,
 				A3E735BC195618F700FA6025 /* LGTileMap.swift */,
 				A3FE99C2195A7B2F00D6A781 /* LGTilemapParser.swift */,
+				A32CF34F19741AB800B6C4D4 /* LGVector.swift */,
 			);
 			name = Classes;
-			sourceTree = "<group>";
-		};
-		A3870D7A196AE232000B4352 /* Libraries */ = {
-			isa = PBXGroup;
-			children = (
-				A3870D7B196AE232000B4352 /* lua */,
-			);
-			path = Libraries;
-			sourceTree = "<group>";
-		};
-		A3870D7B196AE232000B4352 /* lua */ = {
-			isa = PBXGroup;
-			children = (
-				A3870D7C196AE232000B4352 /* lapi.c */,
-				A3870D7D196AE232000B4352 /* lapi.h */,
-				A3870D7E196AE232000B4352 /* lauxlib.c */,
-				A3870D7F196AE232000B4352 /* lauxlib.h */,
-				A3870D80196AE232000B4352 /* lbaselib.c */,
-				A3870D81196AE232000B4352 /* lbitlib.c */,
-				A3870D82196AE232000B4352 /* lcode.c */,
-				A3870D83196AE232000B4352 /* lcode.h */,
-				A3870D84196AE232000B4352 /* lcorolib.c */,
-				A3870D85196AE232000B4352 /* lctype.c */,
-				A3870D86196AE232000B4352 /* lctype.h */,
-				A3870D87196AE232000B4352 /* ldblib.c */,
-				A3870D88196AE232000B4352 /* ldebug.c */,
-				A3870D89196AE232000B4352 /* ldebug.h */,
-				A3870D8A196AE232000B4352 /* ldo.c */,
-				A3870D8B196AE232000B4352 /* ldo.h */,
-				A3870D8C196AE232000B4352 /* ldump.c */,
-				A3870D8D196AE232000B4352 /* lfunc.c */,
-				A3870D8E196AE232000B4352 /* lfunc.h */,
-				A3870D8F196AE232000B4352 /* lgc.c */,
-				A3870D90196AE232000B4352 /* lgc.h */,
-				A3870D91196AE232000B4352 /* linit.c */,
-				A3870D92196AE232000B4352 /* liolib.c */,
-				A3870D93196AE232000B4352 /* llex.c */,
-				A3870D94196AE232000B4352 /* llex.h */,
-				A3870D95196AE232000B4352 /* llimits.h */,
-				A3870D96196AE232000B4352 /* lmathlib.c */,
-				A3870D97196AE232000B4352 /* lmem.c */,
-				A3870D98196AE232000B4352 /* lmem.h */,
-				A3870D99196AE232000B4352 /* loadlib.c */,
-				A3870D9A196AE232000B4352 /* lobject.c */,
-				A3870D9B196AE232000B4352 /* lobject.h */,
-				A3870D9C196AE232000B4352 /* lopcodes.c */,
-				A3870D9D196AE232000B4352 /* lopcodes.h */,
-				A3870D9E196AE232000B4352 /* loslib.c */,
-				A3870D9F196AE232000B4352 /* lparser.c */,
-				A3870DA0196AE232000B4352 /* lparser.h */,
-				A3870DA1196AE232000B4352 /* lstate.c */,
-				A3870DA2196AE232000B4352 /* lstate.h */,
-				A3870DA3196AE232000B4352 /* lstring.c */,
-				A3870DA4196AE232000B4352 /* lstring.h */,
-				A3870DA5196AE232000B4352 /* lstrlib.c */,
-				A3870DA6196AE232000B4352 /* ltable.c */,
-				A3870DA7196AE232000B4352 /* ltable.h */,
-				A3870DA8196AE232000B4352 /* ltablib.c */,
-				A3870DA9196AE232000B4352 /* ltm.c */,
-				A3870DAA196AE232000B4352 /* ltm.h */,
-				A3870DAB196AE232000B4352 /* lua.h */,
-				A3870DAC196AE232000B4352 /* lua.hpp */,
-				A3870DAD196AE232000B4352 /* luaconf.h */,
-				A3870DAE196AE232000B4352 /* lualib.h */,
-				A3870DAF196AE232000B4352 /* lundump.c */,
-				A3870DB0196AE232000B4352 /* lundump.h */,
-				A3870DB1196AE232000B4352 /* lvm.c */,
-				A3870DB2196AE232000B4352 /* lvm.h */,
-				A3870DB3196AE232000B4352 /* lzio.c */,
-				A3870DB4196AE232000B4352 /* lzio.h */,
-			);
-			path = lua;
-			sourceTree = "<group>";
-		};
-		A3870DF3196AF01E000B4352 /* ObjC */ = {
-			isa = PBXGroup;
-			children = (
-				A3870DF4196AF025000B4352 /* LGLuaBridge.h */,
-				A3870DF5196AF025000B4352 /* LGLuaBridge.m */,
-			);
-			path = ObjC;
-			sourceTree = "<group>";
-		};
-		A3870DF7196AF227000B4352 /* Scripts */ = {
-			isa = PBXGroup;
-			children = (
-				A3870DF8196AF233000B4352 /* LGLuaBridge.lua */,
-			);
-			path = Scripts;
 			sourceTree = "<group>";
 		};
 		A3B2AE9A193EBFE10097B3A7 = {
@@ -378,10 +205,9 @@
 			children = (
 				A318A2C919412F2800B88B62 /* Engine */,
 				A3EFA8141943F9B100C85CF8 /* Game */,
-				A3870D7A196AE232000B4352 /* Libraries */,
 				A3B2AEA8193EBFE20097B3A7 /* AppDelegate.swift */,
 				A3B2AEAE193EBFE20097B3A7 /* GameViewController.swift */,
-				A3B2AEB0193EBFE20097B3A7 /* Main.storyboard */,
+				A36A30291986BA3B007DB06D /* GameViewController.xib */,
 				A3B2AEB3193EBFE20097B3A7 /* Images.xcassets */,
 				A3B2AEA6193EBFE20097B3A7 /* Supporting Files */,
 			);
@@ -513,11 +339,10 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A36A302A1986BA3B007DB06D /* GameViewController.xib in Resources */,
 				A3EA911F19561EF100297EEB /* Tileset.png in Resources */,
 				A3B2AEB4193EBFE20097B3A7 /* Images.xcassets in Resources */,
 				A3EFA8171943FA2D00C85CF8 /* Player.png in Resources */,
-				A3B2AEB2193EBFE20097B3A7 /* Main.storyboard in Resources */,
-				A3870DF9196AF233000B4352 /* LGLuaBridge.lua in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -535,61 +360,32 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A3870DC4196AE232000B4352 /* llex.c in Sources */,
-				A3870DBE196AE232000B4352 /* ldo.c in Sources */,
 				A318A2D019412F4A00B88B62 /* LGEntity.swift in Sources */,
 				A318A2D6194130FF00B88B62 /* LGSystem.swift in Sources */,
 				A3FE99C5195A7E8A00D6A781 /* LGRenderLayer.swift in Sources */,
-				A3870DCB196AE232000B4352 /* lparser.c in Sources */,
 				A33CADB21943630F00AC8E27 /* LGPhysicsBody.swift in Sources */,
 				A3FE99C3195A7B2F00D6A781 /* LGTilemapParser.swift in Sources */,
-				A3870DCE196AE232000B4352 /* lstrlib.c in Sources */,
-				A3870DBF196AE232000B4352 /* ldump.c in Sources */,
-				A3870DBC196AE232000B4352 /* ldblib.c in Sources */,
-				A3870DCA196AE232000B4352 /* loslib.c in Sources */,
 				A3B2AEAD193EBFE20097B3A7 /* GameScene.swift in Sources */,
-				A3870DD0196AE232000B4352 /* ltablib.c in Sources */,
 				A3B2AEAF193EBFE20097B3A7 /* GameViewController.swift in Sources */,
-				A3870DCD196AE232000B4352 /* lstring.c in Sources */,
-				A3870DB9196AE232000B4352 /* lcode.c in Sources */,
 				A31FE26A19554DE200B1E14A /* LGSpriteState.swift in Sources */,
 				A3FE99C1195A790A00D6A781 /* LGTile.swift in Sources */,
-				A3870DBB196AE232000B4352 /* lctype.c in Sources */,
-				A3870DBD196AE232000B4352 /* ldebug.c in Sources */,
-				A3870DC9196AE232000B4352 /* lopcodes.c in Sources */,
-				A3870DC5196AE232000B4352 /* lmathlib.c in Sources */,
-				A3870DB7196AE232000B4352 /* lbaselib.c in Sources */,
 				A318A2CE19412F3400B88B62 /* LGComponent.swift in Sources */,
-				A3870DB8196AE232000B4352 /* lbitlib.c in Sources */,
 				A318A2D21941303C00B88B62 /* LGEngine.swift in Sources */,
-				A3870DC2196AE232000B4352 /* linit.c in Sources */,
-				A3870DC6196AE232000B4352 /* lmem.c in Sources */,
+				A32CF35019741AB800B6C4D4 /* LGVector.swift in Sources */,
 				A33CADB0194362A600AC8E27 /* LGSpriteSystem.swift in Sources */,
-				A3870DBA196AE232000B4352 /* lcorolib.c in Sources */,
-				A3A27195195E77C7003F40C4 /* LGSpriteKitSystem.swift in Sources */,
-				A3870DB5196AE232000B4352 /* lapi.c in Sources */,
+				A3542B9F196CBC8000ED00E8 /* LGPhysicsSystem.swift in Sources */,
 				A3981C9819511C5C0072E4A3 /* LGTileSystem.swift in Sources */,
-				A3870DC1196AE232000B4352 /* lgc.c in Sources */,
-				A3870DD1196AE232000B4352 /* ltm.c in Sources */,
 				A33CADA81943613200AC8E27 /* LGPosition.swift in Sources */,
 				A33CADAA194361C000AC8E27 /* LGSprite.swift in Sources */,
-				A3870DD2196AE232000B4352 /* lundump.c in Sources */,
-				A3870DD3196AE232000B4352 /* lvm.c in Sources */,
-				A3870DC3196AE232000B4352 /* liolib.c in Sources */,
 				A318A2D4194130DE00B88B62 /* LGScene.swift in Sources */,
-				A3870DC8196AE232000B4352 /* lobject.c in Sources */,
 				A33CADA6194360AF00AC8E27 /* LGSpriteSheet.swift in Sources */,
 				A31CEC2F19554BF1004F0395 /* LGEntityObserver.swift in Sources */,
-				A3870DCF196AE232000B4352 /* ltable.c in Sources */,
+				A32CF34E197417EA00B6C4D4 /* LGAxis.swift in Sources */,
 				A3E735BD195618F700FA6025 /* LGTileMap.swift in Sources */,
-				A3870DC0196AE232000B4352 /* lfunc.c in Sources */,
-				A3870DF6196AF025000B4352 /* LGLuaBridge.m in Sources */,
-				A3870DC7196AE232000B4352 /* loadlib.c in Sources */,
-				A3870DCC196AE232000B4352 /* lstate.c in Sources */,
-				A3870DD4196AE232000B4352 /* lzio.c in Sources */,
+				A3845A8F196CC976004498A2 /* LGSpatialGrid.swift in Sources */,
 				A3B2AEA9193EBFE20097B3A7 /* AppDelegate.swift in Sources */,
+				A3A581CF19744A3200489EAC /* LGRenderingSystem.swift in Sources */,
 				A32F0F2D1955D7680083CBF3 /* LGTileLayer.swift in Sources */,
-				A3870DB6196AE232000B4352 /* lauxlib.c in Sources */,
 				A318A2D81941311B00B88B62 /* LGUpdatePhase.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -611,17 +407,6 @@
 			targetProxy = A3B2AEBA193EBFE20097B3A7 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
-
-/* Begin PBXVariantGroup section */
-		A3B2AEB0193EBFE20097B3A7 /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				A3B2AEB1193EBFE20097B3A7 /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
-/* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
 		A3B2AEC1193EBFE20097B3A7 /* Debug */ = {
@@ -709,8 +494,13 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				GCC_OPTIMIZATION_LEVEL = fast;
 				INFOPLIST_FILE = "swift-engine/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/swift-engine/Libraries/lua",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_INSTALL_OBJC_HEADER = YES;
 				SWIFT_OBJC_BRIDGING_HEADER = "${PROJECT_DIR}/${PROJECT_NAME}/Bridging-Header.h";
@@ -723,8 +513,14 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				GCC_OPTIMIZATION_LEVEL = fast;
 				INFOPLIST_FILE = "swift-engine/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/swift-engine/Libraries/lua",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_INSTALL_OBJC_HEADER = YES;
 				SWIFT_OBJC_BRIDGING_HEADER = "${PROJECT_DIR}/${PROJECT_NAME}/Bridging-Header.h";

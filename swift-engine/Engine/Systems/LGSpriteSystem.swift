@@ -15,7 +15,7 @@ class LGSpriteSystem: LGSystem
 	init()
 	{
 		super.init()
-		self.updatePhase = .Last
+		self.updatePhase = .Render
 	}
 	
 	override func accepts(entity: LGEntity) -> Bool
@@ -30,6 +30,17 @@ class LGSpriteSystem: LGSystem
 		let sprite	= entity.get(LGSprite)!
 		var pos		= 1
 		
+		var node: SKSpriteNode!
+		if let _ = sprite.node
+		{
+			node = sprite.node
+		}
+		else
+		{
+			node = SKSpriteNode()
+			sprite.node = node
+		}
+		
 		if let state = sprite.currentState
 		{
 			pos = state.position
@@ -38,8 +49,14 @@ class LGSpriteSystem: LGSystem
 		if let texture = sprite.spriteSheet?.textureAtPosition(pos)
 		{
 			texture.filteringMode = .Nearest
+			
 			sprite.node.texture = texture
 			sprite.node.size = texture.size()
+		}
+		else if let body = entity.get(LGPhysicsBody)
+		{
+			sprite.node.color = UIColor.whiteColor()
+			sprite.node.size = CGSize(width: CGFloat(body.width), height: CGFloat(body.height))
 		}
 	}
 	
@@ -51,7 +68,7 @@ class LGSpriteSystem: LGSystem
 			
 			if let state = sprite.currentState
 			{
-				// TODO: Don't make it fetch a new texture using textureAtPosition every time...
+				// TODO: Don't make it fetch a new texture using textureAtPosition every time
 				
 				if ++state.counter > state.duration
 				{
@@ -71,6 +88,8 @@ class LGSpriteSystem: LGSystem
 					state.counter = 0
 				}
 			}
+			
+			sprite.node.xScale = CGFloat(sprite.direction)
 		}
 	}
 }

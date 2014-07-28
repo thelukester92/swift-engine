@@ -8,8 +8,8 @@
 
 class LGSystem
 {
-	var entities	= LGEntity[]()
-	var updatePhase	= LGUpdatePhase.First
+	final var entities	= [LGEntity]()
+	var updatePhase		= LGUpdatePhase.Main
 	
 	func accepts(entity: LGEntity) -> Bool
 	{
@@ -23,7 +23,7 @@ class LGSystem
 	
 	func remove(entity: LGEntity)
 	{
-		for i in 0..entities.count
+		for i in 0 ..< entities.count
 		{
 			if entities[i] === entity
 			{
@@ -55,7 +55,7 @@ extension LGSystem: LGEntityObserver
 	{
 		var contained = false
 		
-		for i in 0..entities.count
+		for i in 0 ..< entities.count
 		{
 			if entities[i] === entity
 			{

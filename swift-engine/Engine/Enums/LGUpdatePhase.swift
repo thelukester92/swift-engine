@@ -8,9 +8,5 @@
 
 enum LGUpdatePhase
 {
-	case First			// Default, in SKScene.update
-	case AfterActions	// In SKScene.didEvaluateActions
-	case AfterPhysics	// In SKScene.didSimulatePhysics
-	case Last			// In SKScene.didSimulatePhysics (immediately before rendering)
-	case None			// Passive delegate
+	case Input, Physics, Main, Render, None
 }

@@ -20,23 +20,15 @@ class LGPhysicsBody: LGComponent
 		return LGPhysicsBody.type()
 	}
 	
-	var skphysicsbody: SKPhysicsBody
+	var dynamic		= true
+	var velocity	= LGVector()
 	
-	init(skphysicsbody: SKPhysicsBody)
-	{
-		self.skphysicsbody = skphysicsbody
-		
-		// Initial settings for the physics body
-		// TODO: Expose these as computed properties
-		skphysicsbody.mass = 1
-		skphysicsbody.friction = 0
-		skphysicsbody.restitution = 0
-		skphysicsbody.linearDamping = 0
-		skphysicsbody.allowsRotation = false
-	}
+	var width: Double
+	var height: Double
 	
-	convenience init()
+	init(width: Double, height: Double)
 	{
-		self.init(skphysicsbody: SKPhysicsBody())
+		self.width	= width
+		self.height	= height
 	}
 }

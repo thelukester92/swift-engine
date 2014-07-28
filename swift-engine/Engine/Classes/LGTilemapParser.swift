@@ -37,13 +37,13 @@ class LGTilemapParser: NSObject
 		return map
 	}
 	
-	func parseString(string: String) -> LGTile[][]
+	func parseString(string: String) -> [[LGTile]]
 	{
 		// TODO: Support gzip or zlib for compression
 		let data = NSData(base64EncodedString: string, options: .IgnoreUnknownCharacters)
 		assert(data.length == width * height * 4)
 		
-		var bytes = UInt8[](count: data.length, repeatedValue: 0)
+		var bytes = [UInt8](count: data.length, repeatedValue: 0)
 		data.getBytes(&bytes, length: data.length)
 		
 		return parseData(bytes)
@@ -96,15 +96,15 @@ class LGTilemapParser: NSObject
 	
 	*/
 	
-	func parseArray(data: String[]) -> LGTile[][]
+	func parseArray(data: [String]) -> [[LGTile]]
 	{
-		var output = LGTile[][]()
+		var output = [[LGTile]]()
 		
-		for i in 0..height
+		for i in 0 ..< height
 		{
-			output += LGTile[]()
+			output += [LGTile]()
 			
-			for j in 0..width
+			for j in 0 ..< width
 			{
 				let globalId = UInt32(data[i * width + j].toInt()!)
 				output[i] += LGTile(gid: globalId)
@@ -114,16 +114,16 @@ class LGTilemapParser: NSObject
 		return output
 	}
 	
-	func parseData(data: UInt8[]) -> LGTile[][]
+	func parseData(data: [UInt8]) -> [[LGTile]]
 	{
-		var output = LGTile[][]()
+		var output = [[LGTile]]()
 		var byteIndex = 0
 		
-		for i in 0..height
+		for i in 0 ..< height
 		{
-			output += LGTile[]()
+			output += [LGTile]()
 			
-			for _ in 0..width
+			for _ in 0 ..< width
 			{
 				let globalId = UInt32(data[byteIndex++] | data[byteIndex++] << 8 | data[byteIndex++] << 16 | data[byteIndex++] << 24)
 				output[i] += LGTile(gid: globalId)
@@ -194,7 +194,7 @@ extension LGTilemapParser: NSXMLParserDelegate
 				currentData = ""
 			
 			default:
-				println() // can't have an empty default but must have a default... ugh
+				break
 		}
 	}
 	
@@ -219,7 +219,7 @@ extension LGTilemapParser: NSXMLParserDelegate
 				currentData = ""
 			
 			default:
-				println()
+				break
 		}
 	}
 }
