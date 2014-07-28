@@ -9,18 +9,10 @@ The purpose of this project is to provide the functionality required to create s
 
 For more information, go to [the devblog for this engine.](http://devblog.lukesterwebdesign.com/)
 
-# Feature List [w/ Todos]
+# Feature List
 
-* [x] Entity-component-system framework
-* [x] Rendering system that uses SpriteKit by mapping the position component to a SKSpriteNode position
-* [x] Sprite system for displaying textures and sprites with animated states
-* [x] Tile system for creating entities for tilemaps
-* [x] Physics system for basic platformer physics
-* [x] Reimplement tile system.
-* [ ] Reimplement .tmx file format support.
-* [ ] Fix first frame so that it doesn't display nonpositioned entities.
-* [ ] Create a camera system.
-* [ ] Reimplement player input system.
-* [ ] Reimplement Lua support.
-* [ ] Stop sprites from fetching a new texture every frame if the texture isn't changing.
-* [ ] Don't force sprites to have states (when only a single frame is needed).
+* Entity-component-system framework
+* Rendering system that uses SpriteKit by mapping the position component to a SKSpriteNode position
+* Sprite system for displaying textures and sprites with animated states
+* Tile system for creating entities for tilemaps
+* Physics system for basic platformer physics
