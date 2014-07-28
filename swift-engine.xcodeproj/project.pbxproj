@@ -15,6 +15,9 @@
 		A318A2D81941311B00B88B62 /* LGUpdatePhase.swift in Sources */ = {isa = PBXBuildFile; fileRef = A318A2D71941311B00B88B62 /* LGUpdatePhase.swift */; };
 		A31CEC2F19554BF1004F0395 /* LGEntityObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = A31CEC2E19554BF1004F0395 /* LGEntityObserver.swift */; };
 		A31FE26A19554DE200B1E14A /* LGSpriteState.swift in Sources */ = {isa = PBXBuildFile; fileRef = A31FE26919554DE200B1E14A /* LGSpriteState.swift */; };
+		A326118E1986FD23000FBDF6 /* LGTouchObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = A326118D1986FD23000FBDF6 /* LGTouchObserver.swift */; };
+		A326119519870157000FBDF6 /* Player.swift in Sources */ = {isa = PBXBuildFile; fileRef = A326119419870157000FBDF6 /* Player.swift */; };
+		A32611971987017E000FBDF6 /* PlayerInputSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = A32611961987017E000FBDF6 /* PlayerInputSystem.swift */; };
 		A32CF34E197417EA00B6C4D4 /* LGAxis.swift in Sources */ = {isa = PBXBuildFile; fileRef = A32CF34D197417EA00B6C4D4 /* LGAxis.swift */; };
 		A32CF35019741AB800B6C4D4 /* LGVector.swift in Sources */ = {isa = PBXBuildFile; fileRef = A32CF34F19741AB800B6C4D4 /* LGVector.swift */; };
 		A32F0F2D1955D7680083CBF3 /* LGTileLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = A32F0F2C1955D7680083CBF3 /* LGTileLayer.swift */; };
@@ -59,6 +62,9 @@
 		A318A2D71941311B00B88B62 /* LGUpdatePhase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LGUpdatePhase.swift; sourceTree = "<group>"; };
 		A31CEC2E19554BF1004F0395 /* LGEntityObserver.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LGEntityObserver.swift; sourceTree = "<group>"; };
 		A31FE26919554DE200B1E14A /* LGSpriteState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LGSpriteState.swift; path = Classes/LGSpriteState.swift; sourceTree = "<group>"; };
+		A326118D1986FD23000FBDF6 /* LGTouchObserver.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LGTouchObserver.swift; sourceTree = "<group>"; };
+		A326119419870157000FBDF6 /* Player.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Player.swift; sourceTree = "<group>"; };
+		A32611961987017E000FBDF6 /* PlayerInputSystem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlayerInputSystem.swift; sourceTree = "<group>"; };
 		A32CF34D197417EA00B6C4D4 /* LGAxis.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LGAxis.swift; sourceTree = "<group>"; };
 		A32CF34F19741AB800B6C4D4 /* LGVector.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LGVector.swift; path = Classes/LGVector.swift; sourceTree = "<group>"; };
 		A32F0F2C1955D7680083CBF3 /* LGTileLayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LGTileLayer.swift; path = Classes/LGTileLayer.swift; sourceTree = "<group>"; };
@@ -148,10 +154,10 @@
 		A318A2CC19412F2800B88B62 /* Systems */ = {
 			isa = PBXGroup;
 			children = (
+				A3542B9E196CBC8000ED00E8 /* LGPhysicsSystem.swift */,
 				A3A581CE19744A3200489EAC /* LGRenderingSystem.swift */,
 				A33CADAF194362A600AC8E27 /* LGSpriteSystem.swift */,
 				A3981C9719511C5C0072E4A3 /* LGTileSystem.swift */,
-				A3542B9E196CBC8000ED00E8 /* LGPhysicsSystem.swift */,
 			);
 			path = Systems;
 			sourceTree = "<group>";
@@ -160,8 +166,27 @@
 			isa = PBXGroup;
 			children = (
 				A31CEC2E19554BF1004F0395 /* LGEntityObserver.swift */,
+				A326118D1986FD23000FBDF6 /* LGTouchObserver.swift */,
 			);
 			path = Protocols;
+			sourceTree = "<group>";
+		};
+		A326119219870131000FBDF6 /* Components */ = {
+			isa = PBXGroup;
+			children = (
+				A326119419870157000FBDF6 /* Player.swift */,
+			);
+			name = Components;
+			path = Game/Components;
+			sourceTree = "<group>";
+		};
+		A326119319870139000FBDF6 /* Systems */ = {
+			isa = PBXGroup;
+			children = (
+				A32611961987017E000FBDF6 /* PlayerInputSystem.swift */,
+			);
+			name = Systems;
+			path = Game/Systems;
 			sourceTree = "<group>";
 		};
 		A33CADA41943609D00AC8E27 /* Classes */ = {
@@ -240,6 +265,8 @@
 		A3EFA8141943F9B100C85CF8 /* Game */ = {
 			isa = PBXGroup;
 			children = (
+				A326119219870131000FBDF6 /* Components */,
+				A326119319870139000FBDF6 /* Systems */,
 				A3EFA8151943F9F000C85CF8 /* Resources */,
 				A3B2AEAC193EBFE20097B3A7 /* GameScene.swift */,
 			);
@@ -373,6 +400,8 @@
 				A3981C9819511C5C0072E4A3 /* LGTileSystem.swift in Sources */,
 				A33CADA81943613200AC8E27 /* LGPosition.swift in Sources */,
 				A33CADAA194361C000AC8E27 /* LGSprite.swift in Sources */,
+				A326118E1986FD23000FBDF6 /* LGTouchObserver.swift in Sources */,
+				A32611971987017E000FBDF6 /* PlayerInputSystem.swift in Sources */,
 				A318A2D4194130DE00B88B62 /* LGScene.swift in Sources */,
 				A33CADA6194360AF00AC8E27 /* LGSpriteSheet.swift in Sources */,
 				A31CEC2F19554BF1004F0395 /* LGEntityObserver.swift in Sources */,
@@ -382,6 +411,7 @@
 				A3B2AEA9193EBFE20097B3A7 /* AppDelegate.swift in Sources */,
 				A3A581CF19744A3200489EAC /* LGRenderingSystem.swift in Sources */,
 				A32F0F2D1955D7680083CBF3 /* LGTileLayer.swift in Sources */,
+				A326119519870157000FBDF6 /* Player.swift in Sources */,
 				A318A2D81941311B00B88B62 /* LGUpdatePhase.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

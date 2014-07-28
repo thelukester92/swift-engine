@@ -33,27 +33,38 @@ class GameViewController: UIViewController
 	{
 		super.viewDidLoad()
 		
-		let engine = LGEngine(view: self.view as SKView)
 		let scene = GameScene(size: self.view.frame.size)
+		
+		let skview = self.view as SKView
+		let engine = LGEngine(view: skview)
 		
 		engine.gotoScene(scene)
 	}
 	
-    override func shouldAutorotate() -> Bool {
-        return true
-    }
-
-    override func supportedInterfaceOrientations() -> Int {
-        if UIDevice.currentDevice().userInterfaceIdiom == .Phone {
-            return Int(UIInterfaceOrientationMask.AllButUpsideDown.toRaw())
-        } else {
-            return Int(UIInterfaceOrientationMask.All.toRaw())
-        }
-    }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Release any cached data, images, etc that aren't in use.
-    }
-    
+	override func loadView()
+	{
+		self.view = SKView(frame: UIScreen.mainScreen().applicationFrame)
+	}
+	
+    override func shouldAutorotate() -> Bool
+	{
+		return true
+	}
+	
+	override func supportedInterfaceOrientations() -> Int
+	{
+		if UIDevice.currentDevice().userInterfaceIdiom == .Phone
+		{
+			return Int(UIInterfaceOrientationMask.AllButUpsideDown.toRaw())
+		}
+		else
+		{
+			return Int(UIInterfaceOrientationMask.All.toRaw())
+		}
+	}
+	
+	override func didReceiveMemoryWarning()
+	{
+		super.didReceiveMemoryWarning()
+	}
 }

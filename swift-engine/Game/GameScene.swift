@@ -27,14 +27,16 @@ class GameScene: LGScene
 			LGRenderingSystem(scene: self),
 			LGSpriteSystem(),
 			physicsSystem,
-			tileSystem
+			tileSystem,
+			PlayerInputSystem(scene: self)
 		)
 		
 		let player = LGEntity()
 		player.put(
 			LGPosition(x: Double(CGRectGetMidX(self.frame)), y: Double(CGRectGetMidY(self.frame))),
 			LGSprite(spriteSheet: LGSpriteSheet(textureName: "Player", rows: 1, cols: 9)),
-			LGPhysicsBody(width: 20, height: 35)
+			LGPhysicsBody(width: 20, height: 35),
+			Player()
 		)
 		
 		let block = LGEntity()
@@ -106,26 +108,6 @@ class GameScene: LGScene
 	// TODO: The following logic should go in a separate system that acts as a delegate for receiving inputs and updating player sprites. It's only here temporarily due to convenience of development.
 	
 	var player: LGEntity?
-	
-	override func touchesBegan(touches: NSSet!, withEvent event: UIEvent!)
-	{
-		if let body = player?.get(LGPhysicsBody)
-		{
-			body.velocity.y = 2
-			
-			if let touch = touches.anyObject() as? UITouch
-			{
-				if touch.locationInView(self.view).x > self.view.frame.size.width / 2
-				{
-					body.velocity.x += 1
-				}
-				else
-				{
-					body.velocity.x -= 1
-				}
-			}
-		}
-	}
 	
 	var useless = 50
 	let maxUseless = 50
