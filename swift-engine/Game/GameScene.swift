@@ -127,12 +127,12 @@ class GameScene: LGScene
 		}
 	}
 	
-	var useless = 0
+	var useless = 50
 	let maxUseless = 50
 	
 	override func update(currentTime: NSTimeInterval)
 	{
-		// /*
+		/* uncomment this section to make frames go slowly for debugging
 		if ++useless > maxUseless
 		{
 			useless = 0
@@ -140,7 +140,7 @@ class GameScene: LGScene
 		else
 		{
 			return
-		} // */
+		} */
 		
 		super.update(currentTime)
 		

@@ -6,25 +6,30 @@
 //  Copyright (c) 2014 Luke Godfrey. All rights reserved.
 //
 
-import UIKit
 import SpriteKit
 
-class LGEngine: UIViewController
+class LGEngine
 {
-	override func viewDidLoad()
+	var view: SKView
+	var currentScene: LGScene!
+	
+	init(view: SKView)
 	{
-		let spriteView				= self.view as SKView
-		spriteView.showsDrawCount	= true
-		spriteView.showsNodeCount	= true
-		spriteView.showsFPS			= true
+		self.view = view
+		
+		view.showsFPS = true
+		view.showsNodeCount = true
+		view.ignoresSiblingOrder = true
 	}
 	
-	override func viewWillAppear(animated: Bool)
+	func gotoScene(scene: LGScene)
 	{
-		/*
-		let scene		= MainScene()
-		let spriteView	= self.view as SKView
-		spriteView.presentScene(scene)
-		*/
+		currentScene = scene
+		
+		scene.scaleMode = .AspectFill
+		view.presentScene(scene)
+		
+		// Tick once before rendering
+		scene.update(0)
 	}
 }

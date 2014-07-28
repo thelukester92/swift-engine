@@ -5,7 +5,7 @@ This project is a game engine designed for the iPhone platform. It is built in A
 
 The purpose of this project is to provide the functionality required to create simple 2D games. In addition to the basic ECS framework, the project will implement common systems required by most games, such as physics and rendering, so that game developers can jump right into the design and implementation of their games. Abstracting away those common functions will facilitate rapid game development.
 
-**This is a work-in-progress!** This engine is in early alpha, which is why there are no instructions as to how it works yet. Once all of the core functionality is implemented, some basic instructions will be found here.
+**This is a work-in-progress!** This engine is an incomplete alpha, which is why there are no instructions as to how it works yet. Once all of the core functionality is implemented, some basic instructions will be found here.
 
 For more information, see the below links.
 
