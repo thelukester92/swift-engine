@@ -59,8 +59,10 @@ class LGRenderingSystem: LGSystem
 		for id in 0 ..< entities.count
 		{
 			let sprite = sprites[id]
-			sprite.node.position.x = CGFloat(positions[id].x + sprite.offset.x + Double(sprite.node.size.width / 2))
-			sprite.node.position.y = CGFloat(positions[id].y + sprite.offset.y)
+			let position = positions[id]
+			
+			sprite.node.position.x = CGFloat(position.x + sprite.offset.x + Double(sprite.node.size.width / 2))
+			sprite.node.position.y = CGFloat(position.y + sprite.offset.y)
 		}
 	}
 }

@@ -10,6 +10,8 @@ import SpriteKit
 
 class LGSpriteSystem: LGSystem
 {
+	final var sprites = [LGSprite]()
+	
 	init()
 	{
 		super.init()
@@ -56,14 +58,14 @@ class LGSpriteSystem: LGSystem
 			sprite.node.color = UIColor.whiteColor()
 			sprite.node.size = CGSize(width: CGFloat(body.width), height: CGFloat(body.height))
 		}
+		
+		sprites += sprite
 	}
 	
 	override func update()
 	{
-		for entity in self.entities
+		for sprite in sprites
 		{
-			let sprite = entity.get(LGSprite)!
-			
 			if let state = sprite.currentState
 			{
 				// TODO: Don't make it fetch a new texture using textureAtPosition every time
