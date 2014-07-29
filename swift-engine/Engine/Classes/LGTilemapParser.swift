@@ -19,6 +19,8 @@ class LGTilemapParser: NSObject
 	var currentRenderLayer = LGRenderLayer.Background
 	var currentElement = ""
 	var currentData = ""
+	var currentEncoding = ""
+	var currentCompression = ""
 	
 	var width = 0
 	var height = 0
@@ -37,39 +39,29 @@ class LGTilemapParser: NSObject
 		return map
 	}
 	
-	func parseString(string: String) -> [[LGTile]]
-	{
-		// TODO: Support gzip or zlib for compression
-		let data = NSData(base64EncodedString: string, options: .IgnoreUnknownCharacters)
-		assert(data.length == width * height * 4)
-		
-		var bytes = [UInt8](count: data.length, repeatedValue: 0)
-		data.getBytes(&bytes, length: data.length)
-		
-		return parseData(bytes)
-	}
 	
-	/*
-	commented until the bridging header includes zlib.h
-	
-	func parseString(string: String, encoding:String = "csv", compression: String = "") -> LGTile[][]()
+	func parseString(string: String, encoding: String, compression: String) -> [[LGTile]]
 	{
 		assert(encoding == "csv" || encoding == "base64",	"Encoding must be csv or base64!")
 		assert(encoding != "csv" || compression == "",		"csv-encoded strings cannot be compressed!")
-		assert(compression == "" || compression == "zlib",	"Only zlib compression is supported!")
+		assert(compression == "",				"Compression is not yet supported!")
+		
+		// TODO: add support for compression (probably zlib)
 		
 		if encoding == "csv"
 		{
+			// uncompressed csv
+			
 			let arr = string.componentsSeparatedByString(",")
 			assert(arr.count == width * height)
 			
 			return parseArray(arr)
 		}
-		else if compression == "zlib"
+		/* else if compression == "zlib"
 		{
 			// zlib compressed base64
 			
-			var uncompressedBuffer = UInt8[](count: Int(width * height * 4), repeatedValue: 0)
+			var uncompressedBuffer = [UInt8](count: Int(width * height * 4), repeatedValue: 0)
 			var uncompressedLength: Int!
 			
 			let data = NSData(base64EncodedString: string, options: .Encoding64CharacterLineLength)
@@ -79,22 +71,20 @@ class LGTilemapParser: NSObject
 			assert(uncompressedLength == width * height * 4)
 			
 			return parseData(uncompressedBuffer)
-		}
+		} */
 		else
 		{
 			// uncompressed base64
 			
-			let data = NSData(base64EncodedString: string, options: .Encoding64CharacterLineLength)
+			let data = NSData(base64EncodedString: string, options: .IgnoreUnknownCharacters)
 			assert(data.length == width * height * 4)
 			
-			var bytes = UInt8[](count: data.length, repeatedValue: 0)
+			var bytes = [UInt8](count: data.length, repeatedValue: 0)
 			data.getBytes(&bytes, length: data.length)
 			
 			return parseData(bytes)
 		}
 	}
-	
-	*/
 	
 	func parseArray(data: [String]) -> [[LGTile]]
 	{
@@ -192,6 +182,18 @@ extension LGTilemapParser: NSXMLParserDelegate
 			
 			case "data":
 				currentData = ""
+				currentEncoding = ""
+				currentCompression = ""
+				
+				if let value = attributes["encoding"] as? String
+				{
+					currentEncoding = value
+				}
+				
+				if let value = attributes["compression"] as? String
+				{
+					currentCompression = value
+				}
 			
 			default:
 				break
@@ -215,7 +217,7 @@ extension LGTilemapParser: NSXMLParserDelegate
 				currentLayer = nil
 			
 			case "data":
-				currentLayer.data = parseString(currentData)
+				currentLayer.data = parseString(currentData, encoding: currentEncoding, compression: currentCompression)
 				currentData = ""
 			
 			default:
