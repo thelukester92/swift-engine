@@ -44,7 +44,32 @@ class LGTileSystem : LGSystem
 					if !layer.isCollision
 					{
 						let sprite = LGSprite(spriteSheet: map.spriteSheet)
-						sprite.currentState = LGSpriteState(position: layer.tileAt(row: i, col: j)!.pos)
+						let t = layer.tileAt(row: i, col: j)!
+						
+						sprite.currentState	= LGSpriteState(position: t.pos)
+						
+						if t.flippedDiagonal
+						{
+							if t.flippedHorizontal
+							{
+								sprite.rotation = -M_PI_2
+							}
+							else if t.flippedVertical
+							{
+								sprite.rotation = M_PI_2
+							}
+							else
+							{
+								sprite.rotation	= -M_PI_2
+								sprite.scale.y	= -1
+							}
+						}
+						else
+						{
+							sprite.scale.x = t.flippedHorizontal ? -1 : 1
+							sprite.scale.y = t.flippedVertical ? -1 : 1
+						}
+						
 						tile.put(sprite)
 					}
 					

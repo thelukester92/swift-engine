@@ -6,10 +6,19 @@
 //  Copyright (c) 2014 Luke Godfrey. All rights reserved.
 //
 
-struct LGVector
+class LGVector
 {
 	var x = 0.0
 	var y = 0.0
+	
+	init() {}
+	
+	convenience init(x: Double, y: Double)
+	{
+		self.init()
+		self.x = x
+		self.y = y
+	}
 }
 
 @infix func + (left: LGVector, right: LGVector) -> LGVector
