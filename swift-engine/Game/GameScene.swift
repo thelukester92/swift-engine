@@ -144,7 +144,7 @@ class GameScene: LGScene
 		
 		if body.velocity.x != 0
 		{
-			sprite.xScale = body.velocity.x > 0 ? 1 : -1
+			sprite.scale.x = body.velocity.x > 0 ? 1 : -1
 		}
 	}
 }
