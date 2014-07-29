@@ -217,7 +217,8 @@ extension LGTilemapParser: NSXMLParserDelegate
 				currentLayer = nil
 			
 			case "data":
-				currentLayer.data = parseString(currentData, encoding: currentEncoding, compression: currentCompression)
+				// Reverse parsed array for right-handed coordinate system
+				currentLayer.data = parseString(currentData, encoding: currentEncoding, compression: currentCompression).reverse()
 				currentData = ""
 			
 			default:
