@@ -133,28 +133,11 @@ extension LGTilemapParser: NSXMLParserDelegate
 		switch currentElement
 		{
 			case "map":
-				var tileWidth = 0
-				var tileHeight = 0
+				var tileWidth	= attributes["tilewidth"] as Int
+				var tileHeight	= attributes["tileheight"] as Int
 				
-				if let value = attributes["width"] as? Int
-				{
-					width = value
-				}
-				
-				if let value = attributes["height"] as? Int
-				{
-					height = value
-				}
-				
-				if let value = attributes["tileWidth"] as? Int
-				{
-					tileWidth = value
-				}
-				
-				if let value = attributes["tileheight"] as? Int
-				{
-					tileHeight = value
-				}
+				width	= attributes["width"] as Int
+				height	= attributes["height"] as Int
 				
 				map = LGTileMap(width: width, height: height, tileWidth: tileWidth, tileHeight: tileHeight)
 			
