@@ -20,9 +20,3 @@ For more information, see the below links.
 * Sprite system for displaying textures and sprites with animated states
 * Tile system for creating entities for tilemaps
 * Physics system for basic platformer physics
-
-# TODO in this branch
-
-* [ ] Implement .tmx parser to generate LGTileMaps
-* [ ] Implement tile shifting in LGTileMaps
-* [ ] Implement tile pool in LGTileSystem
