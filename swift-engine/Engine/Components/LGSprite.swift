@@ -28,8 +28,7 @@ class LGSprite: LGComponent
 	var currentState: LGSpriteState?
 	
 	var offset		= LGVector()
-	var xScale		= 1.0
-	var yScale		= 1.0
+	var scale		= LGVector(x: 1.0, y: 1.0)
 	var rotation	= 0.0
 	
 	init() {}
