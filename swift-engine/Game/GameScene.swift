@@ -25,7 +25,6 @@ class GameScene: LGScene
 		
 		self.add(
 			LGRenderingSystem(scene: self),
-			LGSpriteSystem(),
 			physicsSystem,
 			tileSystem,
 			PlayerInputSystem(scene: self)

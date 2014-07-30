@@ -24,7 +24,6 @@
 		A33CADA6194360AF00AC8E27 /* LGSpriteSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = A33CADA5194360AF00AC8E27 /* LGSpriteSheet.swift */; };
 		A33CADA81943613200AC8E27 /* LGPosition.swift in Sources */ = {isa = PBXBuildFile; fileRef = A33CADA71943613200AC8E27 /* LGPosition.swift */; };
 		A33CADAA194361C000AC8E27 /* LGSprite.swift in Sources */ = {isa = PBXBuildFile; fileRef = A33CADA9194361C000AC8E27 /* LGSprite.swift */; };
-		A33CADB0194362A600AC8E27 /* LGSpriteSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = A33CADAF194362A600AC8E27 /* LGSpriteSystem.swift */; };
 		A33CADB21943630F00AC8E27 /* LGPhysicsBody.swift in Sources */ = {isa = PBXBuildFile; fileRef = A33CADB11943630F00AC8E27 /* LGPhysicsBody.swift */; };
 		A3542B9F196CBC8000ED00E8 /* LGPhysicsSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3542B9E196CBC8000ED00E8 /* LGPhysicsSystem.swift */; };
 		A3845A8F196CC976004498A2 /* LGSpatialGrid.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3845A8E196CC976004498A2 /* LGSpatialGrid.swift */; };
@@ -71,7 +70,6 @@
 		A33CADA5194360AF00AC8E27 /* LGSpriteSheet.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LGSpriteSheet.swift; path = Classes/LGSpriteSheet.swift; sourceTree = "<group>"; };
 		A33CADA71943613200AC8E27 /* LGPosition.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LGPosition.swift; sourceTree = "<group>"; };
 		A33CADA9194361C000AC8E27 /* LGSprite.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LGSprite.swift; sourceTree = "<group>"; };
-		A33CADAF194362A600AC8E27 /* LGSpriteSystem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LGSpriteSystem.swift; sourceTree = "<group>"; };
 		A33CADB11943630F00AC8E27 /* LGPhysicsBody.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LGPhysicsBody.swift; sourceTree = "<group>"; };
 		A3542B9E196CBC8000ED00E8 /* LGPhysicsSystem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LGPhysicsSystem.swift; sourceTree = "<group>"; };
 		A3845A8E196CC976004498A2 /* LGSpatialGrid.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LGSpatialGrid.swift; path = Classes/LGSpatialGrid.swift; sourceTree = "<group>"; };
@@ -156,7 +154,6 @@
 			children = (
 				A3542B9E196CBC8000ED00E8 /* LGPhysicsSystem.swift */,
 				A3A581CE19744A3200489EAC /* LGRenderingSystem.swift */,
-				A33CADAF194362A600AC8E27 /* LGSpriteSystem.swift */,
 				A3981C9719511C5C0072E4A3 /* LGTileSystem.swift */,
 			);
 			path = Systems;
@@ -395,7 +392,6 @@
 				A318A2CE19412F3400B88B62 /* LGComponent.swift in Sources */,
 				A318A2D21941303C00B88B62 /* LGEngine.swift in Sources */,
 				A32CF35019741AB800B6C4D4 /* LGVector.swift in Sources */,
-				A33CADB0194362A600AC8E27 /* LGSpriteSystem.swift in Sources */,
 				A3542B9F196CBC8000ED00E8 /* LGPhysicsSystem.swift in Sources */,
 				A3981C9819511C5C0072E4A3 /* LGTileSystem.swift in Sources */,
 				A33CADA81943613200AC8E27 /* LGPosition.swift in Sources */,
