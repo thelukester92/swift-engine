@@ -16,7 +16,6 @@ For more information, see the below links.
 # Feature List
 
 * Entity-component-system framework
-* Rendering system that uses SpriteKit by mapping the position component to a SKSpriteNode position
-* Sprite system for displaying textures and sprites with animated states
-* Tile system for creating entities for tilemaps
+* Rendering system maps the position component to a `SKSpriteNode` and displays textures and sprites with animated states
+* Tile system that creates entities for tilemaps
 * Physics system for basic platformer physics
