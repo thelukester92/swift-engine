@@ -45,4 +45,16 @@ class LGTileLayer: LGSystem
 		}
 		return true
 	}
+	
+	func visibleAt(#row: Int, col: Int) -> Bool
+	{
+		if isVisible
+		{
+			if let tile = tileAt(row: row, col: col)
+			{
+				return tile.pos != 0
+			}
+		}
+		return false
+	}
 }

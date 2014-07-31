@@ -32,7 +32,7 @@ class LGTileSystem : LGSystem
 			{
 				for j in 0 ..< map.width
 				{
-					if layer.isVisible
+					if layer.visibleAt(row: i, col: j)
 					{
 						reuseTileEntity(layer: layer, row: i, col: j)
 					}
