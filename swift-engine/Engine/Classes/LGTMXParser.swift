@@ -1,5 +1,5 @@
 //
-//  LGTilemapParser.swift
+//  LGTMXParser.swift
 //  swift-engine
 //
 //  Created by Luke Godfrey on 6/24/14.
@@ -8,68 +8,62 @@
 
 import UIKit
 
-class LGTilemapParser: NSObject
+class LGTMXParser: NSObject
 {
 	var map: LGTileMap!
 	
 	var collisionLayerName	= "collision"
 	var foregroundLayerName	= "foreground"
 	
+	var collisionLayer: LGTileLayer!
 	var currentLayer: LGTileLayer!
-	var currentRenderLayer = LGRenderLayer.Background
-	var currentElement = ""
-	var currentData = ""
+	var currentRenderLayer	= LGRenderLayer.Background
+	var currentElement		= ""
+	var currentData			= ""
+	var currentEncoding		= ""
+	var currentCompression	= ""
 	
-	var width = 0
-	var height = 0
+	var tileWidth	= 0
+	var tileHeight	= 0
+	var width		= 0
+	var height		= 0
 	
 	init()
 	{
 		super.init()
 	}
 	
-	func parseFile(filename: String) -> LGTileMap
+	func parseFile(filename: String, filetype: String = "tmx") -> LGTileMap
 	{
-		let parser = NSXMLParser(contentsOfURL: NSURL(fileURLWithPath: filename))
+		let parser = NSXMLParser(contentsOfURL: NSBundle.mainBundle().URLForResource(filename, withExtension: filetype))
 		parser.delegate = self
 		parser.parse()
-		
 		return map
 	}
 	
-	func parseString(string: String) -> [[LGTile]]
-	{
-		// TODO: Support gzip or zlib for compression
-		let data = NSData(base64EncodedString: string, options: .IgnoreUnknownCharacters)
-		assert(data.length == width * height * 4)
-		
-		var bytes = [UInt8](count: data.length, repeatedValue: 0)
-		data.getBytes(&bytes, length: data.length)
-		
-		return parseData(bytes)
-	}
 	
-	/*
-	commented until the bridging header includes zlib.h
-	
-	func parseString(string: String, encoding:String = "csv", compression: String = "") -> LGTile[][]()
+	func parseString(string: String, encoding: String, compression: String) -> [[LGTile]]
 	{
 		assert(encoding == "csv" || encoding == "base64",	"Encoding must be csv or base64!")
 		assert(encoding != "csv" || compression == "",		"csv-encoded strings cannot be compressed!")
-		assert(compression == "" || compression == "zlib",	"Only zlib compression is supported!")
+		assert(compression == "",							"Compression is not yet supported!")
+		
+		// TODO: add support for compression (probably zlib)
 		
 		if encoding == "csv"
 		{
+			// uncompressed csv
+			
 			let arr = string.componentsSeparatedByString(",")
 			assert(arr.count == width * height)
 			
 			return parseArray(arr)
 		}
-		else if compression == "zlib"
+		/* else if compression == "zlib"
 		{
 			// zlib compressed base64
 			
-			var uncompressedBuffer = UInt8[](count: Int(width * height * 4), repeatedValue: 0)
+			var uncompressedBuffer = [UInt8](count: Int(width * height * 4), repeatedValue: 0)
 			var uncompressedLength: Int!
 			
 			let data = NSData(base64EncodedString: string, options: .Encoding64CharacterLineLength)
@@ -79,22 +73,20 @@ class LGTilemapParser: NSObject
 			assert(uncompressedLength == width * height * 4)
 			
 			return parseData(uncompressedBuffer)
-		}
+		} */
 		else
 		{
 			// uncompressed base64
 			
-			let data = NSData(base64EncodedString: string, options: .Encoding64CharacterLineLength)
+			let data = NSData(base64EncodedString: string, options: .IgnoreUnknownCharacters)
 			assert(data.length == width * height * 4)
 			
-			var bytes = UInt8[](count: data.length, repeatedValue: 0)
+			var bytes = [UInt8](count: data.length, repeatedValue: 0)
 			data.getBytes(&bytes, length: data.length)
 			
 			return parseData(bytes)
 		}
 	}
-	
-	*/
 	
 	func parseArray(data: [String]) -> [[LGTile]]
 	{
@@ -106,7 +98,7 @@ class LGTilemapParser: NSObject
 			
 			for j in 0 ..< width
 			{
-				let globalId = UInt32(data[i * width + j].toInt()!)
+				let globalId = UInt32(data[i * width + j].stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet()).toInt()!)
 				output[i] += LGTile(gid: globalId)
 			}
 		}
@@ -134,7 +126,7 @@ class LGTilemapParser: NSObject
 	}
 }
 
-extension LGTilemapParser: NSXMLParserDelegate
+extension LGTMXParser: NSXMLParserDelegate
 {
 	func parser(parser: NSXMLParser!, didStartElement elementName: String!, namespaceURI: String!, qualifiedName: String!, attributes: NSDictionary!)
 	{
@@ -143,44 +135,37 @@ extension LGTilemapParser: NSXMLParserDelegate
 		switch currentElement
 		{
 			case "map":
-				var tileWidth = 0
-				var tileHeight = 0
-				
-				if let value = attributes["width"] as? Int
-				{
-					width = value
-				}
-				
-				if let value = attributes["height"] as? Int
-				{
-					height = value
-				}
-				
-				if let value = attributes["tileWidth"] as? Int
-				{
-					tileWidth = value
-				}
-				
-				if let value = attributes["tileheight"] as? Int
-				{
-					tileHeight = value
-				}
+				tileWidth	= attributes["tilewidth"].integerValue
+				tileHeight	= attributes["tileheight"].integerValue
+				width		= attributes["width"].integerValue
+				height		= attributes["height"].integerValue
 				
 				map = LGTileMap(width: width, height: height, tileWidth: tileWidth, tileHeight: tileHeight)
 			
 			case "image":
 				// TODO: Allow multiple tilesets in a single map
-				map.spriteSheet = LGSpriteSheet(textureName: attributes["source"] as String, rows: height, cols: width)
+				map.spriteSheet = LGSpriteSheet(textureName: attributes["source"] as String, frameWidth: tileWidth, frameHeight: tileHeight)
 			
 			case "layer":
 				currentLayer = LGTileLayer()
-				currentLayer.opacity = attributes["opacity"] as Double
-				currentLayer.isVisible = attributes["visible"] as Bool
+				currentLayer.tilesize = Double(tileWidth)
+				// TODO: Allow tile width and tile height
+				
+				if let value = attributes["opacity"].doubleValue
+				{
+					currentLayer.opacity = value
+				}
+				
+				if let value = attributes["visible"].boolValue
+				{
+					currentLayer.isVisible = value
+				}
 				
 				if attributes["name"] as String == collisionLayerName
 				{
 					currentLayer.isCollision = true
 					currentLayer.isVisible = false
+					collisionLayer = currentLayer
 				}
 				
 				if attributes["name"] as String == foregroundLayerName
@@ -191,7 +176,15 @@ extension LGTilemapParser: NSXMLParserDelegate
 				currentLayer.renderLayer = currentRenderLayer
 			
 			case "data":
-				currentData = ""
+				if let value = attributes["encoding"] as? String
+				{
+					currentEncoding = value
+				}
+				
+				if let value = attributes["compression"] as? String
+				{
+					currentCompression = value
+				}
 			
 			default:
 				break
@@ -208,15 +201,18 @@ extension LGTilemapParser: NSXMLParserDelegate
 	
 	func parser(parser: NSXMLParser!, didEndElement elementName: String!, namespaceURI: String!, qualifiedName: String!)
 	{
-		switch currentElement
+		switch elementName.lowercaseString
 		{
 			case "layer":
 				map.add(currentLayer)
 				currentLayer = nil
 			
 			case "data":
-				currentLayer.data = parseString(currentData)
-				currentData = ""
+				// Reverse the rows for the right-handed coordinate system
+				currentLayer.data	= parseString(currentData, encoding: currentEncoding, compression: currentCompression).reverse()
+				currentData			= ""
+				currentEncoding		= ""
+				currentCompression	= ""
 			
 			default:
 				break

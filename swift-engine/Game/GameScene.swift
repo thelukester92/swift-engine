@@ -55,11 +55,19 @@ class GameScene: LGScene
 		self.add(player, block)
 		self.player = player
 		
+		let parser = LGTMXParser()
+		let map = parser.parseFile("Level")
+		
+		physicsSystem.collisionLayer = parser.collisionLayer
+		tileSystem.loadMap(map)
+		
+		/*
 		let WIDTH = 15
 		let HEIGHT = 9
 		
-		let spriteSheet = LGSpriteSheet(textureName: "Tileset", rows: 3, cols: 6)
-		let map = LGTileMap(spriteSheet: spriteSheet, width: WIDTH, height: HEIGHT, tileWidth: 32, tileHeight: 32)
+		let spriteSheet = LGSpriteSheet(textureName: "Tileset.png", rows: 3, cols: 6)
+		let map = LGTileMap(width: WIDTH, height: HEIGHT, tileWidth: 32, tileHeight: 32)
+		map.spriteSheet = spriteSheet
 		
 		var states = [[LGTile]]()
 		var collisionStates = [[LGTile]]()
@@ -101,7 +109,7 @@ class GameScene: LGScene
 		
 		physicsSystem.collisionLayer = collisionlayer
 		
-		tileSystem.loadMap(map)
+		tileSystem.loadMap(map)*/
 	}
 	
 	// TODO: The following logic should go in a separate system that acts as a delegate for receiving inputs and updating player sprites. It's only here temporarily due to convenience of development.

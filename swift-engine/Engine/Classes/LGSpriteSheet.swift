@@ -31,6 +31,11 @@ class LGSpriteSheet
 		self.height		= Int(texture.size().height) / rows
 	}
 	
+	convenience init(textureName: String, frameWidth: Int, frameHeight: Int)
+	{
+		self.init(texture: SKTexture(imageNamed: textureName), frameWidth: frameWidth, frameHeight: frameHeight)
+	}
+	
 	convenience init(textureName: String, rows: Int, cols: Int)
 	{
 		self.init(texture: SKTexture(imageNamed: textureName), rows: rows, cols: cols)
