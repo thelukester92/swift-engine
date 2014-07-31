@@ -112,6 +112,7 @@ class LGRenderingSystem: LGSystem
 				sprite.node.xScale		= CGFloat(sprite.scale.x)
 				sprite.node.yScale		= CGFloat(sprite.scale.y)
 				sprite.node.zRotation	= CGFloat(sprite.rotation)
+				sprite.node.zPosition	= CGFloat(sprite.layer)
 				sprite.node.alpha		= CGFloat(sprite.opacity)
 			}
 			else

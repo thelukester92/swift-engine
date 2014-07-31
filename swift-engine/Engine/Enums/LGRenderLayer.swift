@@ -6,8 +6,7 @@
 //  Copyright (c) 2014 Luke Godfrey. All rights reserved.
 //
 
-enum LGRenderLayer
+enum LGRenderLayer: Int
 {
-	case Background
-	case Foreground
+	case Background = 0, Foreground
 }

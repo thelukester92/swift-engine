@@ -31,6 +31,7 @@ class LGSprite: LGComponent
 	var scale		= LGVector(x: 1.0, y: 1.0)
 	var rotation	= 0.0
 	var opacity		= 1.0
+	var layer		= 0
 	var isVisible	= true
 	
 	init() {}
