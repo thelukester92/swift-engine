@@ -8,7 +8,7 @@
 
 class LGTileLayer: LGSystem
 {
-	var opacity		= 100.0
+	var opacity		= 1.0
 	var renderLayer	= LGRenderLayer.Background
 	
 	var isVisible	= true

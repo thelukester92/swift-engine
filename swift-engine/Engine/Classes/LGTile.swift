@@ -17,6 +17,14 @@ class LGTile
 	var flippedVertical: Bool
 	var flippedDiagonal: Bool
 	
+	init(gid: UInt32)
+	{
+		pos					= Int(gid & ~(FlippedHorizontalFlag | FlippedVerticalFlag | FlippedDiagonalFlag))
+		flippedHorizontal	= (gid & FlippedHorizontalFlag) > 0
+		flippedVertical		= (gid & FlippedVerticalFlag) > 0
+		flippedDiagonal		= (gid & FlippedDiagonalFlag) > 0
+	}
+	
 	init(pos: Int, flippedHorizontal: Bool, flippedVertical: Bool, flippedDiagonal: Bool)
 	{
 		self.pos				= pos
@@ -28,19 +36,5 @@ class LGTile
 	convenience init(pos: Int)
 	{
 		self.init(pos: pos, flippedHorizontal: false, flippedVertical: false, flippedDiagonal: false)
-	}
-	
-	convenience init(pos: Int, flipped: UInt32)
-	{
-		self.init(pos: pos)
-		flippedHorizontal	= (flipped & FlippedHorizontalFlag) > 0
-		flippedVertical		= (flipped & FlippedVerticalFlag) > 0
-		flippedDiagonal		= (flipped & FlippedDiagonalFlag) > 0
-	}
-	
-	convenience init(gid: UInt32)
-	{
-		self.init(pos: 0, flipped: gid)
-		pos = Int(gid & ~(FlippedHorizontalFlag | FlippedVerticalFlag | FlippedDiagonalFlag))
 	}
 }

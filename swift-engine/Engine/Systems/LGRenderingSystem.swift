@@ -78,38 +78,46 @@ class LGRenderingSystem: LGSystem
 			let sprite = sprites[id]
 			let position = positions[id]
 			
-			// Update sprite frame
-			
-			if let state = sprite.currentState
+			if sprite.isVisible
 			{
-				// TODO: Don't make it fetch a new texture using textureAtPosition every time
+				// Update sprite frame
 				
-				if ++state.counter > state.duration
+				if let state = sprite.currentState
 				{
-					state.position++
-					if state.position > state.end
+					// TODO: Don't make it fetch a new texture using textureAtPosition every time
+					
+					if ++state.counter > state.duration
 					{
-						if state.loops
+						state.position++
+						if state.position > state.end
 						{
-							state.position = state.start
+							if state.loops
+							{
+								state.position = state.start
+							}
+							else
+							{
+								state.position = state.end
+							}
 						}
-						else
-						{
-							state.position = state.end
-						}
+						sprite.node.texture = sprite.spriteSheet?.textureAtPosition(state.position)
+						state.counter = 0
 					}
-					sprite.node.texture = sprite.spriteSheet?.textureAtPosition(state.position)
-					state.counter = 0
 				}
+				
+				// Update sprite position, orientation, and other SKSpriteNode properties
+				
+				sprite.node.position.x	= CGFloat(position.x + sprite.offset.x + Double(sprite.node.size.width / 2))
+				sprite.node.position.y	= CGFloat(position.y + sprite.offset.y + Double(sprite.node.size.height / 2))
+				sprite.node.xScale		= CGFloat(sprite.scale.x)
+				sprite.node.yScale		= CGFloat(sprite.scale.y)
+				sprite.node.zRotation	= CGFloat(sprite.rotation)
+				sprite.node.alpha		= CGFloat(sprite.opacity)
 			}
-			
-			// Update sprite position and orientation
-			
-			sprite.node.position.x	= CGFloat(position.x + sprite.offset.x + Double(sprite.node.size.width / 2))
-			sprite.node.position.y	= CGFloat(position.y + sprite.offset.y + Double(sprite.node.size.height / 2))
-			sprite.node.xScale		= CGFloat(sprite.scale.x)
-			sprite.node.yScale		= CGFloat(sprite.scale.y)
-			sprite.node.zRotation	= CGFloat(sprite.rotation)
+			else
+			{
+				sprite.node.hidden = true
+			}
 		}
 	}
 }
