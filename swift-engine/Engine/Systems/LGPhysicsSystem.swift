@@ -195,8 +195,8 @@ class LGPhysicsSystem: LGSystem
 		{
 			// x-axis
 			
-			var rows = [ tileAt(position[id].y), tileAt(position[id].y + body[id].height) ]
-			var cols = [ tileAt(tent[id].x - 1), tileAt(tent[id].x + body[id].width + 1) ]
+			var rows = [ tileAtY(position[id].y), tileAtY(position[id].y + body[id].height) ]
+			var cols = [ tileAtX(tent[id].x - 1), tileAtX(tent[id].x + body[id].width + 1) ]
 			
 			// Loop through cols by endpoint; sweep rows
 			
@@ -215,8 +215,8 @@ class LGPhysicsSystem: LGSystem
 			
 			// y-axis
 			
-			rows = [ tileAt(tent[id].y - 1), tileAt(tent[id].y + body[id].height + 1) ]
-			cols = [ tileAt(tent[id].x), tileAt(tent[id].x + body[id].width) ]
+			rows = [ tileAtY(tent[id].y - 1), tileAtY(tent[id].y + body[id].height + 1) ]
+			cols = [ tileAtX(tent[id].x), tileAtX(tent[id].x + body[id].width) ]
 			
 			// Loop through rows by endpoint; sweep cols
 			
@@ -338,11 +338,16 @@ class LGPhysicsSystem: LGSystem
 	
 	func tileRect(row: Int, _ col: Int) -> Rect
 	{
-		return (x: Double(col) * collisionLayer.tilesize, y: Double(row) * collisionLayer.tilesize, width: collisionLayer.tilesize, height: collisionLayer.tilesize)
+		return (x: Double(col * collisionLayer.tileWidth), y: Double(row * collisionLayer.tileHeight), width: Double(collisionLayer.tileWidth), height: Double(collisionLayer.tileHeight))
 	}
 	
-	func tileAt(px: Double) -> Int
+	func tileAtX(x: Double) -> Int
 	{
-		return Int(px / collisionLayer.tilesize)
+		return Int(x / Double(collisionLayer.tileWidth))
+	}
+	
+	func tileAtY(y: Double) -> Int
+	{
+		return Int(y / Double(collisionLayer.tileHeight))
 	}
 }

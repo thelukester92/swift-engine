@@ -60,56 +60,6 @@ class GameScene: LGScene
 		
 		physicsSystem.collisionLayer = parser.collisionLayer
 		tileSystem.loadMap(map)
-		
-		/*
-		let WIDTH = 15
-		let HEIGHT = 9
-		
-		let spriteSheet = LGSpriteSheet(textureName: "Tileset.png", rows: 3, cols: 6)
-		let map = LGTileMap(width: WIDTH, height: HEIGHT, tileWidth: 32, tileHeight: 32)
-		map.spriteSheet = spriteSheet
-		
-		var states = [[LGTile]]()
-		var collisionStates = [[LGTile]]()
-		
-		let layerdata = [
-			17,13,13,13,13,13,13,13,17,17,17,17,17,17,17,
-			17,0,0,0,0,14,0,0,17,17,17,17,17,17,17,
-			13,0,0,0,0,0,0,0,13,13,13,13,13,13,13,
-			0,0,0,0,0,0,0,0,0,15,0,0,0,0,0,
-			0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-			0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-			0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-			0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-			0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-		]
-		
-		for i in 0 ..< HEIGHT
-		{
-			states += [LGTile]()
-			collisionStates += [LGTile]()
-			
-			for j in 0 ..< WIDTH
-			{
-				let gid = UInt32(layerdata[i * WIDTH + j])
-				
-				states[i] += LGTile(gid: gid)
-				collisionStates[i] += LGTile(gid: (gid > 0 && gid != 15 && gid != 14 ? 1 : 0))
-			}
-		}
-		
-		var layer = LGTileLayer()
-		layer.data = states
-		map.add(layer)
-		
-		var collisionlayer = LGTileLayer()
-		collisionlayer.isCollision = true
-		collisionlayer.tilesize = 32
-		collisionlayer.data = collisionStates
-		
-		physicsSystem.collisionLayer = collisionlayer
-		
-		tileSystem.loadMap(map)*/
 	}
 	
 	// TODO: The following logic should go in a separate system that acts as a delegate for receiving inputs and updating player sprites. It's only here temporarily due to convenience of development.

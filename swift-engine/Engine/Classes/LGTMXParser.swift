@@ -147,9 +147,7 @@ extension LGTMXParser: NSXMLParserDelegate
 				map.spriteSheet = LGSpriteSheet(textureName: attributes["source"] as String, frameWidth: tileWidth, frameHeight: tileHeight)
 			
 			case "layer":
-				currentLayer = LGTileLayer()
-				currentLayer.tilesize = Double(tileWidth)
-				// TODO: Allow tile width and tile height
+				currentLayer = LGTileLayer(tileWidth: tileWidth, tileHeight: tileHeight)
 				
 				if let value = attributes["opacity"].doubleValue
 				{
