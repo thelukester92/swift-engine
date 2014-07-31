@@ -10,6 +10,7 @@ class LGTMXObject
 {
 	var x: Int
 	var y: Int
+	var properties = [String:String]()
 	
 	var name: String!
 	var type: String!

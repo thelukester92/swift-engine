@@ -21,6 +21,7 @@ class LGTMXParser: NSObject
 	
 	// Variables for parsing
 	var currentLayer: LGTileLayer!
+	var currentObject: LGTMXObject!
 	var currentRenderLayer	= LGRenderLayer.Background
 	var currentElement		= ""
 	var currentData			= ""
@@ -128,9 +129,7 @@ extension LGTMXParser: NSXMLParserDelegate
 {
 	func parser(parser: NSXMLParser!, didStartElement elementName: String!, namespaceURI: String!, qualifiedName: String!, attributes: NSDictionary!)
 	{
-		currentElement = elementName.lowercaseString
-		
-		switch currentElement
+		switch elementName.lowercaseString
 		{
 			case "map":
 				map = LGTileMap(width: attributes["width"].integerValue, height: attributes["height"].integerValue, tileWidth: attributes["tilewidth"].integerValue, tileHeight: attributes["tileheight"].integerValue)
@@ -178,40 +177,42 @@ extension LGTMXParser: NSXMLParserDelegate
 				}
 			
 			case "object":
-				let object = LGTMXObject(x: attributes["x"].integerValue, y: attributes["y"].integerValue)
+				currentObject = LGTMXObject(x: attributes["x"].integerValue, y: attributes["y"].integerValue)
 				
 				if let value = attributes["name"] as? String
 				{
-					object.name = value
+					currentObject.name = value
 				}
 				
 				if let value = attributes["type"] as? String
 				{
-					object.type = value
+					currentObject.type = value
 				}
 				
 				if let value = attributes["width"].integerValue
 				{
-					object.width = value
+					currentObject.width = value
 				}
 				
 				if let value = attributes["height"].integerValue
 				{
-					object.height = value
-				}
-				
-				if objects
-				{
-					objects += object
-				}
-				else
-				{
-					objects = [object]
+					currentObject.height = value
 				}
 			
+			case "property":
+				// TODO: add custom properties to map, tile, and layer
+				if currentElement == "object"
+				{
+					currentObject.properties[attributes["name"] as String] = attributes["value"] as String
+				}
+			
+			// TODO: add case "objectgroup" if multiple object layers are desired
 			default:
 				break
 		}
+		
+		// Save the current element for the parser(: foundCharacters:) method
+		currentElement = elementName.lowercaseString
 	}
 	
 	func parser(parser: NSXMLParser!, foundCharacters string: String!)
@@ -236,6 +237,17 @@ extension LGTMXParser: NSXMLParserDelegate
 				currentData			= ""
 				currentEncoding		= ""
 				currentCompression	= ""
+			
+			case "object":
+				if objects
+				{
+					objects += currentObject
+				}
+				else
+				{
+					objects = [currentObject]
+				}
+				currentObject = nil
 			
 			default:
 				break
