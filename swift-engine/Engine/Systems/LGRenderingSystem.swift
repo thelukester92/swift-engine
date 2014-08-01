@@ -41,9 +41,21 @@ class LGRenderingSystem: LGSystem
 		sprites += sprite
 	}
 	
+	override func remove(index: Int)
+	{
+		super.remove(index)
+		
+		removeSprite(sprites[index])
+		
+		positions.removeAtIndex(index)
+		sprites.removeAtIndex(index)
+		posForId[index] = nil
+	}
+	
 	override func update()
 	{
-		// TODO: Don't render everything every time... only render moved/changed things
+		// TODO: Determine whether it would be more efficient to only process entities that have definitely moved or changed
+		
 		for id in 0 ..< entities.count
 		{
 			let sprite = sprites[id]
@@ -97,6 +109,12 @@ class LGRenderingSystem: LGSystem
 			sprite.node.texture = texture
 			sprite.node.size = texture.size()
 		}
+	}
+	
+	func removeSprite(sprite: LGSprite)
+	{
+		// Remove the SKSpriteNode for this sprite
+		sprite.node.removeFromParent()
 	}
 	
 	func updateSpriteFrame(sprite: LGSprite)

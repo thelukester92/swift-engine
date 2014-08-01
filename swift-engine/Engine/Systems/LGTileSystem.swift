@@ -101,7 +101,6 @@ class LGTileSystem : LGSystem
 			position	= LGPosition()
 			sprite		= LGSprite(spriteSheet: map.spriteSheet)
 			
-			// TODO: don't depend on the ordering in self.entities
 			entities += tile
 			
 			tile.put(position, sprite)
