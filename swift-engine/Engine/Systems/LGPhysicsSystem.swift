@@ -6,6 +6,8 @@
 //  Copyright (c) 2014 Luke Godfrey. All rights reserved.
 //
 
+import Foundation
+
 class LGPhysicsSystem: LGSystem
 {
 	typealias Rect = (x: Double, y: Double, width: Double, height: Double)
@@ -389,11 +391,11 @@ class LGPhysicsSystem: LGSystem
 	
 	func tileAtX(x: Double) -> Int
 	{
-		return Int(x / Double(collisionLayer.tileWidth))
+		return Int(floor(x / Double(collisionLayer.tileWidth)))
 	}
 	
 	func tileAtY(y: Double) -> Int
 	{
-		return Int(y / Double(collisionLayer.tileHeight))
+		return Int(floor(y / Double(collisionLayer.tileHeight)))
 	}
 }
