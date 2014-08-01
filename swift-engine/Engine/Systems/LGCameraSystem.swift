@@ -6,6 +6,8 @@
 //  Copyright (c) 2014 Luke Godfrey. All rights reserved.
 //
 
+import UIKit
+
 class LGCameraSystem: LGSystem
 {
 	var scene: LGScene
@@ -34,6 +36,6 @@ class LGCameraSystem: LGSystem
 	
 	override func update()
 	{
-		scene.rootNode.position = CGPoint(x: cameraPosition.x + camera.offset.x, y: cameraPosition.y + camera.offset.y)
+		scene.rootNode.position = CGPoint(x: -CGFloat(cameraPosition.x + camera.offset.x), y: -CGFloat(cameraPosition.y + camera.offset.y))
 	}
 }

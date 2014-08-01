@@ -21,9 +21,9 @@ class LGScene: SKScene
 	init(size: CGSize)
 	{
 		rootNode = SKNode()
-		super.addChild(rootNode)
 		
 		super.init(size: size)
+		super.addChild(rootNode)
 	}
 	
 	func add(entitiesToAdd: LGEntity...)

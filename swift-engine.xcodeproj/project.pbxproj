@@ -15,6 +15,7 @@
 		A318A2D4194130DE00B88B62 /* LGScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = A318A2D3194130DE00B88B62 /* LGScene.swift */; };
 		A318A2D6194130FF00B88B62 /* LGSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = A318A2D5194130FF00B88B62 /* LGSystem.swift */; };
 		A318A2D81941311B00B88B62 /* LGUpdatePhase.swift in Sources */ = {isa = PBXBuildFile; fileRef = A318A2D71941311B00B88B62 /* LGUpdatePhase.swift */; };
+		A31C8115198C3D7000A7CE46 /* LGCameraSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = A31C8114198C3D7000A7CE46 /* LGCameraSystem.swift */; };
 		A31CEC2F19554BF1004F0395 /* LGEntityObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = A31CEC2E19554BF1004F0395 /* LGEntityObserver.swift */; };
 		A31FE26A19554DE200B1E14A /* LGSpriteState.swift in Sources */ = {isa = PBXBuildFile; fileRef = A31FE26919554DE200B1E14A /* LGSpriteState.swift */; };
 		A326118E1986FD23000FBDF6 /* LGTouchObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = A326118D1986FD23000FBDF6 /* LGTouchObserver.swift */; };
@@ -64,6 +65,7 @@
 		A318A2D3194130DE00B88B62 /* LGScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LGScene.swift; sourceTree = "<group>"; };
 		A318A2D5194130FF00B88B62 /* LGSystem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LGSystem.swift; sourceTree = "<group>"; };
 		A318A2D71941311B00B88B62 /* LGUpdatePhase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LGUpdatePhase.swift; sourceTree = "<group>"; };
+		A31C8114198C3D7000A7CE46 /* LGCameraSystem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LGCameraSystem.swift; sourceTree = "<group>"; };
 		A31CEC2E19554BF1004F0395 /* LGEntityObserver.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LGEntityObserver.swift; sourceTree = "<group>"; };
 		A31FE26919554DE200B1E14A /* LGSpriteState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LGSpriteState.swift; path = Classes/LGSpriteState.swift; sourceTree = "<group>"; };
 		A326118D1986FD23000FBDF6 /* LGTouchObserver.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LGTouchObserver.swift; sourceTree = "<group>"; };
@@ -159,6 +161,7 @@
 		A318A2CC19412F2800B88B62 /* Systems */ = {
 			isa = PBXGroup;
 			children = (
+				A31C8114198C3D7000A7CE46 /* LGCameraSystem.swift */,
 				A3542B9E196CBC8000ED00E8 /* LGPhysicsSystem.swift */,
 				A3A581CE19744A3200489EAC /* LGRenderingSystem.swift */,
 				A3981C9719511C5C0072E4A3 /* LGTileSystem.swift */,
@@ -406,6 +409,7 @@
 				A3542B9F196CBC8000ED00E8 /* LGPhysicsSystem.swift in Sources */,
 				A3981C9819511C5C0072E4A3 /* LGTileSystem.swift in Sources */,
 				A33CADA81943613200AC8E27 /* LGPosition.swift in Sources */,
+				A31C8115198C3D7000A7CE46 /* LGCameraSystem.swift in Sources */,
 				A33CADAA194361C000AC8E27 /* LGSprite.swift in Sources */,
 				A326118E1986FD23000FBDF6 /* LGTouchObserver.swift in Sources */,
 				A32611971987017E000FBDF6 /* PlayerInputSystem.swift in Sources */,

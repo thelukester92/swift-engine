@@ -19,5 +19,5 @@ class Player: LGComponent
 	}
 	
 	var jumpSpeed: Double = 4
-	var moveSpeed: Double = 1
+	var moveSpeed: Double = 3
 }
