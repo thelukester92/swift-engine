@@ -13,9 +13,13 @@ class LGTileSystem : LGSystem
 	var scene: LGScene
 	var map: LGTileMap!
 	
-	final var reusePool		= [LGEntity]()
-	final var entitiesByRow	= [Int:[LGEntity]]()
-	final var entitiesByCol	= [Int:[LGEntity]]()
+	final var reusePool		= [Int]()
+	final var entitiesByRow	= [Int:[Int]]()
+	final var entitiesByCol	= [Int:[Int]]()
+	final var rowsByEntity	= [Int:Int]()
+	final var colsByEntity	= [Int:Int]()
+	
+	var nextLocalId = 0
 	
 	var minRow = 0
 	var maxRow = 0
@@ -46,10 +50,8 @@ class LGTileSystem : LGSystem
 	{
 		self.map = map
 		
-		if cameraPosition == nil && camera == nil
+		if !cameraPosition && !camera
 		{
-			println("No visible area defined; rendering the entire map.")
-			
 			// Render the entire map when no visible area is defined
 			for layer in map.layers
 			{
@@ -67,7 +69,10 @@ class LGTileSystem : LGSystem
 		}
 		else
 		{
-			println("Visible area detected; will render visible part of the map in the update method.")
+			minRow = Int(cameraPosition.x / Double(map.tileWidth)) - 1
+			maxRow = minRow
+			minCol = Int(cameraPosition.y / Double(map.tileHeight)) - 1
+			maxCol = minCol
 		}
 	}
 	
@@ -75,6 +80,7 @@ class LGTileSystem : LGSystem
 	{
 		let t = layer.tileAt(row: row, col: col)!
 		
+		var localId: Int!
 		var tile: LGEntity!
 		var position: LGPosition!
 		var sprite: LGSprite!
@@ -83,47 +89,47 @@ class LGTileSystem : LGSystem
 		
 		if reusePool.count > 0
 		{
-			tile		= reusePool.removeLast()
+			localId		= reusePool.removeLast()
+			tile		= entities[localId]
 			position	= tile.get(LGPosition)!
 			sprite		= tile.get(LGSprite)!
-			
-			sprite.isVisible = true
 		}
 		else
 		{
+			localId		= nextLocalId++
 			tile		= LGEntity()
 			position	= LGPosition()
 			sprite		= LGSprite(spriteSheet: map.spriteSheet)
+			
+			// TODO: don't depend on the ordering in self.entities
+			entities += tile
 			
 			tile.put(position, sprite)
 			scene.add(tile)
 		}
 		
-		// Index the entity and keep record of extremes
+		// Index the entity
 		
-		minRow = min(row, minRow)
-		maxRow = max(row, maxRow)
-		minCol = min(col, minCol)
-		maxCol = max(col, maxCol)
-		
+		rowsByEntity[localId] = row
 		if var arr = entitiesByRow[row]
 		{
-			arr += tile
+			arr += localId
 			entitiesByRow[row] = arr
 		}
 		else
 		{
-			entitiesByRow[row] = [tile]
+			entitiesByRow[row] = [localId]
 		}
 		
+		colsByEntity[localId] = col
 		if var arr = entitiesByCol[col]
 		{
-			arr += tile
+			arr += localId
 			entitiesByCol[col] = arr
 		}
 		else
 		{
-			entitiesByCol[col] = [tile]
+			entitiesByCol[col] = [localId]
 		}
 		
 		// Place entity and update its sprite
@@ -134,6 +140,12 @@ class LGTileSystem : LGSystem
 		sprite.opacity		= layer.opacity
 		sprite.layer		= layer.renderLayer.toRaw()
 		sprite.currentState	= LGSpriteState(position: t.pos)
+		sprite.offset.x		= 0
+		sprite.offset.y		= 0
+		sprite.scale.x		= 1.0
+		sprite.scale.y		= 1.0
+		sprite.rotation		= 0.0
+		sprite.isVisible	= true
 		
 		if t.flippedDiagonal
 		{
@@ -158,67 +170,79 @@ class LGTileSystem : LGSystem
 		}
 	}
 	
-	func recycleTileEntity(entity: LGEntity)
+	func recycleTileEntity(localId: Int)
 	{
-		let sprite = entity.get(LGSprite)!
+		let sprite = entities[localId].get(LGSprite)!
 		sprite.isVisible = false
 		
-		reusePool += entity
+		reusePool += localId
+		
+		colsByEntity[localId] = nil
+		rowsByEntity[localId] = nil
 	}
 	
-	func recycleTileEntities(entities: [LGEntity])
+	func recycleCol(col: Int)
 	{
-		for entity in entities
+		if let entitiesInCol = entitiesByCol[col]
 		{
-			recycleTileEntity(entity)
+			for localId in entitiesInCol
+			{
+				// Make sure this entity hasn't already been recycled by row
+				if !(!colsByEntity[localId]) && col == colsByEntity[localId]
+				{
+					recycleTileEntity(localId)
+				}
+			}
+			entitiesByCol[col] = nil
+		}
+	}
+	
+	func recycleRow(row: Int)
+	{
+		if let entitiesInRow = entitiesByRow[row]
+		{
+			for localId in entitiesInRow
+			{
+				// Make sure this entity hasn't already been recycled by col
+				if !(!rowsByEntity[localId]) && row == rowsByEntity[localId]
+				{
+					recycleTileEntity(localId)
+				}
+			}
+			entitiesByRow[row] = nil
 		}
 	}
 	
 	override func update()
 	{
-		if cameraPosition && camera
+		if !(!cameraPosition && !camera)
 		{
-			// Remove columns
+			let cam = (x: cameraPosition.x + camera.offset.x, y: cameraPosition.y + camera.offset.y, width: camera.size.x, height: camera.size.y)
 			
-			while Int(cameraPosition.x / map.tileWidth) > minCol
+			// Remove columns
+			while Int(cam.x / Double(map.tileWidth)) > minCol
 			{
-				if let entitiesInCol = entitiesByCol[minCol]
-				{
-					recycleTileEntities(entitiesInCol)
-					entitiesByCol[minCol] = nil
-				}
+				recycleCol(minCol)
 				minCol++
 			}
 			
-			while Int((cameraPosition.x + camera.size.x) / map.tileWidth) < maxCol
+			while Int((cam.x + cam.width) / Double(map.tileWidth)) < maxCol
 			{
-				if let entitiesInCol = entitiesByCol[maxCol]
-				{
-					recycleTileEntities(entitiesInCol)
-					entitiesByCol[maxCol] = nil
-				}
+				recycleCol(maxCol)
 				maxCol--
 			}
 			
 			// Remove rows
 			
-			while Int(cameraPosition.y / map.tileHeight) > minRow
+			while Int(cam.y / Double(map.tileHeight)) > minRow
 			{
-				if let entitiesInRow = entitiesByRow[minRow]
-				{
-					recycleTileEntities(entitiesInRow)
-					entitiesByRow[minRow] = nil
-				}
+				recycleRow(minRow)
 				minRow++
 			}
 			
-			while Int((cameraPosition.y + camera.size.y) / map.tileHeight) < maxRow
+			while Int((cam.y + cam.height) / Double(map.tileHeight)) < maxRow
 			{
-				if let entitiesInRow = entitiesByRow[maxRow]
-				{
-					recycleTileEntities(entitiesInRow)
-					entitiesByRow[maxRow] = nil
-				}
+				recycleRow(maxRow)
 				maxRow--
 			}
 			
@@ -226,7 +250,7 @@ class LGTileSystem : LGSystem
 			
 			// TODO: check for out-of-bounds before doing all these loops (currently checked in layer.visibleAt)
 			
-			while Int(cameraPosition.x / map.tileWidth) < minCol
+			if Int(cam.x / Double(map.tileWidth)) < minCol
 			{
 				minCol--
 				
@@ -242,7 +266,7 @@ class LGTileSystem : LGSystem
 				}
 			}
 			
-			while Int((cameraPosition.x + camera.size.x) / map.tileWidth) > maxCol
+			while Int((cam.x + cam.width) / Double(map.tileWidth)) > maxCol
 			{
 				maxCol++
 				
@@ -260,7 +284,7 @@ class LGTileSystem : LGSystem
 			
 			// Add rows
 			
-			while Int(cameraPosition.y / map.tileHeight) < minRow
+			while Int(cam.y / Double(map.tileHeight)) < minRow
 			{
 				minRow--
 				
@@ -276,7 +300,7 @@ class LGTileSystem : LGSystem
 				}
 			}
 			
-			while Int((cameraPosition.y + camera.size.y) / map.tileHeight) > maxRow
+			while Int((cam.y + cam.height) / Double(map.tileHeight)) > maxRow
 			{
 				maxRow++
 				

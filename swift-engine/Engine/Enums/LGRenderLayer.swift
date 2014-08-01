@@ -8,5 +8,5 @@
 
 enum LGRenderLayer: Int
 {
-	case Background = 0, Foreground
+	case Background = -1, Foreground = 1
 }

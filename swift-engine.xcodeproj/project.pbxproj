@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		A30CC71F198B03EF0013C7AC /* LGTMXObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = A30CC71E198B03EF0013C7AC /* LGTMXObject.swift */; };
+		A30CC721198B03FB0013C7AC /* LGCamera.swift in Sources */ = {isa = PBXBuildFile; fileRef = A30CC720198B03FB0013C7AC /* LGCamera.swift */; };
 		A318A2CE19412F3400B88B62 /* LGComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = A318A2CD19412F3400B88B62 /* LGComponent.swift */; };
 		A318A2D019412F4A00B88B62 /* LGEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = A318A2CF19412F4A00B88B62 /* LGEntity.swift */; };
 		A318A2D21941303C00B88B62 /* LGEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = A318A2D11941303C00B88B62 /* LGEngine.swift */; };
@@ -54,6 +56,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		A30CC71E198B03EF0013C7AC /* LGTMXObject.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LGTMXObject.swift; path = Classes/LGTMXObject.swift; sourceTree = "<group>"; };
+		A30CC720198B03FB0013C7AC /* LGCamera.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LGCamera.swift; sourceTree = "<group>"; };
 		A318A2CD19412F3400B88B62 /* LGComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LGComponent.swift; sourceTree = "<group>"; };
 		A318A2CF19412F4A00B88B62 /* LGEntity.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LGEntity.swift; sourceTree = "<group>"; };
 		A318A2D11941303C00B88B62 /* LGEngine.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LGEngine.swift; sourceTree = "<group>"; };
@@ -144,6 +148,7 @@
 		A318A2CB19412F2800B88B62 /* Enums */ = {
 			isa = PBXGroup;
 			children = (
+				A30CC720198B03FB0013C7AC /* LGCamera.swift */,
 				A3FE99C4195A7E8A00D6A781 /* LGRenderLayer.swift */,
 				A318A2D71941311B00B88B62 /* LGUpdatePhase.swift */,
 				A32CF34D197417EA00B6C4D4 /* LGAxis.swift */,
@@ -197,6 +202,7 @@
 				A3FE99C0195A790A00D6A781 /* LGTile.swift */,
 				A32F0F2C1955D7680083CBF3 /* LGTileLayer.swift */,
 				A3E735BC195618F700FA6025 /* LGTileMap.swift */,
+				A30CC71E198B03EF0013C7AC /* LGTMXObject.swift */,
 				A3FE99C2195A7B2F00D6A781 /* LGTMXParser.swift */,
 				A32CF34F19741AB800B6C4D4 /* LGVector.swift */,
 			);
@@ -384,6 +390,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A30CC721198B03FB0013C7AC /* LGCamera.swift in Sources */,
 				A318A2D019412F4A00B88B62 /* LGEntity.swift in Sources */,
 				A318A2D6194130FF00B88B62 /* LGSystem.swift in Sources */,
 				A3FE99C5195A7E8A00D6A781 /* LGRenderLayer.swift in Sources */,
@@ -407,6 +414,7 @@
 				A31CEC2F19554BF1004F0395 /* LGEntityObserver.swift in Sources */,
 				A32CF34E197417EA00B6C4D4 /* LGAxis.swift in Sources */,
 				A3E735BD195618F700FA6025 /* LGTileMap.swift in Sources */,
+				A30CC71F198B03EF0013C7AC /* LGTMXObject.swift in Sources */,
 				A3845A8F196CC976004498A2 /* LGSpatialGrid.swift in Sources */,
 				A3B2AEA9193EBFE20097B3A7 /* AppDelegate.swift in Sources */,
 				A3A581CF19744A3200489EAC /* LGRenderingSystem.swift in Sources */,

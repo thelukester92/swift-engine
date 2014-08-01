@@ -17,7 +17,7 @@ class LGTMXParser: NSObject
 	// Variables that may be retrieved after parsing
 	var map: LGTileMap!
 	var collisionLayer: LGTileLayer!
-	var objects: [LGTMXObject]!
+	var objects = [LGTMXObject]()
 	
 	// Variables for parsing
 	var currentLayer: LGTileLayer!
@@ -97,8 +97,10 @@ class LGTMXParser: NSObject
 			
 			for j in 0 ..< map.width
 			{
-				let globalId = UInt32(data[i * map.width + j].stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet()).toInt()!)
-				output[i] += LGTile(gid: globalId)
+				// Use NSString's longlongValue to prevent truncating the highest bit (the horizontal flip bit)
+				let globalIdString = data[i * map.width + j].stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet())
+				let globalId = UInt32(globalIdString.bridgeToObjectiveC().longLongValue)
+				output[i] += LGTile(gid: UInt32(globalId))
 			}
 		}
 		
@@ -203,7 +205,9 @@ extension LGTMXParser: NSXMLParserDelegate
 				// TODO: add custom properties to map, tile, and layer
 				if currentElement == "object"
 				{
-					currentObject.properties[attributes["name"] as String] = attributes["value"] as String
+					let name = attributes["name"] as String
+					let value = attributes["value"] as String
+					currentObject.properties[name] = value
 				}
 			
 			// TODO: add case "objectgroup" if multiple object layers are desired
@@ -239,14 +243,7 @@ extension LGTMXParser: NSXMLParserDelegate
 				currentCompression	= ""
 			
 			case "object":
-				if objects
-				{
-					objects += currentObject
-				}
-				else
-				{
-					objects = [currentObject]
-				}
+				objects += currentObject
 				currentObject = nil
 			
 			default:

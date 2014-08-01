@@ -17,5 +17,5 @@ For more information, see the below links.
 
 * Entity-component-system framework
 * Rendering system maps the position component to a `SKSpriteNode` and displays textures and sprites with animated states
-* Tile system that creates entities for tilemaps
+* Tile system that creates entities for tilemaps and has an object pool to reuse tile entities as the game world scrolls
 * Physics system for basic platformer physics

@@ -86,22 +86,26 @@ class LGRenderingSystem: LGSystem
 				{
 					// TODO: Don't make it fetch a new texture using textureAtPosition every time
 					
-					if ++state.counter > state.duration
+					if !state.isAnimated || ++state.counter > state.duration
 					{
-						state.position++
-						if state.position > state.end
-						{
-							if state.loops
-							{
-								state.position = state.start
-							}
-							else
-							{
-								state.position = state.end
-							}
-						}
 						sprite.node.texture = sprite.spriteSheet?.textureAtPosition(state.position)
-						state.counter = 0
+						
+						if state.isAnimated
+						{
+							state.position++
+							if state.position > state.end
+							{
+								if state.loops
+								{
+									state.position = state.start
+								}
+								else
+								{
+									state.position = state.end
+								}
+							}
+							state.counter = 0
+						}
 					}
 				}
 				
@@ -114,6 +118,7 @@ class LGRenderingSystem: LGSystem
 				sprite.node.zRotation	= CGFloat(sprite.rotation)
 				sprite.node.zPosition	= CGFloat(sprite.layer)
 				sprite.node.alpha		= CGFloat(sprite.opacity)
+				sprite.node.hidden		= false
 			}
 			else
 			{

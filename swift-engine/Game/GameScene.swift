@@ -35,14 +35,8 @@ class GameScene: LGScene
 			LGPosition(x: Double(CGRectGetMidX(self.frame)), y: Double(CGRectGetMidY(self.frame))),
 			LGSprite(spriteSheet: LGSpriteSheet(textureName: "Player", rows: 1, cols: 9)),
 			LGPhysicsBody(width: 20, height: 35),
+			LGCamera(size: LGVector(x: 128, y: 128), offset: LGVector(x: -64, y: -64)),
 			Player()
-		)
-		
-		let block = LGEntity()
-		block.put(
-			LGPosition(x: Double(CGRectGetMidX(self.frame)), y: Double(CGRectGetMidY(self.frame) + 50)),
-			LGSprite(),
-			LGPhysicsBody(width: 20, height: 35)
 		)
 		
 		let sprite = player.get(LGSprite)!
@@ -52,7 +46,8 @@ class GameScene: LGScene
 		sprite.currentState = sprite.stateNamed("idle")
 		sprite.offset.x = -12
 		
-		self.add(player, block)
+		self.add(player)
+		
 		self.player = player
 		
 		let parser = LGTMXParser()
@@ -64,23 +59,13 @@ class GameScene: LGScene
 	
 	// TODO: The following logic should go in a separate system that acts as a delegate for receiving inputs and updating player sprites. It's only here temporarily due to convenience of development.
 	
+	var cam: LGEntity?
 	var player: LGEntity?
 	
-	var useless = 50
-	let maxUseless = 50
+	var increment = 1.0
 	
 	override func update(currentTime: NSTimeInterval)
 	{
-		/* uncomment this section to make frames go slowly for debugging
-		if ++useless > maxUseless
-		{
-			useless = 0
-		}
-		else
-		{
-			return
-		} */
-		
 		super.update(currentTime)
 		
 		let body = player!.get(LGPhysicsBody)!
@@ -102,6 +87,17 @@ class GameScene: LGScene
 		if body.velocity.x != 0
 		{
 			sprite.scale.x = body.velocity.x > 0 ? 1 : -1
+		}
+		
+		if let camera = cam
+		{
+			let position = camera.get(LGPosition)!
+			// position.x -= increment
+			
+			if position.x > Double(self.view.frame.size.width) || position.x < 0
+			{
+				increment *= -1
+			}
 		}
 	}
 }

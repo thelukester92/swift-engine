@@ -8,9 +8,9 @@
 
 class LGTile
 {
-	let FlippedHorizontalFlag	= UInt32(0x80000000)
-	let FlippedVerticalFlag		= UInt32(0x40000000)
-	let FlippedDiagonalFlag		= UInt32(0x20000000)
+	let FlippedHorizontalFlag: UInt32	= 0x80000000
+	let FlippedVerticalFlag: UInt32		= 0x40000000
+	let FlippedDiagonalFlag: UInt32		= 0x20000000
 	
 	var pos: Int
 	var flippedHorizontal: Bool
