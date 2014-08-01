@@ -245,6 +245,11 @@ class LGTileSystem : LGSystem
 				maxRow--
 			}
 			
+			// Ensure that min is less than max
+			
+			maxCol = max(minCol, maxCol)
+			maxRow = max(minRow, maxRow)
+			
 			// Add columns
 			
 			// TODO: check for out-of-bounds before doing all these loops (currently checked in layer.visibleAt)

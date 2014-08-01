@@ -25,6 +25,7 @@ class GameScene: LGScene
 		
 		self.add(
 			LGRenderingSystem(scene: self),
+			LGCameraSystem(scene: self),
 			physicsSystem,
 			tileSystem,
 			PlayerInputSystem(scene: self)
@@ -46,7 +47,7 @@ class GameScene: LGScene
 			LGPosition(x: Double(CGRectGetMidX(self.frame)), y: Double(CGRectGetMidY(self.frame))),
 			LGSprite(spriteSheet: LGSpriteSheet(textureName: "Player", rows: 1, cols: 9)),
 			LGPhysicsBody(width: 20, height: 35),
-			LGCamera(size: LGVector(x: 128, y: 128), offset: LGVector(x: -64, y: -64)),
+			LGCamera(size: LGVector(x: Double(self.view.frame.size.width), y: Double(self.view.frame.size.height)), offset: LGVector(x: -Double(self.view.frame.size.width / 2), y: -Double(self.view.frame.size.height / 2))),
 			Player()
 		)
 		
