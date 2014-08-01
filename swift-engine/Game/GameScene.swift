@@ -35,14 +35,8 @@ class GameScene: LGScene
 			LGPosition(x: Double(CGRectGetMidX(self.frame)), y: Double(CGRectGetMidY(self.frame))),
 			LGSprite(spriteSheet: LGSpriteSheet(textureName: "Player", rows: 1, cols: 9)),
 			LGPhysicsBody(width: 20, height: 35),
+			LGCamera(size: LGVector(x: 128, y: 128), offset: LGVector(x: -64, y: -64)),
 			Player()
-		)
-		
-		let block = LGEntity()
-		block.put(
-			LGPosition(x: Double(CGRectGetMidX(self.frame)), y: Double(CGRectGetMidY(self.frame) + 50)),
-			LGSprite(),
-			LGPhysicsBody(width: 20, height: 35)
 		)
 		
 		let sprite = player.get(LGSprite)!
@@ -52,7 +46,8 @@ class GameScene: LGScene
 		sprite.currentState = sprite.stateNamed("idle")
 		sprite.offset.x = -12
 		
-		self.add(player, block)
+		self.add(player)
+		
 		self.player = player
 		
 		let parser = LGTMXParser()
@@ -60,77 +55,17 @@ class GameScene: LGScene
 		
 		physicsSystem.collisionLayer = parser.collisionLayer
 		tileSystem.loadMap(map)
-		
-		/*
-		let WIDTH = 15
-		let HEIGHT = 9
-		
-		let spriteSheet = LGSpriteSheet(textureName: "Tileset.png", rows: 3, cols: 6)
-		let map = LGTileMap(width: WIDTH, height: HEIGHT, tileWidth: 32, tileHeight: 32)
-		map.spriteSheet = spriteSheet
-		
-		var states = [[LGTile]]()
-		var collisionStates = [[LGTile]]()
-		
-		let layerdata = [
-			17,13,13,13,13,13,13,13,17,17,17,17,17,17,17,
-			17,0,0,0,0,14,0,0,17,17,17,17,17,17,17,
-			13,0,0,0,0,0,0,0,13,13,13,13,13,13,13,
-			0,0,0,0,0,0,0,0,0,15,0,0,0,0,0,
-			0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-			0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-			0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-			0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-			0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-		]
-		
-		for i in 0 ..< HEIGHT
-		{
-			states += [LGTile]()
-			collisionStates += [LGTile]()
-			
-			for j in 0 ..< WIDTH
-			{
-				let gid = UInt32(layerdata[i * WIDTH + j])
-				
-				states[i] += LGTile(gid: gid)
-				collisionStates[i] += LGTile(gid: (gid > 0 && gid != 15 && gid != 14 ? 1 : 0))
-			}
-		}
-		
-		var layer = LGTileLayer()
-		layer.data = states
-		map.add(layer)
-		
-		var collisionlayer = LGTileLayer()
-		collisionlayer.isCollision = true
-		collisionlayer.tilesize = 32
-		collisionlayer.data = collisionStates
-		
-		physicsSystem.collisionLayer = collisionlayer
-		
-		tileSystem.loadMap(map)*/
 	}
 	
 	// TODO: The following logic should go in a separate system that acts as a delegate for receiving inputs and updating player sprites. It's only here temporarily due to convenience of development.
 	
+	var cam: LGEntity?
 	var player: LGEntity?
 	
-	var useless = 50
-	let maxUseless = 50
+	var increment = 1.0
 	
 	override func update(currentTime: NSTimeInterval)
 	{
-		/* uncomment this section to make frames go slowly for debugging
-		if ++useless > maxUseless
-		{
-			useless = 0
-		}
-		else
-		{
-			return
-		} */
-		
 		super.update(currentTime)
 		
 		let body = player!.get(LGPhysicsBody)!
@@ -152,6 +87,17 @@ class GameScene: LGScene
 		if body.velocity.x != 0
 		{
 			sprite.scale.x = body.velocity.x > 0 ? 1 : -1
+		}
+		
+		if let camera = cam
+		{
+			let position = camera.get(LGPosition)!
+			// position.x -= increment
+			
+			if position.x > Double(self.view.frame.size.width) || position.x < 0
+			{
+				increment *= -1
+			}
 		}
 	}
 }

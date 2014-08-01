@@ -10,23 +10,23 @@ import UIKit
 
 class LGTMXParser: NSObject
 {
-	var map: LGTileMap!
-	
+	// Setup variables
 	var collisionLayerName	= "collision"
 	var foregroundLayerName	= "foreground"
 	
+	// Variables that may be retrieved after parsing
+	var map: LGTileMap!
 	var collisionLayer: LGTileLayer!
+	var objects = [LGTMXObject]()
+	
+	// Variables for parsing
 	var currentLayer: LGTileLayer!
+	var currentObject: LGTMXObject!
 	var currentRenderLayer	= LGRenderLayer.Background
 	var currentElement		= ""
 	var currentData			= ""
 	var currentEncoding		= ""
 	var currentCompression	= ""
-	
-	var tileWidth	= 0
-	var tileHeight	= 0
-	var width		= 0
-	var height		= 0
 	
 	init()
 	{
@@ -41,7 +41,6 @@ class LGTMXParser: NSObject
 		return map
 	}
 	
-	
 	func parseString(string: String, encoding: String, compression: String) -> [[LGTile]]
 	{
 		assert(encoding == "csv" || encoding == "base64",	"Encoding must be csv or base64!")
@@ -55,7 +54,7 @@ class LGTMXParser: NSObject
 			// uncompressed csv
 			
 			let arr = string.componentsSeparatedByString(",")
-			assert(arr.count == width * height)
+			assert(arr.count == map.width * map.height)
 			
 			return parseArray(arr)
 		}
@@ -79,7 +78,7 @@ class LGTMXParser: NSObject
 			// uncompressed base64
 			
 			let data = NSData(base64EncodedString: string, options: .IgnoreUnknownCharacters)
-			assert(data.length == width * height * 4)
+			assert(data.length == map.width * map.height * 4)
 			
 			var bytes = [UInt8](count: data.length, repeatedValue: 0)
 			data.getBytes(&bytes, length: data.length)
@@ -92,14 +91,16 @@ class LGTMXParser: NSObject
 	{
 		var output = [[LGTile]]()
 		
-		for i in 0 ..< height
+		for i in 0 ..< map.height
 		{
 			output += [LGTile]()
 			
-			for j in 0 ..< width
+			for j in 0 ..< map.width
 			{
-				let globalId = UInt32(data[i * width + j].stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet()).toInt()!)
-				output[i] += LGTile(gid: globalId)
+				// Use NSString's longlongValue to prevent truncating the highest bit (the horizontal flip bit)
+				let globalIdString = data[i * map.width + j].stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet())
+				let globalId = UInt32(globalIdString.bridgeToObjectiveC().longLongValue)
+				output[i] += LGTile(gid: UInt32(globalId))
 			}
 		}
 		
@@ -111,11 +112,11 @@ class LGTMXParser: NSObject
 		var output = [[LGTile]]()
 		var byteIndex = 0
 		
-		for i in 0 ..< height
+		for i in 0 ..< map.height
 		{
 			output += [LGTile]()
 			
-			for _ in 0 ..< width
+			for _ in 0 ..< map.width
 			{
 				let globalId = UInt32(data[byteIndex++] | data[byteIndex++] << 8 | data[byteIndex++] << 16 | data[byteIndex++] << 24)
 				output[i] += LGTile(gid: globalId)
@@ -130,26 +131,17 @@ extension LGTMXParser: NSXMLParserDelegate
 {
 	func parser(parser: NSXMLParser!, didStartElement elementName: String!, namespaceURI: String!, qualifiedName: String!, attributes: NSDictionary!)
 	{
-		currentElement = elementName.lowercaseString
-		
-		switch currentElement
+		switch elementName.lowercaseString
 		{
 			case "map":
-				tileWidth	= attributes["tilewidth"].integerValue
-				tileHeight	= attributes["tileheight"].integerValue
-				width		= attributes["width"].integerValue
-				height		= attributes["height"].integerValue
-				
-				map = LGTileMap(width: width, height: height, tileWidth: tileWidth, tileHeight: tileHeight)
+				map = LGTileMap(width: attributes["width"].integerValue, height: attributes["height"].integerValue, tileWidth: attributes["tilewidth"].integerValue, tileHeight: attributes["tileheight"].integerValue)
 			
 			case "image":
 				// TODO: Allow multiple tilesets in a single map
-				map.spriteSheet = LGSpriteSheet(textureName: attributes["source"] as String, frameWidth: tileWidth, frameHeight: tileHeight)
+				map.spriteSheet = LGSpriteSheet(textureName: attributes["source"] as String, frameWidth: map.tileWidth, frameHeight: map.tileHeight)
 			
 			case "layer":
-				currentLayer = LGTileLayer()
-				currentLayer.tilesize = Double(tileWidth)
-				// TODO: Allow tile width and tile height
+				currentLayer = LGTileLayer(tileWidth: map.tileWidth, tileHeight: map.tileHeight)
 				
 				if let value = attributes["opacity"].doubleValue
 				{
@@ -186,9 +178,45 @@ extension LGTMXParser: NSXMLParserDelegate
 					currentCompression = value
 				}
 			
+			case "object":
+				currentObject = LGTMXObject(x: attributes["x"].integerValue, y: attributes["y"].integerValue)
+				
+				if let value = attributes["name"] as? String
+				{
+					currentObject.name = value
+				}
+				
+				if let value = attributes["type"] as? String
+				{
+					currentObject.type = value
+				}
+				
+				if let value = attributes["width"].integerValue
+				{
+					currentObject.width = value
+				}
+				
+				if let value = attributes["height"].integerValue
+				{
+					currentObject.height = value
+				}
+			
+			case "property":
+				// TODO: add custom properties to map, tile, and layer
+				if currentElement == "object"
+				{
+					let name = attributes["name"] as String
+					let value = attributes["value"] as String
+					currentObject.properties[name] = value
+				}
+			
+			// TODO: add case "objectgroup" if multiple object layers are desired
 			default:
 				break
 		}
+		
+		// Save the current element for the parser(: foundCharacters:) method
+		currentElement = elementName.lowercaseString
 	}
 	
 	func parser(parser: NSXMLParser!, foundCharacters string: String!)
@@ -213,6 +241,10 @@ extension LGTMXParser: NSXMLParserDelegate
 				currentData			= ""
 				currentEncoding		= ""
 				currentCompression	= ""
+			
+			case "object":
+				objects += currentObject
+				currentObject = nil
 			
 			default:
 				break

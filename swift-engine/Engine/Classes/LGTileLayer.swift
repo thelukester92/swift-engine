@@ -8,17 +8,22 @@
 
 class LGTileLayer: LGSystem
 {
-	var opacity		= 100.0
-	var offsetX		= 0
-	var offsetY		= 0
+	var opacity		= 1.0
 	var renderLayer	= LGRenderLayer.Background
 	
 	var isVisible	= true
 	var isCollision	= false
 	
-	var tilesize	= 0.0
+	var tileWidth: Int
+	var tileHeight: Int
 	
 	var data		= [[LGTile]]()
+	
+	init(tileWidth: Int, tileHeight: Int)
+	{
+		self.tileWidth	= tileWidth
+		self.tileHeight	= tileHeight
+	}
 	
 	func tileAt(#row: Int, col: Int) -> LGTile?
 	{
@@ -38,7 +43,18 @@ class LGTileLayer: LGSystem
 				return tile.pos != 0
 			}
 		}
-		
 		return true
+	}
+	
+	func visibleAt(#row: Int, col: Int) -> Bool
+	{
+		if isVisible
+		{
+			if let tile = tileAt(row: row, col: col)
+			{
+				return tile.pos != 0
+			}
+		}
+		return false
 	}
 }
