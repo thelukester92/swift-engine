@@ -82,16 +82,5 @@ extension PlayerInputSystem: LGTouchObserver
 		{
 			shouldMove = 0
 		}
-		else if let touch = event.allTouches().anyObject() as? UITouch
-		{
-			if touch.locationInView(scene.view).x > scene.view.frame.size.width / 2
-			{
-				shouldMove = 1
-			}
-			else
-			{
-				shouldMove = -1
-			}
-		}
 	}
 }

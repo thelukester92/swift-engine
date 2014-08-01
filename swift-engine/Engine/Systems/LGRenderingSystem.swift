@@ -63,7 +63,7 @@ class LGRenderingSystem: LGSystem
 			
 			if sprite.isVisible
 			{
-				updateSpriteFrame(sprite)
+				updateSpriteFrame(sprite, id: id)
 				
 				// Update sprite position, orientation, and other SKSpriteNode properties
 				
@@ -117,7 +117,7 @@ class LGRenderingSystem: LGSystem
 		sprite.node.removeFromParent()
 	}
 	
-	func updateSpriteFrame(sprite: LGSprite)
+	func updateSpriteFrame(sprite: LGSprite, id: Int)
 	{
 		// Use the sprite's state, if it has one
 		

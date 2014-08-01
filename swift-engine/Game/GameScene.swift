@@ -30,6 +30,17 @@ class GameScene: LGScene
 			PlayerInputSystem(scene: self)
 		)
 		
+		let block = LGEntity()
+		block.put(
+			LGPosition(x: 60, y: 60),
+			LGSprite(spriteSheet: LGSpriteSheet(textureName: "Player", rows: 1, cols: 9)),
+			LGPhysicsBody(width: 20, height: 35)
+		)
+		block.get(LGSprite)!.position = 1
+		block.get(LGSprite)!.offset.x = -12
+		block.get(LGPhysicsBody)!.dynamic = false
+		self.add(block)
+		
 		let player = LGEntity()
 		player.put(
 			LGPosition(x: Double(CGRectGetMidX(self.frame)), y: Double(CGRectGetMidY(self.frame))),
@@ -59,10 +70,7 @@ class GameScene: LGScene
 	
 	// TODO: The following logic should go in a separate system that acts as a delegate for receiving inputs and updating player sprites. It's only here temporarily due to convenience of development.
 	
-	var cam: LGEntity?
 	var player: LGEntity?
-	
-	var increment = 1.0
 	
 	override func update(currentTime: NSTimeInterval)
 	{
@@ -87,17 +95,6 @@ class GameScene: LGScene
 		if body.velocity.x != 0
 		{
 			sprite.scale.x = body.velocity.x > 0 ? 1 : -1
-		}
-		
-		if let camera = cam
-		{
-			let position = camera.get(LGPosition)!
-			// position.x -= increment
-			
-			if position.x > Double(self.view.frame.size.width) || position.x < 0
-			{
-				increment *= -1
-			}
 		}
 	}
 }
