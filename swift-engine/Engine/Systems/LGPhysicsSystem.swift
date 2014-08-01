@@ -214,6 +214,27 @@ class LGPhysicsSystem: LGSystem
 	
 	func resolveStaticCollisions(id: Int)
 	{
+		resolveTileCollisions(id)
+		
+		for other in staticEntities
+		{
+			if id != other && overlap(id, other, axis: .X)
+			{
+				resolveStaticCollision(id, tentRect(other), axis: .X)
+			}
+		}
+		
+		for other in staticEntities
+		{
+			if id != other && overlap(id, other, axis: .Y)
+			{
+				resolveStaticCollision(id, tentRect(other), axis: .Y)
+			}
+		}
+	}
+	
+	func resolveTileCollisions(id: Int)
+	{
 		if collisionLayer
 		{
 			// x-axis
@@ -307,7 +328,6 @@ class LGPhysicsSystem: LGSystem
 			}
 		}
 	}
-	
 	
 	// MARK: Helper Methods
 	
