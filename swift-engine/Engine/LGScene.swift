@@ -16,8 +16,13 @@ class LGScene: SKScene
 	var removed			= [LGEntity]()
 	var touchObservers	= [LGTouchObserver]()
 	
+	var rootNode: SKNode
+	
 	init(size: CGSize)
 	{
+		rootNode = SKNode()
+		super.addChild(rootNode)
+		
 		super.init(size: size)
 	}
 	
@@ -133,6 +138,11 @@ class LGScene: SKScene
 	}
 	
 	// MARK: SKScene Overrides
+	
+	override func addChild(node: SKNode!)
+	{
+		rootNode.addChild(node)
+	}
 	
 	override func update(currentTime: NSTimeInterval)
 	{

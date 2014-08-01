@@ -34,6 +34,6 @@ class LGCameraSystem: LGSystem
 	
 	override func update()
 	{
-		
+		scene.rootNode.position = CGPoint(x: cameraPosition.x + camera.offset.x, y: cameraPosition.y + camera.offset.y)
 	}
 }
