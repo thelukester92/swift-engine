@@ -73,13 +73,13 @@ class LGPhysicsSystem: LGSystem
 		
 		if body[index].dynamic
 		{
-			dynamicEntities.removeAtIndex(dynamicIndices[localId])
-			dynamicIndices[localId] = nil
+			dynamicEntities.removeAtIndex(dynamicIndices[index]!)
+			dynamicIndices[index] = nil
 		}
 		else
 		{
-			staticEntities.removeAtIndex(staticIndices[localId])
-			staticIndices[localId] = nil
+			staticEntities.removeAtIndex(staticIndices[index]!)
+			staticIndices[index] = nil
 		}
 		
 		body.removeAtIndex(index)
@@ -104,7 +104,7 @@ class LGPhysicsSystem: LGSystem
 			resolveStaticCollisions(id)
 		}
 		
-		for id in dynamicEntities
+		for id in 0 ..< entities.count
 		{
 			position[id].x = tent[id].x
 			position[id].y = tent[id].y
@@ -115,8 +115,11 @@ class LGPhysicsSystem: LGSystem
 	
 	func applyPhysics(id: Int)
 	{
-		body[id].velocity += GRAVITY
-		limit(&body[id].velocity, maximum: TERMINAL_VELOCITY)
+		if body[id].dynamic
+		{
+			body[id].velocity += GRAVITY
+			limit(&body[id].velocity, maximum: TERMINAL_VELOCITY)
+		}
 		
 		tent[id].x = position[id].x + body[id].velocity.x
 		tent[id].y = position[id].y + body[id].velocity.y
