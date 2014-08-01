@@ -27,10 +27,15 @@ class LGSystem
 		{
 			if entities[i] === entity
 			{
-				entities.removeAtIndex(i)
+				remove(i)
 				break
 			}
 		}
+	}
+	
+	func remove(index: Int)
+	{
+		entities.removeAtIndex(index)
 	}
 	
 	func update() {}
@@ -60,18 +65,21 @@ extension LGSystem: LGEntityObserver
 			if entities[i] === entity
 			{
 				contained = true
+				
+				if !accepts(entity)
+				{
+					// No longer a valid entity in this system; remove it
+					remove(i)
+				}
+				
 				break
 			}
 		}
 		
 		if !contained && accepts(entity)
 		{
+			// Now a valid entity in this system; add it
 			add(entity)
-		}
-		
-		if contained && !accepts(entity)
-		{
-			remove(entity)
 		}
 	}
 }
