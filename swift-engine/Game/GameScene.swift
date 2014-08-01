@@ -48,6 +48,16 @@ class GameScene: LGScene
 		
 		self.add(player)
 		
+		let block = LGEntity()
+		block.put(
+			LGPosition(x: 60, y: 60),
+			LGSprite(spriteSheet: LGSpriteSheet(textureName: "Player", rows: 1, cols: 9)),
+			LGPhysicsBody(width: 20, height: 35)
+		)
+		block.get(LGSprite)!.position = 1
+		self.add(block)
+		self.test = block
+		
 		self.player = player
 		
 		let parser = LGTMXParser()
@@ -59,10 +69,11 @@ class GameScene: LGScene
 	
 	// TODO: The following logic should go in a separate system that acts as a delegate for receiving inputs and updating player sprites. It's only here temporarily due to convenience of development.
 	
-	var cam: LGEntity?
 	var player: LGEntity?
+	var test: LGEntity?
 	
-	var increment = 1.0
+	var something = 0
+	var somethingElse = 500
 	
 	override func update(currentTime: NSTimeInterval)
 	{
@@ -89,14 +100,13 @@ class GameScene: LGScene
 			sprite.scale.x = body.velocity.x > 0 ? 1 : -1
 		}
 		
-		if let camera = cam
+		if ++something > somethingElse
 		{
-			let position = camera.get(LGPosition)!
-			// position.x -= increment
-			
-			if position.x > Double(self.view.frame.size.width) || position.x < 0
+			if let block = test
 			{
-				increment *= -1
+				println("removing here")
+				remove(block)
+				test = nil
 			}
 		}
 	}
