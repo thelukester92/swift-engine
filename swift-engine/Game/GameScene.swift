@@ -30,6 +30,17 @@ class GameScene: LGScene
 			PlayerInputSystem(scene: self)
 		)
 		
+		let block = LGEntity()
+		block.put(
+			LGPosition(x: 60, y: 60),
+			LGSprite(spriteSheet: LGSpriteSheet(textureName: "Player", rows: 1, cols: 9)),
+			LGPhysicsBody(width: 20, height: 35)
+		)
+		block.get(LGSprite)!.position = 1
+		block.get(LGSprite)!.offset.x = -12
+		block.get(LGPhysicsBody)!.dynamic = false
+		self.add(block)
+		
 		let player = LGEntity()
 		player.put(
 			LGPosition(x: Double(CGRectGetMidX(self.frame)), y: Double(CGRectGetMidY(self.frame))),
@@ -48,16 +59,6 @@ class GameScene: LGScene
 		
 		self.add(player)
 		
-		let block = LGEntity()
-		block.put(
-			LGPosition(x: 60, y: 60),
-			LGSprite(spriteSheet: LGSpriteSheet(textureName: "Player", rows: 1, cols: 9)),
-			LGPhysicsBody(width: 20, height: 35)
-		)
-		block.get(LGSprite)!.position = 1
-		self.add(block)
-		self.test = block
-		
 		self.player = player
 		
 		let parser = LGTMXParser()
@@ -70,10 +71,6 @@ class GameScene: LGScene
 	// TODO: The following logic should go in a separate system that acts as a delegate for receiving inputs and updating player sprites. It's only here temporarily due to convenience of development.
 	
 	var player: LGEntity?
-	var test: LGEntity?
-	
-	var something = 0
-	var somethingElse = 500
 	
 	override func update(currentTime: NSTimeInterval)
 	{
@@ -98,16 +95,6 @@ class GameScene: LGScene
 		if body.velocity.x != 0
 		{
 			sprite.scale.x = body.velocity.x > 0 ? 1 : -1
-		}
-		
-		if ++something > somethingElse
-		{
-			if let block = test
-			{
-				println("removing here")
-				remove(block)
-				test = nil
-			}
 		}
 	}
 }

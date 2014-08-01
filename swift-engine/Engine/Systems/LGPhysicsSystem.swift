@@ -13,9 +13,12 @@ class LGPhysicsSystem: LGSystem
 	let TERMINAL_VELOCITY	= 30.0
 	let GRAVITY				= LGVector(x: 0, y: -0.1)
 	
-	final var allEntities		= [Int]()
 	final var dynamicEntities	= [Int]()
 	final var staticEntities	= [Int]()
+	
+	// Helper dictionaries for removing entities
+	final var dynamicIndices	= [Int:Int]()
+	final var staticIndices		= [Int:Int]()
 	
 	final var position	= [LGPosition]()
 	final var body		= [LGPhysicsBody]()
@@ -38,35 +41,55 @@ class LGPhysicsSystem: LGSystem
 	
 	override func add(entity: LGEntity)
 	{
-		// TODO: Don't depend on super's ordering in array
 		super.add(entity)
+		
+		let pos	= entity.get(LGPosition)!
+		let bod	= entity.get(LGPhysicsBody)!
 		
 		// Assign local entity ID based on entities.count
 		let localId = entities.count - 1
 		
-		allEntities += localId
-		if entity.get(LGPhysicsBody)!.dynamic
+		if bod.dynamic
 		{
+			dynamicIndices[localId] = dynamicEntities.count
 			dynamicEntities += localId
 		}
 		else
 		{
+			staticIndices[localId] = staticEntities.count
 			staticEntities += localId
 		}
 		
 		// Cache entity information
-		
-		let pos	= entity.get(LGPosition)!
-		let bod	= entity.get(LGPhysicsBody)!
 		
 		position	+= pos
 		body		+= bod
 		tent		+= LGVector()
 	}
 	
+	override func remove(index: Int)
+	{
+		super.remove(index)
+		
+		if body[index].dynamic
+		{
+			dynamicEntities.removeAtIndex(dynamicIndices[index]!)
+			dynamicIndices[index] = nil
+		}
+		else
+		{
+			staticEntities.removeAtIndex(staticIndices[index]!)
+			staticIndices[index] = nil
+		}
+		
+		body.removeAtIndex(index)
+		position.removeAtIndex(index)
+		tent.removeAtIndex(index)
+	}
+	
 	override func update()
 	{
-		for id in allEntities
+		for id in 0 ..< entities.count
 		{
 			applyPhysics(id)
 		}
@@ -81,7 +104,7 @@ class LGPhysicsSystem: LGSystem
 			resolveStaticCollisions(id)
 		}
 		
-		for id in dynamicEntities
+		for id in 0 ..< entities.count
 		{
 			position[id].x = tent[id].x
 			position[id].y = tent[id].y
@@ -92,8 +115,11 @@ class LGPhysicsSystem: LGSystem
 	
 	func applyPhysics(id: Int)
 	{
-		body[id].velocity += GRAVITY
-		limit(&body[id].velocity, maximum: TERMINAL_VELOCITY)
+		if body[id].dynamic
+		{
+			body[id].velocity += GRAVITY
+			limit(&body[id].velocity, maximum: TERMINAL_VELOCITY)
+		}
 		
 		tent[id].x = position[id].x + body[id].velocity.x
 		tent[id].y = position[id].y + body[id].velocity.y
@@ -191,6 +217,27 @@ class LGPhysicsSystem: LGSystem
 	
 	func resolveStaticCollisions(id: Int)
 	{
+		resolveTileCollisions(id)
+		
+		for other in staticEntities
+		{
+			if id != other && overlap(id, other, axis: .X)
+			{
+				resolveStaticCollision(id, tentRect(other), axis: .X)
+			}
+		}
+		
+		for other in staticEntities
+		{
+			if id != other && overlap(id, other, axis: .Y)
+			{
+				resolveStaticCollision(id, tentRect(other), axis: .Y)
+			}
+		}
+	}
+	
+	func resolveTileCollisions(id: Int)
+	{
 		if collisionLayer
 		{
 			// x-axis
@@ -284,7 +331,6 @@ class LGPhysicsSystem: LGSystem
 			}
 		}
 	}
-	
 	
 	// MARK: Helper Methods
 	
