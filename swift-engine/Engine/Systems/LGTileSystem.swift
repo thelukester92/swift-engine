@@ -139,7 +139,7 @@ class LGTileSystem : LGSystem
 		
 		sprite.opacity		= layer.opacity
 		sprite.layer		= layer.renderLayer.toRaw()
-		sprite.currentState	= LGSpriteState(position: t.pos)
+		sprite.position		= t.pos
 		sprite.offset.x		= 0
 		sprite.offset.y		= 0
 		sprite.scale.x		= 1.0
