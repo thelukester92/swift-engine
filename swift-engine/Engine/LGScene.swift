@@ -33,6 +33,8 @@ class LGScene: SKScene
 	
 	func addEntity(entity: LGEntity, named name: String? = nil)
 	{
+		entity.scene = self
+		
 		if let n = name
 		{
 			entityNames += n
@@ -111,6 +113,14 @@ class LGScene: SKScene
 			}
 			
 			removed = []
+		}
+	}
+	
+	func changed(entity: LGEntity)
+	{
+		for system in systems
+		{
+			system.changed(entity)
 		}
 	}
 	

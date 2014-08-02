@@ -9,6 +9,7 @@
 final class LGEntity
 {
 	var components: [String: LGComponent] = [:]
+	weak var scene: LGScene?
 	
 	convenience init(components: LGComponent...)
 	{
@@ -34,6 +35,7 @@ final class LGEntity
 	func put(#component: LGComponent)
 	{
 		components[component.type()] = component
+		scene?.changed(self)
 	}
 	
 	func put(componentsToPut: [LGComponent])
@@ -47,5 +49,11 @@ final class LGEntity
 	func put(componentsToPut: LGComponent...)
 	{
 		put(componentsToPut)
+	}
+	
+	func remove<T: LGComponent>(type: T.Type)
+	{
+		components[type.type()] = nil
+		scene?.changed(self)
 	}
 }

@@ -31,17 +31,6 @@ class GameScene: LGScene
 			PlayerInputSystem(scene: self)
 		)
 		
-		let block = LGEntity()
-		block.put(
-			LGPosition(x: 60, y: 60),
-			LGSprite(spriteSheet: LGSpriteSheet(textureName: "Player", rows: 1, cols: 9)),
-			LGPhysicsBody(width: 20, height: 35)
-		)
-		block.get(LGSprite)!.position = 1
-		block.get(LGSprite)!.offset.x = -12
-		block.get(LGPhysicsBody)!.dynamic = false
-		self.addEntity(block)
-		
 		let player = LGEntity()
 		player.put(
 			LGPosition(x: Double(CGRectGetMidX(self.frame)), y: Double(CGRectGetMidY(self.frame))),
