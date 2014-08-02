@@ -97,10 +97,9 @@ class LGTMXParser: NSObject
 			
 			for j in 0 ..< map.width
 			{
-				// Use NSString's longlongValue to prevent truncating the highest bit (the horizontal flip bit)
 				let globalIdString = data[i * map.width + j].stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet())
-				let globalId = UInt32(globalIdString.bridgeToObjectiveC().longLongValue)
-				output[i] += LGTile(gid: UInt32(globalId))
+				let globalId: UInt32 = NSNumberFormatter().numberFromString(globalIdString).unsignedIntValue
+				output[i] += LGTile(gid: globalId)
 			}
 		}
 		

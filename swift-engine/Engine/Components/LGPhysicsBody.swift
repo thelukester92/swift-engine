@@ -26,9 +26,22 @@ class LGPhysicsBody: LGComponent
 	var width: Double
 	var height: Double
 	
+	var collidedTop		= false
+	var collidedBottom	= false
+	var collidedLeft	= false
+	var collidedRight	= false
+	
 	init(width: Double, height: Double)
 	{
 		self.width	= width
 		self.height	= height
+	}
+	
+	func resetCollided()
+	{
+		collidedTop		= false
+		collidedBottom	= false
+		collidedLeft	= false
+		collidedRight	= false
 	}
 }

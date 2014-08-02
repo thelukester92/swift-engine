@@ -8,5 +8,5 @@
 
 enum LGAxis
 {
-	case X, Y
+	case X, Y, Both, None
 }

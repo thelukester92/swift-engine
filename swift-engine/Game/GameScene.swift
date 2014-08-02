@@ -31,9 +31,20 @@ class GameScene: LGScene
 			PlayerInputSystem(scene: self)
 		)
 		
+		let platform = LGEntity()
+		platform.put(
+			LGPosition(x: 100, y: 100),
+			LGSprite(spriteSheet: LGSpriteSheet(textureName: "Tileset", rows: 3, cols: 6)),
+			LGPhysicsBody(width: 32, height: 32)
+		)
+		platform.get(LGSprite)!.position = 13
+		platform.get(LGPhysicsBody)!.dynamic = false
+		platform.get(LGPhysicsBody)!.velocity.x = 1.0
+		self.addEntity(platform, named: "platform")
+		
 		let player = LGEntity()
 		player.put(
-			LGPosition(x: Double(CGRectGetMidX(self.frame)), y: Double(CGRectGetMidY(self.frame))),
+			LGPosition(x: 50, y: 200),
 			LGSprite(spriteSheet: LGSpriteSheet(textureName: "Player", rows: 1, cols: 9)),
 			LGPhysicsBody(width: 20, height: 35),
 			LGCamera(size: LGVector(x: Double(self.view.frame.size.width), y: Double(self.view.frame.size.height)), offset: LGVector(x: -Double(self.view.frame.size.width / 2), y: -Double(self.view.frame.size.height / 2))),
@@ -82,6 +93,14 @@ class GameScene: LGScene
 		if body.velocity.x != 0
 		{
 			sprite.scale.x = body.velocity.x > 0 ? 1 : -1
+		}
+		
+		let position = entityNamed("platform")!.get(LGPosition)!
+		let bod = entityNamed("platform")!.get(LGPhysicsBody)!
+		
+		if position.x + 32 > Double(self.view.frame.size.width) || position.x < 0
+		{
+			bod.velocity.x = -bod.velocity.x
 		}
 	}
 }

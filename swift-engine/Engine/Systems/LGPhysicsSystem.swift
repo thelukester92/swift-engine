@@ -94,6 +94,7 @@ class LGPhysicsSystem: LGSystem
 		for id in 0 ..< entities.count
 		{
 			applyPhysics(id)
+			body[id].resetCollided()
 		}
 		
 		for id in dynamicEntities
@@ -117,14 +118,58 @@ class LGPhysicsSystem: LGSystem
 	
 	func applyPhysics(id: Int)
 	{
+		// Apply gravity to dynamic entities
+		
 		if body[id].dynamic
 		{
 			body[id].velocity += GRAVITY
 			limit(&body[id].velocity, maximum: TERMINAL_VELOCITY)
 		}
 		
-		tent[id].x = position[id].x + body[id].velocity.x
-		tent[id].y = position[id].y + body[id].velocity.y
+		// Update position and/or velocity of the entity to follow another entity
+		
+		var vel = LGVector(x: body[id].velocity.x, y: body[id].velocity.y)
+		
+		if let follower = entities[id].get(LGFollower)
+		{
+			// TODO: Don't remove just any follower ... this makes followers only useful for platforms when they could be good for combining boss entities
+			// Maybe only do this to dynamic followers?
+			
+			if !body[id].collidedBottom
+			{
+				entities[id].remove(LGFollower)
+			}
+			else
+			{
+				if let following = follower.following
+				{
+					if let followingBody = following.get(LGPhysicsBody)
+					{
+						switch follower.axis
+						{
+							case .X:
+								vel.x += followingBody.velocity.x
+							
+							case .Y:
+								vel.y += followingBody.velocity.y
+							
+							case .Both:
+								vel.x += followingBody.velocity.x
+								vel.y += followingBody.velocity.y
+							
+							case .None:
+								break
+						}
+					}
+					limit(&vel, maximum: TERMINAL_VELOCITY)
+				}
+			}
+		}
+		
+		// Set the entity's tentative position
+		
+		tent[id].x = position[id].x + vel.x
+		tent[id].y = position[id].y + vel.y
 	}
 	
 	func resolveDynamicCollisions(id: Int)
@@ -151,50 +196,67 @@ class LGPhysicsSystem: LGSystem
 		switch axis
 		{
 			case .X:
-			
-			// Calculate resolution and update velocity
-			
-			var resolution = 0.0
-			if tent[a].x > tent[b].x
-			{
-				resolution = tent[b].x + body[b].width - tent[a].x + 1
-				body[a].velocity.x = max(0, body[a].velocity.x)
-				body[b].velocity.x = min(0, body[b].velocity.x)
-			}
-			else
-			{
-				resolution = tent[b].x - (tent[a].x + body[a].width) - 1
-				body[a].velocity.x = min(0, body[a].velocity.x)
-				body[b].velocity.x = max(0, body[b].velocity.x)
-			}
-			
-			// Update position (tentative)
-			
-			tent[a].x += resolution / 2
-			tent[b].x -= resolution / 2
+				// Calculate resolution and update velocity
+				
+				var resolution = 0.0
+				if tent[a].x > tent[b].x
+				{
+					resolution = tent[b].x + body[b].width - tent[a].x + 1
+					
+					body[a].velocity.x = max(0, body[a].velocity.x)
+					body[b].velocity.x = min(0, body[b].velocity.x)
+					
+					body[a].collidedLeft	= true
+					body[b].collidedRight	= true
+				}
+				else
+				{
+					resolution = tent[b].x - (tent[a].x + body[a].width) - 1
+					
+					body[a].velocity.x = min(0, body[a].velocity.x)
+					body[b].velocity.x = max(0, body[b].velocity.x)
+					
+					body[a].collidedRight	= true
+					body[b].collidedLeft	= true
+				}
+				
+				// Update position (tentative)
+				
+				tent[a].x += resolution / 2
+				tent[b].x -= resolution / 2
 			
 			case .Y:
+				// Calculate resolution and update velocity
+				
+				var resolution = 0.0
+				if tent[a].y > tent[b].y
+				{
+					resolution = tent[b].y + body[b].height - tent[a].y + 1
+					
+					body[a].velocity.y = max(0, body[a].velocity.y)
+					body[b].velocity.y = min(0, body[b].velocity.y)
+					
+					body[a].collidedBottom	= true
+					body[b].collidedTop		= true
+				}
+				else
+				{
+					resolution = tent[b].y - (tent[a].y + body[a].height) - 1
+					
+					body[a].velocity.y = min(0, body[a].velocity.y)
+					body[b].velocity.y = max(0, body[b].velocity.y)
+					
+					body[a].collidedTop		= true
+					body[b].collidedBottom	= true
+				}
+				
+				// Update position (tentative)
+				
+				tent[a].y += resolution / 2
+				tent[b].y -= resolution / 2
 			
-			// Calculate resolution and update velocity
-			
-			var resolution = 0.0
-			if tent[a].y > tent[b].y
-			{
-				resolution = tent[b].y + body[b].height - tent[a].y + 1
-				body[a].velocity.y = max(0, body[a].velocity.y)
-				body[b].velocity.y = min(0, body[b].velocity.y)
-			}
-			else
-			{
-				resolution = tent[b].y - (tent[a].y + body[a].height) - 1
-				body[a].velocity.y = min(0, body[a].velocity.y)
-				body[b].velocity.y = max(0, body[b].velocity.y)
-			}
-			
-			// Update position (tentative)
-			
-			tent[a].y += resolution / 2
-			tent[b].y -= resolution / 2
+			default:
+				break
 		}
 		
 		// Block chained collisions
@@ -233,6 +295,13 @@ class LGPhysicsSystem: LGSystem
 		{
 			if id != other && overlap(id, other, axis: .Y)
 			{
+				// TODO: Determine if this is a good place to create the follower
+				
+				if position[id].y > position[other].y && !entities[id].has(LGFollower)
+				{
+					entities[id].put(LGFollower(following: entities[other], axis: .X))
+				}
+				
 				resolveStaticCollision(id, tentRect(other), axis: .Y)
 			}
 		}
@@ -296,30 +365,39 @@ class LGPhysicsSystem: LGSystem
 			switch axis
 			{
 				case .X:
-				
-				if tent[id].x > rect.x
-				{
-					tent[id].x = rect.x + rect.width + 1
-					body[id].velocity.x = max(0, body[id].velocity.x)
-				}
-				else
-				{
-					tent[id].x = rect.x - body[id].width - 1
-					body[id].velocity.x = min(0, body[id].velocity.x)
-				}
+					if tent[id].x > rect.x
+					{
+						tent[id].x = rect.x + rect.width + 1
+						body[id].velocity.x = max(0, body[id].velocity.x)
+						
+						body[id].collidedLeft = true
+					}
+					else
+					{
+						tent[id].x = rect.x - body[id].width - 1
+						body[id].velocity.x = min(0, body[id].velocity.x)
+						
+						body[id].collidedRight = true
+					}
 				
 				case .Y:
+					if tent[id].y > rect.y
+					{
+						tent[id].y = rect.y + rect.height + 1
+						body[id].velocity.y = max(0, body[id].velocity.y)
+						
+						body[id].collidedBottom = true
+					}
+					else
+					{
+						tent[id].y = rect.y - body[id].height - 1
+						body[id].velocity.y = min(0, body[id].velocity.y)
+						
+						body[id].collidedTop = true
+					}
 				
-				if tent[id].y > rect.y
-				{
-					tent[id].y = rect.y + rect.height + 1
-					body[id].velocity.y = max(0, body[id].velocity.y)
-				}
-				else
-				{
-					tent[id].y = rect.y - body[id].height - 1
-					body[id].velocity.y = min(0, body[id].velocity.y)
-				}
+				default:
+					break
 			}
 			
 			// Chain collisions
@@ -341,20 +419,21 @@ class LGPhysicsSystem: LGSystem
 		switch axis
 		{
 			case .X:
-			
-			return !(tent[a].x > tent[b].x + body[b].width + 0.9
-				|| tent[a].x < tent[b].x - body[a].width - 0.9
-				|| position[a].y > position[b].y + body[b].height
-				|| position[a].y < position[b].y - body[a].height
-			)
+				return !(tent[a].x > tent[b].x + body[b].width + 0.9
+					|| tent[a].x < tent[b].x - body[a].width - 0.9
+					|| position[a].y > position[b].y + body[b].height
+					|| position[a].y < position[b].y - body[a].height
+				)
 			
 			case .Y:
+				return !(tent[a].x > tent[b].x + body[b].width
+					|| tent[a].x < tent[b].x - body[a].width
+					|| tent[a].y > tent[b].y + body[b].height + 0.9
+					|| tent[a].y < tent[b].y - body[a].height - 0.9
+				)
 			
-			return !(tent[a].x > tent[b].x + body[b].width
-				|| tent[a].x < tent[b].x - body[a].width
-				|| tent[a].y > tent[b].y + body[b].height + 0.9
-				|| tent[a].y < tent[b].y - body[a].height - 0.9
-			)
+			default:
+				return false
 		}
 	}
 	

@@ -16,8 +16,7 @@ class LGScene: SKScene
 	var entities		= [LGEntity]()
 	var removed			= [LGEntity]()
 	
-	var entityNames		= [String]()
-	var entityNameIds	= [Int]()
+	var entitiesByName	= [String:LGEntity]()
 	
 	var touchObservers	= [LGTouchObserver]()
 	
@@ -37,8 +36,7 @@ class LGScene: SKScene
 		
 		if let n = name
 		{
-			entityNames += n
-			entityNameIds += entities.count
+			entitiesByName[n] = entity
 		}
 		
 		for system in systems
@@ -59,15 +57,7 @@ class LGScene: SKScene
 	
 	func entityNamed(name: String) -> LGEntity?
 	{
-		for i in 0 ..< entityNameIds.count
-		{
-			if entityNames[i] == name
-			{
-				return entities[entityNameIds[i]]
-			}
-		}
-		
-		return nil
+		return entitiesByName[name]
 	}
 	
 	func removeEntity(entity: LGEntity)
@@ -90,12 +80,11 @@ class LGScene: SKScene
 				
 				// Remove named entity
 				
-				for i in entityNameIds
+				for (name, other) in entitiesByName
 				{
-					if entities[i] === entity
+					if other === entity
 					{
-						entityNames.removeAtIndex(i)
-						entityNameIds.removeAtIndex(i)
+						entitiesByName[name] = nil
 						break
 					}
 				}
