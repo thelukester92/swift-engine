@@ -104,7 +104,7 @@ class LGTileSystem : LGSystem
 			entities += tile
 			
 			tile.put(position, sprite)
-			scene.add(tile)
+			scene.addEntity(tile)
 		}
 		
 		// Index the entity

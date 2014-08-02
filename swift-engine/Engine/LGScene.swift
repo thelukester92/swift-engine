@@ -12,8 +12,13 @@ class LGScene: SKScene
 {
 	var systems			= [LGSystem]()
 	var systemsByPhase	= [LGUpdatePhase: [LGSystem]]()
+	
 	var entities		= [LGEntity]()
 	var removed			= [LGEntity]()
+	
+	var entityNames		= [String]()
+	var entityNameIds	= [Int]()
+	
 	var touchObservers	= [LGTouchObserver]()
 	
 	var rootNode: SKNode
@@ -26,23 +31,44 @@ class LGScene: SKScene
 		super.addChild(rootNode)
 	}
 	
-	func add(entitiesToAdd: LGEntity...)
+	func addEntity(entity: LGEntity, named name: String? = nil)
+	{
+		if let n = name
+		{
+			entityNames += n
+			entityNameIds += entities.count
+		}
+		
+		for system in systems
+		{
+			system.added(entity)
+		}
+		
+		entities += entity
+	}
+	
+	func addEntities(entitiesToAdd: LGEntity...)
 	{
 		for entity in entitiesToAdd
 		{
-			entities += entity
-			
-			for system in systems
-			{
-				if system.accepts(entity)
-				{
-					system.added(entity)
-				}
-			}
+			addEntity(entity)
 		}
 	}
 	
-	func remove(entity: LGEntity)
+	func entityNamed(name: String) -> LGEntity?
+	{
+		for i in 0 ..< entityNameIds.count
+		{
+			if entityNames[i] == name
+			{
+				return entities[entityNameIds[i]]
+			}
+		}
+		
+		return nil
+	}
+	
+	func removeEntity(entity: LGEntity)
 	{
 		removed += entity
 	}
@@ -53,6 +79,27 @@ class LGScene: SKScene
 		{
 			for entity in removed
 			{
+				// Alert systems that entity has been removed
+				
+				for system in systems
+				{
+					system.removed(entity)
+				}
+				
+				// Remove named entity
+				
+				for i in entityNameIds
+				{
+					if entities[i] === entity
+					{
+						entityNames.removeAtIndex(i)
+						entityNameIds.removeAtIndex(i)
+						break
+					}
+				}
+				
+				// Remove entity from entities array
+				
 				for i in 0 ..< entities.count
 				{
 					if entities[i] === entity
@@ -61,48 +108,49 @@ class LGScene: SKScene
 						break
 					}
 				}
-				
-				for system in systems
-				{
-					system.removed(entity)
-				}
 			}
+			
 			removed = []
 		}
 	}
 	
-	func add(systemsToAdd: LGSystem...)
+	func addSystem(system: LGSystem)
 	{
-		for system in systemsToAdd
+		systems += system
+		
+		if var phase = systemsByPhase[system.updatePhase]
 		{
-			systems += system
-			
-			if var phase = systemsByPhase[system.updatePhase]
+			phase.append(system)
+			systemsByPhase[system.updatePhase] = phase
+		}
+		else
+		{
+			systemsByPhase[system.updatePhase] = [system]
+		}
+		
+		if let touchObserver = system as? LGTouchObserver
+		{
+			touchObservers += touchObserver
+		}
+		
+		for entity in entities
+		{
+			if system.accepts(entity)
 			{
-				phase.append(system)
-				systemsByPhase[system.updatePhase] = phase
-			}
-			else
-			{
-				systemsByPhase[system.updatePhase] = [system]
-			}
-			
-			if let touchObserver = system as? LGTouchObserver
-			{
-				touchObservers += touchObserver
-			}
-			
-			for entity in entities
-			{
-				if system.accepts(entity)
-				{
-					system.added(entity)
-				}
+				system.added(entity)
 			}
 		}
 	}
 	
-	func remove(system: LGSystem)
+	func addSystems(systemsToAdd: LGSystem...)
+	{
+		for system in systemsToAdd
+		{
+			addSystem(system)
+		}
+	}
+	
+	func removeSystem(system: LGSystem)
 	{
 		for i in 0 ..< systems.count
 		{

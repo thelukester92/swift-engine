@@ -23,7 +23,7 @@ class GameScene: LGScene
 		
 		var physicsSystem = LGPhysicsSystem()
 		
-		self.add(
+		self.addSystems(
 			LGRenderingSystem(scene: self),
 			LGCameraSystem(scene: self),
 			physicsSystem,
@@ -40,7 +40,7 @@ class GameScene: LGScene
 		block.get(LGSprite)!.position = 1
 		block.get(LGSprite)!.offset.x = -12
 		block.get(LGPhysicsBody)!.dynamic = false
-		self.add(block)
+		self.addEntity(block)
 		
 		let player = LGEntity()
 		player.put(
@@ -58,9 +58,7 @@ class GameScene: LGScene
 		sprite.currentState = sprite.stateNamed("idle")
 		sprite.offset.x = -12
 		
-		self.add(player)
-		
-		self.player = player
+		self.addEntity(player, named: "player")
 		
 		let parser = LGTMXParser()
 		let map = parser.parseFile("Level")
@@ -71,14 +69,13 @@ class GameScene: LGScene
 	
 	// TODO: The following logic should go in a separate system that acts as a delegate for receiving inputs and updating player sprites. It's only here temporarily due to convenience of development.
 	
-	var player: LGEntity?
-	
 	override func update(currentTime: NSTimeInterval)
 	{
 		super.update(currentTime)
 		
-		let body = player!.get(LGPhysicsBody)!
-		let sprite = player!.get(LGSprite)!
+		let player = entityNamed("player")!
+		let body = player.get(LGPhysicsBody)!
+		let sprite = player.get(LGSprite)!
 		
 		if body.velocity.y != 0
 		{
