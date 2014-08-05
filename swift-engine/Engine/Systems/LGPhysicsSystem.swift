@@ -186,6 +186,27 @@ class LGPhysicsSystem: LGSystem
 		{
 			if id != other && overlap(id, other, axis: .Y)
 			{
+				// Check for directional collisions
+				// TODO: Determine if this is a good place for directional collisions
+				
+				if body[id].onlyCollidesOnTop && (position[id].y > position[other].y || overlappedLastFrame(id, other))
+				{
+					continue
+				}
+				
+				if body[other].onlyCollidesOnTop && (position[other].y > position[id].y || overlappedLastFrame(id, other))
+				{
+					continue
+				}
+				
+				// Create a follower
+				// TODO: Determine if this is a good place to create the follower
+				
+				if position[id].y > position[other].y && !entities[id].has(LGFollower)
+				{
+					entities[id].put(LGFollower(following: entities[other], axis: .X))
+				}
+				
 				resolveDynamicCollision(id, other, axis: .Y)
 			}
 		}
@@ -295,6 +316,20 @@ class LGPhysicsSystem: LGSystem
 		{
 			if id != other && overlap(id, other, axis: .Y)
 			{
+				// Check for directional collisions
+				// TODO: Determine if this is a good place for directional collisions
+				
+				if body[id].onlyCollidesOnTop && (position[id].y > position[other].y || overlappedLastFrame(id, other))
+				{
+					continue
+				}
+				
+				if body[other].onlyCollidesOnTop && (position[other].y > position[id].y || overlappedLastFrame(id, other))
+				{
+					continue
+				}
+				
+				// Create a follower
 				// TODO: Determine if this is a good place to create the follower
 				
 				if position[id].y > position[other].y && !entities[id].has(LGFollower)
@@ -414,6 +449,11 @@ class LGPhysicsSystem: LGSystem
 	
 	// MARK: Helper Methods
 	
+	func overlappedLastFrame(a: Int, _ b: Int) -> Bool
+	{
+		return overlap(a, b, axis: .Both)
+	}
+	
 	func overlap(a: Int, _ b: Int, axis: LGAxis) -> Bool
 	{
 		switch axis
@@ -430,6 +470,14 @@ class LGPhysicsSystem: LGSystem
 					|| tent[a].x < tent[b].x - body[a].width
 					|| tent[a].y > tent[b].y + body[b].height + 0.9
 					|| tent[a].y < tent[b].y - body[a].height - 0.9
+				)
+			
+			// Check both axes using the old position
+			case .Both:
+				return !(position[a].x > position[b].x + body[b].width
+					|| position[a].x < position[b].x - body[a].width
+					|| position[a].y > position[b].y + body[b].height + 0.9
+					|| position[a].y < position[b].y - body[a].height - 0.9
 				)
 			
 			default:
