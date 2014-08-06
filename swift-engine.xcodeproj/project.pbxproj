@@ -95,6 +95,7 @@
 		A3B2AEB9193EBFE20097B3A7 /* swift-engineTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "swift-engineTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		A3B2AEBE193EBFE20097B3A7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A3B2AEBF193EBFE20097B3A7 /* swift_engineTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = swift_engineTests.swift; sourceTree = "<group>"; };
+		A3CE1B2B1991E96400DF19A8 /* LICENSE */ = {isa = PBXFileReference; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
 		A3E735BC195618F700FA6025 /* LGTileMap.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LGTileMap.swift; path = Classes/LGTileMap.swift; sourceTree = "<group>"; };
 		A3EA911E19561EF100297EEB /* Tileset.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Tileset.png; path = Game/Resources/Tileset.png; sourceTree = "<group>"; };
 		A3EFA8161943FA2D00C85CF8 /* Player.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Player.png; path = Game/Resources/Player.png; sourceTree = "<group>"; };
@@ -219,6 +220,7 @@
 			isa = PBXGroup;
 			children = (
 				A3EFA81819441B6F00C85CF8 /* README.md */,
+				A3CE1B2B1991E96400DF19A8 /* LICENSE */,
 				A3B2AEA5193EBFE20097B3A7 /* swift-engine */,
 				A3B2AEBC193EBFE20097B3A7 /* swift-engineTests */,
 				A3B2AEA4193EBFE20097B3A7 /* Products */,
