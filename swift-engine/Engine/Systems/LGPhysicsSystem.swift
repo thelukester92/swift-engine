@@ -173,7 +173,7 @@ class LGPhysicsSystem: LGSystem
 	{
 		for other in dynamicEntities
 		{
-			if id != other && overlap(id, other, axis: .X)
+			if id != other && !body[id].onlyCollidesOnTop && !body[other].onlyCollidesOnTop && overlap(id, other, axis: .X)
 			{
 				resolveDynamicCollision(id, other, axis: .X)
 			}
@@ -181,33 +181,8 @@ class LGPhysicsSystem: LGSystem
 		
 		for other in dynamicEntities
 		{
-			if id != other && overlap(id, other, axis: .Y)
+			if id != other && !body[id].onlyCollidesOnTop && !body[other].onlyCollidesOnTop && overlap(id, other, axis: .Y)
 			{
-				// Check for directional collisions
-				// TODO: Determine if this is a good place for directional collisions
-				
-				if body[id].onlyCollidesOnTop && (position[id].y > position[other].y || overlappedLastFrame(id, other))
-				{
-					continue
-				}
-				
-				if body[other].onlyCollidesOnTop && (position[other].y > position[id].y || overlappedLastFrame(id, other))
-				{
-					continue
-				}
-				
-				// Create a follower
-				// TODO: Determine if this is a good place to create the follower
-				
-				if position[id].y > position[other].y && !entities[id].has(LGFollower)
-				{
-					entities[id].put(LGFollower(following: entities[other], axis: .X))
-				}
-				else if position[id].y < position[other].y && !entities[other].has(LGFollower)
-				{
-					entities[other].put(LGFollower(following: entities[id], axis: .X))
-				}
-				
 				resolveDynamicCollision(id, other, axis: .Y)
 			}
 		}
@@ -309,7 +284,7 @@ class LGPhysicsSystem: LGSystem
 		{
 			if overlap(id, other, axis: .X)
 			{
-				resolveStaticCollision(id, tentRect(other), axis: .X)
+				resolveStaticCollision(id, other, axis: .X)
 			}
 		}
 		
@@ -317,28 +292,7 @@ class LGPhysicsSystem: LGSystem
 		{
 			if overlap(id, other, axis: .Y)
 			{
-				// Check for directional collisions
-				// TODO: Determine if this is a good place for directional collisions
-				
-				if body[id].onlyCollidesOnTop && (position[id].y > position[other].y || overlappedLastFrame(id, other))
-				{
-					continue
-				}
-				
-				if body[other].onlyCollidesOnTop && (position[other].y > position[id].y || overlappedLastFrame(id, other))
-				{
-					continue
-				}
-				
-				// Create a follower
-				// TODO: Determine if this is a good place to create the follower
-				
-				if position[id].y > position[other].y && !entities[id].has(LGFollower)
-				{
-					entities[id].put(LGFollower(following: entities[other], axis: .X))
-				}
-				
-				resolveStaticCollision(id, tentRect(other), axis: .Y)
+				resolveStaticCollision(id, other, axis: .Y)
 			}
 		}
 	}
@@ -389,14 +343,55 @@ class LGPhysicsSystem: LGSystem
 		}
 	}
 	
-	func resolveStaticCollision(var id: Int, var _ rect: Rect, axis: LGAxis)
+	func resolveStaticCollision(id: Int, _ rect: Rect, axis: LGAxis)
 	{
-		var collisions: [(id: Int, rect: Rect)] = [ (id: id, rect: rect) ]
+		resolveStaticCollision(id, -1, axis: axis, rect: rect)
+	}
+	
+	func resolveStaticCollision(var id: Int, var _ other: Int, axis: LGAxis, var rect: Rect! = nil)
+	{
+		var collisions: [(id: Int, other: Int)] = [ (id: id, other: other) ]
 		while collisions.count > 0
 		{
 			id = collisions[0].id
-			rect = collisions[0].rect
+			other = collisions[0].other
 			collisions.removeAtIndex(0)
+			
+			if other >= 0
+			{
+				// Check for directional collisions
+				
+				if axis == LGAxis.X
+				{
+					if body[id].onlyCollidesOnTop || body[other].onlyCollidesOnTop
+					{
+						return
+					}
+				}
+				else if axis == LGAxis.Y
+				{
+					if body[id].onlyCollidesOnTop && (tent[id].y > tent[other].y || position[other].y < position[id].y + body[id].height)
+					{
+						return
+					}
+					
+					if body[other].onlyCollidesOnTop && (tent[other].y > tent[id].y || position[id].y < position[other].y + body[other].height)
+					{
+						return
+					}
+					
+					// Create a follower
+					
+					if position[id].y > position[other].y && !entities[id].has(LGFollower)
+					{
+						entities[id].put(LGFollower(following: entities[other], axis: .X))
+					}
+				}
+				
+				rect = tentRect(other)
+			}
+			
+			// Resolve the collision
 			
 			switch axis
 			{
@@ -438,22 +433,17 @@ class LGPhysicsSystem: LGSystem
 			
 			// Chain collisions
 			
-			for other in dynamicEntities
+			for another in dynamicEntities
 			{
-				if id != other && overlap(id, other, axis: axis)
+				if id != another && overlap(id, another, axis: axis)
 				{
-					collisions += (id: other, rect: tentRect(id))
+					collisions += (id: another, other: id)
 				}
 			}
 		}
 	}
 	
 	// MARK: Helper Methods
-	
-	func overlappedLastFrame(a: Int, _ b: Int) -> Bool
-	{
-		return overlap(a, b, axis: .Both)
-	}
 	
 	func overlap(a: Int, _ b: Int, axis: LGAxis) -> Bool
 	{
@@ -471,14 +461,6 @@ class LGPhysicsSystem: LGSystem
 					|| tent[a].x < tent[b].x - body[a].width
 					|| tent[a].y >= tent[b].y + body[b].height + 1
 					|| tent[a].y <= tent[b].y - body[a].height - 1
-				)
-			
-			// Check both axes using the old position
-			case .Both:
-				return !(position[a].x > position[b].x + body[b].width
-					|| position[a].x < position[b].x - body[a].width
-					|| position[a].y > position[b].y + body[b].height
-					|| position[a].y < position[b].y - body[a].height
 				)
 			
 			default:
