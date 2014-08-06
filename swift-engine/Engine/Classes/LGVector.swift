@@ -21,22 +21,22 @@ class LGVector
 	}
 }
 
-@infix func + (left: LGVector, right: LGVector) -> LGVector
-{
-	return LGVector(x: left.x + right.x, y: left.y + right.y)
-}
-
-@infix func - (left: LGVector, right: LGVector) -> LGVector
-{
-	return LGVector(x: left.x - right.x, y: left.y - right.y)
-}
-
-@prefix func - (vector: LGVector) -> LGVector
+prefix func - (vector: LGVector) -> LGVector
 {
 	return LGVector(x: -vector.x, y: -vector.y)
 }
 
-@assignment func += (inout left: LGVector, right: LGVector)
+func + (left: LGVector, right: LGVector) -> LGVector
+{
+	return LGVector(x: left.x + right.x, y: left.y + right.y)
+}
+
+func - (left: LGVector, right: LGVector) -> LGVector
+{
+	return LGVector(x: left.x - right.x, y: left.y - right.y)
+}
+
+func += (inout left: LGVector, right: LGVector)
 {
 	left = left + right
 }

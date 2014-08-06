@@ -101,7 +101,7 @@ class LGTileSystem : LGSystem
 			position	= LGPosition()
 			sprite		= LGSprite(spriteSheet: map.spriteSheet)
 			
-			entities += tile
+			entities.append(tile)
 			
 			tile.put(position, sprite)
 			scene.addEntity(tile)
@@ -110,10 +110,9 @@ class LGTileSystem : LGSystem
 		// Index the entity
 		
 		rowsByEntity[localId] = row
-		if var arr = entitiesByRow[row]
+		if entitiesByRow[row] != nil
 		{
-			arr += localId
-			entitiesByRow[row] = arr
+			entitiesByRow[row]!.append(localId)
 		}
 		else
 		{
@@ -121,10 +120,9 @@ class LGTileSystem : LGSystem
 		}
 		
 		colsByEntity[localId] = col
-		if var arr = entitiesByCol[col]
+		if entitiesByCol[col] != nil
 		{
-			arr += localId
-			entitiesByCol[col] = arr
+			entitiesByCol[col]!.append(localId)
 		}
 		else
 		{
@@ -174,7 +172,7 @@ class LGTileSystem : LGSystem
 		let sprite = entities[localId].get(LGSprite)!
 		sprite.isVisible = false
 		
-		reusePool += localId
+		reusePool.append(localId)
 		
 		colsByEntity[localId] = nil
 		rowsByEntity[localId] = nil
@@ -187,7 +185,7 @@ class LGTileSystem : LGSystem
 			for localId in entitiesInCol
 			{
 				// Make sure this entity hasn't already been recycled by row
-				if !(!colsByEntity[localId]) && col == colsByEntity[localId]
+				if colsByEntity[localId] != nil && col == colsByEntity[localId]
 				{
 					recycleTileEntity(localId)
 				}
@@ -203,7 +201,7 @@ class LGTileSystem : LGSystem
 			for localId in entitiesInRow
 			{
 				// Make sure this entity hasn't already been recycled by col
-				if !(!rowsByEntity[localId]) && row == rowsByEntity[localId]
+				if rowsByEntity[localId] != nil && row == rowsByEntity[localId]
 				{
 					recycleTileEntity(localId)
 				}

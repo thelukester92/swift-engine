@@ -25,7 +25,7 @@ class LGSpatialGrid
 		
 		if var cell = grid[row * rowHash + col]
 		{
-			cell += entity
+			cell.append(entity)
 			grid[row * rowHash + col] = cell
 		}
 		else
@@ -53,7 +53,7 @@ class LGSpatialGrid
 					{
 						if filter(e)
 						{
-							entities += e
+							entities.append(e)
 						}
 					}
 				}

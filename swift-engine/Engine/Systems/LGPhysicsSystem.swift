@@ -30,7 +30,7 @@ class LGPhysicsSystem: LGSystem
 	
 	// MARK: LGSystem Overrides
 	
-	init()
+	override init()
 	{
 		super.init()
 		self.updatePhase = .Physics
@@ -54,19 +54,19 @@ class LGPhysicsSystem: LGSystem
 		if bod.dynamic
 		{
 			dynamicIndices[localId] = dynamicEntities.count
-			dynamicEntities += localId
+			dynamicEntities.append(localId)
 		}
 		else
 		{
 			staticIndices[localId] = staticEntities.count
-			staticEntities += localId
+			staticEntities.append(localId)
 		}
 		
 		// Cache entity information
 		
-		position	+= pos
-		body		+= bod
-		tent		+= LGVector()
+		position.append(pos)
+		body.append(bod)
+		tent.append(LGVector())
 	}
 	
 	override func remove(index: Int)
@@ -437,7 +437,9 @@ class LGPhysicsSystem: LGSystem
 			{
 				if id != another && overlap(id, another, axis: axis)
 				{
-					collisions += (id: another, other: id)
+					// TODO: See if we can remove the variable declaration here in a future version of Swift
+					let newTuple: (id: Int, other: Int) = (id: another, other: id)
+					collisions.append(newTuple)
 				}
 			}
 		}

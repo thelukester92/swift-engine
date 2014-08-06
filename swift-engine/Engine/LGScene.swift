@@ -22,12 +22,19 @@ class LGScene: SKScene
 	
 	var rootNode: SKNode
 	
-	init(size: CGSize)
+	override init(size: CGSize)
 	{
 		rootNode = SKNode()
 		
 		super.init(size: size)
 		super.addChild(rootNode)
+	}
+	
+	required init(coder: NSCoder)
+	{
+		// TODO: Remove this initializer. This sucks, because I don't want this initializer to exist. But Swift requires it.
+		rootNode = SKNode()
+		super.init(coder: coder)
 	}
 	
 	func addEntity(entity: LGEntity, named name: String? = nil)
@@ -44,7 +51,7 @@ class LGScene: SKScene
 			system.added(entity)
 		}
 		
-		entities += entity
+		entities.append(entity)
 	}
 	
 	func addEntities(entitiesToAdd: LGEntity...)
@@ -62,7 +69,7 @@ class LGScene: SKScene
 	
 	func removeEntity(entity: LGEntity)
 	{
-		removed += entity
+		removed.append(entity)
 	}
 	
 	func processRemovedEntities()
@@ -115,7 +122,7 @@ class LGScene: SKScene
 	
 	func addSystem(system: LGSystem)
 	{
-		systems += system
+		systems.append(system)
 		
 		if var phase = systemsByPhase[system.updatePhase]
 		{
@@ -129,7 +136,7 @@ class LGScene: SKScene
 		
 		if let touchObserver = system as? LGTouchObserver
 		{
-			touchObservers += touchObserver
+			touchObservers.append(touchObserver)
 		}
 		
 		for entity in entities

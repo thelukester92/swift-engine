@@ -37,8 +37,8 @@ class LGRenderingSystem: LGSystem
 		
 		prepareSprite(sprite)
 		
-		positions += position
-		sprites += sprite
+		positions.append(position)
+		sprites.append(sprite)
 	}
 	
 	override func remove(index: Int)
@@ -158,7 +158,7 @@ class LGRenderingSystem: LGSystem
 		
 		// Update sprite texture if the position changed
 		
-		if !posForId[id] || posForId[id] != sprite.position
+		if posForId[id] == nil || posForId[id] != sprite.position
 		{
 			sprite.node.texture = sprite.spriteSheet?.textureAtPosition(sprite.position)
 			posForId[id] = sprite.position

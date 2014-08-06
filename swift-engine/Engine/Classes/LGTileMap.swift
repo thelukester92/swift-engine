@@ -32,6 +32,6 @@ class LGTileMap
 	
 	func add(layer: LGTileLayer)
 	{
-		layers += layer
+		layers.append(layer)
 	}
 }

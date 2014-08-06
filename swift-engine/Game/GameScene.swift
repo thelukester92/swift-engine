@@ -12,11 +12,6 @@ class GameScene: LGScene
 {
 	var tileSystem: LGTileSystem!
 	
-	init(size: CGSize)
-	{
-		super.init(size: size)
-	}
-	
 	override func didMoveToView(view: SKView)
 	{
 		tileSystem = LGTileSystem(scene: self)

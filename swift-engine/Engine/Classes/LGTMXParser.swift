@@ -28,11 +28,6 @@ class LGTMXParser: NSObject
 	var currentEncoding		= ""
 	var currentCompression	= ""
 	
-	init()
-	{
-		super.init()
-	}
-	
 	func parseFile(filename: String, filetype: String = "tmx") -> LGTileMap
 	{
 		let parser = NSXMLParser(contentsOfURL: NSBundle.mainBundle().URLForResource(filename, withExtension: filetype))
@@ -93,13 +88,13 @@ class LGTMXParser: NSObject
 		
 		for i in 0 ..< map.height
 		{
-			output += [LGTile]()
+			output.append([LGTile]())
 			
 			for j in 0 ..< map.width
 			{
 				let globalIdString = data[i * map.width + j].stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet())
 				let globalId: UInt32 = NSNumberFormatter().numberFromString(globalIdString).unsignedIntValue
-				output[i] += LGTile(gid: globalId)
+				output[i].append(LGTile(gid: globalId))
 			}
 		}
 		
@@ -113,12 +108,12 @@ class LGTMXParser: NSObject
 		
 		for i in 0 ..< map.height
 		{
-			output += [LGTile]()
+			output.append([LGTile]())
 			
 			for _ in 0 ..< map.width
 			{
 				let globalId = UInt32(data[byteIndex++] | data[byteIndex++] << 8 | data[byteIndex++] << 16 | data[byteIndex++] << 24)
-				output[i] += LGTile(gid: globalId)
+				output[i].append(LGTile(gid: globalId))
 			}
 		}
 		
@@ -242,7 +237,7 @@ extension LGTMXParser: NSXMLParserDelegate
 				currentCompression	= ""
 			
 			case "object":
-				objects += currentObject
+				objects.append(currentObject)
 				currentObject = nil
 			
 			default:

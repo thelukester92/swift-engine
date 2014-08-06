@@ -18,7 +18,7 @@ class LGSystem
 	
 	func add(entity: LGEntity)
 	{
-		entities += entity
+		entities.append(entity)
 	}
 	
 	func remove(entity: LGEntity)

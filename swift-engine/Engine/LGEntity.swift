@@ -24,7 +24,7 @@ final class LGEntity
 	
 	func has(type: String) -> Bool
 	{
-		return components[type].getLogicValue()
+		return components[type] != nil
 	}
 	
 	func has<T: LGComponent>(type: T.Type) -> Bool
