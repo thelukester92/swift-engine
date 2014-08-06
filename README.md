@@ -1,7 +1,7 @@
 Swift Engine
 ===
 
-**Version: 0.1**
+**Version: 0.1a**
 
 This project is a game engine designed for the iPhone platform. It is built in Apple's new [Swift programming language](https://developer.apple.com/swift/), and uses the Entity-Component-System architecture. The project was originally written in Objective-C (see the [old project](https://github.com/thelukester92/ecs-engine-for-iphone/)).
 
