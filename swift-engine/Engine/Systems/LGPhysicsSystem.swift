@@ -139,30 +139,27 @@ class LGPhysicsSystem: LGSystem
 			{
 				entities[id].remove(LGFollower)
 			}
-			else
+			else if let following = follower.following
 			{
-				if let following = follower.following
+				if let followingBody = following.get(LGPhysicsBody)
 				{
-					if let followingBody = following.get(LGPhysicsBody)
+					switch follower.axis
 					{
-						switch follower.axis
-						{
-							case .X:
-								vel.x += followingBody.velocity.x
-							
-							case .Y:
-								vel.y += followingBody.velocity.y
-							
-							case .Both:
-								vel.x += followingBody.velocity.x
-								vel.y += followingBody.velocity.y
-							
-							case .None:
-								break
-						}
+						case .X:
+							vel.x += followingBody.velocity.x
+						
+						case .Y:
+							vel.y += followingBody.velocity.y
+						
+						case .Both:
+							vel.x += followingBody.velocity.x
+							vel.y += followingBody.velocity.y
+						
+						case .None:
+							break
 					}
-					limit(&vel, maximum: TERMINAL_VELOCITY)
 				}
+				limit(&vel, maximum: TERMINAL_VELOCITY)
 			}
 		}
 		
@@ -205,6 +202,10 @@ class LGPhysicsSystem: LGSystem
 				if position[id].y > position[other].y && !entities[id].has(LGFollower)
 				{
 					entities[id].put(LGFollower(following: entities[other], axis: .X))
+				}
+				else if position[id].y < position[other].y && !entities[other].has(LGFollower)
+				{
+					entities[other].put(LGFollower(following: entities[id], axis: .X))
 				}
 				
 				resolveDynamicCollision(id, other, axis: .Y)
@@ -306,7 +307,7 @@ class LGPhysicsSystem: LGSystem
 		
 		for other in staticEntities
 		{
-			if id != other && overlap(id, other, axis: .X)
+			if overlap(id, other, axis: .X)
 			{
 				resolveStaticCollision(id, tentRect(other), axis: .X)
 			}
@@ -314,7 +315,7 @@ class LGPhysicsSystem: LGSystem
 		
 		for other in staticEntities
 		{
-			if id != other && overlap(id, other, axis: .Y)
+			if overlap(id, other, axis: .Y)
 			{
 				// Check for directional collisions
 				// TODO: Determine if this is a good place for directional collisions
@@ -459,8 +460,8 @@ class LGPhysicsSystem: LGSystem
 		switch axis
 		{
 			case .X:
-				return !(tent[a].x > tent[b].x + body[b].width + 0.9
-					|| tent[a].x < tent[b].x - body[a].width - 0.9
+				return !(tent[a].x >= tent[b].x + body[b].width + 1
+					|| tent[a].x <= tent[b].x - body[a].width - 1
 					|| position[a].y > position[b].y + body[b].height
 					|| position[a].y < position[b].y - body[a].height
 				)
@@ -468,16 +469,16 @@ class LGPhysicsSystem: LGSystem
 			case .Y:
 				return !(tent[a].x > tent[b].x + body[b].width
 					|| tent[a].x < tent[b].x - body[a].width
-					|| tent[a].y > tent[b].y + body[b].height + 0.9
-					|| tent[a].y < tent[b].y - body[a].height - 0.9
+					|| tent[a].y >= tent[b].y + body[b].height + 1
+					|| tent[a].y <= tent[b].y - body[a].height - 1
 				)
 			
 			// Check both axes using the old position
 			case .Both:
 				return !(position[a].x > position[b].x + body[b].width
 					|| position[a].x < position[b].x - body[a].width
-					|| position[a].y > position[b].y + body[b].height + 0.9
-					|| position[a].y < position[b].y - body[a].height - 0.9
+					|| position[a].y > position[b].y + body[b].height
+					|| position[a].y < position[b].y - body[a].height
 				)
 			
 			default:
