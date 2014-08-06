@@ -6,7 +6,7 @@ The Swift engine is an [Entity-Component-System](http://en.wikipedia.org/wiki/En
 
 The Swift programming language was selected to place this project on a new frontier. Swift is currently a beta programming language that has only been publicly available since June 2014. It is constantly evolving and improving, and is the future of iOS development. By making use of this new technology, this project is on the cutting edge.
 
-# What is the Entity-Component-System architecture?
+# What is the ECS architecture?
 
 The Entity-Component-System architecture (ECS) is a pattern for decoupling data and logic, which makes it ideal for a game engine. Entities are game objects that are little more than lists of components. Components are groups of properties that have a specific purpose, such as a sprite component with the data required for rendering a sprite. Systems contain all of the game logic pertaining to entities with a specific combination of components, such as a rendering system that handles entities with a position component and a sprite component. By modularizing game objects into components, it is easy to add, change, and remove aspects of an entity. By modularizing game logic into systems, it is easy to add, change, and remove entire portions of the game while leaving the rest untouched.
 
