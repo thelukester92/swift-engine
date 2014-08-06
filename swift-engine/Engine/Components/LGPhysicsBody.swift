@@ -26,6 +26,9 @@ class LGPhysicsBody: LGComponent
 	var width: Double
 	var height: Double
 	
+	// TODO: allow other kinds of directional collisions
+	var onlyCollidesOnTop = false
+	
 	var collidedTop		= false
 	var collidedBottom	= false
 	var collidedLeft	= false

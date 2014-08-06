@@ -38,7 +38,8 @@ class GameScene: LGScene
 			LGPhysicsBody(width: 32, height: 32)
 		)
 		platform.get(LGSprite)!.position = 13
-		platform.get(LGPhysicsBody)!.dynamic = false
+//		platform.get(LGPhysicsBody)!.dynamic = false
+		platform.get(LGPhysicsBody)!.onlyCollidesOnTop = true
 		platform.get(LGPhysicsBody)!.velocity.x = 1.0
 		self.addEntity(platform, named: "platform")
 		
@@ -98,7 +99,12 @@ class GameScene: LGScene
 		let position = entityNamed("platform")!.get(LGPosition)!
 		let bod = entityNamed("platform")!.get(LGPhysicsBody)!
 		
-		if position.x + 32 > Double(self.view.frame.size.width) || position.x < 0
+		if bod.velocity.x == 0
+		{
+			bod.velocity.x = -1
+		}
+		
+		if position.x + 32 > Double(self.view.frame.size.width) || position.x < 10
 		{
 			bod.velocity.x = -bod.velocity.x
 		}
