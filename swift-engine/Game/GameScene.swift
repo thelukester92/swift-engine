@@ -21,6 +21,7 @@ class GameScene: LGScene
 		self.addSystems(
 			LGRenderingSystem(scene: self),
 			LGCameraSystem(scene: self),
+			LGAnimationSystem(),
 			physicsSystem,
 			tileSystem,
 			PlayerInputSystem(scene: self)
@@ -29,7 +30,7 @@ class GameScene: LGScene
 		let platform = LGEntity()
 		platform.put(
 			LGPosition(x: 100, y: 100),
-			LGSprite(spriteSheet: LGSpriteSheet(textureName: "Tileset", rows: 3, cols: 6)),
+			LGSprite(textureName: "Tileset", rows: 3, cols: 6),
 			LGPhysicsBody(width: 32, height: 32)
 		)
 		platform.get(LGSprite)!.position = 13
@@ -41,18 +42,23 @@ class GameScene: LGScene
 		let player = LGEntity()
 		player.put(
 			LGPosition(x: 50, y: 200),
-			LGSprite(spriteSheet: LGSpriteSheet(textureName: "Player", rows: 1, cols: 9)),
 			LGPhysicsBody(width: 20, height: 35),
 			LGCamera(size: LGVector(x: Double(self.view.frame.size.width), y: Double(self.view.frame.size.height)), offset: LGVector(x: -Double(self.view.frame.size.width / 2), y: -Double(self.view.frame.size.height / 2))),
 			Player()
 		)
 		
-		let sprite = player.get(LGSprite)!
-		sprite.addState(LGSpriteState(position: 1), name: "idle")
-		sprite.addState(LGSpriteState(start: 8, end: 9, loops: true), name: "walk")
-		sprite.addState(LGSpriteState(position: 7), name: "fall")
-		sprite.currentState = sprite.stateNamed("idle")
+		let animatable = LGAnimatable(animations:
+		[
+			"idle":		LGAnimation(frame: 1),
+			"walk":		LGAnimation(start: 8, end: 8, loops: true),
+			"fall":		LGAnimation(frame: 7),
+		])
+		animatable.gotoAnimation("idle")
+		player.put(animatable)
+		
+		let sprite = LGSprite(textureName: "Player", rows: 1, cols: 9)
 		sprite.offset.x = -12
+		player.put(sprite)
 		
 		self.addEntity(player, named: "player")
 		
@@ -69,21 +75,22 @@ class GameScene: LGScene
 	{
 		super.update(currentTime)
 		
-		let player = entityNamed("player")!
-		let body = player.get(LGPhysicsBody)!
-		let sprite = player.get(LGSprite)!
+		let player		= entityNamed("player")!
+		let body		= player.get(LGPhysicsBody)!
+		let sprite		= player.get(LGSprite)!
+		let animatable	= player.get(LGAnimatable)!
 		
 		if body.velocity.y != 0
 		{
-			sprite.currentState = sprite.stateNamed("fall")
+			animatable.gotoAnimation("fall")
 		}
 		else if body.velocity.x != 0
 		{
-			sprite.currentState = sprite.stateNamed("walk")
+			animatable.gotoAnimation("walk")
 		}
 		else
 		{
-			sprite.currentState = sprite.stateNamed("idle")
+			animatable.gotoAnimation("idle")
 		}
 		
 		if body.velocity.x != 0

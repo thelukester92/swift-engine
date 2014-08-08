@@ -99,7 +99,7 @@ class LGTileSystem : LGSystem
 			localId		= nextLocalId++
 			tile		= LGEntity()
 			position	= LGPosition()
-			sprite		= LGSprite(spriteSheet: map.spriteSheet)
+			sprite		= LGSprite(textureName: map.spriteSheet.textureName, rows: map.spriteSheet.rows, cols: map.spriteSheet.cols)
 			
 			entities.append(tile)
 			

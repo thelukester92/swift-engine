@@ -11,34 +11,25 @@ import SpriteKit
 class LGSpriteSheet
 {
 	var texture: SKTexture
-	var width: Int			// width of a single frame
-	var height: Int			// height of a single frame
+	var textureName: String
+	
+	var width: Int
+	var height: Int
 	
 	var rows: Int { return Int(texture.size().height) / height }
 	var cols: Int { return Int(texture.size().width) / width }
 	
-	init(texture: SKTexture, frameWidth: Int, frameHeight: Int)
+	init(textureName: String, frameWidth: Int, frameHeight: Int)
 	{
-		self.texture	= texture
-		self.width		= frameWidth
-		self.height		= frameHeight
-	}
-	
-	init(texture: SKTexture, rows: Int, cols: Int)
-	{
-		self.texture	= texture
-		self.width		= Int(texture.size().width) / cols
-		self.height		= Int(texture.size().height) / rows
-	}
-	
-	convenience init(textureName: String, frameWidth: Int, frameHeight: Int)
-	{
-		self.init(texture: SKTexture(imageNamed: textureName), frameWidth: frameWidth, frameHeight: frameHeight)
+		self.texture		= SKTexture(imageNamed: textureName)
+		self.textureName	= textureName
+		self.width			= frameWidth
+		self.height			= frameHeight
 	}
 	
 	convenience init(textureName: String, rows: Int, cols: Int)
 	{
-		self.init(texture: SKTexture(imageNamed: textureName), rows: rows, cols: cols)
+		self.init(textureName: textureName, frameWidth: Int(texture.size().width) / cols, frameHeight: Int(texture.size().height) / rows)
 	}
 	
 	func textureAt(#row: Int, col: Int) -> SKTexture?
@@ -54,8 +45,6 @@ class LGSpriteSheet
 			width: CGFloat(width) / texture.size().width,
 			height: CGFloat(height) / texture.size().height
 		)
-		
-		// rows - row - 1 so that coordinates are inverted to make more sense
 		
 		return SKTexture(rect: rect, inTexture: texture)
 	}

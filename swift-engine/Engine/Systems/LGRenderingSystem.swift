@@ -8,12 +8,16 @@
 
 import SpriteKit
 
-class LGRenderingSystem: LGSystem
+final class LGRenderingSystem: LGSystem
 {
 	var scene: LGScene
-	final var positions	= [LGPosition]()
-	final var sprites	= [LGSprite]()
-	final var posForId	= [Int:Int]()
+	
+	var positions	= [LGPosition]()
+	var sprites		= [LGSprite]()
+	var nodes		= [SKSpriteNode]()
+	var frames		= [Int]()
+	
+	var spriteSheets = [String:LGSpriteSheet]()
 	
 	init(scene: LGScene)
 	{
@@ -34,134 +38,98 @@ class LGRenderingSystem: LGSystem
 		
 		let position	= entity.get(LGPosition)!
 		let sprite		= entity.get(LGSprite)!
+		let node		= generateNodeForSprite(sprite)
 		
-		prepareSprite(sprite)
+		scene.addChild(node)
 		
 		positions.append(position)
 		sprites.append(sprite)
+		nodes.append(node)
+		frames.append(-1)
 	}
 	
 	override func remove(index: Int)
 	{
 		super.remove(index)
 		
-		removeSprite(sprites[index])
+		nodes[index].removeFromParent()
 		
 		positions.removeAtIndex(index)
 		sprites.removeAtIndex(index)
-		posForId[index] = nil
+		nodes.removeAtIndex(index)
+		frames.removeAtIndex(index)
 	}
 	
 	override func update()
 	{
-		// TODO: Determine whether it would be more efficient to only process entities that have definitely moved or changed
-		
 		for id in 0 ..< entities.count
 		{
-			let sprite = sprites[id]
-			let position = positions[id]
+			let sprite	= sprites[id]
+			let node	= nodes[id]
 			
 			if sprite.isVisible
 			{
-				updateSpriteFrame(sprite, id: id)
+				let position = positions[id]
 				
-				// Update sprite position, orientation, and other SKSpriteNode properties
+				if frames[id] != sprite.frame
+				{
+					if let texture = sprite.texture
+					{
+						node.texture	= spriteSheets[texture.name]!.textureAtPosition(sprite.frame)
+						frames[id]		= sprite.frame
+					}
+				}
 				
-				sprite.node.position.x	= CGFloat(position.x + sprite.offset.x + Double(sprite.node.size.width / 2))
-				sprite.node.position.y	= CGFloat(position.y + sprite.offset.y + Double(sprite.node.size.height / 2))
-				sprite.node.xScale		= CGFloat(sprite.scale.x)
-				sprite.node.yScale		= CGFloat(sprite.scale.y)
-				sprite.node.zRotation	= CGFloat(sprite.rotation)
-				sprite.node.zPosition	= CGFloat(sprite.layer)
-				sprite.node.alpha		= CGFloat(sprite.opacity)
-				sprite.node.hidden		= false
+				node.position.x	= CGFloat(position.x + sprite.offset.x + Double(sprite.size.x / 2))
+				node.position.y	= CGFloat(position.y + sprite.offset.y + Double(sprite.size.y / 2))
+				node.xScale		= CGFloat(sprite.scale.x)
+				node.yScale		= CGFloat(sprite.scale.y)
+				node.zRotation	= CGFloat(sprite.rotation)
+				node.zPosition	= CGFloat(sprite.layer)
+				node.alpha		= CGFloat(sprite.opacity)
+				node.hidden		= false
 			}
 			else
 			{
-				sprite.node.hidden = true
+				node.hidden = true
 			}
 		}
 	}
 	
-	func prepareSprite(sprite: LGSprite)
+	func generateNodeForSprite(sprite: LGSprite) -> SKSpriteNode
 	{
-		// Initialize a SKSpriteNode for this sprite
+		var node = SKSpriteNode()
 		
-		var node: SKSpriteNode!
-		if let _ = sprite.node
+		if sprite.texture == nil
 		{
-			node = sprite.node
+			// Non-textured sprite
+			
+			if let color = sprite.color
+			{
+				node.colorBlendFactor	= 1.0
+				node.color				= UIColor(red: CGFloat(color.red), green: CGFloat(color.green), blue: CGFloat(color.blue), alpha: CGFloat(sprite.opacity))
+			}
 		}
 		else
 		{
-			node = SKSpriteNode()
-			node.anchorPoint = CGPoint(x: 0.5, y: 0.5)
-			sprite.node = node
-		}
-		scene.addChild(node)
-		
-		// Initialize texture -- the correct frame will be selected later
-		
-		if let texture = sprite.spriteSheet?.textureAtPosition(1)
-		{
-			texture.filteringMode = .Nearest
+			// Textured sprite
 			
-			sprite.node.texture = texture
-			sprite.node.size = texture.size()
-		}
-	}
-	
-	func removeSprite(sprite: LGSprite)
-	{
-		// Remove the SKSpriteNode for this sprite
-		sprite.node.removeFromParent()
-	}
-	
-	func updateSpriteFrame(sprite: LGSprite, id: Int)
-	{
-		// Use the sprite's state, if it has one
-		
-		if let state = sprite.currentState
-		{
-			// Animated animatable sprites
+			let texture = sprite.texture!
 			
-			if state.isAnimated && ++state.counter > state.duration
+			if spriteSheets[texture.name] == nil
 			{
-				// TODO: use a state.incrementor property (instead of position++), so some sprites can run faster/slower
-				state.position++
-				if state.position > state.end
-				{
-					if state.loops
-					{
-						state.position = state.start
-					}
-					else
-					{
-						state.position = state.end
-					}
-				}
-				state.counter = 0
+				let spriteSheet = LGSpriteSheet(textureName: texture.name, rows: texture.rows, cols: texture.cols)
+				spriteSheets[texture.name] = spriteSheet
 			}
 			
-			// Store the updated position in the sprite
-			
-			sprite.position = state.position
-			
-			// Remove non-animated states so that the optional binding is only executed once per state
-			// TODO: make sure this is safe -- will anyone ever need to check the current state?
-			
-			if !state.isAnimated
-			{
-				sprite.currentState = nil
-			}
+			let spriteSheet = spriteSheets[texture.name]
+			sprite.size.x = Double(spriteSheet.width)
+			sprite.size.y = Double(spriteSheet.height)
 		}
 		
-		// Update sprite texture if the position changed
+		node.anchorPoint	= CGPoint(x: 0.5, y: 0.5)
+		node.size			= CGSize(width: CGFloat(sprite.size.x), height: CGFloat(sprite.size.y))
 		
-		if posForId[id] == nil || posForId[id] != sprite.position
-		{
-			sprite.node.texture = sprite.spriteSheet?.textureAtPosition(sprite.position)
-			posForId[id] = sprite.position
-		}
+		return node
 	}
 }

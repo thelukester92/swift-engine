@@ -19,6 +19,13 @@ class LGVector
 		self.x = x
 		self.y = y
 	}
+	
+	convenience init(_ value: Double)
+	{
+		self.init()
+		self.x = value
+		self.y = value
+	}
 }
 
 prefix func - (vector: LGVector) -> LGVector
