@@ -11,6 +11,8 @@ final class LGEntity
 	var components: [String: LGComponent] = [:]
 	weak var scene: LGScene?
 	
+	init() {}
+	
 	convenience init(_ firstComponent: LGComponent, _ components: LGComponent...)
 	{
 		self.init()
