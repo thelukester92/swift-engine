@@ -6,14 +6,14 @@
 //  Copyright (c) 2014 Luke Godfrey. See LICENSE.
 //
 
-class LGFollower: LGComponent
+public class LGFollower: LGComponent
 {
-	class func type() -> String
+	public class func type() -> String
 	{
 		return "LGFollower"
 	}
 	
-	func type() -> String
+	public func type() -> String
 	{
 		return LGFollower.type()
 	}
@@ -21,13 +21,13 @@ class LGFollower: LGComponent
 	weak var following: LGEntity?
 	var axis: LGAxis
 	
-	init(following: LGEntity, axis: LGAxis)
+	public init(following: LGEntity, axis: LGAxis)
 	{
 		self.following = following
 		self.axis = axis
 	}
 	
-	convenience init(following: LGEntity)
+	public convenience init(following: LGEntity)
 	{
 		self.init(following: following, axis: .Both)
 	}

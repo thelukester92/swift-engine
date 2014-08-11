@@ -6,18 +6,20 @@
 //  Copyright (c) 2014 Luke Godfrey. See LICENSE.
 //
 
-final class LGAnimationSystem: LGSystem
+public final class LGAnimationSystem: LGSystem
 {
 	var sprites		= [LGSprite]()
 	var animatables	= [LGAnimatable]()
 	var animations	= [LGAnimation?]()
 	
-	override func accepts(entity: LGEntity) -> Bool
+	public override init() {}
+	
+	override public func accepts(entity: LGEntity) -> Bool
 	{
 		return entity.has(LGSprite) && entity.has(LGAnimatable)
 	}
 	
-	override func add(entity: LGEntity)
+	override public func add(entity: LGEntity)
 	{
 		super.add(entity)
 		
@@ -29,7 +31,7 @@ final class LGAnimationSystem: LGSystem
 		animations.append(animatable.currentAnimation)
 	}
 	
-	override func remove(index: Int)
+	override public func remove(index: Int)
 	{
 		super.remove(index)
 		
@@ -38,7 +40,7 @@ final class LGAnimationSystem: LGSystem
 		animations.removeAtIndex(index)
 	}
 	
-	override func update()
+	override public func update()
 	{
 		for id in 0 ..< entities.count
 		{

@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import LGSwiftEngine
 
 class PlayerInputSystem: LGSystem
 {
@@ -20,8 +21,8 @@ class PlayerInputSystem: LGSystem
 	init(scene: LGScene)
 	{
 		self.scene = scene
-		
 		super.init()
+		
 		self.updatePhase = .Input
 	}
 	

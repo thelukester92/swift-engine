@@ -6,7 +6,7 @@
 //  Copyright (c) 2014 Luke Godfrey. See LICENSE.
 //
 
-class LGTileLayer: LGSystem
+public class LGTileLayer: LGSystem
 {
 	var opacity		= 1.0
 	var renderLayer	= LGRenderLayer.Background
@@ -19,13 +19,13 @@ class LGTileLayer: LGSystem
 	
 	var data		= [[LGTile]]()
 	
-	init(tileWidth: Int, tileHeight: Int)
+	public init(tileWidth: Int, tileHeight: Int)
 	{
 		self.tileWidth	= tileWidth
 		self.tileHeight	= tileHeight
 	}
 	
-	func tileAt(#row: Int, col: Int) -> LGTile?
+	public func tileAt(#row: Int, col: Int) -> LGTile?
 	{
 		if row >= 0 && row < data.count && col >= 0 && col < data[row].count
 		{
@@ -34,7 +34,7 @@ class LGTileLayer: LGSystem
 		return nil
 	}
 	
-	func collidesAt(#row: Int, col: Int) -> Bool
+	public func collidesAt(#row: Int, col: Int) -> Bool
 	{
 		if isCollision
 		{
@@ -46,7 +46,7 @@ class LGTileLayer: LGSystem
 		return true
 	}
 	
-	func visibleAt(#row: Int, col: Int) -> Bool
+	public func visibleAt(#row: Int, col: Int) -> Bool
 	{
 		if isVisible
 		{

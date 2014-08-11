@@ -6,7 +6,7 @@
 //  Copyright (c) 2014 Luke Godfrey. See LICENSE.
 //
 
-class LGTileMap
+public class LGTileMap
 {
 	var width: Int
 	var height: Int
@@ -16,7 +16,7 @@ class LGTileMap
 	var layers = [LGTileLayer]()
 	var spriteSheet: LGSpriteSheet!
 	
-	init(width: Int, height: Int, tileWidth: Int, tileHeight: Int)
+	public init(width: Int, height: Int, tileWidth: Int, tileHeight: Int)
 	{
 		self.width			= width
 		self.height			= height
@@ -24,13 +24,13 @@ class LGTileMap
 		self.tileHeight		= tileHeight
 	}
 	
-	convenience init(spriteSheet: LGSpriteSheet, width: Int, height: Int, tileWidth: Int, tileHeight: Int)
+	public convenience init(spriteSheet: LGSpriteSheet, width: Int, height: Int, tileWidth: Int, tileHeight: Int)
 	{
 		self.init(width: width, height: height, tileWidth: tileWidth, tileHeight: tileHeight)
 		self.spriteSheet = spriteSheet
 	}
 	
-	func add(layer: LGTileLayer)
+	public func add(layer: LGTileLayer)
 	{
 		layers.append(layer)
 	}

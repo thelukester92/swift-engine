@@ -8,7 +8,7 @@
 
 import SpriteKit
 
-final class LGScene: LGUpdatable
+public final class LGScene
 {
 	var systems			= [LGSystem]()
 	var systemsByPhase	= [LGUpdatePhase: [LGSystem]]()
@@ -21,12 +21,12 @@ final class LGScene: LGUpdatable
 	var scene: LGSpriteKitScene
 	var rootNode: SKNode
 	
-	var view: SKView
+	public var view: SKView
 	{
 		return scene.view
 	}
 	
-	init(size: CGSize)
+	public init(size: CGSize)
 	{
 		rootNode	= SKNode()
 		scene		= LGSpriteKitScene(size: size)
@@ -35,7 +35,7 @@ final class LGScene: LGUpdatable
 		scene.addChild(rootNode)
 	}
 	
-	func addEntity(entity: LGEntity, named name: String? = nil)
+	public func addEntity(entity: LGEntity, named name: String? = nil)
 	{
 		entity.scene = self
 		
@@ -52,7 +52,7 @@ final class LGScene: LGUpdatable
 		entities.append(entity)
 	}
 	
-	func addEntities(entitiesToAdd: LGEntity...)
+	public func addEntities(entitiesToAdd: LGEntity...)
 	{
 		for entity in entitiesToAdd
 		{
@@ -60,17 +60,17 @@ final class LGScene: LGUpdatable
 		}
 	}
 	
-	func entityNamed(name: String) -> LGEntity?
+	public func entityNamed(name: String) -> LGEntity?
 	{
 		return entitiesByName[name]
 	}
 	
-	func removeEntity(entity: LGEntity)
+	public func removeEntity(entity: LGEntity)
 	{
 		removed.append(entity)
 	}
 	
-	func processRemovedEntities()
+	private func processRemovedEntities()
 	{
 		if removed.count > 0
 		{
@@ -110,7 +110,7 @@ final class LGScene: LGUpdatable
 		}
 	}
 	
-	func changed(entity: LGEntity)
+	public func changed(entity: LGEntity)
 	{
 		for system in systems
 		{
@@ -118,7 +118,7 @@ final class LGScene: LGUpdatable
 		}
 	}
 	
-	func addSystem(system: LGSystem)
+	public func addSystem(system: LGSystem)
 	{
 		systems.append(system)
 		
@@ -146,7 +146,7 @@ final class LGScene: LGUpdatable
 		}
 	}
 	
-	func addSystems(systemsToAdd: LGSystem...)
+	public func addSystems(systemsToAdd: LGSystem...)
 	{
 		for system in systemsToAdd
 		{
@@ -154,7 +154,7 @@ final class LGScene: LGUpdatable
 		}
 	}
 	
-	func removeSystem(system: LGSystem)
+	public func removeSystem(system: LGSystem)
 	{
 		for i in 0 ..< systems.count
 		{
@@ -178,7 +178,7 @@ final class LGScene: LGUpdatable
 		}
 	}
 	
-	func updateSystemsByPhase(phase: LGUpdatePhase)
+	private func updateSystemsByPhase(phase: LGUpdatePhase)
 	{
 		if let systemsToUpdate = systemsByPhase[phase]
 		{
@@ -191,12 +191,15 @@ final class LGScene: LGUpdatable
 	
 	// MARK: SKScene Overrides
 	
-	func addChild(node: SKNode!)
+	public func addChild(node: SKNode!)
 	{
 		rootNode.addChild(node)
 	}
-	
-	func update()
+}
+
+extension LGScene: LGUpdatable
+{
+	public func update()
 	{
 		updateSystemsByPhase(.Input)
 		updateSystemsByPhase(.Physics)

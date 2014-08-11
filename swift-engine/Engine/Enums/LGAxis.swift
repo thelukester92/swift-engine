@@ -6,7 +6,7 @@
 //  Copyright (c) 2014 Luke Godfrey. See LICENSE.
 //
 
-enum LGAxis
+public enum LGAxis
 {
 	case X, Y, Both, None
 }

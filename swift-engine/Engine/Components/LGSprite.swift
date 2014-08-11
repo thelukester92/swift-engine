@@ -6,41 +6,41 @@
 //  Copyright (c) 2014 Luke Godfrey. See LICENSE.
 //
 
-final class LGSprite: LGComponent
+public final class LGSprite: LGComponent
 {
-	typealias Texture = (name: String, rows: Int, cols: Int)
-	typealias Color = (red: Double, green: Double, blue: Double)
+	public typealias Texture = (name: String, rows: Int, cols: Int)
+	public typealias Color = (red: Double, green: Double, blue: Double)
 	
-	class func type() -> String
+	public class func type() -> String
 	{
 		return "LGSprite"
 	}
 	
-	func type() -> String
+	public func type() -> String
 	{
 		return LGSprite.type()
 	}
 	
-	var texture: Texture?
-	var color: Color?
+	public var texture: Texture?
+	public var color: Color?
 	
-	var size: LGVector
+	public var size: LGVector
 	
-	var frame		= 0
-	var scale		= LGVector(1.0)
-	var offset		= LGVector()
-	var opacity		= 1.0
-	var rotation	= 0.0
-	var layer		= 0
-	var isVisible	= true
+	public var frame		= 0
+	public var scale		= LGVector(1.0)
+	public var offset		= LGVector()
+	public var opacity		= 1.0
+	public var rotation		= 0.0
+	public var layer		= 0
+	public var isVisible	= true
 	
-	init(textureName: String, rows: Int = 1, cols: Int = 1)
+	public init(textureName: String, rows: Int = 1, cols: Int = 1)
 	{
 		self.texture = (name: textureName, rows: rows, cols: cols)
 		self.size = LGVector()
 	}
 	
-	init(red: Double, green: Double, blue: Double, size: LGVector)
+	public init(red: Double, green: Double, blue: Double, size: LGVector)
 	{
 		self.color = (red: red, green: green, blue: blue)
 		self.size = size

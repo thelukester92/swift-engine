@@ -8,9 +8,9 @@
 
 import SpriteKit
 
-class LGGame: UIViewController
+public class LGGame: UIViewController
 {
-	private final func createScene() -> LGScene
+	public final func createScene() -> LGScene
 	{
 		let scene = LGScene(size: view.frame.size)
 		
@@ -20,12 +20,12 @@ class LGGame: UIViewController
 		return scene
 	}
 	
-	func addSystems(scene: LGScene) {}
-	func addEntities(scene: LGScene) {}
+	public func addSystems(scene: LGScene) {}
+	public func addEntities(scene: LGScene) {}
 	
 	// MARK: UIViewController Overrides
 	
-	override func viewDidLoad()
+	override public func viewDidLoad()
 	{
 		super.viewDidLoad()
 		
@@ -37,12 +37,12 @@ class LGGame: UIViewController
 		engine.gotoScene(scene)
 	}
 	
-	override func loadView()
+	override public func loadView()
 	{
 		self.view = SKView(frame: UIScreen.mainScreen().applicationFrame)
 	}
 	
-	override func shouldAutorotate() -> Bool
+	override public func shouldAutorotate() -> Bool
 	{
 		return true
 	}

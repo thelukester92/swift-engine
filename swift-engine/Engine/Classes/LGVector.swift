@@ -6,21 +6,21 @@
 //  Copyright (c) 2014 Luke Godfrey. See LICENSE.
 //
 
-class LGVector
+public final class LGVector
 {
-	var x = 0.0
-	var y = 0.0
+	public var x = 0.0
+	public var y = 0.0
 	
-	init() {}
+	public init() {}
 	
-	convenience init(x: Double, y: Double)
+	public convenience init(x: Double, y: Double)
 	{
 		self.init()
 		self.x = x
 		self.y = y
 	}
 	
-	convenience init(_ value: Double)
+	public convenience init(_ value: Double)
 	{
 		self.init()
 		self.x = value
@@ -28,22 +28,22 @@ class LGVector
 	}
 }
 
-prefix func - (vector: LGVector) -> LGVector
+public prefix func - (vector: LGVector) -> LGVector
 {
 	return LGVector(x: -vector.x, y: -vector.y)
 }
 
-func + (left: LGVector, right: LGVector) -> LGVector
+public func + (left: LGVector, right: LGVector) -> LGVector
 {
 	return LGVector(x: left.x + right.x, y: left.y + right.y)
 }
 
-func - (left: LGVector, right: LGVector) -> LGVector
+public func - (left: LGVector, right: LGVector) -> LGVector
 {
 	return LGVector(x: left.x - right.x, y: left.y - right.y)
 }
 
-func += (inout left: LGVector, right: LGVector)
+public func += (inout left: LGVector, right: LGVector)
 {
 	left = left + right
 }

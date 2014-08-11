@@ -8,40 +8,40 @@
 
 import Foundation
 
-class LGPhysicsSystem: LGSystem
+public final class LGPhysicsSystem: LGSystem
 {
 	typealias Rect = (x: Double, y: Double, width: Double, height: Double)
 	
-	let TERMINAL_VELOCITY	= 30.0
-	let GRAVITY				= LGVector(x: 0, y: -0.1)
+	private let TERMINAL_VELOCITY	= 30.0
+	private let GRAVITY				= LGVector(x: 0, y: -0.1)
 	
-	final var dynamicEntities	= [Int]()
-	final var staticEntities	= [Int]()
+	private final var dynamicEntities	= [Int]()
+	private final var staticEntities	= [Int]()
 	
 	// Helper dictionaries for removing entities
-	final var dynamicIndices	= [Int:Int]()
-	final var staticIndices		= [Int:Int]()
+	private final var dynamicIndices	= [Int:Int]()
+	private final var staticIndices		= [Int:Int]()
 	
-	final var position	= [LGPosition]()
-	final var body		= [LGPhysicsBody]()
-	final var tent		= [LGVector]()
+	private final var position	= [LGPosition]()
+	private final var body		= [LGPhysicsBody]()
+	private final var tent		= [LGVector]()
 	
-	var collisionLayer: LGTileLayer!
+	public var collisionLayer: LGTileLayer!
 	
 	// MARK: LGSystem Overrides
 	
-	override init()
+	override public init()
 	{
 		super.init()
 		self.updatePhase = .Physics
 	}
 	
-	override func accepts(entity: LGEntity) -> Bool
+	override public func accepts(entity: LGEntity) -> Bool
 	{
 		return entity.has(LGPosition) && entity.has(LGPhysicsBody)
 	}
 	
-	override func add(entity: LGEntity)
+	override public func add(entity: LGEntity)
 	{
 		super.add(entity)
 		
@@ -69,7 +69,7 @@ class LGPhysicsSystem: LGSystem
 		tent.append(LGVector())
 	}
 	
-	override func remove(index: Int)
+	override public func remove(index: Int)
 	{
 		super.remove(index)
 		
@@ -89,7 +89,7 @@ class LGPhysicsSystem: LGSystem
 		tent.removeAtIndex(index)
 	}
 	
-	override func update()
+	override public func update()
 	{
 		for id in 0 ..< entities.count
 		{

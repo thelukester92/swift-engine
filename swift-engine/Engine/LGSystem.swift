@@ -6,22 +6,24 @@
 //  Copyright (c) 2014 Luke Godfrey. See LICENSE.
 //
 
-class LGSystem
+public class LGSystem
 {
-	final var entities	= [LGEntity]()
-	var updatePhase		= LGUpdatePhase.Main
+	final var entities		= [LGEntity]()
+	public var updatePhase	= LGUpdatePhase.Main
 	
-	func accepts(entity: LGEntity) -> Bool
+	public init() {}
+	
+	public func accepts(entity: LGEntity) -> Bool
 	{
 		return false
 	}
 	
-	func add(entity: LGEntity)
+	public func add(entity: LGEntity)
 	{
 		entities.append(entity)
 	}
 	
-	func remove(entity: LGEntity)
+	public func remove(entity: LGEntity)
 	{
 		for i in 0 ..< entities.count
 		{
@@ -33,12 +35,12 @@ class LGSystem
 		}
 	}
 	
-	func remove(index: Int)
+	public func remove(index: Int)
 	{
 		entities.removeAtIndex(index)
 	}
 	
-	func update() {}
+	public func update() {}
 }
 
 extension LGSystem: LGEntityObserver

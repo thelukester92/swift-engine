@@ -6,34 +6,34 @@
 //  Copyright (c) 2014 Luke Godfrey. See LICENSE.
 //
 
-final class LGAnimatable: LGComponent
+public final class LGAnimatable: LGComponent
 {
-	class func type() -> String
+	public class func type() -> String
 	{
 		return "LGAnimatable"
 	}
 	
-	func type() -> String
+	public func type() -> String
 	{
 		return LGAnimatable.type()
 	}
 	
-	var animations: [String:LGAnimation]
-	var counter = 0
+	public var animations: [String:LGAnimation]
+	public var counter = 0
 	
-	var currentAnimation: LGAnimation?
+	public var currentAnimation: LGAnimation?
 	
-	init(animations: [String:LGAnimation])
+	public init(animations: [String:LGAnimation])
 	{
 		self.animations = animations
 	}
 	
-	convenience init()
+	public convenience init()
 	{
 		self.init(animations: [String:LGAnimation]())
 	}
 	
-	func gotoAnimation(name: String)
+	public func gotoAnimation(name: String)
 	{
 		currentAnimation = animations[name]
 	}

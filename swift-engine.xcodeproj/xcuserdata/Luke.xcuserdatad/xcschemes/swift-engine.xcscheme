@@ -20,6 +20,20 @@
                ReferencedContainer = "container:swift-engine.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
+         <BuildActionEntry
+            buildForTesting = "YES"
+            buildForRunning = "YES"
+            buildForProfiling = "NO"
+            buildForArchiving = "NO"
+            buildForAnalyzing = "YES">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "A3150554199958C7000B8842"
+               BuildableName = "LGSwiftEngineTests.xctest"
+               BlueprintName = "LGSwiftEngineTests"
+               ReferencedContainer = "container:swift-engine.xcodeproj">
+            </BuildableReference>
+         </BuildActionEntry>
       </BuildActionEntries>
    </BuildAction>
    <TestAction
@@ -35,6 +49,16 @@
                BlueprintIdentifier = "A3B2AEB8193EBFE20097B3A7"
                BuildableName = "swift-engineTests.xctest"
                BlueprintName = "swift-engineTests"
+               ReferencedContainer = "container:swift-engine.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "A3150554199958C7000B8842"
+               BuildableName = "LGSwiftEngineTests.xctest"
+               BlueprintName = "LGSwiftEngineTests"
                ReferencedContainer = "container:swift-engine.xcodeproj">
             </BuildableReference>
          </TestableReference>

@@ -8,7 +8,7 @@
 
 import SpriteKit
 
-class LGTileSystem : LGSystem
+public final class LGTileSystem : LGSystem
 {
 	var scene: LGScene
 	var map: LGTileMap!
@@ -29,24 +29,24 @@ class LGTileSystem : LGSystem
 	var cameraPosition: LGPosition!
 	var camera: LGCamera!
 	
-	init(scene: LGScene)
+	public init(scene: LGScene)
 	{
 		self.scene = scene
 		super.init()
 	}
 	
-	override func accepts(entity: LGEntity) -> Bool
+	override public func accepts(entity: LGEntity) -> Bool
 	{
 		return entity.has(LGPosition) && entity.has(LGCamera)
 	}
 	
-	override func add(entity: LGEntity)
+	override public func add(entity: LGEntity)
 	{
 		cameraPosition	= entity.get(LGPosition)
 		camera			= entity.get(LGCamera)
 	}
 	
-	func loadMap(map: LGTileMap)
+	public func loadMap(map: LGTileMap)
 	{
 		self.map = map
 		
@@ -76,7 +76,7 @@ class LGTileSystem : LGSystem
 		}
 	}
 	
-	func reuseTileEntity(#layer: LGTileLayer, row: Int, col: Int)
+	private func reuseTileEntity(#layer: LGTileLayer, row: Int, col: Int)
 	{
 		let t = layer.tileAt(row: row, col: col)!
 		
@@ -167,7 +167,7 @@ class LGTileSystem : LGSystem
 		}
 	}
 	
-	func recycleTileEntity(localId: Int)
+	private func recycleTileEntity(localId: Int)
 	{
 		let sprite = entities[localId].get(LGSprite)!
 		sprite.isVisible = false
@@ -178,7 +178,7 @@ class LGTileSystem : LGSystem
 		rowsByEntity[localId] = nil
 	}
 	
-	func recycleCol(col: Int)
+	private func recycleCol(col: Int)
 	{
 		if let entitiesInCol = entitiesByCol[col]
 		{
@@ -194,7 +194,7 @@ class LGTileSystem : LGSystem
 		}
 	}
 	
-	func recycleRow(row: Int)
+	private func recycleRow(row: Int)
 	{
 		if let entitiesInRow = entitiesByRow[row]
 		{
@@ -210,7 +210,7 @@ class LGTileSystem : LGSystem
 		}
 	}
 	
-	override func update()
+	override public func update()
 	{
 		if !(!cameraPosition && !camera)
 		{

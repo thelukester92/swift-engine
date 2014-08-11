@@ -8,7 +8,7 @@
 
 import SpriteKit
 
-final class LGRenderingSystem: LGSystem
+public final class LGRenderingSystem: LGSystem
 {
 	var scene: LGScene
 	
@@ -19,7 +19,7 @@ final class LGRenderingSystem: LGSystem
 	
 	var spriteSheets = [String:LGSpriteSheet]()
 	
-	init(scene: LGScene)
+	public init(scene: LGScene)
 	{
 		self.scene = scene
 		
@@ -27,12 +27,12 @@ final class LGRenderingSystem: LGSystem
 		self.updatePhase = .Render
 	}
 	
-	override func accepts(entity: LGEntity) -> Bool
+	override public func accepts(entity: LGEntity) -> Bool
 	{
 		return entity.has(LGPosition) && entity.has(LGSprite)
 	}
 	
-	override func add(entity: LGEntity)
+	override public func add(entity: LGEntity)
 	{
 		super.add(entity)
 		
@@ -48,7 +48,7 @@ final class LGRenderingSystem: LGSystem
 		frames.append(-1)
 	}
 	
-	override func remove(index: Int)
+	override public func remove(index: Int)
 	{
 		super.remove(index)
 		
@@ -60,7 +60,7 @@ final class LGRenderingSystem: LGSystem
 		frames.removeAtIndex(index)
 	}
 	
-	override func update()
+	override public func update()
 	{
 		for id in 0 ..< entities.count
 		{
@@ -76,7 +76,7 @@ final class LGRenderingSystem: LGSystem
 					if let texture = sprite.texture
 					{
 						node.texture				= spriteSheets[texture.name]!.textureAtPosition(sprite.frame)
-						node.texture.filteringMode	= .Nearest
+						node.texture?.filteringMode	= .Nearest
 						frames[id]					= sprite.frame
 					}
 				}
@@ -97,7 +97,7 @@ final class LGRenderingSystem: LGSystem
 		}
 	}
 	
-	func generateNodeForSprite(sprite: LGSprite) -> SKSpriteNode
+	private func generateNodeForSprite(sprite: LGSprite) -> SKSpriteNode
 	{
 		var node = SKSpriteNode()
 		

@@ -8,14 +8,14 @@
 
 import UIKit
 
-class LGCameraSystem: LGSystem
+public final class LGCameraSystem: LGSystem
 {
 	var scene: LGScene
 	
 	var cameraPosition: LGPosition!
 	var camera: LGCamera!
 	
-	init(scene: LGScene)
+	public init(scene: LGScene)
 	{
 		self.scene = scene
 		
@@ -23,18 +23,18 @@ class LGCameraSystem: LGSystem
 		self.updatePhase = .Render
 	}
 	
-	override func accepts(entity: LGEntity) -> Bool
+	override public func accepts(entity: LGEntity) -> Bool
 	{
 		return entity.has(LGPosition) && entity.has(LGCamera)
 	}
 	
-	override func add(entity: LGEntity)
+	override public func add(entity: LGEntity)
 	{
 		cameraPosition	= entity.get(LGPosition)
 		camera			= entity.get(LGCamera)
 	}
 	
-	override func update()
+	override public func update()
 	{
 		scene.rootNode.position = CGPoint(x: -CGFloat(cameraPosition.x + camera.offset.x), y: -CGFloat(cameraPosition.y + camera.offset.y))
 	}

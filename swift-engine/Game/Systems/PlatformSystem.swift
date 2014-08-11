@@ -6,6 +6,8 @@
 //  Copyright (c) 2014 Luke Godfrey. See LICENSE.
 //
 
+import LGSwiftEngine
+
 class PlatformSystem: LGSystem
 {
 	var scene: LGScene

@@ -8,16 +8,16 @@
 
 import UIKit
 
-class LGTMXParser: NSObject
+public class LGTMXParser: NSObject
 {
 	// Setup variables
 	var collisionLayerName	= "collision"
 	var foregroundLayerName	= "foreground"
 	
 	// Variables that may be retrieved after parsing
-	var map: LGTileMap!
-	var collisionLayer: LGTileLayer!
-	var objects = [LGTMXObject]()
+	public var map: LGTileMap!
+	public var collisionLayer: LGTileLayer!
+	public var objects = [LGTMXObject]()
 	
 	// Variables for parsing
 	var currentLayer: LGTileLayer!
@@ -28,7 +28,7 @@ class LGTMXParser: NSObject
 	var currentEncoding		= ""
 	var currentCompression	= ""
 	
-	func parseFile(filename: String, filetype: String = "tmx") -> LGTileMap
+	public func parseFile(filename: String, filetype: String = "tmx") -> LGTileMap
 	{
 		let parser = NSXMLParser(contentsOfURL: NSBundle.mainBundle().URLForResource(filename, withExtension: filetype))
 		parser.delegate = self
@@ -36,7 +36,7 @@ class LGTMXParser: NSObject
 		return map
 	}
 	
-	func parseString(string: String, encoding: String, compression: String) -> [[LGTile]]
+	private func parseString(string: String, encoding: String, compression: String) -> [[LGTile]]
 	{
 		assert(encoding == "csv" || encoding == "base64",	"Encoding must be csv or base64!")
 		assert(encoding != "csv" || compression == "",		"csv-encoded strings cannot be compressed!")
@@ -82,7 +82,7 @@ class LGTMXParser: NSObject
 		}
 	}
 	
-	func parseArray(data: [String]) -> [[LGTile]]
+	private func parseArray(data: [String]) -> [[LGTile]]
 	{
 		var output = [[LGTile]]()
 		
@@ -101,7 +101,7 @@ class LGTMXParser: NSObject
 		return output
 	}
 	
-	func parseData(data: [UInt8]) -> [[LGTile]]
+	private func parseData(data: [UInt8]) -> [[LGTile]]
 	{
 		var output = [[LGTile]]()
 		var byteIndex = 0
@@ -123,7 +123,7 @@ class LGTMXParser: NSObject
 
 extension LGTMXParser: NSXMLParserDelegate
 {
-	func parser(parser: NSXMLParser!, didStartElement elementName: String!, namespaceURI: String!, qualifiedName: String!, attributes: NSDictionary!)
+	public func parser(parser: NSXMLParser!, didStartElement elementName: String!, namespaceURI: String!, qualifiedName: String!, attributes: NSDictionary!)
 	{
 		switch elementName.lowercaseString
 		{
@@ -137,12 +137,12 @@ extension LGTMXParser: NSXMLParserDelegate
 			case "layer":
 				currentLayer = LGTileLayer(tileWidth: map.tileWidth, tileHeight: map.tileHeight)
 				
-				if let value = attributes["opacity"].doubleValue
+				if let value = attributes["opacity"]?.doubleValue
 				{
 					currentLayer.opacity = value
 				}
 				
-				if let value = attributes["visible"].boolValue
+				if let value = attributes["visible"]?.boolValue
 				{
 					currentLayer.isVisible = value
 				}
@@ -213,7 +213,7 @@ extension LGTMXParser: NSXMLParserDelegate
 		currentElement = elementName.lowercaseString
 	}
 	
-	func parser(parser: NSXMLParser!, foundCharacters string: String!)
+	public func parser(parser: NSXMLParser!, foundCharacters string: String!)
 	{
 		if currentElement == "data"
 		{
@@ -221,7 +221,7 @@ extension LGTMXParser: NSXMLParserDelegate
 		}
 	}
 	
-	func parser(parser: NSXMLParser!, didEndElement elementName: String!, namespaceURI: String!, qualifiedName: String!)
+	public func parser(parser: NSXMLParser!, didEndElement elementName: String!, namespaceURI: String!, qualifiedName: String!)
 	{
 		switch elementName.lowercaseString
 		{

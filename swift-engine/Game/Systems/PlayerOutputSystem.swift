@@ -6,6 +6,8 @@
 //  Copyright (c) 2014 Luke Godfrey. See LICENSE.
 //
 
+import LGSwiftEngine
+
 class PlayerOutputSystem: LGSystem
 {
 	var player: Player!

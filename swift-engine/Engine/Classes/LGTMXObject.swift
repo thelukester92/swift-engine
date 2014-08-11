@@ -6,18 +6,18 @@
 //  Copyright (c) 2014 Luke Godfrey. See LICENSE.
 //
 
-class LGTMXObject
+public class LGTMXObject
 {
-	var x: Int
-	var y: Int
-	var properties = [String:String]()
+	public var x: Int
+	public var y: Int
+	public var properties = [String:String]()
 	
-	var name: String!
-	var type: String!
-	var width: Int!
-	var height: Int!
+	public var name: String!
+	public var type: String!
+	public var width: Int!
+	public var height: Int!
 	
-	init(x: Int, y: Int)
+	public init(x: Int, y: Int)
 	{
 		self.x = x
 		self.y = y

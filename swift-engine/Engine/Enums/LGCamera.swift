@@ -6,14 +6,14 @@
 //  Copyright (c) 2014 Luke Godfrey. See LICENSE.
 //
 
-class LGCamera: LGComponent
+public final class LGCamera: LGComponent
 {
-	class func type() -> String
+	public class func type() -> String
 	{
 		return "LGCamera"
 	}
 	
-	func type() -> String
+	public func type() -> String
 	{
 		return LGCamera.type()
 	}
@@ -21,12 +21,12 @@ class LGCamera: LGComponent
 	var offset = LGVector()
 	var size: LGVector
 	
-	init(size: LGVector)
+	public init(size: LGVector)
 	{
 		self.size = size
 	}
 	
-	convenience init(size: LGVector, offset: LGVector)
+	public convenience init(size: LGVector, offset: LGVector)
 	{
 		self.init(size: size)
 		self.offset = offset

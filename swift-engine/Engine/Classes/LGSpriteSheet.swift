@@ -8,7 +8,7 @@
 
 import SpriteKit
 
-class LGSpriteSheet
+public class LGSpriteSheet
 {
 	var texture: SKTexture
 	var textureName: String
@@ -19,7 +19,7 @@ class LGSpriteSheet
 	var rows: Int { return Int(texture.size().height) / height }
 	var cols: Int { return Int(texture.size().width) / width }
 	
-	init(textureName: String, frameWidth: Int, frameHeight: Int)
+	public init(textureName: String, frameWidth: Int, frameHeight: Int)
 	{
 		self.texture		= SKTexture(imageNamed: textureName)
 		self.textureName	= textureName
@@ -27,7 +27,7 @@ class LGSpriteSheet
 		self.height			= frameHeight
 	}
 	
-	init(textureName: String, rows: Int, cols: Int)
+	public init(textureName: String, rows: Int, cols: Int)
 	{
 		self.texture		= SKTexture(imageNamed: textureName)
 		self.textureName	= textureName
@@ -35,7 +35,7 @@ class LGSpriteSheet
 		self.height			= Int(texture.size().height) / rows
 	}
 	
-	func textureAt(#row: Int, col: Int) -> SKTexture?
+	public func textureAt(#row: Int, col: Int) -> SKTexture?
 	{
 		if row < 0 || col < 0
 		{
@@ -52,7 +52,7 @@ class LGSpriteSheet
 		return SKTexture(rect: rect, inTexture: texture)
 	}
 	
-	func textureAtPosition(pos: Int) -> SKTexture?
+	public func textureAtPosition(pos: Int) -> SKTexture?
 	{
 		return textureAt(row: (pos - 1) / cols, col: (pos - 1) % cols)
 	}

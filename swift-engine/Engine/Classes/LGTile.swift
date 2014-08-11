@@ -6,7 +6,7 @@
 //  Copyright (c) 2014 Luke Godfrey. See LICENSE.
 //
 
-class LGTile
+public class LGTile
 {
 	let FlippedHorizontalFlag: UInt32	= 0x80000000
 	let FlippedVerticalFlag: UInt32		= 0x40000000
@@ -17,7 +17,7 @@ class LGTile
 	var flippedVertical: Bool
 	var flippedDiagonal: Bool
 	
-	init(gid: UInt32)
+	public init(gid: UInt32)
 	{
 		pos					= Int(gid & ~(FlippedHorizontalFlag | FlippedVerticalFlag | FlippedDiagonalFlag))
 		flippedHorizontal	= (gid & FlippedHorizontalFlag) > 0
@@ -25,7 +25,7 @@ class LGTile
 		flippedDiagonal		= (gid & FlippedDiagonalFlag) > 0
 	}
 	
-	init(pos: Int, flippedHorizontal: Bool, flippedVertical: Bool, flippedDiagonal: Bool)
+	public init(pos: Int, flippedHorizontal: Bool, flippedVertical: Bool, flippedDiagonal: Bool)
 	{
 		self.pos				= pos
 		self.flippedHorizontal	= flippedHorizontal
@@ -33,7 +33,7 @@ class LGTile
 		self.flippedDiagonal	= flippedDiagonal
 	}
 	
-	convenience init(pos: Int)
+	public convenience init(pos: Int)
 	{
 		self.init(pos: pos, flippedHorizontal: false, flippedVertical: false, flippedDiagonal: false)
 	}

@@ -6,6 +6,8 @@
 //  Copyright (c) 2014 Luke Godfrey. See LICENSE.
 //
 
+import LGSwiftEngine
+
 class Player: LGComponent
 {
 	class func type() -> String

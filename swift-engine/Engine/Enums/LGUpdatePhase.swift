@@ -6,7 +6,7 @@
 //  Copyright (c) 2014 Luke Godfrey. See LICENSE.
 //
 
-enum LGUpdatePhase
+public enum LGUpdatePhase
 {
 	case Input, Physics, Main, Render, None
 }

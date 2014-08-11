@@ -9,7 +9,7 @@
 import UIKit
 
 // TODO: Remove @objc ; it is only here so we can check for conformance
-@objc protocol LGTouchObserver
+@objc public protocol LGTouchObserver
 {
 	func touchesBegan(touches: NSSet!, withEvent event: UIEvent!)
 	func touchesMoved(touches: NSSet!, withEvent event: UIEvent!)

@@ -8,39 +8,39 @@
 
 import SpriteKit
 
-class LGPhysicsBody: LGComponent
+public class LGPhysicsBody: LGComponent
 {
-	class func type() -> String
+	public class func type() -> String
 	{
 		return "LGPhysicsBody"
 	}
 	
-	func type() -> String
+	public func type() -> String
 	{
 		return LGPhysicsBody.type()
 	}
 	
-	var dynamic		= true
-	var velocity	= LGVector()
+	public var dynamic	= true
+	public var velocity	= LGVector()
 	
-	var width: Double
-	var height: Double
+	public var width: Double
+	public var height: Double
 	
 	// TODO: allow other kinds of directional collisions
-	var onlyCollidesOnTop = false
+	public var onlyCollidesOnTop = false
 	
-	var collidedTop		= false
-	var collidedBottom	= false
-	var collidedLeft	= false
-	var collidedRight	= false
+	public var collidedTop		= false
+	public var collidedBottom	= false
+	public var collidedLeft		= false
+	public var collidedRight	= false
 	
-	init(width: Double, height: Double)
+	public init(width: Double, height: Double)
 	{
 		self.width	= width
 		self.height	= height
 	}
 	
-	func resetCollided()
+	public func resetCollided()
 	{
 		collidedTop		= false
 		collidedBottom	= false

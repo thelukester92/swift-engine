@@ -8,28 +8,28 @@
 
 import SpriteKit
 
-class LGPosition: LGComponent
+public final class LGPosition: LGComponent
 {
-	class func type() -> String
+	public class func type() -> String
 	{
 		return "LGPosition"
 	}
 	
-	func type() -> String
+	public func type() -> String
 	{
 		return LGPosition.type()
 	}
 		
-	var x: Double
-	var y: Double
+	public var x: Double
+	public var y: Double
 	
-	init(x: Double, y: Double)
+	public init(x: Double, y: Double)
 	{
 		self.x = x
 		self.y = y
 	}
 	
-	convenience init()
+	public convenience init()
 	{
 		self.init(x: 0, y: 0)
 	}
