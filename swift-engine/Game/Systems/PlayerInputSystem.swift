@@ -34,8 +34,8 @@ class PlayerInputSystem: LGSystem
 	{
 		super.add(entity)
 		
-		player	= entity.get(Player)!
-		body	= entity.get(LGPhysicsBody)!
+		player	= entity.get(Player)
+		body	= entity.get(LGPhysicsBody)
 	}
 	
 	override func update()

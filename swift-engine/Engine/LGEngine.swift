@@ -26,10 +26,10 @@ class LGEngine
 	{
 		currentScene = scene
 		
-		scene.scaleMode = .AspectFill
-		view.presentScene(scene)
+		scene.scene.scaleMode = .AspectFill
+		view.presentScene(scene.scene)
 		
 		// Tick once before rendering
-		scene.update(0)
+		scene.update()
 	}
 }

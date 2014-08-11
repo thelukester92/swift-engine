@@ -8,7 +8,7 @@
 
 import SpriteKit
 
-class LGScene: SKScene
+final class LGScene: LGUpdatable
 {
 	var systems			= [LGSystem]()
 	var systemsByPhase	= [LGUpdatePhase: [LGSystem]]()
@@ -18,23 +18,21 @@ class LGScene: SKScene
 	
 	var entitiesByName	= [String:LGEntity]()
 	
-	var touchObservers	= [LGTouchObserver]()
-	
+	var scene: LGSpriteKitScene
 	var rootNode: SKNode
 	
-	override init(size: CGSize)
+	var view: SKView
 	{
-		rootNode = SKNode()
-		
-		super.init(size: size)
-		super.addChild(rootNode)
+		return scene.view
 	}
 	
-	required init(coder: NSCoder)
+	init(size: CGSize)
 	{
-		// TODO: Remove this initializer. This sucks, because I don't want this initializer to exist. But Swift requires it.
-		rootNode = SKNode()
-		super.init(coder: coder)
+		rootNode	= SKNode()
+		scene		= LGSpriteKitScene(size: size)
+		
+		scene.updateObservers.append(self)
+		scene.addChild(rootNode)
 	}
 	
 	func addEntity(entity: LGEntity, named name: String? = nil)
@@ -136,7 +134,7 @@ class LGScene: SKScene
 		
 		if let touchObserver = system as? LGTouchObserver
 		{
-			touchObservers.append(touchObserver)
+			scene.touchObservers.append(touchObserver)
 		}
 		
 		for entity in entities
@@ -193,41 +191,17 @@ class LGScene: SKScene
 	
 	// MARK: SKScene Overrides
 	
-	override func addChild(node: SKNode!)
+	func addChild(node: SKNode!)
 	{
 		rootNode.addChild(node)
 	}
 	
-	override func update(currentTime: NSTimeInterval)
+	func update()
 	{
 		updateSystemsByPhase(.Input)
 		updateSystemsByPhase(.Physics)
 		updateSystemsByPhase(.Main)
 		updateSystemsByPhase(.Render)
 		processRemovedEntities()
-	}
-	
-	override func touchesBegan(touches: NSSet!, withEvent event: UIEvent!)
-	{
-		for touchObserver in touchObservers
-		{
-			touchObserver.touchesBegan(touches, withEvent: event)
-		}
-	}
-	
-	override func touchesMoved(touches: NSSet!, withEvent event: UIEvent!)
-	{
-		for touchObserver in touchObservers
-		{
-			touchObserver.touchesMoved(touches, withEvent: event)
-		}
-	}
-	
-	override func touchesEnded(touches: NSSet!, withEvent event: UIEvent!)
-	{
-		for touchObserver in touchObservers
-		{
-			touchObserver.touchesEnded(touches, withEvent: event)
-		}
 	}
 }
