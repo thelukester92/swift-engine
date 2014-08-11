@@ -7,23 +7,12 @@
 //
 
 import UIKit
-import SpriteKit
 
-class GameViewController: UIViewController
+class PlatformerGame: LGGame
 {
-	func initialize()
+	override func createScene() -> LGScene
 	{
-		let scene = createGameScene()
-		
-		let skview = self.view as SKView
-		let engine = LGEngine(view: skview)
-		
-		engine.gotoScene(scene)
-	}
-	
-	func createGameScene() -> LGScene
-	{
-		let scene = LGScene(size: self.view.frame.size)
+		let scene = super.createScene()
 		
 		let physicsSystem = LGPhysicsSystem()
 		let tileSystem = LGTileSystem(scene: scene)
@@ -84,22 +73,6 @@ class GameViewController: UIViewController
 	}
 	
 	// MARK: UIViewController Overrides
-	
-	override func viewDidLoad()
-	{
-		super.viewDidLoad()
-		initialize()
-	}
-	
-	override func loadView()
-	{
-		self.view = SKView(frame: UIScreen.mainScreen().applicationFrame)
-	}
-	
-    override func shouldAutorotate() -> Bool
-	{
-		return true
-	}
 	
 	override func supportedInterfaceOrientations() -> Int
 	{
