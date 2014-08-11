@@ -6,10 +6,11 @@
 //  Copyright (c) 2014 Luke Godfrey. See LICENSE.
 //
 
-import SpriteKit
-
-class LGSprite: LGComponent
+final class LGSprite: LGComponent
 {
+	typealias Texture = (name: String, rows: Int, cols: Int)
+	typealias Color = (red: Double, green: Double, blue: Double)
+	
 	class func type() -> String
 	{
 		return "LGSprite"
@@ -20,42 +21,28 @@ class LGSprite: LGComponent
 		return LGSprite.type()
 	}
 	
-	// node is required for SpriteKit integration
-	var node: SKSpriteNode!
+	var texture: Texture?
+	var color: Color?
 	
-	var spriteSheet: LGSpriteSheet?
-	var states = [String:LGSpriteState]()
-	var currentState: LGSpriteState?
+	var size: LGVector
 	
-	var position	= 0
+	var frame		= 0
+	var scale		= LGVector(1.0)
 	var offset		= LGVector()
-	var scale		= LGVector(x: 1.0, y: 1.0)
-	var rotation	= 0.0
 	var opacity		= 1.0
+	var rotation	= 0.0
 	var layer		= 0
 	var isVisible	= true
 	
-	init() {}
-	
-	convenience init(spriteSheet: LGSpriteSheet)
+	init(textureName: String, rows: Int = 1, cols: Int = 1)
 	{
-		self.init()
-		self.spriteSheet = spriteSheet
+		self.texture = (name: textureName, rows: rows, cols: cols)
+		self.size = LGVector()
 	}
 	
-	convenience init(image: String)
+	init(red: Double, green: Double, blue: Double, size: LGVector)
 	{
-		self.init()
-		self.spriteSheet = LGSpriteSheet(texture: SKTexture(imageNamed: image), rows: 1, cols: 1)
-	}
-	
-	func addState(state: LGSpriteState, name: String)
-	{
-		states[name] = state
-	}
-	
-	func stateNamed(name: String) -> LGSpriteState?
-	{
-		return states[name]
+		self.color = (red: red, green: green, blue: blue)
+		self.size = size
 	}
 }

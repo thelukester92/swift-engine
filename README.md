@@ -31,7 +31,7 @@ To add an entity to a scene, create the entity as an aggregation of components a
 	let player = LGEntity()
 	player.put( LGPosition(x: 50, y: 200) )
 	
-	let playerSprite = LGSprite(spriteSheet: LGSpriteSheet(textureName: "Player", rows: 1, cols: 9))
+	let playerSprite = LGSprite(textureName: "Player", rows: 1, cols: 9)
 	player.put(playerSprite)
 
 ### All together
@@ -55,7 +55,7 @@ Here's what the scene should look like all together:
 			let player = LGEntity()
 			player.put(
 				LGPosition(x: 50, y: 200),
-				LGSprite(spriteSheet: LGSpriteSheet(textureName: "Player", rows: 1, cols: 9)),
+				LGSprite(textureName: "Player", rows: 1, cols: 9),
 				LGPhysicsBody(width: 20, height: 35)
 			)
 			

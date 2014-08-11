@@ -99,7 +99,7 @@ class LGTileSystem : LGSystem
 			localId		= nextLocalId++
 			tile		= LGEntity()
 			position	= LGPosition()
-			sprite		= LGSprite(spriteSheet: map.spriteSheet)
+			sprite		= LGSprite(textureName: map.spriteSheet.textureName, rows: map.spriteSheet.rows, cols: map.spriteSheet.cols)
 			
 			entities.append(tile)
 			
@@ -136,7 +136,7 @@ class LGTileSystem : LGSystem
 		
 		sprite.opacity		= layer.opacity
 		sprite.layer		= layer.renderLayer.toRaw()
-		sprite.position		= t.pos
+		sprite.frame		= t.pos
 		sprite.offset.x		= 0
 		sprite.offset.y		= 0
 		sprite.scale.x		= 1.0
