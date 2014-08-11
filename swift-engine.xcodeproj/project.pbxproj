@@ -84,15 +84,15 @@
 		A34A89251989FE5C007D82B6 /* Level.tmx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = Level.tmx; path = Game/Resources/Level.tmx; sourceTree = "<group>"; };
 		A3542B9E196CBC8000ED00E8 /* LGPhysicsSystem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LGPhysicsSystem.swift; sourceTree = "<group>"; };
 		A3845A8E196CC976004498A2 /* LGSpatialGrid.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LGSpatialGrid.swift; path = Classes/LGSpatialGrid.swift; sourceTree = "<group>"; };
-		A3870DE7196AE566000B4352 /* Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Bridging-Header.h"; sourceTree = "<group>"; };
+		A3870DE7196AE566000B4352 /* Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "Bridging-Header.h"; path = "Game/Bridging-Header.h"; sourceTree = "<group>"; };
 		A3882F67198D5085009C454F /* LGFollower.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LGFollower.swift; sourceTree = "<group>"; };
 		A3981C9719511C5C0072E4A3 /* LGTileSystem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LGTileSystem.swift; sourceTree = "<group>"; };
 		A3A581CE19744A3200489EAC /* LGRenderingSystem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LGRenderingSystem.swift; sourceTree = "<group>"; };
 		A3B2AEA3193EBFE20097B3A7 /* swift-engine.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "swift-engine.app"; sourceTree = BUILT_PRODUCTS_DIR; };
-		A3B2AEA7193EBFE20097B3A7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		A3B2AEA8193EBFE20097B3A7 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		A3B2AEA7193EBFE20097B3A7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = Info.plist; path = Game/Info.plist; sourceTree = "<group>"; };
+		A3B2AEA8193EBFE20097B3A7 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AppDelegate.swift; path = Game/AppDelegate.swift; sourceTree = "<group>"; };
 		A3B2AEAE193EBFE20097B3A7 /* PlatformerGame.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = PlatformerGame.swift; path = Game/PlatformerGame.swift; sourceTree = "<group>"; };
-		A3B2AEB3193EBFE20097B3A7 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		A3B2AEB3193EBFE20097B3A7 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = Game/Resources/Images.xcassets; sourceTree = "<group>"; };
 		A3CE1B2B1991E96400DF19A8 /* LICENSE */ = {isa = PBXFileReference; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
 		A3E735BC195618F700FA6025 /* LGTileMap.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LGTileMap.swift; path = Classes/LGTileMap.swift; sourceTree = "<group>"; };
 		A3EA911E19561EF100297EEB /* Tileset.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Tileset.png; path = Game/Resources/Tileset.png; sourceTree = "<group>"; };
@@ -237,9 +237,6 @@
 			children = (
 				A318A2C919412F2800B88B62 /* Engine */,
 				A3EFA8141943F9B100C85CF8 /* Game */,
-				A3B2AEA8193EBFE20097B3A7 /* AppDelegate.swift */,
-				A3B2AEB3193EBFE20097B3A7 /* Images.xcassets */,
-				A3B2AEA6193EBFE20097B3A7 /* Supporting Files */,
 			);
 			path = "swift-engine";
 			sourceTree = "<group>";
@@ -256,10 +253,12 @@
 		A3EFA8141943F9B100C85CF8 /* Game */ = {
 			isa = PBXGroup;
 			children = (
+				A3B2AEA8193EBFE20097B3A7 /* AppDelegate.swift */,
 				A3B2AEAE193EBFE20097B3A7 /* PlatformerGame.swift */,
 				A326119219870131000FBDF6 /* Components */,
 				A326119319870139000FBDF6 /* Systems */,
 				A3EFA8151943F9F000C85CF8 /* Resources */,
+				A3B2AEA6193EBFE20097B3A7 /* Supporting Files */,
 			);
 			name = Game;
 			sourceTree = "<group>";
@@ -267,6 +266,7 @@
 		A3EFA8151943F9F000C85CF8 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				A3B2AEB3193EBFE20097B3A7 /* Images.xcassets */,
 				A34A89251989FE5C007D82B6 /* Level.tmx */,
 				A3EA911E19561EF100297EEB /* Tileset.png */,
 				A3EFA8161943FA2D00C85CF8 /* Player.png */,
@@ -477,12 +477,12 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				GCC_OPTIMIZATION_LEVEL = fast;
-				INFOPLIST_FILE = "swift-engine/Info.plist";
+				INFOPLIST_FILE = "swift-engine/Game/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_INSTALL_OBJC_HEADER = YES;
-				SWIFT_OBJC_BRIDGING_HEADER = "${PROJECT_DIR}/${PROJECT_NAME}/Bridging-Header.h";
+				SWIFT_OBJC_BRIDGING_HEADER = "${PROJECT_DIR}/${PROJECT_NAME}/Game/Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Ounchecked";
 			};
 			name = Debug;
@@ -495,12 +495,12 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				GCC_OPTIMIZATION_LEVEL = fast;
-				INFOPLIST_FILE = "swift-engine/Info.plist";
+				INFOPLIST_FILE = "swift-engine/Game/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_INSTALL_OBJC_HEADER = YES;
-				SWIFT_OBJC_BRIDGING_HEADER = "${PROJECT_DIR}/${PROJECT_NAME}/Bridging-Header.h";
+				SWIFT_OBJC_BRIDGING_HEADER = "${PROJECT_DIR}/${PROJECT_NAME}/Game/Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Ounchecked";
 			};
 			name = Release;

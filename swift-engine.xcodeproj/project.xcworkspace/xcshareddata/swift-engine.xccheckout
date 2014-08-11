@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>F6290A20-8161-4EE3-BC5C-AB6E393AE932</string>
+	<key>IDESourceControlProjectName</key>
+	<string>swift-engine</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>4AA05EB6BD836624B738BCFE7872999D66FE8C50</key>
+		<string>github.com:thelukester92/swift-engine.git</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>swift-engine.xcodeproj</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>4AA05EB6BD836624B738BCFE7872999D66FE8C50</key>
+		<string>../..</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>github.com:thelukester92/swift-engine.git</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>111</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>4AA05EB6BD836624B738BCFE7872999D66FE8C50</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>4AA05EB6BD836624B738BCFE7872999D66FE8C50</string>
+			<key>IDESourceControlWCCName</key>
+			<string>swift-engine</string>
+		</dict>
+	</array>
+</dict>
+</plist>
