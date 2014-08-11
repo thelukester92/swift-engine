@@ -10,12 +10,13 @@ import UIKit
 
 class PlatformerGame: LGGame
 {
-	override func createScene() -> LGScene
+	var physicsSystem: LGPhysicsSystem!
+	var tileSystem: LGTileSystem!
+	
+	override func addSystems(scene: LGScene)
 	{
-		let scene = super.createScene()
-		
-		let physicsSystem = LGPhysicsSystem()
-		let tileSystem = LGTileSystem(scene: scene)
+		physicsSystem = LGPhysicsSystem()
+		tileSystem = LGTileSystem(scene: scene)
 		
 		scene.addSystems(
 			LGRenderingSystem(scene: scene),
@@ -27,21 +28,20 @@ class PlatformerGame: LGGame
 			PlayerOutputSystem(),
 			PlatformSystem(scene: scene)
 		)
-		
-		let platform = LGEntity()
-		platform.put(
+	}
+	
+	override func addEntities(scene: LGScene)
+	{
+		let platform = LGEntity(
 			LGPosition(x: 100, y: 100),
-			LGSprite(textureName: "Tileset", rows: 3, cols: 6),
+			LGSprite(red: 0, green: 0, blue: 1, size: LGVector(x: 32, y: 32)),
 			LGPhysicsBody(width: 32, height: 32)
 		)
-		platform.get(LGSprite)!.frame = 13
-//		platform.get(LGPhysicsBody)!.dynamic = false
 		platform.get(LGPhysicsBody)!.onlyCollidesOnTop = true
 		platform.get(LGPhysicsBody)!.velocity.x = 1.0
 		scene.addEntity(platform, named: "platform")
 		
-		let player = LGEntity()
-		player.put(
+		let player = LGEntity(
 			LGPosition(x: 50, y: 200),
 			LGPhysicsBody(width: 20, height: 35),
 			LGCamera(size: LGVector(x: Double(self.view.frame.size.width), y: Double(self.view.frame.size.height)), offset: LGVector(x: -Double(self.view.frame.size.width / 2), y: -Double(self.view.frame.size.height / 2))),
@@ -68,8 +68,6 @@ class PlatformerGame: LGGame
 		
 		physicsSystem.collisionLayer = parser.collisionLayer
 		tileSystem.loadMap(map)
-		
-		return scene
 	}
 	
 	// MARK: UIViewController Overrides

@@ -10,10 +10,18 @@ import SpriteKit
 
 class LGGame: UIViewController
 {
-	func createScene() -> LGScene
+	private final func createScene() -> LGScene
 	{
-		return LGScene(size: view.frame.size)
+		let scene = LGScene(size: view.frame.size)
+		
+		addSystems(scene)
+		addEntities(scene)
+		
+		return scene
 	}
+	
+	func addSystems(scene: LGScene) {}
+	func addEntities(scene: LGScene) {}
 	
 	// MARK: UIViewController Overrides
 	
