@@ -22,12 +22,6 @@ final class LGAnimatable: LGComponent
 	var counter = 0
 	
 	var currentAnimation: LGAnimation?
-	{
-		didSet
-		{
-			counter = 0
-		}
-	}
 	
 	init(animations: [String:LGAnimation])
 	{

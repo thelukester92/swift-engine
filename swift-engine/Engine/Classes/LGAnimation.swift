@@ -6,14 +6,14 @@
 //  Copyright (c) 2014 Luke Godfrey. See LICENSE.
 //
 
-class LGAnimation
+class LGAnimation: Equatable
 {
 	var start: Int
 	var end: Int
-	var loops: Boolean
+	var loops: Bool
 	var ticksPerFrame: Int
 	
-	init(start: Int, end: Int, loops: Boolean, ticksPerFrame: Int)
+	init(start: Int, end: Int, loops: Bool, ticksPerFrame: Int)
 	{
 		self.start			= start
 		self.end			= end
@@ -21,7 +21,7 @@ class LGAnimation
 		self.ticksPerFrame	= ticksPerFrame
 	}
 	
-	convenience init(start: Int, end: Int, loops: Boolean)
+	convenience init(start: Int, end: Int, loops: Bool)
 	{
 		self.init(start: start, end: end, loops: loops, ticksPerFrame: 5)
 	}
@@ -35,4 +35,9 @@ class LGAnimation
 	{
 		self.init(start: frame, end: frame)
 	}
+}
+
+func == (lhs: LGAnimation, rhs: LGAnimation) -> Bool
+{
+	return lhs.start == rhs.start && lhs.end == rhs.end && lhs.loops == rhs.loops && lhs.ticksPerFrame == rhs.ticksPerFrame
 }

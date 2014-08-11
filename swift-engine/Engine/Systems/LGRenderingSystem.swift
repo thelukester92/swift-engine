@@ -75,8 +75,9 @@ final class LGRenderingSystem: LGSystem
 				{
 					if let texture = sprite.texture
 					{
-						node.texture	= spriteSheets[texture.name]!.textureAtPosition(sprite.frame)
-						frames[id]		= sprite.frame
+						node.texture				= spriteSheets[texture.name]!.textureAtPosition(sprite.frame)
+						node.texture.filteringMode	= .Nearest
+						frames[id]					= sprite.frame
 					}
 				}
 				
@@ -115,16 +116,16 @@ final class LGRenderingSystem: LGSystem
 			// Textured sprite
 			
 			let texture = sprite.texture!
+			var spriteSheet = spriteSheets[texture.name]
 			
-			if spriteSheets[texture.name] == nil
+			if spriteSheet == nil
 			{
-				let spriteSheet = LGSpriteSheet(textureName: texture.name, rows: texture.rows, cols: texture.cols)
+				spriteSheet = LGSpriteSheet(textureName: texture.name, rows: texture.rows, cols: texture.cols)
 				spriteSheets[texture.name] = spriteSheet
 			}
 			
-			let spriteSheet = spriteSheets[texture.name]
-			sprite.size.x = Double(spriteSheet.width)
-			sprite.size.y = Double(spriteSheet.height)
+			sprite.size.x = Double(spriteSheet!.width)
+			sprite.size.y = Double(spriteSheet!.height)
 		}
 		
 		node.anchorPoint	= CGPoint(x: 0.5, y: 0.5)

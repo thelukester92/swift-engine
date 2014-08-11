@@ -10,6 +10,7 @@ final class LGAnimationSystem: LGSystem
 {
 	var sprites		= [LGSprite]()
 	var animatables	= [LGAnimatable]()
+	var animations	= [LGAnimation?]()
 	
 	override func accepts(entity: LGEntity) -> Bool
 	{
@@ -25,6 +26,7 @@ final class LGAnimationSystem: LGSystem
 		
 		sprites.append(sprite)
 		animatables.append(animatable)
+		animations.append(animatable.currentAnimation)
 	}
 	
 	override func remove(index: Int)
@@ -33,6 +35,7 @@ final class LGAnimationSystem: LGSystem
 		
 		sprites.removeAtIndex(index)
 		animatables.removeAtIndex(index)
+		animations.removeAtIndex(index)
 	}
 	
 	override func update()
@@ -44,6 +47,13 @@ final class LGAnimationSystem: LGSystem
 			
 			if let animation = animatable.currentAnimation
 			{
+				if animations[id] == nil || animations[id]! != animation
+				{
+					animations[id] = animation
+					sprite.frame = animation.start
+					animatable.counter = 0
+				}
+				
 				if ++animatable.counter > animation.ticksPerFrame
 				{
 					animatable.counter = 0

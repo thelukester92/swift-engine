@@ -33,7 +33,7 @@ class GameScene: LGScene
 			LGSprite(textureName: "Tileset", rows: 3, cols: 6),
 			LGPhysicsBody(width: 32, height: 32)
 		)
-		platform.get(LGSprite)!.position = 13
+		platform.get(LGSprite)!.frame = 13
 //		platform.get(LGPhysicsBody)!.dynamic = false
 		platform.get(LGPhysicsBody)!.onlyCollidesOnTop = true
 		platform.get(LGPhysicsBody)!.velocity.x = 1.0
@@ -50,7 +50,7 @@ class GameScene: LGScene
 		let animatable = LGAnimatable(animations:
 		[
 			"idle":		LGAnimation(frame: 1),
-			"walk":		LGAnimation(start: 8, end: 8, loops: true),
+			"walk":		LGAnimation(start: 8, end: 9, loops: true),
 			"fall":		LGAnimation(frame: 7),
 		])
 		animatable.gotoAnimation("idle")

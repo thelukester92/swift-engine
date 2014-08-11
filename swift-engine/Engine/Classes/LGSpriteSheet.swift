@@ -27,9 +27,12 @@ class LGSpriteSheet
 		self.height			= frameHeight
 	}
 	
-	convenience init(textureName: String, rows: Int, cols: Int)
+	init(textureName: String, rows: Int, cols: Int)
 	{
-		self.init(textureName: textureName, frameWidth: Int(texture.size().width) / cols, frameHeight: Int(texture.size().height) / rows)
+		self.texture		= SKTexture(imageNamed: textureName)
+		self.textureName	= textureName
+		self.width			= Int(texture.size().width) / cols
+		self.height			= Int(texture.size().height) / rows
 	}
 	
 	func textureAt(#row: Int, col: Int) -> SKTexture?
