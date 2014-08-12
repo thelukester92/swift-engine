@@ -12,9 +12,11 @@ public final class LGPhysicsSystem: LGSystem
 {
 	typealias Rect = (x: Double, y: Double, width: Double, height: Double)
 	
-	private let TERMINAL_VELOCITY	= 30.0
-	private let GRAVITY				= LGVector(x: 0, y: -0.1)
+	// Configuration variables
+	public var gravity: LGVector
+	public var terminalVelocity: Double
 	
+	// Entities by type
 	private final var dynamicEntities	= [Int]()
 	private final var staticEntities	= [Int]()
 	
@@ -22,18 +24,27 @@ public final class LGPhysicsSystem: LGSystem
 	private final var dynamicIndices	= [Int:Int]()
 	private final var staticIndices		= [Int:Int]()
 	
+	// Cached components
 	private final var position	= [LGPosition]()
 	private final var body		= [LGPhysicsBody]()
 	private final var tent		= [LGVector]()
 	
 	public var collisionLayer: LGTileLayer!
 	
+	public init(gravity: LGVector, terminalVelocity: Double = 30.0)
+	{
+		self.gravity = gravity
+		self.terminalVelocity = terminalVelocity
+		
+		super.init()
+		self.updatePhase = .Physics
+	}
+	
 	// MARK: LGSystem Overrides
 	
 	override public init()
 	{
-		super.init()
-		self.updatePhase = .Physics
+		self.init(gravity: LGVector(x: 0, y: -0.1))
 	}
 	
 	override public func accepts(entity: LGEntity) -> Bool
@@ -122,8 +133,8 @@ public final class LGPhysicsSystem: LGSystem
 		
 		if body[id].dynamic
 		{
-			body[id].velocity += GRAVITY
-			limit(&body[id].velocity, maximum: TERMINAL_VELOCITY)
+			body[id].velocity += gravity
+			limit(&body[id].velocity, maximum: terminalVelocity)
 		}
 		
 		// Update position and/or velocity of the entity to follow another entity
@@ -159,7 +170,7 @@ public final class LGPhysicsSystem: LGSystem
 							break
 					}
 				}
-				limit(&vel, maximum: TERMINAL_VELOCITY)
+				limit(&vel, maximum: terminalVelocity)
 			}
 		}
 		

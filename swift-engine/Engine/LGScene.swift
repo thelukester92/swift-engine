@@ -18,6 +18,8 @@ public final class LGScene
 	
 	var entitiesByName	= [String:LGEntity]()
 	
+	var initialized		= false
+	
 	var scene: LGSpriteKitScene
 	var rootNode: SKNode
 	
@@ -199,6 +201,15 @@ public final class LGScene
 		}
 	}
 	
+	private func initialize()
+	{
+		for system in systems
+		{
+			system.initialize()
+		}
+		initialized = true
+	}
+	
 	// MARK: SKScene Overrides
 	
 	public func addChild(node: SKNode!)
@@ -211,10 +222,16 @@ extension LGScene: LGUpdatable
 {
 	public func update()
 	{
+		if !initialized
+		{
+			initialize()
+		}
+		
 		updateSystemsByPhase(.Input)
 		updateSystemsByPhase(.Physics)
 		updateSystemsByPhase(.Main)
 		updateSystemsByPhase(.Render)
+		
 		processRemovedEntities()
 	}
 }

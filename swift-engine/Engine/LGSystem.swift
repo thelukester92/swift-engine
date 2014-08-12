@@ -42,6 +42,7 @@ public class LGSystem
 		entities.removeAtIndex(index)
 	}
 	
+	public func initialize() {}
 	public func update() {}
 }
 
