@@ -10,6 +10,8 @@ import SpriteKit
 
 public class LGGame: UIViewController
 {
+	public var engine: LGEngine!
+	
 	public final func createScene() -> LGScene
 	{
 		let scene = LGScene(size: view.frame.size)
@@ -30,10 +32,9 @@ public class LGGame: UIViewController
 		super.viewDidLoad()
 		
 		let scene = createScene()
-		
 		let skview = self.view as SKView
-		let engine = LGEngine(view: skview)
 		
+		engine = LGEngine(view: skview)
 		engine.gotoScene(scene)
 	}
 	

@@ -10,15 +10,11 @@ import UIKit
 
 public final class LGCameraSystem: LGSystem
 {
-	var scene: LGScene
-	
 	var cameraPosition: LGPosition!
 	var camera: LGCamera!
 	
-	public init(scene: LGScene)
+	override public init()
 	{
-		self.scene = scene
-		
 		super.init()
 		self.updatePhase = .Render
 	}

@@ -10,8 +10,6 @@ import SpriteKit
 
 public final class LGRenderingSystem: LGSystem
 {
-	var scene: LGScene
-	
 	var positions	= [LGPosition]()
 	var sprites		= [LGSprite]()
 	var nodes		= [SKSpriteNode]()
@@ -19,10 +17,8 @@ public final class LGRenderingSystem: LGSystem
 	
 	var spriteSheets = [String:LGSpriteSheet]()
 	
-	public init(scene: LGScene)
+	override public init()
 	{
-		self.scene = scene
-		
 		super.init()
 		self.updatePhase = .Render
 	}

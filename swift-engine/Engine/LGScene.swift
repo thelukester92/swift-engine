@@ -120,22 +120,32 @@ public final class LGScene
 	
 	public func addSystem(system: LGSystem)
 	{
+		system.scene = self
 		systems.append(system)
 		
-		if var phase = systemsByPhase[system.updatePhase]
-		{
-			phase.append(system)
-			systemsByPhase[system.updatePhase] = phase
+		// Register for an update phase
+		
+		if system.updatePhase != .None
+			{
+			if var phase = systemsByPhase[system.updatePhase]
+			{
+				phase.append(system)
+				systemsByPhase[system.updatePhase] = phase
+			}
+			else
+			{
+				systemsByPhase[system.updatePhase] = [system]
+			}
 		}
-		else
-		{
-			systemsByPhase[system.updatePhase] = [system]
-		}
+		
+		// Register as a touch observer, if applicable
 		
 		if let touchObserver = system as? LGTouchObserver
 		{
 			scene.touchObservers.append(touchObserver)
 		}
+		
+		// Notify the system of any entities that already exist
 		
 		for entity in entities
 		{
