@@ -18,6 +18,8 @@ public final class LGScene
 	
 	var entitiesByName	= [String:LGEntity]()
 	
+	var initialized		= false
+	
 	var scene: LGSpriteKitScene
 	var rootNode: SKNode
 	
@@ -120,22 +122,32 @@ public final class LGScene
 	
 	public func addSystem(system: LGSystem)
 	{
+		system.scene = self
 		systems.append(system)
 		
-		if var phase = systemsByPhase[system.updatePhase]
-		{
-			phase.append(system)
-			systemsByPhase[system.updatePhase] = phase
+		// Register for an update phase
+		
+		if system.updatePhase != .None
+			{
+			if var phase = systemsByPhase[system.updatePhase]
+			{
+				phase.append(system)
+				systemsByPhase[system.updatePhase] = phase
+			}
+			else
+			{
+				systemsByPhase[system.updatePhase] = [system]
+			}
 		}
-		else
-		{
-			systemsByPhase[system.updatePhase] = [system]
-		}
+		
+		// Register as a touch observer, if applicable
 		
 		if let touchObserver = system as? LGTouchObserver
 		{
 			scene.touchObservers.append(touchObserver)
 		}
+		
+		// Notify the system of any entities that already exist
 		
 		for entity in entities
 		{
@@ -189,6 +201,15 @@ public final class LGScene
 		}
 	}
 	
+	private func initialize()
+	{
+		for system in systems
+		{
+			system.initialize()
+		}
+		initialized = true
+	}
+	
 	// MARK: SKScene Overrides
 	
 	public func addChild(node: SKNode!)
@@ -201,10 +222,16 @@ extension LGScene: LGUpdatable
 {
 	public func update()
 	{
+		if !initialized
+		{
+			initialize()
+		}
+		
 		updateSystemsByPhase(.Input)
 		updateSystemsByPhase(.Physics)
 		updateSystemsByPhase(.Main)
 		updateSystemsByPhase(.Render)
+		
 		processRemovedEntities()
 	}
 }

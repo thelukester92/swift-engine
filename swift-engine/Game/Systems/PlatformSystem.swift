@@ -10,13 +10,6 @@ import LGSwiftEngine
 
 class PlatformSystem: LGSystem
 {
-	var scene: LGScene
-	
-	init(scene: LGScene)
-	{
-		self.scene = scene
-	}
-	
 	override func update()
 	{
 		let position = scene.entityNamed("platform")!.get(LGPosition)!

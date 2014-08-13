@@ -10,9 +10,6 @@ import SpriteKit
 
 public final class LGTileSystem : LGSystem
 {
-	var scene: LGScene
-	var map: LGTileMap!
-	
 	final var reusePool		= [Int]()
 	final var entitiesByRow	= [Int:[Int]]()
 	final var entitiesByCol	= [Int:[Int]]()
@@ -26,14 +23,9 @@ public final class LGTileSystem : LGSystem
 	var minCol = 0
 	var maxCol = 0
 	
+	var map: LGTileMap!
 	var cameraPosition: LGPosition!
 	var camera: LGCamera!
-	
-	public init(scene: LGScene)
-	{
-		self.scene = scene
-		super.init()
-	}
 	
 	override public func accepts(entity: LGEntity) -> Bool
 	{

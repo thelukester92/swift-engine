@@ -20,11 +20,14 @@ public class LGPhysicsBody: LGComponent
 		return LGPhysicsBody.type()
 	}
 	
-	public var dynamic	= true
 	public var velocity	= LGVector()
 	
 	public var width: Double
 	public var height: Double
+	public var dynamic: Bool
+	
+	public var didCollide: ((LGEntity, LGEntity?) -> ())?
+	public var trigger = false
 	
 	// TODO: allow other kinds of directional collisions
 	public var onlyCollidesOnTop = false
@@ -34,10 +37,16 @@ public class LGPhysicsBody: LGComponent
 	public var collidedLeft		= false
 	public var collidedRight	= false
 	
-	public init(width: Double, height: Double)
+	public init(width: Double, height: Double, dynamic: Bool = true)
 	{
-		self.width	= width
-		self.height	= height
+		self.width		= width
+		self.height		= height
+		self.dynamic	= dynamic
+	}
+	
+	public convenience init(size: LGVector, dynamic: Bool = true)
+	{
+		self.init(width: size.x, height: size.y, dynamic: dynamic)
 	}
 	
 	public func resetCollided()

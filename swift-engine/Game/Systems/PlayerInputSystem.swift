@@ -11,18 +11,15 @@ import LGSwiftEngine
 
 class PlayerInputSystem: LGSystem
 {
-	var scene: LGScene
 	var player: Player!
 	var body: LGPhysicsBody!
 	
 	var shouldJump = false
 	var shouldMove = Double(0)
 	
-	init(scene: LGScene)
+	override init()
 	{
-		self.scene = scene
 		super.init()
-		
 		self.updatePhase = .Input
 	}
 	

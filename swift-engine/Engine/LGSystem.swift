@@ -11,6 +11,8 @@ public class LGSystem
 	final var entities		= [LGEntity]()
 	public var updatePhase	= LGUpdatePhase.Main
 	
+	public var scene: LGScene!
+	
 	public init() {}
 	
 	public func accepts(entity: LGEntity) -> Bool
@@ -40,6 +42,7 @@ public class LGSystem
 		entities.removeAtIndex(index)
 	}
 	
+	public func initialize() {}
 	public func update() {}
 }
 

@@ -12,9 +12,11 @@ public final class LGPhysicsSystem: LGSystem
 {
 	typealias Rect = (x: Double, y: Double, width: Double, height: Double)
 	
-	private let TERMINAL_VELOCITY	= 30.0
-	private let GRAVITY				= LGVector(x: 0, y: -0.1)
+	// Configuration variables
+	public var gravity: LGVector
+	public var terminalVelocity: Double
 	
+	// Entities by type
 	private final var dynamicEntities	= [Int]()
 	private final var staticEntities	= [Int]()
 	
@@ -22,18 +24,27 @@ public final class LGPhysicsSystem: LGSystem
 	private final var dynamicIndices	= [Int:Int]()
 	private final var staticIndices		= [Int:Int]()
 	
+	// Cached components
 	private final var position	= [LGPosition]()
 	private final var body		= [LGPhysicsBody]()
 	private final var tent		= [LGVector]()
 	
 	public var collisionLayer: LGTileLayer!
 	
-	// MARK: LGSystem Overrides
-	
-	override public init()
+	public init(gravity: LGVector, terminalVelocity: Double = 30.0)
 	{
+		self.gravity = gravity
+		self.terminalVelocity = terminalVelocity
+		
 		super.init()
 		self.updatePhase = .Physics
+	}
+	
+	// MARK: LGSystem Overrides
+	
+	override public convenience init()
+	{
+		self.init(gravity: LGVector(x: 0, y: -0.1))
 	}
 	
 	override public func accepts(entity: LGEntity) -> Bool
@@ -51,6 +62,7 @@ public final class LGPhysicsSystem: LGSystem
 		// Assign local entity ID based on entities.count
 		let localId = entities.count - 1
 		
+		// TODO: Allow physics bodies to switch between static and dynamic on the fly
 		if bod.dynamic
 		{
 			dynamicIndices[localId] = dynamicEntities.count
@@ -122,8 +134,8 @@ public final class LGPhysicsSystem: LGSystem
 		
 		if body[id].dynamic
 		{
-			body[id].velocity += GRAVITY
-			limit(&body[id].velocity, maximum: TERMINAL_VELOCITY)
+			body[id].velocity += gravity
+			limit(&body[id].velocity, maximum: terminalVelocity)
 		}
 		
 		// Update position and/or velocity of the entity to follow another entity
@@ -159,7 +171,7 @@ public final class LGPhysicsSystem: LGSystem
 							break
 					}
 				}
-				limit(&vel, maximum: TERMINAL_VELOCITY)
+				limit(&vel, maximum: terminalVelocity)
 			}
 		}
 		
@@ -255,6 +267,8 @@ public final class LGPhysicsSystem: LGSystem
 			default:
 				break
 		}
+		
+		callback(a, b)
 		
 		// Block chained collisions
 		
@@ -357,6 +371,12 @@ public final class LGPhysicsSystem: LGSystem
 			other = collisions[0].other
 			collisions.removeAtIndex(0)
 			
+			if body[id].trigger || (other >= 0 && body[other].trigger)
+			{
+				callback(id, other)
+				break
+			}
+			
 			if other >= 0
 			{
 				// Check for directional collisions
@@ -431,6 +451,8 @@ public final class LGPhysicsSystem: LGSystem
 					break
 			}
 			
+			callback(id, other)
+			
 			// Chain collisions
 			
 			for another in dynamicEntities
@@ -442,6 +464,21 @@ public final class LGPhysicsSystem: LGSystem
 					collisions.append(newTuple)
 				}
 			}
+		}
+	}
+	
+	// MARK: Callback Methods
+	
+	func callback(a: Int, _ b: Int)
+	{
+		if b >= 0
+		{
+			body[a].didCollide?(entities[a], entities[b])
+			body[b].didCollide?(entities[b], entities[a])
+		}
+		else
+		{
+			body[a].didCollide?(entities[a], nil)
 		}
 	}
 	

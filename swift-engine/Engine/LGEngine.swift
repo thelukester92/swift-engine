@@ -8,12 +8,12 @@
 
 import SpriteKit
 
-class LGEngine
+public final class LGEngine
 {
 	var view: SKView
 	var currentScene: LGScene!
 	
-	init(view: SKView)
+	public init(view: SKView)
 	{
 		self.view = view
 		
@@ -22,7 +22,7 @@ class LGEngine
 		view.ignoresSiblingOrder = true
 	}
 	
-	func gotoScene(scene: LGScene)
+	public func gotoScene(scene: LGScene)
 	{
 		currentScene = scene
 		

@@ -17,17 +17,17 @@ class PlatformerGame: LGGame
 	override func addSystems(scene: LGScene)
 	{
 		physicsSystem = LGPhysicsSystem()
-		tileSystem = LGTileSystem(scene: scene)
+		tileSystem = LGTileSystem()
 		
 		scene.addSystems(
-			LGRenderingSystem(scene: scene),
-			LGCameraSystem(scene: scene),
+			LGRenderingSystem(),
+			LGCameraSystem(),
 			LGAnimationSystem(),
 			physicsSystem,
 			tileSystem,
-			PlayerInputSystem(scene: scene),
+			PlayerInputSystem(),
 			PlayerOutputSystem(),
-			PlatformSystem(scene: scene)
+			PlatformSystem()
 		)
 	}
 	
@@ -50,11 +50,11 @@ class PlatformerGame: LGGame
 		)
 		
 		let animatable = LGAnimatable(animations:
-			[
-				"idle":		LGAnimation(frame: 1),
-				"walk":		LGAnimation(start: 8, end: 9, loops: true),
-				"fall":		LGAnimation(frame: 7),
-			])
+		[
+			"idle":		LGAnimation(frame: 1),
+			"walk":		LGAnimation(start: 8, end: 9, loops: true),
+			"fall":		LGAnimation(frame: 7),
+		])
 		animatable.gotoAnimation("idle")
 		player.put(animatable)
 		
