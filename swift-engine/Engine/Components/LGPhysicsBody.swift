@@ -26,6 +26,8 @@ public class LGPhysicsBody: LGComponent
 	public var height: Double
 	public var dynamic: Bool
 	
+	public var didCollide: ((LGEntity, LGEntity?) -> ())?
+	
 	// TODO: allow other kinds of directional collisions
 	public var onlyCollidesOnTop = false
 	

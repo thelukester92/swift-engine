@@ -267,6 +267,11 @@ public final class LGPhysicsSystem: LGSystem
 				break
 		}
 		
+		// Callbacks
+		
+		body[a].didCollide?(entities[a], entities[b])
+		body[b].didCollide?(entities[b], entities[a])
+		
 		// Block chained collisions
 		
 		for id in dynamicEntities
@@ -440,6 +445,18 @@ public final class LGPhysicsSystem: LGSystem
 				
 				default:
 					break
+			}
+			
+			// Callbacks
+			
+			if other >= 0
+			{
+				body[id].didCollide?(entities[id], entities[other])
+				body[other].didCollide?(entities[other], entities[id])
+			}
+			else
+			{
+				body[id].didCollide?(entities[id], nil)
 			}
 			
 			// Chain collisions
