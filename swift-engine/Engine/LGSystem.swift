@@ -8,8 +8,8 @@
 
 public class LGSystem
 {
-	final var entities		= [LGEntity]()
-	public var updatePhase	= LGUpdatePhase.Main
+	public final var entities	= [LGEntity]()
+	public var updatePhase		= LGUpdatePhase.Main
 	
 	public var scene: LGScene!
 	
