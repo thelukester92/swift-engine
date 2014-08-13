@@ -42,7 +42,7 @@ public final class LGPhysicsSystem: LGSystem
 	
 	// MARK: LGSystem Overrides
 	
-	override public init()
+	override public convenience init()
 	{
 		self.init(gravity: LGVector(x: 0, y: -0.1))
 	}
