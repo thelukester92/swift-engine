@@ -27,6 +27,7 @@ public class LGPhysicsBody: LGComponent
 	public var dynamic: Bool
 	
 	public var didCollide: ((LGEntity, LGEntity?) -> ())?
+	public var trigger = false
 	
 	// TODO: allow other kinds of directional collisions
 	public var onlyCollidesOnTop = false

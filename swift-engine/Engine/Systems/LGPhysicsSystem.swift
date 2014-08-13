@@ -62,6 +62,7 @@ public final class LGPhysicsSystem: LGSystem
 		// Assign local entity ID based on entities.count
 		let localId = entities.count - 1
 		
+		// TODO: Allow physics bodies to switch between static and dynamic on the fly
 		if bod.dynamic
 		{
 			dynamicIndices[localId] = dynamicEntities.count
@@ -267,10 +268,7 @@ public final class LGPhysicsSystem: LGSystem
 				break
 		}
 		
-		// Callbacks
-		
-		body[a].didCollide?(entities[a], entities[b])
-		body[b].didCollide?(entities[b], entities[a])
+		callback(a, b)
 		
 		// Block chained collisions
 		
@@ -373,6 +371,12 @@ public final class LGPhysicsSystem: LGSystem
 			other = collisions[0].other
 			collisions.removeAtIndex(0)
 			
+			if body[id].trigger || (other >= 0 && body[other].trigger)
+			{
+				callback(id, other)
+				break
+			}
+			
 			if other >= 0
 			{
 				// Check for directional collisions
@@ -447,17 +451,7 @@ public final class LGPhysicsSystem: LGSystem
 					break
 			}
 			
-			// Callbacks
-			
-			if other >= 0
-			{
-				body[id].didCollide?(entities[id], entities[other])
-				body[other].didCollide?(entities[other], entities[id])
-			}
-			else
-			{
-				body[id].didCollide?(entities[id], nil)
-			}
+			callback(id, other)
 			
 			// Chain collisions
 			
@@ -470,6 +464,21 @@ public final class LGPhysicsSystem: LGSystem
 					collisions.append(newTuple)
 				}
 			}
+		}
+	}
+	
+	// MARK: Callback Methods
+	
+	func callback(a: Int, _ b: Int)
+	{
+		if b >= 0
+		{
+			body[a].didCollide?(entities[a], entities[b])
+			body[b].didCollide?(entities[b], entities[a])
+		}
+		else
+		{
+			body[a].didCollide?(entities[a], nil)
 		}
 	}
 	
