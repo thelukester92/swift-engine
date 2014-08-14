@@ -210,8 +210,6 @@ public final class LGScene
 		initialized = true
 	}
 	
-	// MARK: SKScene Overrides
-	
 	public func addChild(node: SKNode!)
 	{
 		rootNode.addChild(node)

@@ -40,7 +40,7 @@ public class LGGame: UIViewController
 	
 	override public func loadView()
 	{
-		self.view = SKView(frame: UIScreen.mainScreen().applicationFrame)
+		self.view = SKView(frame: UIScreen.mainScreen().bounds)
 	}
 	
 	override public func shouldAutorotate() -> Bool

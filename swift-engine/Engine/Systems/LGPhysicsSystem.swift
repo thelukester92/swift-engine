@@ -20,10 +20,6 @@ public final class LGPhysicsSystem: LGSystem
 	private final var dynamicEntities	= [Int]()
 	private final var staticEntities	= [Int]()
 	
-	// Helper dictionaries for removing entities
-	private final var dynamicIndices	= [Int:Int]()
-	private final var staticIndices		= [Int:Int]()
-	
 	// Cached components
 	private final var position	= [LGPosition]()
 	private final var body		= [LGPhysicsBody]()
@@ -62,15 +58,13 @@ public final class LGPhysicsSystem: LGSystem
 		// Assign local entity ID based on entities.count
 		let localId = entities.count - 1
 		
-		// TODO: Allow physics bodies to switch between static and dynamic on the fly
+		// TODO: Allow physics bodies to switch between static and dynamic on the fly via reindex
 		if bod.dynamic
 		{
-			dynamicIndices[localId] = dynamicEntities.count
 			dynamicEntities.append(localId)
 		}
 		else
 		{
-			staticIndices[localId] = staticEntities.count
 			staticEntities.append(localId)
 		}
 		
@@ -85,20 +79,11 @@ public final class LGPhysicsSystem: LGSystem
 	{
 		super.remove(index)
 		
-		if body[index].dynamic
-		{
-			dynamicEntities.removeAtIndex(dynamicIndices[index]!)
-			dynamicIndices[index] = nil
-		}
-		else
-		{
-			staticEntities.removeAtIndex(staticIndices[index]!)
-			staticIndices[index] = nil
-		}
-		
 		body.removeAtIndex(index)
 		position.removeAtIndex(index)
 		tent.removeAtIndex(index)
+		
+		reindex()
 	}
 	
 	override public func update()
@@ -123,6 +108,24 @@ public final class LGPhysicsSystem: LGSystem
 		{
 			position[id].x = tent[id].x
 			position[id].y = tent[id].y
+		}
+	}
+	
+	func reindex()
+	{
+		dynamicEntities = [Int]()
+		staticEntities = [Int]()
+		
+		for i in 0 ..< entities.count
+		{
+			if body[i].dynamic
+			{
+				dynamicEntities.append(i)
+			}
+			else
+			{
+				staticEntities.append(i)
+			}
 		}
 	}
 	
