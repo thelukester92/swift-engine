@@ -42,7 +42,7 @@ public final class LGTileSystem : LGSystem
 	{
 		self.map = map
 		
-		if !cameraPosition && !camera
+		if cameraPosition != nil && camera != nil
 		{
 			// Render the entire map when no visible area is defined
 			for layer in map.layers
@@ -204,7 +204,7 @@ public final class LGTileSystem : LGSystem
 	
 	override public func update()
 	{
-		if !(!cameraPosition && !camera)
+		if cameraPosition != nil && camera != nil
 		{
 			let cam = (x: cameraPosition.x + camera.offset.x, y: cameraPosition.y + camera.offset.y, width: camera.size.x, height: camera.size.y)
 			

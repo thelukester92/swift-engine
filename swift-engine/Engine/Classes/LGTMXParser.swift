@@ -93,7 +93,7 @@ public class LGTMXParser: NSObject
 			for j in 0 ..< map.width
 			{
 				let globalIdString = data[i * map.width + j].stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet())
-				let globalId: UInt32 = NSNumberFormatter().numberFromString(globalIdString).unsignedIntValue
+				let globalId: UInt32 = NSNumberFormatter().numberFromString(globalIdString)!.unsignedIntValue
 				output[i].append(LGTile(gid: globalId))
 			}
 		}
@@ -128,7 +128,7 @@ extension LGTMXParser: NSXMLParserDelegate
 		switch elementName.lowercaseString
 		{
 			case "map":
-				map = LGTileMap(width: attributes["width"].integerValue, height: attributes["height"].integerValue, tileWidth: attributes["tilewidth"].integerValue, tileHeight: attributes["tileheight"].integerValue)
+				map = LGTileMap(width: attributes["width"]!.integerValue, height: attributes["height"]!.integerValue, tileWidth: attributes["tilewidth"]!.integerValue, tileHeight: attributes["tileheight"]!.integerValue)
 			
 			case "image":
 				// TODO: Allow multiple tilesets in a single map
@@ -173,7 +173,7 @@ extension LGTMXParser: NSXMLParserDelegate
 				}
 			
 			case "object":
-				currentObject = LGTMXObject(x: attributes["x"].integerValue, y: attributes["y"].integerValue)
+				currentObject = LGTMXObject(x: attributes["x"]!.integerValue, y: attributes["y"]!.integerValue)
 				
 				if let value = attributes["name"] as? String
 				{
@@ -185,12 +185,12 @@ extension LGTMXParser: NSXMLParserDelegate
 					currentObject.type = value
 				}
 				
-				if let value = attributes["width"].integerValue
+				if let value = attributes["width"]!.integerValue
 				{
 					currentObject.width = value
 				}
 				
-				if let value = attributes["height"].integerValue
+				if let value = attributes["height"]!.integerValue
 				{
 					currentObject.height = value
 				}

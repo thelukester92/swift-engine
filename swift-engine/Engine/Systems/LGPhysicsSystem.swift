@@ -316,7 +316,7 @@ public final class LGPhysicsSystem: LGSystem
 	
 	func resolveTileCollisions(id: Int)
 	{
-		if collisionLayer
+		if collisionLayer != nil
 		{
 			// x-axis
 			
