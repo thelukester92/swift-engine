@@ -10,7 +10,6 @@
 		A306DF6A19AF8EED00DE7DC8 /* LGSwiftEngine.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = A315054B199958C6000B8842 /* LGSwiftEngine.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		A315055F199958C7000B8842 /* LGSwiftEngine.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A315054B199958C6000B8842 /* LGSwiftEngine.framework */; };
 		A315056A19995966000B8842 /* LGAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = A340FF581998F448003E4809 /* LGAnimation.swift */; };
-		A315056B19995966000B8842 /* LGSpatialGrid.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3845A8E196CC976004498A2 /* LGSpatialGrid.swift */; };
 		A315056C19995966000B8842 /* LGSpriteKitScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = A340FF5E1998FE36003E4809 /* LGSpriteKitScene.swift */; };
 		A315056D19995966000B8842 /* LGSpriteSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = A33CADA5194360AF00AC8E27 /* LGSpriteSheet.swift */; };
 		A315056E19995966000B8842 /* LGTile.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3FE99C0195A790A00D6A781 /* LGTile.swift */; };
@@ -121,7 +120,6 @@
 		A340FF6619990571003E4809 /* LGGame.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LGGame.swift; sourceTree = "<group>"; };
 		A34A89251989FE5C007D82B6 /* Level.tmx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = Level.tmx; path = Game/Resources/Level.tmx; sourceTree = "<group>"; };
 		A3542B9E196CBC8000ED00E8 /* LGPhysicsSystem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LGPhysicsSystem.swift; sourceTree = "<group>"; };
-		A3845A8E196CC976004498A2 /* LGSpatialGrid.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LGSpatialGrid.swift; path = Classes/LGSpatialGrid.swift; sourceTree = "<group>"; };
 		A3870DE7196AE566000B4352 /* Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "Bridging-Header.h"; path = "Game/Bridging-Header.h"; sourceTree = "<group>"; };
 		A3882F67198D5085009C454F /* LGFollower.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LGFollower.swift; sourceTree = "<group>"; };
 		A3981C9719511C5C0072E4A3 /* LGTileSystem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LGTileSystem.swift; sourceTree = "<group>"; };
@@ -263,7 +261,6 @@
 			isa = PBXGroup;
 			children = (
 				A340FF581998F448003E4809 /* LGAnimation.swift */,
-				A3845A8E196CC976004498A2 /* LGSpatialGrid.swift */,
 				A340FF5E1998FE36003E4809 /* LGSpriteKitScene.swift */,
 				A33CADA5194360AF00AC8E27 /* LGSpriteSheet.swift */,
 				A3FE99C0195A790A00D6A781 /* LGTile.swift */,
@@ -484,7 +481,6 @@
 				A315057319995966000B8842 /* LGVector.swift in Sources */,
 				A315058A19995966000B8842 /* LGGame.swift in Sources */,
 				A315056E19995966000B8842 /* LGTile.swift in Sources */,
-				A315056B19995966000B8842 /* LGSpatialGrid.swift in Sources */,
 				A315058219995966000B8842 /* LGPhysicsSystem.swift in Sources */,
 				A315057C19995966000B8842 /* LGAxis.swift in Sources */,
 				A315058719995966000B8842 /* LGEngine.swift in Sources */,

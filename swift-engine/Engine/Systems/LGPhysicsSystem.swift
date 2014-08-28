@@ -15,17 +15,20 @@ public final class LGPhysicsSystem: LGSystem
 	// Configuration variables
 	public var gravity: LGVector
 	public var terminalVelocity: Double
+	public var collisionLayer: LGTileLayer!
 	
 	// Entities by type
-	private final var dynamicEntities	= [Int]()
-	private final var staticEntities	= [Int]()
+	final var dynamicEntities	= [Int]()
+	final var staticEntities	= [Int]()
 	
 	// Cached components
-	private final var position	= [LGPosition]()
-	private final var body		= [LGPhysicsBody]()
-	private final var tent		= [LGVector]()
+	final var position	= [LGPosition]()
+	final var body		= [LGPhysicsBody]()
+	final var tent		= [LGVector]()
 	
-	public var collisionLayer: LGTileLayer!
+	// Partitions
+	var dynamicGrid: LGSpatialGrid!
+	var staticGrid: LGSpatialGrid!
 	
 	public init(gravity: LGVector, terminalVelocity: Double = 30.0)
 	{
@@ -34,6 +37,9 @@ public final class LGPhysicsSystem: LGSystem
 		
 		super.init()
 		self.updatePhase = .Physics
+		
+		dynamicGrid	= LGSpatialGrid(system: self)
+		staticGrid	= LGSpatialGrid(system: self)
 	}
 	
 	// MARK: LGSystem Overrides
@@ -93,6 +99,9 @@ public final class LGPhysicsSystem: LGSystem
 			applyPhysics(id)
 			body[id].resetCollided()
 		}
+		
+		dynamicGrid.populate(dynamicEntities)
+		staticGrid.populate(staticEntities)
 		
 		for id in dynamicEntities
 		{
@@ -186,7 +195,7 @@ public final class LGPhysicsSystem: LGSystem
 	
 	func resolveDynamicCollisions(id: Int)
 	{
-		for other in dynamicEntities
+		for other in dynamicGrid.entitiesNearRect(tentRect(id))
 		{
 			if id != other && !body[id].onlyCollidesOnTop && !body[other].onlyCollidesOnTop && overlap(id, other, axis: .X)
 			{
@@ -194,7 +203,7 @@ public final class LGPhysicsSystem: LGSystem
 			}
 		}
 		
-		for other in dynamicEntities
+		for other in dynamicGrid.entitiesNearRect(tentRect(id))
 		{
 			if id != other && !body[id].onlyCollidesOnTop && !body[other].onlyCollidesOnTop && overlap(id, other, axis: .Y)
 			{
@@ -275,7 +284,14 @@ public final class LGPhysicsSystem: LGSystem
 		
 		// Block chained collisions
 		
-		for id in dynamicEntities
+		let rectA = tentRect(a)
+		let rectB = tentRect(b)
+		
+		var rect: Rect	= (x: min(rectA.x, rectB.x), y: min(rectA.y, rectB.y), width: 0, height: 0)
+		rect.width		= max(rectA.x + rectA.width, rectB.x + rectB.width) - rect.x
+		rect.height		= max(rectA.y + rectA.height, rectB.y + rectB.height) - rect.y
+		
+		for id in dynamicGrid.entitiesNearRect(rect)
 		{
 			if id != a && id != b
 			{
@@ -297,7 +313,7 @@ public final class LGPhysicsSystem: LGSystem
 	{
 		resolveTileCollisions(id)
 		
-		for other in staticEntities
+		for other in staticGrid.entitiesNearRect(tentRect(id))
 		{
 			if overlap(id, other, axis: .X)
 			{
@@ -305,7 +321,7 @@ public final class LGPhysicsSystem: LGSystem
 			}
 		}
 		
-		for other in staticEntities
+		for other in staticGrid.entitiesNearRect(tentRect(id))
 		{
 			if overlap(id, other, axis: .Y)
 			{
@@ -458,7 +474,7 @@ public final class LGPhysicsSystem: LGSystem
 			
 			// Chain collisions
 			
-			for another in dynamicEntities
+			for another in dynamicGrid.entitiesNearRect(tentRect(id))
 			{
 				if id != another && overlap(id, another, axis: axis)
 				{
@@ -549,5 +565,88 @@ public final class LGPhysicsSystem: LGSystem
 	func tileAtY(y: Double) -> Int
 	{
 		return Int(floor(y / Double(collisionLayer.tileHeight)))
+	}
+	
+	class LGSpatialGrid
+	{
+		var system: LGPhysicsSystem
+		
+		final var grid: [Int: [Int]]	= [:]
+		var cellSize: Double			= 100
+		var rowHash						= 10000
+		var padding						= 0.0
+		
+		init(system: LGPhysicsSystem)
+		{
+			self.system = system
+		}
+		
+		func clear()
+		{
+			grid = [:]
+		}
+		
+		func populate(entities: [Int])
+		{
+			clear()
+			
+			for entity in entities
+			{
+				insertEntity(entity)
+			}
+		}
+		
+		func insertEntity(id: Int)
+		{
+			let position	= system.position[id]
+			let body		= system.body[id]
+			let row			= cellAt(position.y)
+			let col			= cellAt(position.x)
+			
+			for i in row...cellAt(position.y + body.height)
+			{
+				for j in col...cellAt(position.x + body.width)
+				{
+					if var cell = grid[i * rowHash + j]
+					{
+						cell.append(id)
+						grid[i * rowHash + j] = cell
+					}
+					else
+					{
+						grid[i * rowHash + j] = [id]
+					}
+				}
+			}
+		}
+		
+		func entitiesNearRect(rect: Rect) -> [Int]
+		{
+			let row = cellAt(rect.y - padding)
+			let col = cellAt(rect.x - padding)
+			
+			var nearby: [Int:Int] = [:]
+			
+			for i in row...cellAt(rect.y + rect.height + padding)
+			{
+				for j in col...cellAt(rect.x + rect.width + padding)
+				{
+					if let cell = grid[i * rowHash + j]
+					{
+						for id in cell
+						{
+							nearby[id] = 1
+						}
+					}
+				}
+			}
+			
+			return nearby.keys.array
+		}
+		
+		func cellAt(px: Double) -> Int
+		{
+			return Int(px / cellSize)
+		}
 	}
 }
