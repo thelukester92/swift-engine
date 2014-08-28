@@ -607,10 +607,9 @@ public final class LGPhysicsSystem: LGSystem
 			{
 				for j in col...cellAt(position.x + body.width)
 				{
-					if var cell = grid[i * rowHash + j]
+					if grid[i * rowHash + j] != nil
 					{
-						cell.append(id)
-						grid[i * rowHash + j] = cell
+						grid[i * rowHash + j]!.append(id)
 					}
 					else
 					{
