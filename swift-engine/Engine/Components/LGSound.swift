@@ -20,9 +20,6 @@ public class LGSound: LGComponent
 	
 	var name: String
 	
-	var active = false
-	var complete = false
-	
 	public init(name: String)
 	{
 		self.name = name

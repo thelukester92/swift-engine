@@ -10,10 +10,20 @@ import AVFoundation
 
 public final class LGSoundSystem: LGSystem
 {
-	// TODO: Allow the same sound to play twice at the same time... not sure what currently happens
-	
 	var sounds = [LGSound]()
-	var players = [String:AVAudioPlayer]()
+	
+	var players			= [String:AVAudioPlayer]()
+	var soundsByPlayer	= [AVAudioPlayer:LGSound]()
+	
+	var delegate: LGAudioPlayerDelegate!
+	
+	override public init()
+	{
+		super.init()
+		self.updatePhase = .None
+		
+		delegate = LGAudioPlayerDelegate(system: self)
+	}
 	
 	override public func accepts(entity: LGEntity) -> Bool
 	{
@@ -27,13 +37,24 @@ public final class LGSoundSystem: LGSystem
 		let sound = entity.get(LGSound)!
 		sounds.append(sound)
 		
-		if players[sound.name] == nil
+		var player: AVAudioPlayer! = players[sound.name]
+		
+		if player == nil || soundsByPlayer[player] != nil
 		{
 			let url = NSURL(fileURLWithPath: NSBundle.mainBundle().pathForResource(sound.name, ofType: nil)!)
-			let player = AVAudioPlayer(contentsOfURL: url, error: nil)
+			
+			player = AVAudioPlayer(contentsOfURL: url, error: nil)
+			player.delegate = delegate
 			player.prepareToPlay()
-			players[sound.name] = player
+			
+			if players[sound.name] == nil
+			{
+				players[sound.name] = player
+			}
 		}
+		
+		soundsByPlayer[player] = sound
+		player.play()
 	}
 	
 	override public func remove(index: Int)
@@ -42,18 +63,28 @@ public final class LGSoundSystem: LGSystem
 		sounds.removeAtIndex(index)
 	}
 	
-	override public func update()
+	class LGAudioPlayerDelegate: NSObject, AVAudioPlayerDelegate
 	{
-		for i in 0 ..< entities.count
+		var system: LGSoundSystem
+		
+		init(system: LGSoundSystem)
 		{
-			if sounds[i].complete
+			self.system = system
+		}
+		
+		func audioPlayerDidFinishPlaying(player: AVAudioPlayer, successfully flag: Boolean)
+		{
+			if let sound = system.soundsByPlayer[player]
 			{
-				scene.removeEntity(entities[i])
-			}
-			else if !sounds[i].active
-			{
-				players[sounds[i].name]!.play()
-				sounds[i].active = true
+				system.soundsByPlayer[player] = nil
+				for entity in system.entities
+				{
+					if entity.get(LGSound) === sound
+					{
+						entity.remove(LGSound)
+						break
+					}
+				}
 			}
 		}
 	}
