@@ -14,6 +14,20 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
+               BlueprintIdentifier = "A315054A199958C6000B8842"
+               BuildableName = "LGSwiftEngine.framework"
+               BlueprintName = "LGSwiftEngine"
+               ReferencedContainer = "container:swift-engine.xcodeproj">
+            </BuildableReference>
+         </BuildActionEntry>
+         <BuildActionEntry
+            buildForTesting = "YES"
+            buildForRunning = "YES"
+            buildForProfiling = "YES"
+            buildForArchiving = "YES"
+            buildForAnalyzing = "YES">
+            <BuildableReference
+               BuildableIdentifier = "primary"
                BlueprintIdentifier = "A3B2AEA2193EBFE10097B3A7"
                BuildableName = "swift-engine.app"
                BlueprintName = "swift-engine"

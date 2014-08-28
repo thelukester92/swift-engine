@@ -82,6 +82,13 @@ public final class LGSoundSystem: LGSystem
 					if entity.get(LGSound) === sound
 					{
 						entity.remove(LGSound)
+						
+						// TODO: Do this check in the scene itself (a kind of "audit")
+						if entity.components.count == 0
+						{
+							system.scene.removeEntity(entity)
+						}
+						
 						break
 					}
 				}

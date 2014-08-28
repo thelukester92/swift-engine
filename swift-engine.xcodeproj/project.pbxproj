@@ -7,8 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		A306DF6A19AF8EED00DE7DC8 /* LGSwiftEngine.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = A315054B199958C6000B8842 /* LGSwiftEngine.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		A315055F199958C7000B8842 /* LGSwiftEngine.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A315054B199958C6000B8842 /* LGSwiftEngine.framework */; };
-		A3150560199958C7000B8842 /* LGSwiftEngine.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = A315054B199958C6000B8842 /* LGSwiftEngine.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		A315056A19995966000B8842 /* LGAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = A340FF581998F448003E4809 /* LGAnimation.swift */; };
 		A315056B19995966000B8842 /* LGSpatialGrid.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3845A8E196CC976004498A2 /* LGSpatialGrid.swift */; };
 		A315056C19995966000B8842 /* LGSpriteKitScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = A340FF5E1998FE36003E4809 /* LGSpriteKitScene.swift */; };
@@ -52,9 +52,7 @@
 		A3B2AEB4193EBFE20097B3A7 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A3B2AEB3193EBFE20097B3A7 /* Images.xcassets */; };
 		A3EA911F19561EF100297EEB /* Tileset.png in Resources */ = {isa = PBXBuildFile; fileRef = A3EA911E19561EF100297EEB /* Tileset.png */; };
 		A3EFA8171943FA2D00C85CF8 /* Player.png in Resources */ = {isa = PBXBuildFile; fileRef = A3EFA8161943FA2D00C85CF8 /* Player.png */; };
-		A3F01F6219AE43FB00C4F505 /* LGSound.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3F01F6119AE43FB00C4F505 /* LGSound.swift */; };
 		A3F01F6319AE43FB00C4F505 /* LGSound.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3F01F6119AE43FB00C4F505 /* LGSound.swift */; };
-		A3F01F6519AE44E700C4F505 /* LGSoundSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3F01F6419AE44E700C4F505 /* LGSoundSystem.swift */; };
 		A3F01F6619AE44E700C4F505 /* LGSoundSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3F01F6419AE44E700C4F505 /* LGSoundSystem.swift */; };
 		A3F01F6A19AE471000C4F505 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A3F01F6719AE46E100C4F505 /* AVFoundation.framework */; };
 /* End PBXBuildFile section */
@@ -83,7 +81,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				A3150560199958C7000B8842 /* LGSwiftEngine.framework in Embed Frameworks */,
+				A306DF6A19AF8EED00DE7DC8 /* LGSwiftEngine.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -508,11 +506,9 @@
 				A340FF631999037A003E4809 /* PlayerOutputSystem.swift in Sources */,
 				A3B2AEAF193EBFE20097B3A7 /* PlatformerGame.swift in Sources */,
 				A340FF6519990460003E4809 /* PlatformSystem.swift in Sources */,
-				A3F01F6219AE43FB00C4F505 /* LGSound.swift in Sources */,
 				A32611971987017E000FBDF6 /* PlayerInputSystem.swift in Sources */,
 				A3B2AEA9193EBFE20097B3A7 /* AppDelegate.swift in Sources */,
 				A326119519870157000FBDF6 /* Player.swift in Sources */,
-				A3F01F6519AE44E700C4F505 /* LGSoundSystem.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
