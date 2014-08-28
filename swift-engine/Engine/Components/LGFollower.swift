@@ -20,15 +20,27 @@ public class LGFollower: LGComponent
 	
 	weak var following: LGEntity?
 	var axis: LGAxis
+	var followerType: LGFollowerType
 	
-	public init(following: LGEntity, axis: LGAxis)
+	public init(following: LGEntity, axis: LGAxis, followerType: LGFollowerType)
 	{
-		self.following = following
-		self.axis = axis
+		self.following		= following
+		self.axis			= axis
+		self.followerType	= followerType
+	}
+	
+	public convenience init(following: LGEntity, axis: LGAxis)
+	{
+		self.init(following: following, axis: axis, followerType: .Velocity)
 	}
 	
 	public convenience init(following: LGEntity)
 	{
 		self.init(following: following, axis: .Both)
+	}
+	
+	public enum LGFollowerType
+	{
+		case Velocity, Position(LGVector)
 	}
 }

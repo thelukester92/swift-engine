@@ -8,13 +8,20 @@
 
 public class LGTileMap
 {
-	var width: Int
-	var height: Int
-	var tileWidth: Int
-	var tileHeight: Int
+	/// The width of the map in tiles.
+	public var width: Int
 	
-	var layers = [LGTileLayer]()
-	var spriteSheet: LGSpriteSheet!
+	/// The height of the map in tiles.
+	public var height: Int
+	
+	/// The width of a single tile in pixels.
+	public var tileWidth: Int
+	
+	/// The height of a single tile in pixels.
+	public var tileHeight: Int
+	
+	public var layers = [LGTileLayer]()
+	public var spriteSheet: LGSpriteSheet!
 	
 	public init(width: Int, height: Int, tileWidth: Int, tileHeight: Int)
 	{

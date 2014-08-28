@@ -10,8 +10,6 @@ import Foundation
 
 public final class LGPhysicsSystem: LGSystem
 {
-	typealias Rect = (x: Double, y: Double, width: Double, height: Double)
-	
 	// Configuration variables
 	public var gravity: LGVector
 	public var terminalVelocity: Double
@@ -152,38 +150,68 @@ public final class LGPhysicsSystem: LGSystem
 		
 		// Update position and/or velocity of the entity to follow another entity
 		
+		// TODO: Determine if this is really the best place for followers
+		// ... because static followers may not need physics bodies
+		
 		var vel = LGVector(x: body[id].velocity.x, y: body[id].velocity.y)
 		
 		if let follower = entities[id].get(LGFollower)
 		{
-			// TODO: Don't remove just any follower ... this makes followers only useful for platforms when they could be good for combining boss entities
-			// Maybe only do this to dynamic followers?
+			// TODO: Determine if all dynamic followers really should be removed
 			
-			if !body[id].collidedBottom
+			if body[id].dynamic && !body[id].collidedBottom
 			{
 				entities[id].remove(LGFollower)
 			}
 			else if let following = follower.following
 			{
-				if let followingBody = following.get(LGPhysicsBody)
+				switch follower.followerType
 				{
-					switch follower.axis
-					{
-						case .X:
-							vel.x += followingBody.velocity.x
-						
-						case .Y:
-							vel.y += followingBody.velocity.y
-						
-						case .Both:
-							vel.x += followingBody.velocity.x
-							vel.y += followingBody.velocity.y
-						
-						case .None:
-							break
-					}
+					case .Velocity:
+						if let followingBody = following.get(LGPhysicsBody)
+						{
+							switch follower.axis
+							{
+								case .X:
+									vel.x += followingBody.velocity.x
+								
+								case .Y:
+									vel.y += followingBody.velocity.y
+								
+								case .Both:
+									vel.x += followingBody.velocity.x
+									vel.y += followingBody.velocity.y
+								
+								case .None:
+									break
+							}
+						}
+						limit(&vel, maximum: terminalVelocity)
+					
+					case .Position(let offset):
+						if let followingPosition = following.get(LGPosition)
+						{
+							switch follower.axis
+							{
+								case .X:
+									position[id].x = followingPosition.x + offset.x
+									vel.x = 0
+								
+								case .Y:
+									position[id].y = followingPosition.y + offset.y
+									vel.y = 0
+								
+								case .Both:
+									position[id].x = followingPosition.x + offset.x
+									position[id].y = followingPosition.y + offset.y
+									vel.x = 0
+									vel.y = 0
+								
+								case .None:
+									break
+							}
+						}
 				}
-				limit(&vel, maximum: terminalVelocity)
 			}
 		}
 		
@@ -287,7 +315,7 @@ public final class LGPhysicsSystem: LGSystem
 		let rectA = tentRect(a)
 		let rectB = tentRect(b)
 		
-		var rect: Rect	= (x: min(rectA.x, rectB.x), y: min(rectA.y, rectB.y), width: 0, height: 0)
+		var rect		= LGRect(x: min(rectA.x, rectB.x), y: min(rectA.y, rectB.y), width: 0, height: 0)
 		rect.width		= max(rectA.x + rectA.width, rectB.x + rectB.width) - rect.x
 		rect.height		= max(rectA.y + rectA.height, rectB.y + rectB.height) - rect.y
 		
@@ -376,12 +404,12 @@ public final class LGPhysicsSystem: LGSystem
 		}
 	}
 	
-	func resolveStaticCollision(id: Int, _ rect: Rect, axis: LGAxis)
+	func resolveStaticCollision(id: Int, _ rect: LGRect, axis: LGAxis)
 	{
 		resolveStaticCollision(id, -1, axis: axis, rect: rect)
 	}
 	
-	func resolveStaticCollision(var id: Int, var _ other: Int, axis: LGAxis, var rect: Rect! = nil)
+	func resolveStaticCollision(var id: Int, var _ other: Int, axis: LGAxis, var rect: LGRect! = nil)
 	{
 		var collisions: [(id: Int, other: Int)] = [ (id: id, other: other) ]
 		while collisions.count > 0
@@ -547,14 +575,14 @@ public final class LGPhysicsSystem: LGSystem
 		}
 	}
 	
-	func tentRect(id: Int) -> Rect
+	func tentRect(id: Int) -> LGRect
 	{
-		return (x: tent[id].x, y: tent[id].y, width: body[id].width, height: body[id].height)
+		return LGRect(x: tent[id].x, y: tent[id].y, width: body[id].width, height: body[id].height)
 	}
 	
-	func tileRect(row: Int, _ col: Int) -> Rect
+	func tileRect(row: Int, _ col: Int) -> LGRect
 	{
-		return (x: Double(col * collisionLayer.tileWidth), y: Double(row * collisionLayer.tileHeight), width: Double(collisionLayer.tileWidth), height: Double(collisionLayer.tileHeight))
+		return LGRect(x: Double(col * collisionLayer.tileWidth), y: Double(row * collisionLayer.tileHeight), width: Double(collisionLayer.tileWidth), height: Double(collisionLayer.tileHeight))
 	}
 	
 	func tileAtX(x: Double) -> Int
@@ -619,7 +647,7 @@ public final class LGPhysicsSystem: LGSystem
 			}
 		}
 		
-		func entitiesNearRect(rect: Rect) -> [Int]
+		func entitiesNearRect(rect: LGRect) -> [Int]
 		{
 			let row = cellAt(rect.y - padding)
 			let col = cellAt(rect.x - padding)

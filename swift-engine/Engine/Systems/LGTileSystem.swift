@@ -24,17 +24,26 @@ public final class LGTileSystem : LGSystem
 	var maxCol = 0
 	
 	var map: LGTileMap!
+	
 	var cameraPosition: LGPosition!
+	var cameraBody: LGPhysicsBody!
 	var camera: LGCamera!
+	
+	override public init()
+	{
+		super.init()
+		self.updatePhase = .Render
+	}
 	
 	override public func accepts(entity: LGEntity) -> Bool
 	{
-		return entity.has(LGPosition) && entity.has(LGCamera)
+		return entity.has(LGCamera) && entity.has(LGPosition) && entity.has(LGPhysicsBody)
 	}
 	
 	override public func add(entity: LGEntity)
 	{
 		cameraPosition	= entity.get(LGPosition)
+		cameraBody		= entity.get(LGPhysicsBody)
 		camera			= entity.get(LGCamera)
 	}
 	
@@ -42,7 +51,7 @@ public final class LGTileSystem : LGSystem
 	{
 		self.map = map
 		
-		if cameraPosition != nil && camera != nil
+		if cameraPosition == nil || camera == nil
 		{
 			// Render the entire map when no visible area is defined
 			for layer in map.layers
@@ -206,7 +215,7 @@ public final class LGTileSystem : LGSystem
 	{
 		if cameraPosition != nil && camera != nil
 		{
-			let cam = (x: cameraPosition.x + camera.offset.x, y: cameraPosition.y + camera.offset.y, width: camera.size.x, height: camera.size.y)
+			let cam = (x: cameraPosition.x, y: cameraPosition.y, width: cameraBody.width, height: cameraBody.height)
 			
 			// Remove columns
 			while Int(cam.x / Double(map.tileWidth)) > minCol

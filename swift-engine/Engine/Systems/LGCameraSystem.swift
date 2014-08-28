@@ -11,27 +11,32 @@ import UIKit
 public final class LGCameraSystem: LGSystem
 {
 	var cameraPosition: LGPosition!
+	var cameraBody: LGPhysicsBody!
 	var camera: LGCamera!
-	
-	override public init()
-	{
-		super.init()
-		self.updatePhase = .Render
-	}
 	
 	override public func accepts(entity: LGEntity) -> Bool
 	{
-		return entity.has(LGPosition) && entity.has(LGCamera)
+		return entity.has(LGCamera) && entity.has(LGPosition) && entity.has(LGPhysicsBody)
 	}
 	
 	override public func add(entity: LGEntity)
 	{
 		cameraPosition	= entity.get(LGPosition)
+		cameraBody		= entity.get(LGPhysicsBody)
 		camera			= entity.get(LGCamera)
 	}
 	
 	override public func update()
 	{
-		scene.rootNode.position = CGPoint(x: -CGFloat(cameraPosition.x + camera.offset.x), y: -CGFloat(cameraPosition.y + camera.offset.y))
+		if cameraPosition != nil && camera != nil
+		{
+			if let boundary = camera.boundary
+			{
+				cameraPosition.x = min(max(cameraPosition.x, boundary.x), boundary.extremeX - cameraBody.width)
+				cameraPosition.y = min(max(cameraPosition.y, boundary.y), boundary.extremeY - cameraBody.height)
+			}
+			
+			scene.rootNode.position = CGPoint(x: -CGFloat(cameraPosition.x), y: -CGFloat(cameraPosition.y))
+		}
 	}
 }

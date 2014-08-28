@@ -18,17 +18,7 @@ public final class LGCamera: LGComponent
 		return LGCamera.type()
 	}
 	
-	var offset = LGVector()
-	var size: LGVector
+	public var boundary: LGRect?
 	
-	public init(size: LGVector)
-	{
-		self.size = size
-	}
-	
-	public convenience init(size: LGVector, offset: LGVector)
-	{
-		self.init(size: size)
-		self.offset = offset
-	}
+	public init() {}
 }

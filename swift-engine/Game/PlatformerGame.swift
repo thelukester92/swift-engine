@@ -45,7 +45,6 @@ class PlatformerGame: LGGame
 		let player = LGEntity(
 			LGPosition(x: 50, y: 200),
 			LGPhysicsBody(width: 20, height: 35),
-			LGCamera(size: LGVector(x: Double(self.view.frame.size.width), y: Double(self.view.frame.size.height)), offset: LGVector(x: -Double(self.view.frame.size.width / 2), y: -Double(self.view.frame.size.height / 2))),
 			Player()
 		)
 		
@@ -66,6 +65,20 @@ class PlatformerGame: LGGame
 		
 		let parser = LGTMXParser()
 		let map = parser.parseFile("Level")
+		
+		let width	= Double(self.view.frame.size.width)
+		let height	= Double(self.view.frame.size.height)
+		
+		let camera		= LGCamera()
+		camera.boundary	= LGRect(x: 0, y: 0, width: Double(map.width * map.tileWidth), height: Double(map.height * map.tileHeight))
+		
+		let cameraBody		= LGPhysicsBody(width: width, height: height, dynamic: false)
+		cameraBody.trigger	= true
+		
+		let cameraOffset	= LGVector(x: -width / 2, y: -height / 2)
+		let cameraFollower	= LGFollower(following: player, axis: .Both, followerType: .Position(cameraOffset))
+		
+		scene.addEntity( LGEntity(camera, cameraBody, cameraFollower, LGPosition()) )
 		
 		physicsSystem.collisionLayer = parser.collisionLayer
 		tileSystem.loadMap(map)
