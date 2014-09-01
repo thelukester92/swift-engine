@@ -57,4 +57,14 @@
 1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
 </data>
  </layer>
+ <objectgroup name="objects" width="20" height="14">
+  <object name="player" type="player" x="64" y="352">
+   <properties>
+    <property name="LGAnimatable" value="{ animations: { idle: { frame: 1 }, walk: { start: 8, end: 9, loops: true }, fall: { frame: 7 } }, defaultAnimation: &quot;idle&quot; }"/>
+    <property name="LGPhysicsBody" value="{ width: 20, height: 35 }"/>
+    <property name="LGSprite" value="{ textureName: &quot;Player&quot;, rows: 1, cols: 9, offset: { x: -12 } }"/>
+    <property name="Player" value=""/>
+   </properties>
+  </object>
+ </objectgroup>
 </map>

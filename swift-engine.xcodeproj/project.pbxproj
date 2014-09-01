@@ -42,6 +42,7 @@
 		A315058819995966000B8842 /* LGScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = A318A2D3194130DE00B88B62 /* LGScene.swift */; };
 		A315058919995966000B8842 /* LGSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = A318A2D5194130FF00B88B62 /* LGSystem.swift */; };
 		A315058A19995966000B8842 /* LGGame.swift in Sources */ = {isa = PBXBuildFile; fileRef = A340FF6619990571003E4809 /* LGGame.swift */; };
+		A319FB9719B5118500DFD723 /* LGDeserializable.swift in Sources */ = {isa = PBXBuildFile; fileRef = A319FB9619B5118500DFD723 /* LGDeserializable.swift */; };
 		A326119519870157000FBDF6 /* Player.swift in Sources */ = {isa = PBXBuildFile; fileRef = A326119419870157000FBDF6 /* Player.swift */; };
 		A32611971987017E000FBDF6 /* PlayerInputSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = A32611961987017E000FBDF6 /* PlayerInputSystem.swift */; };
 		A340FF631999037A003E4809 /* PlayerOutputSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = A340FF621999037A003E4809 /* PlayerOutputSystem.swift */; };
@@ -100,6 +101,7 @@
 		A318A2D3194130DE00B88B62 /* LGScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LGScene.swift; sourceTree = "<group>"; };
 		A318A2D5194130FF00B88B62 /* LGSystem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LGSystem.swift; sourceTree = "<group>"; };
 		A318A2D71941311B00B88B62 /* LGUpdatePhase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LGUpdatePhase.swift; sourceTree = "<group>"; };
+		A319FB9619B5118500DFD723 /* LGDeserializable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LGDeserializable.swift; sourceTree = "<group>"; };
 		A31C8114198C3D7000A7CE46 /* LGCameraSystem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LGCameraSystem.swift; sourceTree = "<group>"; };
 		A31CEC2E19554BF1004F0395 /* LGEntityObserver.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LGEntityObserver.swift; sourceTree = "<group>"; };
 		A326118D1986FD23000FBDF6 /* LGTouchObserver.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LGTouchObserver.swift; sourceTree = "<group>"; };
@@ -232,6 +234,7 @@
 		A31CEC2D19554BD9004F0395 /* Protocols */ = {
 			isa = PBXGroup;
 			children = (
+				A319FB9619B5118500DFD723 /* LGDeserializable.swift */,
 				A31CEC2E19554BF1004F0395 /* LGEntityObserver.swift */,
 				A326118D1986FD23000FBDF6 /* LGTouchObserver.swift */,
 				A340FF601998FF43003E4809 /* LGUpdatable.swift */,
@@ -473,6 +476,7 @@
 				A315057719995966000B8842 /* LGSprite.swift in Sources */,
 				A315056F19995966000B8842 /* LGTileLayer.swift in Sources */,
 				A315058119995966000B8842 /* LGCameraSystem.swift in Sources */,
+				A319FB9719B5118500DFD723 /* LGDeserializable.swift in Sources */,
 				A315057419995966000B8842 /* LGAnimatable.swift in Sources */,
 				A315057519995966000B8842 /* LGCamera.swift in Sources */,
 				A30D91F119AFB8BC00EDEDEA /* LGRect.swift in Sources */,

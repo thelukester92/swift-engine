@@ -44,7 +44,7 @@ class PlatformerGame: LGGame
 		
 		let player = LGEntity(
 			LGPosition(x: 50, y: 200),
-			LGPhysicsBody(width: 20, height: 35),
+			LGPhysicsBody(serialized: "{ \"width\": 20, \"height\": 35 }"),
 			Player()
 		)
 		
