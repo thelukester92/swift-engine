@@ -52,6 +52,7 @@
 		A3B2AEAF193EBFE20097B3A7 /* PlatformerGame.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3B2AEAE193EBFE20097B3A7 /* PlatformerGame.swift */; };
 		A3B2AEB4193EBFE20097B3A7 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A3B2AEB3193EBFE20097B3A7 /* Images.xcassets */; };
 		A3EA911F19561EF100297EEB /* Tileset.png in Resources */ = {isa = PBXBuildFile; fileRef = A3EA911E19561EF100297EEB /* Tileset.png */; };
+		A3EB958C19B61B38001FF4D1 /* LGJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3EB958B19B61B38001FF4D1 /* LGJSON.swift */; };
 		A3EFA8171943FA2D00C85CF8 /* Player.png in Resources */ = {isa = PBXBuildFile; fileRef = A3EFA8161943FA2D00C85CF8 /* Player.png */; };
 		A3F01F6319AE43FB00C4F505 /* LGSound.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3F01F6119AE43FB00C4F505 /* LGSound.swift */; };
 		A3F01F6619AE44E700C4F505 /* LGSoundSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3F01F6419AE44E700C4F505 /* LGSoundSystem.swift */; };
@@ -136,6 +137,7 @@
 		A3CE1B2B1991E96400DF19A8 /* LICENSE */ = {isa = PBXFileReference; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
 		A3E735BC195618F700FA6025 /* LGTileMap.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LGTileMap.swift; path = Classes/LGTileMap.swift; sourceTree = "<group>"; };
 		A3EA911E19561EF100297EEB /* Tileset.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Tileset.png; path = Game/Resources/Tileset.png; sourceTree = "<group>"; };
+		A3EB958B19B61B38001FF4D1 /* LGJSON.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LGJSON.swift; path = Classes/LGJSON.swift; sourceTree = "<group>"; };
 		A3EFA8161943FA2D00C85CF8 /* Player.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Player.png; path = Game/Resources/Player.png; sourceTree = "<group>"; };
 		A3EFA81819441B6F00C85CF8 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = SOURCE_ROOT; };
 		A3F01F6119AE43FB00C4F505 /* LGSound.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LGSound.swift; sourceTree = "<group>"; };
@@ -266,6 +268,7 @@
 			isa = PBXGroup;
 			children = (
 				A340FF581998F448003E4809 /* LGAnimation.swift */,
+				A3EB958B19B61B38001FF4D1 /* LGJSON.swift */,
 				A340FF5E1998FE36003E4809 /* LGSpriteKitScene.swift */,
 				A33CADA5194360AF00AC8E27 /* LGSpriteSheet.swift */,
 				A3FE99C0195A790A00D6A781 /* LGTile.swift */,
@@ -465,6 +468,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				A3F01F6319AE43FB00C4F505 /* LGSound.swift in Sources */,
+				A3EB958C19B61B38001FF4D1 /* LGJSON.swift in Sources */,
 				A315058019995966000B8842 /* LGAnimationSystem.swift in Sources */,
 				A315058919995966000B8842 /* LGSystem.swift in Sources */,
 				A3F01F6619AE44E700C4F505 /* LGSoundSystem.swift in Sources */,

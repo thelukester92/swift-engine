@@ -6,8 +6,8 @@
 //  Copyright (c) 2014 Luke Godfrey. See LICENSE.
 //
 
-// TODO: Remove @objc ; it is only here so we can check for conformance
-@objc public protocol LGDeserializable
+public protocol LGDeserializable
 {
-	init(serialized: String)
+	typealias DeserializableType
+	class func deserialize(serialized: String) -> DeserializableType?
 }
