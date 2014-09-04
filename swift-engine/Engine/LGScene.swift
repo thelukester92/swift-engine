@@ -25,7 +25,7 @@ public final class LGScene
 	
 	public var view: SKView
 	{
-		return scene.view
+		return scene.view!
 	}
 	
 	public init(size: CGSize)
