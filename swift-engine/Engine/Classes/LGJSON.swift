@@ -8,9 +8,9 @@
 
 import Foundation
 
-class LGJSON
+public class LGJSON
 {
-	class func JSONFromString(serialized: String) -> LGJSON?
+	public class func JSONFromString(serialized: String) -> LGJSON?
 	{
 		if let data = serialized.dataUsingEncoding(NSUTF8StringEncoding, allowLossyConversion: false)
 		{
@@ -25,42 +25,42 @@ class LGJSON
 	
 	var value: AnyObject?
 	
-	var boolValue: Bool?
+	public var boolValue: Bool?
 	{
 		return (value as? NSNumber)?.boolValue
 	}
 	
-	var intValue: Int?
+	public var intValue: Int?
 	{
 		return (value as? NSNumber)?.integerValue
 	}
 	
-	var doubleValue: Double?
+	public var doubleValue: Double?
 	{
 		return (value as? NSNumber)?.doubleValue
 	}
 	
-	var stringValue: String?
+	public var stringValue: String?
 	{
 		return value as? String
 	}
 	
-	var arrayValue: NSArray?
+	public var arrayValue: NSArray?
 	{
 		return value as? NSArray
 	}
 	
-	var dictionaryValue: NSDictionary?
+	public var dictionaryValue: NSDictionary?
 	{
 		return value as? NSDictionary
 	}
 	
-	init(value: AnyObject? = nil)
+	public init(value: AnyObject? = nil)
 	{
 		self.value = value
 	}
 	
-	subscript(name: String) -> LGJSON?
+	public subscript(name: String) -> LGJSON?
 	{
 		if let newValue: AnyObject = dictionaryValue?[name]?
 		{
@@ -70,7 +70,7 @@ class LGJSON
 		return nil
 	}
 	
-	subscript(index: Int) -> LGJSON?
+	public subscript(index: Int) -> LGJSON?
 	{
 		if let newValue: AnyObject! = arrayValue?[index]
 		{

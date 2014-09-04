@@ -23,3 +23,11 @@ class Player: LGComponent
 	var jumpSpeed: Double = 4
 	var moveSpeed: Double = 3
 }
+
+extension Player: LGDeserializable
+{
+	class func deserialize(serialized: String) -> LGComponent?
+	{
+		return Player()
+	}
+}

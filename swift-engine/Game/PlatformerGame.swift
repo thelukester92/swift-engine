@@ -33,6 +33,11 @@ class PlatformerGame: LGGame
 	
 	override func addEntities(scene: LGScene)
 	{
+		LGDeserializer.registerDeserializable(LGPhysicsBody)
+		LGDeserializer.registerDeserializable(LGAnimatable)
+		LGDeserializer.registerDeserializable(LGSprite)
+		LGDeserializer.registerDeserializable(Player)
+		
 		let platform = LGEntity(
 			LGPosition(x: 100, y: 100),
 			LGSprite(red: 0, green: 0, blue: 1, size: LGVector(x: 32, y: 32)),
@@ -42,40 +47,19 @@ class PlatformerGame: LGGame
 		platform.get(LGPhysicsBody)!.velocity.x = 1.0
 		scene.addEntity(platform, named: "platform")
 		
-		let player = LGEntity(
-			LGPosition(x: 50, y: 200),
-			LGPhysicsBody.deserialize("{ \"width\": 20, \"height\": 35 }")!,
-			Player()
-		)
-		
-		let animatable = LGAnimatable(animations:
-		[
-			"idle":		LGAnimation(frame: 1),
-			"walk":		LGAnimation(start: 8, end: 9, loops: true),
-			"fall":		LGAnimation(frame: 7),
-		])
-		animatable.gotoAnimation("idle")
-		player.put(animatable)
-		
-		let sprite = LGSprite(textureName: "Player", rows: 1, cols: 9)
-		sprite.offset.x = -12
-		player.put(sprite)
-		
-		scene.addEntity(player, named: "player")
-		
 		let parser = LGTMXParser()
 		let map = parser.parseFile("Level")
 		
-		let deserializer = LGDeserializer()
-		deserializer.registerDeserializable(LGPhysicsBody)
+		let width	= Double(self.view.frame.size.width)
+		let height	= Double(self.view.frame.size.height)
 		
 		for object in parser.objects
 		{
-			let entity = LGEntity()
+			let entity = LGEntity( LGPosition(x: Double(object.x), y: Double(map.height * map.tileHeight) - Double(object.y)) )
 			
 			for (type, serialized) in object.properties
 			{
-				if let component = deserializer.deserialize(serialized, withType: type)
+				if let component = LGDeserializer.deserialize(serialized, withType: type)
 				{
 					entity.put(component: component)
 				}
@@ -84,19 +68,19 @@ class PlatformerGame: LGGame
 			scene.addEntity(entity, named: object.name)
 		}
 		
-		let width	= Double(self.view.frame.size.width)
-		let height	= Double(self.view.frame.size.height)
-		
-		let camera		= LGCamera()
-		camera.boundary	= LGRect(x: 0, y: 0, width: Double(map.width * map.tileWidth), height: Double(map.height * map.tileHeight))
-		
-		let cameraBody		= LGPhysicsBody(width: width, height: height, dynamic: false)
-		cameraBody.trigger	= true
-		
-		let cameraOffset	= LGVector(x: -width / 2, y: -height / 2)
-		let cameraFollower	= LGFollower(following: player, axis: .Both, followerType: .Position(cameraOffset))
-		
-		scene.addEntity( LGEntity(camera, cameraBody, cameraFollower, LGPosition()) )
+		if let player = scene.entityNamed("player")
+		{
+			let camera			= LGCamera()
+			camera.boundary		= LGRect(x: 0, y: 0, width: Double(map.width * map.tileWidth), height: Double(map.height * map.tileHeight))
+			
+			let cameraBody		= LGPhysicsBody(width: width, height: height, dynamic: false)
+			cameraBody.trigger	= true
+			
+			let cameraOffset	= LGVector(x: -width / 2, y: -height / 2)
+			let cameraFollower	= LGFollower(following: player, axis: .Both, followerType: .Position(cameraOffset))
+			
+			scene.addEntity( LGEntity(camera, cameraBody, cameraFollower, LGPosition()) )
+		}
 		
 		physicsSystem.collisionLayer = parser.collisionLayer
 		tileSystem.loadMap(map)

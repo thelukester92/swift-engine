@@ -8,21 +8,22 @@
 
 public class LGDeserializer
 {
-	var deserializers: [String:(String) -> LGComponent?]
+	typealias Deserializer = (String) -> LGComponent?
 	
-	public init()
+	// TODO: Use stored property when Swift allows it
+	struct Static
 	{
-		deserializers = [:]
+		static var deserializers = [String:Deserializer]()
 	}
 	
-	public func registerDeserializable<T: protocol<LGComponent, LGDeserializable>>(deserializable: T.Type)
+	public class func registerDeserializable<T: LGDeserializable>(deserializable: T.Type)
 	{
-		deserializers[deserializable.type()] = { serialized in deserializable.deserialize(serialized) }
+		Static.deserializers[deserializable.type()] = { serialized in deserializable.deserialize(serialized) }
 	}
 	
-	public func deserialize(serialized: String, withType type: String) -> LGComponent?
+	public class func deserialize(serialized: String, withType type: String) -> LGComponent?
 	{
-		if let deserializer = deserializers[type]
+		if let deserializer = Static.deserializers[type]
 		{
 			return deserializer(serialized)
 		}
