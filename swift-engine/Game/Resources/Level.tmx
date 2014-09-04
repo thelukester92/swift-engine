@@ -58,7 +58,7 @@
 </data>
  </layer>
  <objectgroup name="objects" width="20" height="14">
-  <object name="player" type="player" x="200" y="60">
+  <object name="player" type="player" x="64" y="352">
    <properties>
     <property name="LGAnimatable" value="{ &quot;animations&quot; : { &quot;idle&quot; : { &quot;frame&quot; : 1 }, &quot;walk&quot; : { &quot;start&quot; : 8, &quot;end&quot; : 9, &quot;loops&quot; : true }, &quot;fall&quot; : { &quot;frame&quot; : 7 } }, &quot;defaultAnimation&quot; : &quot;idle&quot; }"/>
     <property name="LGPhysicsBody" value="{ &quot;width&quot; : 20, &quot;height&quot; : 35 }"/>
