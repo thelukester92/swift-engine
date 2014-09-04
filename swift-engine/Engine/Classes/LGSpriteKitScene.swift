@@ -21,7 +21,7 @@ class LGSpriteKitScene: SKScene
 		}
 	}
 	
-	override func touchesBegan(touches: NSSet!, withEvent event: UIEvent!)
+	override func touchesBegan(touches: NSSet, withEvent event: UIEvent)
 	{
 		for touchObserver in touchObservers
 		{
@@ -29,7 +29,7 @@ class LGSpriteKitScene: SKScene
 		}
 	}
 	
-	override func touchesMoved(touches: NSSet!, withEvent event: UIEvent!)
+	override func touchesMoved(touches: NSSet, withEvent event: UIEvent)
 	{
 		for touchObserver in touchObservers
 		{
@@ -37,7 +37,7 @@ class LGSpriteKitScene: SKScene
 		}
 	}
 	
-	override func touchesEnded(touches: NSSet!, withEvent event: UIEvent!)
+	override func touchesEnded(touches: NSSet, withEvent event: UIEvent)
 	{
 		for touchObserver in touchObservers
 		{

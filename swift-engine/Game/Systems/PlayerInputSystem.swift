@@ -52,7 +52,7 @@ extension PlayerInputSystem: LGTouchObserver
 {
 	func touchesBegan(touches: NSSet!, withEvent event: UIEvent!)
 	{
-		if event.allTouches().count == 2
+		if event.allTouches()!.count == 2
 		{
 			shouldJump = true
 		}
@@ -76,7 +76,7 @@ extension PlayerInputSystem: LGTouchObserver
 	
 	func touchesEnded(touches: NSSet!, withEvent event: UIEvent!)
 	{
-		if event.allTouches().count - touches.count == 0
+		if event.allTouches()!.count - touches.count == 0
 		{
 			shouldMove = 0
 		}
