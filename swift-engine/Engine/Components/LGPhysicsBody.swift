@@ -60,7 +60,7 @@ public final class LGPhysicsBody: LGComponent
 
 extension LGPhysicsBody: LGDeserializable
 {
-	public class func deserialize(serialized: String) -> LGPhysicsBody?
+	public class func deserialize(serialized: String) -> LGComponent?
 	{
 		if let json = LGJSON.JSONFromString(serialized)
 		{

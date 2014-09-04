@@ -197,7 +197,7 @@ extension LGTMXParser: NSXMLParserDelegate
 			
 			case "property":
 				// TODO: add custom properties to map, tile, and layer
-				if currentElement == "object"
+				if currentObject != nil
 				{
 					let name = attributes["name"] as String
 					let value = attributes["value"] as String

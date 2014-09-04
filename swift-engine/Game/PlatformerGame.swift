@@ -66,6 +66,24 @@ class PlatformerGame: LGGame
 		let parser = LGTMXParser()
 		let map = parser.parseFile("Level")
 		
+		let deserializer = LGDeserializer()
+		deserializer.registerDeserializable(LGPhysicsBody)
+		
+		for object in parser.objects
+		{
+			let entity = LGEntity()
+			
+			for (type, serialized) in object.properties
+			{
+				if let component = deserializer.deserialize(serialized, withType: type)
+				{
+					entity.put(component: component)
+				}
+			}
+			
+			scene.addEntity(entity, named: object.name)
+		}
+		
 		let width	= Double(self.view.frame.size.width)
 		let height	= Double(self.view.frame.size.height)
 		

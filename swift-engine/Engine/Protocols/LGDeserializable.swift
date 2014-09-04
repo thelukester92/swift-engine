@@ -6,8 +6,7 @@
 //  Copyright (c) 2014 Luke Godfrey. See LICENSE.
 //
 
-public protocol LGDeserializable
+public protocol LGDeserializable: class
 {
-	typealias DeserializableType
-	class func deserialize(serialized: String) -> DeserializableType?
+	class func deserialize(serialized: String) -> LGComponent?
 }
