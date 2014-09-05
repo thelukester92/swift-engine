@@ -64,17 +64,34 @@ extension LGPhysicsBody: LGDeserializable
 	{
 		if let json = LGJSON.JSONFromString(serialized)
 		{
-			var width	= json["width"]?.doubleValue
-			var height	= json["height"]?.doubleValue
-			let dynamic	= json["dynamic"]?.boolValue
+			let width	= json["width"]?.doubleValue
+			let height	= json["height"]?.doubleValue
 			
 			if width != nil && height != nil
 			{
 				let body = LGPhysicsBody(width: width!, height: height!)
 				
-				if dynamic != nil
+				if let dynamic = json["dynamic"]?.boolValue
 				{
-					body.dynamic = dynamic!
+					body.dynamic = dynamic
+				}
+				
+				if let onlyCollidesOnTop = json["onlyCollidesOnTop"]?.boolValue
+				{
+					body.onlyCollidesOnTop = onlyCollidesOnTop
+				}
+				
+				if let velocity = json["velocity"]
+				{
+					if let x = velocity["x"]?.doubleValue
+					{
+						body.velocity.x = x
+					}
+					
+					if let y = velocity["y"]?.doubleValue
+					{
+						body.velocity.y = y
+					}
 				}
 				
 				return body

@@ -33,27 +33,19 @@ class PlatformerGame: LGGame
 	
 	override func addEntities(scene: LGScene)
 	{
-		LGDeserializer.registerDeserializable(LGPhysicsBody)
+		// Registering for deserialization is needed because Swift has no instrospection or reflection
+		
 		LGDeserializer.registerDeserializable(LGAnimatable)
+		LGDeserializer.registerDeserializable(LGPhysicsBody)
 		LGDeserializer.registerDeserializable(LGSprite)
 		LGDeserializer.registerDeserializable(Player)
 		
-		let platform = LGEntity(
-			LGPosition(x: 100, y: 100),
-			LGSprite(red: 0, green: 0, blue: 1, size: LGVector(x: 32, y: 32)),
-			LGPhysicsBody(width: 32, height: 32)
-		)
-		platform.get(LGPhysicsBody)!.onlyCollidesOnTop = true
-		platform.get(LGPhysicsBody)!.velocity.x = 1.0
-		scene.addEntity(platform, named: "platform")
-		
 		let parser = LGTMXParser()
-		let map = parser.parseFile("Level")
+		let (map, objects) = parser.parseFile("Level")
 		
-		let width	= Double(self.view.frame.size.width)
-		let height	= Double(self.view.frame.size.height)
+		// Add level entities (may change each level)
 		
-		for object in parser.objects
+		for object in objects
 		{
 			let entity = LGEntity( LGPosition(x: Double(object.x), y: Double(map.height * map.tileHeight) - Double(object.y)) )
 			
@@ -63,13 +55,22 @@ class PlatformerGame: LGGame
 				{
 					entity.put(component: component)
 				}
+				else
+				{
+					println("WARNING: Failed to deserialize a component of type '\(type)'")
+				}
 			}
 			
 			scene.addEntity(entity, named: object.name)
 		}
 		
+		// Add scene entities (always the same in every level in this scene)
+		
 		if let player = scene.entityNamed("player")
 		{
+			let width			= Double(self.view.frame.size.width)
+			let height			= Double(self.view.frame.size.height)
+			
 			let camera			= LGCamera()
 			camera.boundary		= LGRect(x: 0, y: 0, width: Double(map.width * map.tileWidth), height: Double(map.height * map.tileHeight))
 			
