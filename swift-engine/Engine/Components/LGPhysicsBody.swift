@@ -8,7 +8,7 @@
 
 import SpriteKit
 
-public class LGPhysicsBody: LGComponent
+public final class LGPhysicsBody: LGComponent
 {
 	public class func type() -> String
 	{
@@ -37,16 +37,16 @@ public class LGPhysicsBody: LGComponent
 	public var collidedLeft		= false
 	public var collidedRight	= false
 	
-	public init(width: Double, height: Double, dynamic: Bool = true)
+	public init(width: Double = 0, height: Double = 0, dynamic: Bool = true)
 	{
 		self.width		= width
 		self.height		= height
 		self.dynamic	= dynamic
 	}
 	
-	public convenience init(size: LGVector, dynamic: Bool = true)
+	public convenience init(size: LGVector)
 	{
-		self.init(width: size.x, height: size.y, dynamic: dynamic)
+		self.init(width: size.x, height: size.y)
 	}
 	
 	public func resetCollided()
@@ -55,5 +55,49 @@ public class LGPhysicsBody: LGComponent
 		collidedBottom	= false
 		collidedLeft	= false
 		collidedRight	= false
+	}
+}
+
+extension LGPhysicsBody: LGDeserializable
+{
+	public class func deserialize(serialized: String) -> LGComponent?
+	{
+		if let json = LGJSON.JSONFromString(serialized)
+		{
+			let width	= json["width"]?.doubleValue
+			let height	= json["height"]?.doubleValue
+			
+			if width != nil && height != nil
+			{
+				let body = LGPhysicsBody(width: width!, height: height!)
+				
+				if let dynamic = json["dynamic"]?.boolValue
+				{
+					body.dynamic = dynamic
+				}
+				
+				if let onlyCollidesOnTop = json["onlyCollidesOnTop"]?.boolValue
+				{
+					body.onlyCollidesOnTop = onlyCollidesOnTop
+				}
+				
+				if let velocity = json["velocity"]
+				{
+					if let x = velocity["x"]?.doubleValue
+					{
+						body.velocity.x = x
+					}
+					
+					if let y = velocity["y"]?.doubleValue
+					{
+						body.velocity.y = y
+					}
+				}
+				
+				return body
+			}
+		}
+		
+		return nil
 	}
 }

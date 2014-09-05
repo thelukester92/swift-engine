@@ -46,3 +46,59 @@ public final class LGSprite: LGComponent
 		self.size = size
 	}
 }
+
+extension LGSprite: LGDeserializable
+{
+	public class func deserialize(serialized: String) -> LGComponent?
+	{
+		if let json = LGJSON.JSONFromString(serialized)
+		{
+			let textureName	= json["textureName"]?.stringValue
+			let rows		= json["rows"]?.intValue
+			let cols		= json["cols"]?.intValue
+			
+			var sprite: LGSprite?
+			
+			if textureName != nil && rows != nil && cols != nil
+			{
+				sprite = LGSprite(textureName: textureName!, rows: rows!, cols: cols!)
+			}
+			else
+			{
+				let red		= json["red"]?.doubleValue
+				let blue	= json["blue"]?.doubleValue
+				let green	= json["green"]?.doubleValue
+				
+				let size	= json["size"]
+				let x		= size?["x"]?.doubleValue
+				let y		= size?["y"]?.doubleValue
+				
+				if red != nil && blue != nil && green != nil && x != nil && y != nil
+				{
+					let vector = LGVector(x: x!, y: y!)
+					sprite = LGSprite(red: red!, green: green!, blue: blue!, size: vector)
+				}
+			}
+			
+			if sprite != nil
+			{
+				if let offset = json["offset"]
+				{
+					if let x = offset["x"]?.doubleValue
+					{
+						sprite!.offset.x = x
+					}
+					
+					if let y = offset["y"]?.doubleValue
+					{
+						sprite!.offset.y = y
+					}
+				}
+				
+				return sprite
+			}
+		}
+		
+		return nil
+	}
+}

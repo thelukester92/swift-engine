@@ -51,30 +51,24 @@ public final class LGTileSystem : LGSystem
 	{
 		self.map = map
 		
-		if cameraPosition == nil || camera == nil
+		var cam: LGRect!
+		
+		if cameraPosition == nil || cameraBody == nil || camera == nil
 		{
 			// Render the entire map when no visible area is defined
-			for layer in map.layers
-			{
-				for i in 0 ..< map.height
-				{
-					for j in 0 ..< map.width
-					{
-						if layer.visibleAt(row: i, col: j)
-						{
-							reuseTileEntity(layer: layer, row: i, col: j)
-						}
-					}
-				}
-			}
+			cam = LGRect(x: 0, y: 0, width: Double(map.width * map.tileWidth), height: Double(map.height * map.tileHeight))
 		}
 		else
 		{
-			minRow = Int(cameraPosition.x / Double(map.tileWidth)) - 1
-			maxRow = minRow
-			minCol = Int(cameraPosition.y / Double(map.tileHeight)) - 1
-			maxCol = minCol
+			cam = LGRect(x: cameraPosition.x, y: cameraPosition.y, width: cameraBody.width, height: cameraBody.height)
 		}
+		
+		minRow = Int(cam.x / Double(map.tileWidth)) - 1
+		maxRow = minRow
+		minCol = Int(cam.y / Double(map.tileHeight)) - 1
+		maxCol = minCol
+		
+		addTilesInsideCam(cam)
 	}
 	
 	private func reuseTileEntity(#layer: LGTileLayer, row: Int, col: Int)
@@ -211,113 +205,121 @@ public final class LGTileSystem : LGSystem
 		}
 	}
 	
+	private func removeTilesOutsideCam(cam: LGRect)
+	{
+		// Remove columns
+		while Int(cam.x / Double(map.tileWidth)) > minCol
+		{
+			recycleCol(minCol)
+			minCol++
+		}
+		
+		while Int((cam.x + cam.width) / Double(map.tileWidth)) < maxCol
+		{
+			recycleCol(maxCol)
+			maxCol--
+		}
+		
+		// Remove rows
+		
+		while Int(cam.y / Double(map.tileHeight)) > minRow
+		{
+			recycleRow(minRow)
+			minRow++
+		}
+		
+		while Int((cam.y + cam.height) / Double(map.tileHeight)) < maxRow
+		{
+			recycleRow(maxRow)
+			maxRow--
+		}
+		
+		// Ensure that min is less than max
+		
+		maxCol = max(minCol, maxCol)
+		maxRow = max(minRow, maxRow)
+	}
+	
+	private func addTilesInsideCam(cam: LGRect)
+	{
+		// Add columns
+		
+		// TODO: check for out-of-bounds before doing all these loops (currently checked in layer.visibleAt)
+		
+		if Int(cam.x / Double(map.tileWidth)) < minCol
+		{
+			minCol--
+			
+			for layer in map.layers
+			{
+				for i in minRow...maxRow
+				{
+					if layer.visibleAt(row: i, col: minCol)
+					{
+						reuseTileEntity(layer: layer, row: i, col: minCol)
+					}
+				}
+			}
+		}
+		
+		while Int((cam.x + cam.width) / Double(map.tileWidth)) > maxCol
+		{
+			maxCol++
+			
+			for layer in map.layers
+			{
+				for i in minRow...maxRow
+				{
+					if layer.visibleAt(row: i, col: maxCol)
+					{
+						reuseTileEntity(layer: layer, row: i, col: maxCol)
+					}
+				}
+			}
+		}
+		
+		// Add rows
+		
+		while Int(cam.y / Double(map.tileHeight)) < minRow
+		{
+			minRow--
+			
+			for layer in map.layers
+			{
+				for i in minCol...maxCol
+				{
+					if layer.visibleAt(row: minRow, col: i)
+					{
+						reuseTileEntity(layer: layer, row: minRow, col: i)
+					}
+				}
+			}
+		}
+		
+		while Int((cam.y + cam.height) / Double(map.tileHeight)) > maxRow
+		{
+			maxRow++
+			
+			for layer in map.layers
+			{
+				for i in minCol...maxCol
+				{
+					if layer.visibleAt(row: maxRow, col: i)
+					{
+						reuseTileEntity(layer: layer, row: maxRow, col: i)
+					}
+				}
+			}
+		}
+	}
+	
 	override public func update()
 	{
 		if cameraPosition != nil && camera != nil
 		{
-			let cam = (x: cameraPosition.x, y: cameraPosition.y, width: cameraBody.width, height: cameraBody.height)
-			
-			// Remove columns
-			while Int(cam.x / Double(map.tileWidth)) > minCol
-			{
-				recycleCol(minCol)
-				minCol++
-			}
-			
-			while Int((cam.x + cam.width) / Double(map.tileWidth)) < maxCol
-			{
-				recycleCol(maxCol)
-				maxCol--
-			}
-			
-			// Remove rows
-			
-			while Int(cam.y / Double(map.tileHeight)) > minRow
-			{
-				recycleRow(minRow)
-				minRow++
-			}
-			
-			while Int((cam.y + cam.height) / Double(map.tileHeight)) < maxRow
-			{
-				recycleRow(maxRow)
-				maxRow--
-			}
-			
-			// Ensure that min is less than max
-			
-			maxCol = max(minCol, maxCol)
-			maxRow = max(minRow, maxRow)
-			
-			// Add columns
-			
-			// TODO: check for out-of-bounds before doing all these loops (currently checked in layer.visibleAt)
-			
-			if Int(cam.x / Double(map.tileWidth)) < minCol
-			{
-				minCol--
-				
-				for layer in map.layers
-				{
-					for i in minRow...maxRow
-					{
-						if layer.visibleAt(row: i, col: minCol)
-						{
-							reuseTileEntity(layer: layer, row: i, col: minCol)
-						}
-					}
-				}
-			}
-			
-			while Int((cam.x + cam.width) / Double(map.tileWidth)) > maxCol
-			{
-				maxCol++
-				
-				for layer in map.layers
-				{
-					for i in minRow...maxRow
-					{
-						if layer.visibleAt(row: i, col: maxCol)
-						{
-							reuseTileEntity(layer: layer, row: i, col: maxCol)
-						}
-					}
-				}
-			}
-			
-			// Add rows
-			
-			while Int(cam.y / Double(map.tileHeight)) < minRow
-			{
-				minRow--
-				
-				for layer in map.layers
-				{
-					for i in minCol...maxCol
-					{
-						if layer.visibleAt(row: minRow, col: i)
-						{
-							reuseTileEntity(layer: layer, row: minRow, col: i)
-						}
-					}
-				}
-			}
-			
-			while Int((cam.y + cam.height) / Double(map.tileHeight)) > maxRow
-			{
-				maxRow++
-				
-				for layer in map.layers
-				{
-					for i in minCol...maxCol
-					{
-						if layer.visibleAt(row: maxRow, col: i)
-						{
-							reuseTileEntity(layer: layer, row: maxRow, col: i)
-						}
-					}
-				}
-			}
+			let cam = LGRect(x: cameraPosition.x, y: cameraPosition.y, width: cameraBody.width, height: cameraBody.height)
+			removeTilesOutsideCam(cam)
+			addTilesInsideCam(cam)
 		}
 	}
 }

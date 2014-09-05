@@ -16,9 +16,9 @@
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,15,0,0,0,0,0,0,0,0,0,0,
-0,0,0,0,0,0,0,1610612751,13,13,13,13,13,13,13,0,0,0,0,0,
-0,1073741840,0,0,0,14,0,0,17,17,17,17,17,17,17,13,13,13,13,13,
-13,13,13,13,13,13,13,13,17,17,17,17,17,17,17,17,17,17,17,17
+13,13,13,13,13,13,13,13,13,13,13,13,13,13,13,0,0,0,0,0,
+17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,13,13,13,13,13,
+17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17
 </data>
  </layer>
  <layer name="foreground" width="20" height="14">
@@ -29,13 +29,13 @@
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,16,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,16,0,
-0,0,0,2147483664,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 </data>
  </layer>
@@ -52,9 +52,25 @@
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,0,0,0,0,
-0,0,0,0,0,0,0,0,1,1,1,1,1,1,1,1,1,1,1,1,
+1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,0,0,0,0,
+1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,
 1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
 </data>
  </layer>
+ <objectgroup name="objects" width="20" height="14">
+  <object name="player" type="player" x="128" y="320">
+   <properties>
+    <property name="LGAnimatable" value="{ &quot;animations&quot; : { &quot;idle&quot; : { &quot;frame&quot; : 1 }, &quot;walk&quot; : { &quot;start&quot; : 8, &quot;end&quot; : 9, &quot;loops&quot; : true }, &quot;fall&quot; : { &quot;frame&quot; : 7 } }, &quot;defaultAnimation&quot; : &quot;idle&quot; }"/>
+    <property name="LGPhysicsBody" value="{ &quot;width&quot; : 20, &quot;height&quot; : 35 }"/>
+    <property name="LGSprite" value="{ &quot;textureName&quot; : &quot;Player&quot;, &quot;rows&quot; : 1, &quot;cols&quot; : 9, &quot;offset&quot; : { &quot;x&quot; : -10 } }"/>
+    <property name="Player" value=""/>
+   </properties>
+  </object>
+  <object name="platform" x="128" y="352">
+   <properties>
+    <property name="LGPhysicsBody" value="{ &quot;width&quot; : 32, &quot;height&quot; : 32, &quot;onlyCollidesOnTop&quot; : true, &quot;velocity&quot; : { &quot;x&quot; : 1 } }"/>
+    <property name="LGSprite" value="{ &quot;red&quot; : 0, &quot;green&quot; : 0.4, &quot;blue&quot; : 0.4, &quot;size&quot; : { &quot;x&quot; : 32, &quot;y&quot; : 32 } }"/>
+   </properties>
+  </object>
+ </objectgroup>
 </map>

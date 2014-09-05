@@ -28,12 +28,12 @@ public class LGTMXParser: NSObject
 	var currentEncoding		= ""
 	var currentCompression	= ""
 	
-	public func parseFile(filename: String, filetype: String = "tmx") -> LGTileMap
+	public func parseFile(filename: String, filetype: String = "tmx") -> (LGTileMap, [LGTMXObject])
 	{
 		let parser = NSXMLParser(contentsOfURL: NSBundle.mainBundle().URLForResource(filename, withExtension: filetype))
 		parser.delegate = self
 		parser.parse()
-		return map
+		return (map, objects)
 	}
 	
 	private func parseString(string: String, encoding: String, compression: String) -> [[LGTile]]
@@ -197,7 +197,7 @@ extension LGTMXParser: NSXMLParserDelegate
 			
 			case "property":
 				// TODO: add custom properties to map, tile, and layer
-				if currentElement == "object"
+				if currentObject != nil
 				{
 					let name = attributes["name"] as String
 					let value = attributes["value"] as String

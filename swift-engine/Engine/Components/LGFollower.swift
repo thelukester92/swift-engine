@@ -18,9 +18,9 @@ public class LGFollower: LGComponent
 		return LGFollower.type()
 	}
 	
-	weak var following: LGEntity?
-	var axis: LGAxis
-	var followerType: LGFollowerType
+	public weak var following: LGEntity?
+	public var axis: LGAxis
+	public var followerType: LGFollowerType
 	
 	public init(following: LGEntity, axis: LGAxis, followerType: LGFollowerType)
 	{
@@ -31,7 +31,7 @@ public class LGFollower: LGComponent
 	
 	public convenience init(following: LGEntity, axis: LGAxis)
 	{
-		self.init(following: following, axis: axis, followerType: .Velocity)
+		self.init(following: following, axis: axis, followerType: .Velocity(LGVector()))
 	}
 	
 	public convenience init(following: LGEntity)
@@ -41,6 +41,6 @@ public class LGFollower: LGComponent
 	
 	public enum LGFollowerType
 	{
-		case Velocity, Position(LGVector)
+		case Velocity(LGVector), Position(LGVector)
 	}
 }

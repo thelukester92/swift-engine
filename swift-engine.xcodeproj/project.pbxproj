@@ -42,15 +42,18 @@
 		A315058819995966000B8842 /* LGScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = A318A2D3194130DE00B88B62 /* LGScene.swift */; };
 		A315058919995966000B8842 /* LGSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = A318A2D5194130FF00B88B62 /* LGSystem.swift */; };
 		A315058A19995966000B8842 /* LGGame.swift in Sources */ = {isa = PBXBuildFile; fileRef = A340FF6619990571003E4809 /* LGGame.swift */; };
+		A319FB9719B5118500DFD723 /* LGDeserializable.swift in Sources */ = {isa = PBXBuildFile; fileRef = A319FB9619B5118500DFD723 /* LGDeserializable.swift */; };
 		A326119519870157000FBDF6 /* Player.swift in Sources */ = {isa = PBXBuildFile; fileRef = A326119419870157000FBDF6 /* Player.swift */; };
 		A32611971987017E000FBDF6 /* PlayerInputSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = A32611961987017E000FBDF6 /* PlayerInputSystem.swift */; };
 		A340FF631999037A003E4809 /* PlayerOutputSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = A340FF621999037A003E4809 /* PlayerOutputSystem.swift */; };
 		A340FF6519990460003E4809 /* PlatformSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = A340FF6419990460003E4809 /* PlatformSystem.swift */; };
 		A34A89261989FE5C007D82B6 /* Level.tmx in Resources */ = {isa = PBXBuildFile; fileRef = A34A89251989FE5C007D82B6 /* Level.tmx */; };
+		A34FC6AE19B8CF3B00C7E375 /* LGDeserializer.swift in Sources */ = {isa = PBXBuildFile; fileRef = A34FC6AD19B8CF3B00C7E375 /* LGDeserializer.swift */; };
 		A3B2AEA9193EBFE20097B3A7 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3B2AEA8193EBFE20097B3A7 /* AppDelegate.swift */; };
 		A3B2AEAF193EBFE20097B3A7 /* PlatformerGame.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3B2AEAE193EBFE20097B3A7 /* PlatformerGame.swift */; };
 		A3B2AEB4193EBFE20097B3A7 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A3B2AEB3193EBFE20097B3A7 /* Images.xcassets */; };
 		A3EA911F19561EF100297EEB /* Tileset.png in Resources */ = {isa = PBXBuildFile; fileRef = A3EA911E19561EF100297EEB /* Tileset.png */; };
+		A3EB958C19B61B38001FF4D1 /* LGJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3EB958B19B61B38001FF4D1 /* LGJSON.swift */; };
 		A3EFA8171943FA2D00C85CF8 /* Player.png in Resources */ = {isa = PBXBuildFile; fileRef = A3EFA8161943FA2D00C85CF8 /* Player.png */; };
 		A3F01F6319AE43FB00C4F505 /* LGSound.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3F01F6119AE43FB00C4F505 /* LGSound.swift */; };
 		A3F01F6619AE44E700C4F505 /* LGSoundSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3F01F6419AE44E700C4F505 /* LGSoundSystem.swift */; };
@@ -100,6 +103,7 @@
 		A318A2D3194130DE00B88B62 /* LGScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LGScene.swift; sourceTree = "<group>"; };
 		A318A2D5194130FF00B88B62 /* LGSystem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LGSystem.swift; sourceTree = "<group>"; };
 		A318A2D71941311B00B88B62 /* LGUpdatePhase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LGUpdatePhase.swift; sourceTree = "<group>"; };
+		A319FB9619B5118500DFD723 /* LGDeserializable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LGDeserializable.swift; sourceTree = "<group>"; };
 		A31C8114198C3D7000A7CE46 /* LGCameraSystem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LGCameraSystem.swift; sourceTree = "<group>"; };
 		A31CEC2E19554BF1004F0395 /* LGEntityObserver.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LGEntityObserver.swift; sourceTree = "<group>"; };
 		A326118D1986FD23000FBDF6 /* LGTouchObserver.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LGTouchObserver.swift; sourceTree = "<group>"; };
@@ -121,6 +125,7 @@
 		A340FF6419990460003E4809 /* PlatformSystem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlatformSystem.swift; sourceTree = "<group>"; };
 		A340FF6619990571003E4809 /* LGGame.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LGGame.swift; sourceTree = "<group>"; };
 		A34A89251989FE5C007D82B6 /* Level.tmx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = Level.tmx; path = Game/Resources/Level.tmx; sourceTree = "<group>"; };
+		A34FC6AD19B8CF3B00C7E375 /* LGDeserializer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LGDeserializer.swift; path = Classes/LGDeserializer.swift; sourceTree = "<group>"; };
 		A3542B9E196CBC8000ED00E8 /* LGPhysicsSystem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LGPhysicsSystem.swift; sourceTree = "<group>"; };
 		A3870DE7196AE566000B4352 /* Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "Bridging-Header.h"; path = "Game/Bridging-Header.h"; sourceTree = "<group>"; };
 		A3882F67198D5085009C454F /* LGFollower.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LGFollower.swift; sourceTree = "<group>"; };
@@ -134,6 +139,7 @@
 		A3CE1B2B1991E96400DF19A8 /* LICENSE */ = {isa = PBXFileReference; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
 		A3E735BC195618F700FA6025 /* LGTileMap.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LGTileMap.swift; path = Classes/LGTileMap.swift; sourceTree = "<group>"; };
 		A3EA911E19561EF100297EEB /* Tileset.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Tileset.png; path = Game/Resources/Tileset.png; sourceTree = "<group>"; };
+		A3EB958B19B61B38001FF4D1 /* LGJSON.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LGJSON.swift; path = Classes/LGJSON.swift; sourceTree = "<group>"; };
 		A3EFA8161943FA2D00C85CF8 /* Player.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Player.png; path = Game/Resources/Player.png; sourceTree = "<group>"; };
 		A3EFA81819441B6F00C85CF8 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = SOURCE_ROOT; };
 		A3F01F6119AE43FB00C4F505 /* LGSound.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LGSound.swift; sourceTree = "<group>"; };
@@ -232,6 +238,7 @@
 		A31CEC2D19554BD9004F0395 /* Protocols */ = {
 			isa = PBXGroup;
 			children = (
+				A319FB9619B5118500DFD723 /* LGDeserializable.swift */,
 				A31CEC2E19554BF1004F0395 /* LGEntityObserver.swift */,
 				A326118D1986FD23000FBDF6 /* LGTouchObserver.swift */,
 				A340FF601998FF43003E4809 /* LGUpdatable.swift */,
@@ -263,6 +270,8 @@
 			isa = PBXGroup;
 			children = (
 				A340FF581998F448003E4809 /* LGAnimation.swift */,
+				A34FC6AD19B8CF3B00C7E375 /* LGDeserializer.swift */,
+				A3EB958B19B61B38001FF4D1 /* LGJSON.swift */,
 				A340FF5E1998FE36003E4809 /* LGSpriteKitScene.swift */,
 				A33CADA5194360AF00AC8E27 /* LGSpriteSheet.swift */,
 				A3FE99C0195A790A00D6A781 /* LGTile.swift */,
@@ -462,6 +471,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				A3F01F6319AE43FB00C4F505 /* LGSound.swift in Sources */,
+				A3EB958C19B61B38001FF4D1 /* LGJSON.swift in Sources */,
 				A315058019995966000B8842 /* LGAnimationSystem.swift in Sources */,
 				A315058919995966000B8842 /* LGSystem.swift in Sources */,
 				A3F01F6619AE44E700C4F505 /* LGSoundSystem.swift in Sources */,
@@ -473,6 +483,7 @@
 				A315057719995966000B8842 /* LGSprite.swift in Sources */,
 				A315056F19995966000B8842 /* LGTileLayer.swift in Sources */,
 				A315058119995966000B8842 /* LGCameraSystem.swift in Sources */,
+				A319FB9719B5118500DFD723 /* LGDeserializable.swift in Sources */,
 				A315057419995966000B8842 /* LGAnimatable.swift in Sources */,
 				A315057519995966000B8842 /* LGCamera.swift in Sources */,
 				A30D91F119AFB8BC00EDEDEA /* LGRect.swift in Sources */,
@@ -486,6 +497,7 @@
 				A315058A19995966000B8842 /* LGGame.swift in Sources */,
 				A315056E19995966000B8842 /* LGTile.swift in Sources */,
 				A315058219995966000B8842 /* LGPhysicsSystem.swift in Sources */,
+				A34FC6AE19B8CF3B00C7E375 /* LGDeserializer.swift in Sources */,
 				A315057C19995966000B8842 /* LGAxis.swift in Sources */,
 				A315058719995966000B8842 /* LGEngine.swift in Sources */,
 				A315057619995966000B8842 /* LGPosition.swift in Sources */,

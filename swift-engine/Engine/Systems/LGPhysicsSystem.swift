@@ -115,6 +115,8 @@ public final class LGPhysicsSystem: LGSystem
 		{
 			position[id].x = tent[id].x
 			position[id].y = tent[id].y
+			
+			updateFollowers(id)
 		}
 	}
 	
@@ -145,80 +147,38 @@ public final class LGPhysicsSystem: LGSystem
 		if body[id].dynamic
 		{
 			body[id].velocity += gravity
-			limit(&body[id].velocity, maximum: terminalVelocity)
 		}
 		
-		// Update position and/or velocity of the entity to follow another entity
-		
-		// TODO: Determine if this is really the best place for followers
-		// ... because static followers may not need physics bodies
-		
-		var vel = LGVector(x: body[id].velocity.x, y: body[id].velocity.y)
+		// Update the entity's velocity as a follower
 		
 		if let follower = entities[id].get(LGFollower)
 		{
-			// TODO: Determine if all dynamic followers really should be removed
-			
-			if body[id].dynamic && !body[id].collidedBottom
+			switch follower.followerType
 			{
-				entities[id].remove(LGFollower)
-			}
-			else if let following = follower.following
-			{
-				switch follower.followerType
-				{
-					case .Velocity:
-						if let followingBody = following.get(LGPhysicsBody)
-						{
-							switch follower.axis
-							{
-								case .X:
-									vel.x += followingBody.velocity.x
-								
-								case .Y:
-									vel.y += followingBody.velocity.y
-								
-								case .Both:
-									vel.x += followingBody.velocity.x
-									vel.y += followingBody.velocity.y
-								
-								case .None:
-									break
-							}
-						}
-						limit(&vel, maximum: terminalVelocity)
+				case .Velocity(let lastVelocity):
+					if follower.axis == LGAxis.X || follower.axis == LGAxis.Both
+					{
+						body[id].velocity.x += lastVelocity.x
+					}
 					
-					case .Position(let offset):
-						if let followingPosition = following.get(LGPosition)
-						{
-							switch follower.axis
-							{
-								case .X:
-									position[id].x = followingPosition.x + offset.x
-									vel.x = 0
-								
-								case .Y:
-									position[id].y = followingPosition.y + offset.y
-									vel.y = 0
-								
-								case .Both:
-									position[id].x = followingPosition.x + offset.x
-									position[id].y = followingPosition.y + offset.y
-									vel.x = 0
-									vel.y = 0
-								
-								case .None:
-									break
-							}
-						}
-				}
+					if follower.axis == LGAxis.Y || follower.axis == LGAxis.Both
+					{
+						body[id].velocity.y += lastVelocity.y
+					}
+				
+				case .Position:
+					break
 			}
 		}
 		
+		// Impose terminal velocity
+		
+		limit(&body[id].velocity, maximum: terminalVelocity)
+		
 		// Set the entity's tentative position
 		
-		tent[id].x = position[id].x + vel.x
-		tent[id].y = position[id].y + vel.y
+		tent[id].x = position[id].x + body[id].velocity.x
+		tent[id].y = position[id].y + body[id].velocity.y
 	}
 	
 	func resolveDynamicCollisions(id: Int)
@@ -509,6 +469,69 @@ public final class LGPhysicsSystem: LGSystem
 					// TODO: See if we can remove the variable declaration here in a future version of Swift
 					let newTuple: (id: Int, other: Int) = (id: another, other: id)
 					collisions.append(newTuple)
+				}
+			}
+		}
+	}
+	
+	func updateFollowers(id: Int)
+	{
+		// Update position or velocity of the entity to follow another entity
+		
+		// TODO: Determine if this is really the best place for followers
+		// ... because static followers may not need physics bodies
+		
+		if let follower = entities[id].get(LGFollower)
+		{
+			// TODO: Determine if all dynamic followers really should be removed
+			
+			if body[id].dynamic && !body[id].collidedBottom
+			{
+				entities[id].remove(LGFollower)
+			}
+			else if let following = follower.following
+			{
+				switch follower.followerType
+				{
+					case .Velocity(var lastVelocity):
+						if let followingBody = following.get(LGPhysicsBody)
+						{
+							switch follower.axis
+							{
+								case .X:
+									lastVelocity.x = followingBody.velocity.x
+								
+								case .Y:
+									lastVelocity.y = followingBody.velocity.y
+								
+								case .Both:
+									lastVelocity.x = followingBody.velocity.x
+									lastVelocity.y = followingBody.velocity.y
+								
+								case .None:
+									break
+							}
+						}
+					
+					case .Position(let offset):
+						if let followingPosition = following.get(LGPosition)
+						{
+							switch follower.axis
+							{
+								case .X:
+									position[id].x = followingPosition.x + offset.x
+								
+								case .Y:
+									position[id].y = followingPosition.y + offset.y
+								
+								case .Both:
+									position[id].x = followingPosition.x + offset.x
+									position[id].y = followingPosition.y + offset.y
+								
+								case .None:
+									break
+							}
+						}
 				}
 			}
 		}
