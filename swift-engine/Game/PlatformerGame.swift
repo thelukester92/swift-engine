@@ -77,8 +77,8 @@ class PlatformerGame: LGGame
 			let cameraBody		= LGPhysicsBody(width: width, height: height, dynamic: false)
 			cameraBody.trigger	= true
 			
-			let cameraOffset	= LGVector(x: -width / 2, y: -height / 2)
-			let cameraFollower	= LGFollower(following: player, axis: .Both, followerType: .Position(cameraOffset))
+			let cameraOffset		= LGVector(x: -width / 2, y: -height / 2)
+			let cameraFollower		= LGFollower(following: player, axis: .Both, followerType: .Position(cameraOffset))
 			
 			scene.addEntity( LGEntity(camera, cameraBody, cameraFollower, LGPosition()) )
 		}

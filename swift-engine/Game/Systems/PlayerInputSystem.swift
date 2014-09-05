@@ -15,7 +15,7 @@ class PlayerInputSystem: LGSystem
 	var body: LGPhysicsBody!
 	
 	var shouldJump = false
-	var shouldMove = Double(0)
+	var shouldMove = 0.0
 	
 	override init()
 	{

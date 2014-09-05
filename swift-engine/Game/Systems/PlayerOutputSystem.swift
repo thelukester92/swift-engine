@@ -10,6 +10,7 @@ import LGSwiftEngine
 
 class PlayerOutputSystem: LGSystem
 {
+	var entity: LGEntity!
 	var player: Player!
 	var sprite: LGSprite!
 	var body: LGPhysicsBody!
@@ -22,8 +23,7 @@ class PlayerOutputSystem: LGSystem
 	
 	override func add(entity: LGEntity)
 	{
-		super.add(entity)
-		
+		self.entity	= entity
 		player		= entity.get(Player)
 		sprite		= entity.get(LGSprite)
 		body		= entity.get(LGPhysicsBody)
@@ -32,11 +32,29 @@ class PlayerOutputSystem: LGSystem
 	
 	override func update()
 	{
-		if body.velocity.y != 0
+		let vel = body.velocity
+		
+		if let follower = entity.get(LGFollower)
+		{
+			if let followingBody = follower.following?.get(LGPhysicsBody)
+			{
+				switch follower.followerType
+				{
+					case .Velocity(let lastVelocity):
+						vel.x -= lastVelocity.x
+						vel.y -= lastVelocity.y
+					
+					case .Position:
+						break
+				}
+			}
+		}
+		
+		if vel.y != 0
 		{
 			animatable.gotoAnimation("fall")
 		}
-		else if body.velocity.x != 0
+		else if vel.x != 0
 		{
 			animatable.gotoAnimation("walk")
 		}
@@ -45,9 +63,9 @@ class PlayerOutputSystem: LGSystem
 			animatable.gotoAnimation("idle")
 		}
 		
-		if body.velocity.x != 0
+		if vel.x != 0
 		{
-			sprite.scale.x = body.velocity.x > 0 ? 1 : -1
+			sprite.scale.x = vel.x > 0 ? 1 : -1
 		}
 	}
 }

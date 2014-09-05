@@ -17,7 +17,7 @@ class PlatformSystem: LGSystem
 		
 		if bod.velocity.x == 0
 		{
-			bod.velocity.x = -1
+			bod.velocity.x = 1
 		}
 		
 		if position.x + 32 > Double(scene.view.frame.size.width) || position.x <= 1
