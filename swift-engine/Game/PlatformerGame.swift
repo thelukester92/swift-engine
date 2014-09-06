@@ -49,7 +49,31 @@ class PlatformerGame: LGGame
 		{
 			let entity = LGEntity( LGPosition(x: Double(object.x), y: Double(map.height * map.tileHeight) - Double(object.y)) )
 			
-			for (type, serialized) in object.properties
+			var properties = [String:String]()
+			
+			// Properties from the EntityType template
+			if object.type != nil
+			{
+				if let json = LGJSON.JSONFromFile(object.type)
+				{
+					if let dictionary = json.dictionaryValue
+					{
+						for key in dictionary.allKeys as [String]
+						{
+							properties[key] = json[key]?.stringValue
+						}
+					}
+				}
+			}
+			
+			// Properties unique to the entity
+			for (key, val) in object.properties
+			{
+				properties[key] = val
+			}
+			
+			// Deserialize the properties
+			for (type, serialized) in properties
 			{
 				if let component = LGDeserializer.deserialize(serialized, withType: type)
 				{

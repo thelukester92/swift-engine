@@ -10,14 +10,31 @@ import Foundation
 
 public class LGJSON
 {
+	public class func JSONFromData(data: NSData) -> LGJSON?
+	{
+		if let json = NSJSONSerialization.JSONObjectWithData(data, options: nil, error: nil) as? NSDictionary
+		{
+			return LGJSON(value: json)
+		}
+		
+		return nil
+	}
+	
 	public class func JSONFromString(serialized: String) -> LGJSON?
 	{
 		if let data = serialized.dataUsingEncoding(NSUTF8StringEncoding, allowLossyConversion: false)
 		{
-			if let json = NSJSONSerialization.JSONObjectWithData(data, options: nil, error: nil) as? NSDictionary
-			{
-				return LGJSON(value: json)
-			}
+			return JSONFromData(data)
+		}
+		
+		return nil
+	}
+	
+	public class func JSONFromFile(name: String) -> LGJSON?
+	{
+		if let data = NSData.dataWithContentsOfFile(NSBundle.mainBundle().pathForResource(name, ofType: "json")!, options: nil, error: nil)
+		{
+			return JSONFromData(data)
 		}
 		
 		return nil
@@ -42,7 +59,7 @@ public class LGJSON
 	
 	public var stringValue: String?
 	{
-		return value as? String
+		return (value as? String) ?? NSString(data: NSJSONSerialization.dataWithJSONObject(value!, options: nil, error: nil)!, encoding: NSUTF8StringEncoding)
 	}
 	
 	public var arrayValue: NSArray?

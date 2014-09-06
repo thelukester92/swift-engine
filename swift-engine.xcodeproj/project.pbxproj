@@ -42,19 +42,20 @@
 		A315058819995966000B8842 /* LGScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = A318A2D3194130DE00B88B62 /* LGScene.swift */; };
 		A315058919995966000B8842 /* LGSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = A318A2D5194130FF00B88B62 /* LGSystem.swift */; };
 		A315058A19995966000B8842 /* LGGame.swift in Sources */ = {isa = PBXBuildFile; fileRef = A340FF6619990571003E4809 /* LGGame.swift */; };
+		A3151E7B19BBA3FB00260EE9 /* Level.tmx in Resources */ = {isa = PBXBuildFile; fileRef = A3151E7819BBA3FB00260EE9 /* Level.tmx */; };
+		A3151E7D19BBA43800260EE9 /* Player.json in Resources */ = {isa = PBXBuildFile; fileRef = A3151E7C19BBA43700260EE9 /* Player.json */; };
+		A3151E7F19BBA67D00260EE9 /* Tileset.png in Resources */ = {isa = PBXBuildFile; fileRef = A3151E7E19BBA67D00260EE9 /* Tileset.png */; };
+		A3151E8119BBA68700260EE9 /* Player.png in Resources */ = {isa = PBXBuildFile; fileRef = A3151E8019BBA68700260EE9 /* Player.png */; };
 		A319FB9719B5118500DFD723 /* LGDeserializable.swift in Sources */ = {isa = PBXBuildFile; fileRef = A319FB9619B5118500DFD723 /* LGDeserializable.swift */; };
 		A326119519870157000FBDF6 /* Player.swift in Sources */ = {isa = PBXBuildFile; fileRef = A326119419870157000FBDF6 /* Player.swift */; };
 		A32611971987017E000FBDF6 /* PlayerInputSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = A32611961987017E000FBDF6 /* PlayerInputSystem.swift */; };
 		A340FF631999037A003E4809 /* PlayerOutputSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = A340FF621999037A003E4809 /* PlayerOutputSystem.swift */; };
 		A340FF6519990460003E4809 /* PlatformSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = A340FF6419990460003E4809 /* PlatformSystem.swift */; };
-		A34A89261989FE5C007D82B6 /* Level.tmx in Resources */ = {isa = PBXBuildFile; fileRef = A34A89251989FE5C007D82B6 /* Level.tmx */; };
 		A34FC6AE19B8CF3B00C7E375 /* LGDeserializer.swift in Sources */ = {isa = PBXBuildFile; fileRef = A34FC6AD19B8CF3B00C7E375 /* LGDeserializer.swift */; };
 		A3B2AEA9193EBFE20097B3A7 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3B2AEA8193EBFE20097B3A7 /* AppDelegate.swift */; };
 		A3B2AEAF193EBFE20097B3A7 /* PlatformerGame.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3B2AEAE193EBFE20097B3A7 /* PlatformerGame.swift */; };
 		A3B2AEB4193EBFE20097B3A7 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A3B2AEB3193EBFE20097B3A7 /* Images.xcassets */; };
-		A3EA911F19561EF100297EEB /* Tileset.png in Resources */ = {isa = PBXBuildFile; fileRef = A3EA911E19561EF100297EEB /* Tileset.png */; };
 		A3EB958C19B61B38001FF4D1 /* LGJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3EB958B19B61B38001FF4D1 /* LGJSON.swift */; };
-		A3EFA8171943FA2D00C85CF8 /* Player.png in Resources */ = {isa = PBXBuildFile; fileRef = A3EFA8161943FA2D00C85CF8 /* Player.png */; };
 		A3F01F6319AE43FB00C4F505 /* LGSound.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3F01F6119AE43FB00C4F505 /* LGSound.swift */; };
 		A3F01F6619AE44E700C4F505 /* LGSoundSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3F01F6419AE44E700C4F505 /* LGSoundSystem.swift */; };
 		A3F01F6A19AE471000C4F505 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A3F01F6719AE46E100C4F505 /* AVFoundation.framework */; };
@@ -97,6 +98,10 @@
 		A30D91F019AFB8BC00EDEDEA /* LGRect.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LGRect.swift; path = Classes/LGRect.swift; sourceTree = "<group>"; };
 		A315054B199958C6000B8842 /* LGSwiftEngine.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = LGSwiftEngine.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		A315054E199958C6000B8842 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; name = Info.plist; path = "swift-engine/Engine/Info.plist"; sourceTree = "<group>"; };
+		A3151E7819BBA3FB00260EE9 /* Level.tmx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = Level.tmx; sourceTree = "<group>"; };
+		A3151E7C19BBA43700260EE9 /* Player.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = Player.json; sourceTree = "<group>"; };
+		A3151E7E19BBA67D00260EE9 /* Tileset.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Tileset.png; sourceTree = "<group>"; };
+		A3151E8019BBA68700260EE9 /* Player.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Player.png; sourceTree = "<group>"; };
 		A318A2CD19412F3400B88B62 /* LGComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LGComponent.swift; sourceTree = "<group>"; };
 		A318A2CF19412F4A00B88B62 /* LGEntity.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LGEntity.swift; sourceTree = "<group>"; };
 		A318A2D11941303C00B88B62 /* LGEngine.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LGEngine.swift; sourceTree = "<group>"; };
@@ -124,7 +129,6 @@
 		A340FF621999037A003E4809 /* PlayerOutputSystem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlayerOutputSystem.swift; sourceTree = "<group>"; };
 		A340FF6419990460003E4809 /* PlatformSystem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlatformSystem.swift; sourceTree = "<group>"; };
 		A340FF6619990571003E4809 /* LGGame.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LGGame.swift; sourceTree = "<group>"; };
-		A34A89251989FE5C007D82B6 /* Level.tmx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = Level.tmx; path = Game/Resources/Level.tmx; sourceTree = "<group>"; };
 		A34FC6AD19B8CF3B00C7E375 /* LGDeserializer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LGDeserializer.swift; path = Classes/LGDeserializer.swift; sourceTree = "<group>"; };
 		A3542B9E196CBC8000ED00E8 /* LGPhysicsSystem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LGPhysicsSystem.swift; sourceTree = "<group>"; };
 		A3870DE7196AE566000B4352 /* Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "Bridging-Header.h"; path = "Game/Bridging-Header.h"; sourceTree = "<group>"; };
@@ -138,9 +142,7 @@
 		A3B2AEB3193EBFE20097B3A7 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = Game/Resources/Images.xcassets; sourceTree = "<group>"; };
 		A3CE1B2B1991E96400DF19A8 /* LICENSE */ = {isa = PBXFileReference; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
 		A3E735BC195618F700FA6025 /* LGTileMap.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LGTileMap.swift; path = Classes/LGTileMap.swift; sourceTree = "<group>"; };
-		A3EA911E19561EF100297EEB /* Tileset.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Tileset.png; path = Game/Resources/Tileset.png; sourceTree = "<group>"; };
 		A3EB958B19B61B38001FF4D1 /* LGJSON.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LGJSON.swift; path = Classes/LGJSON.swift; sourceTree = "<group>"; };
-		A3EFA8161943FA2D00C85CF8 /* Player.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Player.png; path = Game/Resources/Player.png; sourceTree = "<group>"; };
 		A3EFA81819441B6F00C85CF8 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = SOURCE_ROOT; };
 		A3F01F6119AE43FB00C4F505 /* LGSound.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LGSound.swift; sourceTree = "<group>"; };
 		A3F01F6419AE44E700C4F505 /* LGSoundSystem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LGSoundSystem.swift; sourceTree = "<group>"; };
@@ -177,6 +179,26 @@
 			);
 			name = "Supporting Files";
 			path = ../../LGSwiftEngine;
+			sourceTree = "<group>";
+		};
+		A3151E7319BBA3FB00260EE9 /* EntityTypes */ = {
+			isa = PBXGroup;
+			children = (
+				A3151E8019BBA68700260EE9 /* Player.png */,
+				A3151E7C19BBA43700260EE9 /* Player.json */,
+			);
+			name = EntityTypes;
+			path = Game/Resources/EntityTypes;
+			sourceTree = "<group>";
+		};
+		A3151E7719BBA3FB00260EE9 /* Levels */ = {
+			isa = PBXGroup;
+			children = (
+				A3151E7E19BBA67D00260EE9 /* Tileset.png */,
+				A3151E7819BBA3FB00260EE9 /* Level.tmx */,
+			);
+			name = Levels;
+			path = Game/Resources/Levels;
 			sourceTree = "<group>";
 		};
 		A318A2C919412F2800B88B62 /* Engine */ = {
@@ -339,10 +361,9 @@
 		A3EFA8151943F9F000C85CF8 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				A3151E7319BBA3FB00260EE9 /* EntityTypes */,
+				A3151E7719BBA3FB00260EE9 /* Levels */,
 				A3B2AEB3193EBFE20097B3A7 /* Images.xcassets */,
-				A34A89251989FE5C007D82B6 /* Level.tmx */,
-				A3EA911E19561EF100297EEB /* Tileset.png */,
-				A3EFA8161943FA2D00C85CF8 /* Player.png */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -456,10 +477,11 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A34A89261989FE5C007D82B6 /* Level.tmx in Resources */,
-				A3EA911F19561EF100297EEB /* Tileset.png in Resources */,
+				A3151E7F19BBA67D00260EE9 /* Tileset.png in Resources */,
+				A3151E7D19BBA43800260EE9 /* Player.json in Resources */,
 				A3B2AEB4193EBFE20097B3A7 /* Images.xcassets in Resources */,
-				A3EFA8171943FA2D00C85CF8 /* Player.png in Resources */,
+				A3151E7B19BBA3FB00260EE9 /* Level.tmx in Resources */,
+				A3151E8119BBA68700260EE9 /* Player.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
