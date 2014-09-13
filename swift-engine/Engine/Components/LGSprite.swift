@@ -45,10 +45,16 @@ public final class LGSprite: LGComponent
 		self.init(spriteType: SpriteType.Color(r: red, g: green, b: blue), size: size)
 	}
 	
+	public convenience init(text: String)
+	{
+		self.init(spriteType: SpriteType.Text(text: text))
+	}
+	
 	public enum SpriteType
 	{
 		case Texture(name: String, rows: Int, cols: Int)
 		case Color(r: Double, g: Double, b: Double)
+		case Text(text: String)
 	}
 }
 
@@ -58,17 +64,22 @@ extension LGSprite: LGDeserializable
 	{
 		if let json = LGJSON.JSONFromString(serialized)
 		{
+			var sprite: LGSprite?
+			
+			// Texture sprite
+			
 			let textureName	= json["textureName"]?.stringValue
 			let rows		= json["rows"]?.intValue
 			let cols		= json["cols"]?.intValue
-			
-			var sprite: LGSprite?
 			
 			if textureName != nil && rows != nil && cols != nil
 			{
 				sprite = LGSprite(textureName: textureName!, rows: rows!, cols: cols!)
 			}
-			else
+			
+			// Color sprite
+			
+			if sprite == nil
 			{
 				let red		= json["red"]?.doubleValue
 				let blue	= json["blue"]?.doubleValue
@@ -84,6 +95,20 @@ extension LGSprite: LGDeserializable
 					sprite = LGSprite(red: red!, green: green!, blue: blue!, size: vector)
 				}
 			}
+			
+			// Text sprite
+			
+			if sprite == nil
+			{
+				let text = json["text"]?.stringValue
+				
+				if text != nil
+				{
+					sprite = LGSprite(text: text!)
+				}
+			}
+			
+			// Other values
 			
 			if sprite != nil
 			{

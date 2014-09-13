@@ -120,6 +120,14 @@ public final class LGRenderingSystem: LGSystem
 				
 				node.colorBlendFactor	= 1.0
 				node.color				= UIColor(red: CGFloat(red), green: CGFloat(green), blue: CGFloat(blue), alpha: CGFloat(sprite.opacity))
+			
+			case .Text(let text):
+			
+				let label = SKLabelNode(text: text)
+				node.addChild(label)
+			
+				sprite.size.x = Double(label.frame.size.width)
+				sprite.size.y = Double(label.frame.size.height)
 		}
 		
 		node.anchorPoint	= CGPoint(x: 0.5, y: 0.5)
