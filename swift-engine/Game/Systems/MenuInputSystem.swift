@@ -38,7 +38,6 @@ extension MenuInputSystem: LGTouchObserver
 	
 	func touchesEnded(touches: NSSet!, withEvent event: UIEvent!)
 	{
-		println("Going to game scene")
 		scene.game.gotoScene("game")
 	}
 }

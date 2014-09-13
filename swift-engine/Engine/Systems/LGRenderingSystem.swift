@@ -69,11 +69,15 @@ public final class LGRenderingSystem: LGSystem
 				
 				if frames[id] != sprite.frame
 				{
-					if let texture = sprite.texture
+					switch sprite.spriteType
 					{
-						node.texture				= spriteSheets[texture.name]!.textureAtPosition(sprite.frame)
-						node.texture?.filteringMode	= .Nearest
-						frames[id]					= sprite.frame
+						case .Texture(let name, _, _):
+							node.texture				= spriteSheets[name]!.textureAtPosition(sprite.frame)
+							node.texture?.filteringMode	= .Nearest
+							frames[id]					= sprite.frame
+						
+						default:
+							break
 					}
 				}
 				
@@ -97,31 +101,25 @@ public final class LGRenderingSystem: LGSystem
 	{
 		var node = SKSpriteNode()
 		
-		if sprite.texture == nil
+		switch sprite.spriteType
 		{
-			// Non-textured sprite
+			case .Texture(let name, let rows, let cols):
+				
+				var spriteSheet = spriteSheets[name]
+				
+				if spriteSheet == nil
+				{
+					spriteSheet = LGSpriteSheet(textureName: name, rows: rows, cols: cols)
+					spriteSheets[name] = spriteSheet
+				}
+				
+				sprite.size.x = Double(spriteSheet!.width)
+				sprite.size.y = Double(spriteSheet!.height)
 			
-			if let color = sprite.color
-			{
+			case .Color(let red, let green, let blue):
+				
 				node.colorBlendFactor	= 1.0
-				node.color				= UIColor(red: CGFloat(color.red), green: CGFloat(color.green), blue: CGFloat(color.blue), alpha: CGFloat(sprite.opacity))
-			}
-		}
-		else
-		{
-			// Textured sprite
-			
-			let texture = sprite.texture!
-			var spriteSheet = spriteSheets[texture.name]
-			
-			if spriteSheet == nil
-			{
-				spriteSheet = LGSpriteSheet(textureName: texture.name, rows: texture.rows, cols: texture.cols)
-				spriteSheets[texture.name] = spriteSheet
-			}
-			
-			sprite.size.x = Double(spriteSheet!.width)
-			sprite.size.y = Double(spriteSheet!.height)
+				node.color				= UIColor(red: CGFloat(red), green: CGFloat(green), blue: CGFloat(blue), alpha: CGFloat(sprite.opacity))
 		}
 		
 		node.anchorPoint	= CGPoint(x: 0.5, y: 0.5)

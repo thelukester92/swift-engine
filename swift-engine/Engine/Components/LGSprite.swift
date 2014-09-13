@@ -8,9 +8,6 @@
 
 public final class LGSprite: LGComponent
 {
-	public typealias Texture = (name: String, rows: Int, cols: Int)
-	public typealias Color = (red: Double, green: Double, blue: Double)
-	
 	public class func type() -> String
 	{
 		return "LGSprite"
@@ -21,9 +18,7 @@ public final class LGSprite: LGComponent
 		return LGSprite.type()
 	}
 	
-	public var texture: Texture?
-	public var color: Color?
-	
+	public var spriteType: SpriteType
 	public var size: LGVector
 	
 	public var frame		= 0
@@ -34,16 +29,26 @@ public final class LGSprite: LGComponent
 	public var layer		= 0
 	public var isVisible	= true
 	
-	public init(textureName: String, rows: Int = 1, cols: Int = 1)
+	public init(spriteType: SpriteType, size: LGVector = LGVector())
 	{
-		self.texture = (name: textureName, rows: rows, cols: cols)
-		self.size = LGVector()
+		self.spriteType	= spriteType
+		self.size		= size
 	}
 	
-	public init(red: Double, green: Double, blue: Double, size: LGVector)
+	public convenience init(textureName: String, rows: Int, cols: Int)
 	{
-		self.color = (red: red, green: green, blue: blue)
-		self.size = size
+		self.init(spriteType: SpriteType.Texture(name: textureName, rows: rows, cols: cols))
+	}
+	
+	public convenience init(red: Double, green: Double, blue: Double, size: LGVector)
+	{
+		self.init(spriteType: SpriteType.Color(r: red, g: green, b: blue), size: size)
+	}
+	
+	public enum SpriteType
+	{
+		case Texture(name: String, rows: Int, cols: Int)
+		case Color(r: Double, g: Double, b: Double)
 	}
 }
 
