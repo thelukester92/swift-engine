@@ -44,9 +44,9 @@ public final class LGPhysicsBody: LGComponent
 		self.dynamic	= dynamic
 	}
 	
-	public convenience init(size: LGVector)
+	public convenience init(size: LGVector, dynamic: Bool = true)
 	{
-		self.init(width: size.x, height: size.y)
+		self.init(width: size.x, height: size.y, dynamic: dynamic)
 	}
 	
 	public func resetCollided()
