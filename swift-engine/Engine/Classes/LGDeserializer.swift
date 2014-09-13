@@ -14,6 +14,19 @@ public class LGDeserializer
 	struct Static
 	{
 		static var deserializers = [String:Deserializer]()
+		static var initialized = false
+	}
+	
+	public class func initialize()
+	{
+		if !Static.initialized
+		{
+			LGDeserializer.registerDeserializable(LGAnimatable)
+			LGDeserializer.registerDeserializable(LGPhysicsBody)
+			LGDeserializer.registerDeserializable(LGSprite)
+			
+			Static.initialized = true
+		}
 	}
 	
 	public class func registerDeserializable<T: LGDeserializable>(deserializable: T.Type)
@@ -23,6 +36,8 @@ public class LGDeserializer
 	
 	public class func deserialize(serialized: String, withType type: String) -> LGComponent?
 	{
+		initialize()
+		
 		if let deserializer = Static.deserializers[type]
 		{
 			return deserializer(serialized)

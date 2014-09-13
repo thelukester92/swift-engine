@@ -29,7 +29,7 @@ public final class LGEngine
 		scene.scene.scaleMode = .AspectFill
 		view.presentScene(scene.scene)
 		
-		// Tick once before rendering
+		scene.initialize()
 		scene.update()
 	}
 }

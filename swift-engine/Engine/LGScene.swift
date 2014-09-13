@@ -8,18 +8,19 @@
 
 import SpriteKit
 
-public final class LGScene
+public class LGScene
 {
-	var systems			= [LGSystem]()
-	var systemsByPhase	= [LGUpdatePhase: [LGSystem]]()
+	final var systems			= [LGSystem]()
+	final var systemsByPhase	= [LGUpdatePhase: [LGSystem]]()
 	
-	var entities		= [LGEntity]()
-	var removed			= [LGEntity]()
+	final var entities			= [LGEntity]()
+	final var removed			= [LGEntity]()
 	
-	var entitiesByName	= [String:LGEntity]()
+	final var entitiesByName	= [String:LGEntity]()
 	
-	var initialized		= false
+	var initialized				= false
 	
+	public var game: LGGame
 	var scene: LGSpriteKitScene
 	var rootNode: SKNode
 	
@@ -28,10 +29,11 @@ public final class LGScene
 		return scene.view!
 	}
 	
-	public init(size: CGSize)
+	required public init(game: LGGame)
 	{
+		self.game	= game
 		rootNode	= SKNode()
-		scene		= LGSpriteKitScene(size: size)
+		scene		= LGSpriteKitScene(size: game.view.frame.size)
 		
 		scene.updateObservers.append(self)
 		scene.addChild(rootNode)
@@ -70,46 +72,6 @@ public final class LGScene
 	public func removeEntity(entity: LGEntity)
 	{
 		removed.append(entity)
-	}
-	
-	private func processRemovedEntities()
-	{
-		if removed.count > 0
-		{
-			for entity in removed
-			{
-				// Alert systems that entity has been removed
-				
-				for system in systems
-				{
-					system.removed(entity)
-				}
-				
-				// Remove named entity
-				
-				for (name, other) in entitiesByName
-				{
-					if other === entity
-					{
-						entitiesByName[name] = nil
-						break
-					}
-				}
-				
-				// Remove entity from entities array
-				
-				for i in 0 ..< entities.count
-				{
-					if entities[i] === entity
-					{
-						entities.removeAtIndex(i)
-						break
-					}
-				}
-			}
-			
-			removed = []
-		}
 	}
 	
 	public func changed(entity: LGEntity)
@@ -190,7 +152,16 @@ public final class LGScene
 		}
 	}
 	
-	private func updateSystemsByPhase(phase: LGUpdatePhase)
+	public func addChild(node: SKNode!)
+	{
+		rootNode.addChild(node)
+	}
+	
+	public func initialize() {}
+	
+	// MARK: Private Methods
+	
+	private final func updateSystemsByPhase(phase: LGUpdatePhase)
 	{
 		if let systemsToUpdate = systemsByPhase[phase]
 		{
@@ -201,7 +172,7 @@ public final class LGScene
 		}
 	}
 	
-	private func initialize()
+	private final func initializeSystems()
 	{
 		for system in systems
 		{
@@ -210,19 +181,54 @@ public final class LGScene
 		initialized = true
 	}
 	
-	public func addChild(node: SKNode!)
+	private func processRemovedEntities()
 	{
-		rootNode.addChild(node)
+		if removed.count > 0
+		{
+			for entity in removed
+			{
+				// Alert systems that entity has been removed
+				
+				for system in systems
+				{
+					system.removed(entity)
+				}
+				
+				// Remove named entity
+				
+				for (name, other) in entitiesByName
+				{
+					if other === entity
+					{
+						entitiesByName[name] = nil
+						break
+					}
+				}
+				
+				// Remove entity from entities array
+				
+				for i in 0 ..< entities.count
+				{
+					if entities[i] === entity
+					{
+						entities.removeAtIndex(i)
+						break
+					}
+				}
+			}
+			
+			removed = []
+		}
 	}
 }
 
 extension LGScene: LGUpdatable
 {
-	public func update()
+	public final func update()
 	{
 		if !initialized
 		{
-			initialize()
+			initializeSystems()
 		}
 		
 		updateSystemsByPhase(.Input)

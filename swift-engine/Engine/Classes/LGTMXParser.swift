@@ -33,6 +33,7 @@ public class LGTMXParser: NSObject
 		let parser = NSXMLParser(contentsOfURL: NSBundle.mainBundle().URLForResource(filename, withExtension: filetype))
 		parser.delegate = self
 		parser.parse()
+		
 		return (map, objects)
 	}
 	

@@ -55,6 +55,9 @@
 		A3B2AEA9193EBFE20097B3A7 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3B2AEA8193EBFE20097B3A7 /* AppDelegate.swift */; };
 		A3B2AEAF193EBFE20097B3A7 /* PlatformerGame.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3B2AEAE193EBFE20097B3A7 /* PlatformerGame.swift */; };
 		A3B2AEB4193EBFE20097B3A7 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A3B2AEB3193EBFE20097B3A7 /* Images.xcassets */; };
+		A3E443A319C49AB900567F18 /* MenuScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3E443A219C49AB900567F18 /* MenuScene.swift */; };
+		A3E443A519C49BC500567F18 /* GameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3E443A419C49BC500567F18 /* GameScene.swift */; };
+		A3E443A719C4A3A400567F18 /* MenuInputSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3E443A619C4A3A400567F18 /* MenuInputSystem.swift */; };
 		A3EB958C19B61B38001FF4D1 /* LGJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3EB958B19B61B38001FF4D1 /* LGJSON.swift */; };
 		A3F01F6319AE43FB00C4F505 /* LGSound.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3F01F6119AE43FB00C4F505 /* LGSound.swift */; };
 		A3F01F6619AE44E700C4F505 /* LGSoundSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3F01F6419AE44E700C4F505 /* LGSoundSystem.swift */; };
@@ -141,6 +144,9 @@
 		A3B2AEAE193EBFE20097B3A7 /* PlatformerGame.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = PlatformerGame.swift; path = Game/PlatformerGame.swift; sourceTree = "<group>"; };
 		A3B2AEB3193EBFE20097B3A7 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = Game/Resources/Images.xcassets; sourceTree = "<group>"; };
 		A3CE1B2B1991E96400DF19A8 /* LICENSE */ = {isa = PBXFileReference; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
+		A3E443A219C49AB900567F18 /* MenuScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuScene.swift; sourceTree = "<group>"; };
+		A3E443A419C49BC500567F18 /* GameScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameScene.swift; sourceTree = "<group>"; };
+		A3E443A619C4A3A400567F18 /* MenuInputSystem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuInputSystem.swift; sourceTree = "<group>"; };
 		A3E735BC195618F700FA6025 /* LGTileMap.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LGTileMap.swift; path = Classes/LGTileMap.swift; sourceTree = "<group>"; };
 		A3EB958B19B61B38001FF4D1 /* LGJSON.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LGJSON.swift; path = Classes/LGJSON.swift; sourceTree = "<group>"; };
 		A3EFA81819441B6F00C85CF8 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = SOURCE_ROOT; };
@@ -283,6 +289,7 @@
 				A340FF6419990460003E4809 /* PlatformSystem.swift */,
 				A32611961987017E000FBDF6 /* PlayerInputSystem.swift */,
 				A340FF621999037A003E4809 /* PlayerOutputSystem.swift */,
+				A3E443A619C4A3A400567F18 /* MenuInputSystem.swift */,
 			);
 			name = Systems;
 			path = Game/Systems;
@@ -345,12 +352,23 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
+		A3E443A119C49A9D00567F18 /* Scenes */ = {
+			isa = PBXGroup;
+			children = (
+				A3E443A219C49AB900567F18 /* MenuScene.swift */,
+				A3E443A419C49BC500567F18 /* GameScene.swift */,
+			);
+			name = Scenes;
+			path = Game/Scenes;
+			sourceTree = "<group>";
+		};
 		A3EFA8141943F9B100C85CF8 /* Game */ = {
 			isa = PBXGroup;
 			children = (
 				A3B2AEA8193EBFE20097B3A7 /* AppDelegate.swift */,
 				A3B2AEAE193EBFE20097B3A7 /* PlatformerGame.swift */,
 				A326119219870131000FBDF6 /* Components */,
+				A3E443A119C49A9D00567F18 /* Scenes */,
 				A326119319870139000FBDF6 /* Systems */,
 				A3EFA8151943F9F000C85CF8 /* Resources */,
 				A3B2AEA6193EBFE20097B3A7 /* Supporting Files */,
@@ -538,8 +556,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				A340FF631999037A003E4809 /* PlayerOutputSystem.swift in Sources */,
+				A3E443A719C4A3A400567F18 /* MenuInputSystem.swift in Sources */,
 				A3B2AEAF193EBFE20097B3A7 /* PlatformerGame.swift in Sources */,
+				A3E443A519C49BC500567F18 /* GameScene.swift in Sources */,
 				A340FF6519990460003E4809 /* PlatformSystem.swift in Sources */,
+				A3E443A319C49AB900567F18 /* MenuScene.swift in Sources */,
 				A32611971987017E000FBDF6 /* PlayerInputSystem.swift in Sources */,
 				A3B2AEA9193EBFE20097B3A7 /* AppDelegate.swift in Sources */,
 				A326119519870157000FBDF6 /* Player.swift in Sources */,

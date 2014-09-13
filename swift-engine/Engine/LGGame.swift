@@ -10,20 +10,31 @@ import SpriteKit
 
 public class LGGame: UIViewController
 {
+	public final var sceneTypes = [String:LGScene.Type]()
 	public var engine: LGEngine!
+	public var currentScene: String!
 	
-	public final func createScene() -> LGScene
+	public func registerDeserializers() {}
+	public func createScenes() {}
+	
+	public func addScene<T: LGScene>(sceneType: T.Type, named name: String)
 	{
-		let scene = LGScene(size: view.frame.size)
+		if currentScene == nil
+		{
+			currentScene = name
+		}
 		
-		addSystems(scene)
-		addEntities(scene)
-		
-		return scene
+		sceneTypes[name] = sceneType
 	}
 	
-	public func addSystems(scene: LGScene) {}
-	public func addEntities(scene: LGScene) {}
+	public func gotoScene(name: String)
+	{
+		if let sceneType = sceneTypes[name]
+		{
+			currentScene = name
+			engine.gotoScene(sceneType(game: self))
+		}
+	}
 	
 	// MARK: UIViewController Overrides
 	
@@ -31,11 +42,15 @@ public class LGGame: UIViewController
 	{
 		super.viewDidLoad()
 		
-		let scene = createScene()
-		let skview = self.view as SKView
+		registerDeserializers()
+		createScenes()
 		
-		engine = LGEngine(view: skview)
-		engine.gotoScene(scene)
+		engine = LGEngine(view: self.view as SKView)
+		
+		if currentScene != nil
+		{
+			gotoScene(currentScene)
+		}
 	}
 	
 	override public func loadView()
