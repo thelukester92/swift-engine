@@ -21,7 +21,7 @@ public final class LGSprite: LGComponent
 	public var spriteType: SpriteType
 	public var size: LGVector
 	
-	public var frame		= 0
+	public var frame		= 1
 	public var scale		= LGVector(1.0)
 	public var offset		= LGVector()
 	public var opacity		= 1.0
