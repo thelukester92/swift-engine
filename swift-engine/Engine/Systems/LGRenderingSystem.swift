@@ -121,11 +121,13 @@ public final class LGRenderingSystem: LGSystem
 				node.colorBlendFactor	= 1.0
 				node.color				= UIColor(red: CGFloat(red), green: CGFloat(green), blue: CGFloat(blue), alpha: CGFloat(sprite.opacity))
 			
-			case .Text(let text):
+			case .Text(let text, let font, let fontSize):
 			
-				let label = SKLabelNode(text: text)
+				let label		= SKLabelNode(fontNamed: font)
+				label.text		= text
+				label.fontSize	= CGFloat(fontSize);
 				node.addChild(label)
-			
+				
 				sprite.size.x = Double(label.frame.size.width)
 				sprite.size.y = Double(label.frame.size.height)
 		}

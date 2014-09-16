@@ -45,16 +45,16 @@ public final class LGSprite: LGComponent
 		self.init(spriteType: SpriteType.Color(r: red, g: green, b: blue), size: size)
 	}
 	
-	public convenience init(text: String)
+	public convenience init(text: String, font: String? = nil, fontSize: Double? = nil)
 	{
-		self.init(spriteType: SpriteType.Text(text: text))
+		self.init(spriteType: SpriteType.Text(text: text, font: font ?? "Menlo-Regular", fontSize: fontSize ?? 24))
 	}
 	
 	public enum SpriteType
 	{
 		case Texture(name: String, rows: Int, cols: Int)
 		case Color(r: Double, g: Double, b: Double)
-		case Text(text: String)
+		case Text(text: String, font: String, fontSize: Double)
 	}
 }
 
@@ -101,10 +101,12 @@ extension LGSprite: LGDeserializable
 			if sprite == nil
 			{
 				let text = json["text"]?.stringValue
+				let font = json["font"]?.stringValue
+				let size = json["fontSize"]?.doubleValue
 				
 				if text != nil
 				{
-					sprite = LGSprite(text: text!)
+					sprite = LGSprite(text: text!, font: font, fontSize: size)
 				}
 			}
 			
