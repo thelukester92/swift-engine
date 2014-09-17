@@ -28,13 +28,81 @@ public class LGTMXParser: NSObject
 	var currentEncoding		= ""
 	var currentCompression	= ""
 	
-	public func parseFile(filename: String, filetype: String = "tmx") -> (LGTileMap, [LGTMXObject])
+	public override init() {}
+	
+	public convenience init(filename: String, filetype: String = "tmx")
+	{
+		self.init()
+		parseFile(filename, filetype: filetype)
+	}
+	
+	public func addMapToTileSystem(system: LGTileSystem)
+	{
+		if map != nil
+		{
+			system.loadMap(map)
+		}
+	}
+	
+	public func addCollisionLayerToPhysicsSystem(system: LGPhysicsSystem)
+	{
+		if collisionLayer != nil
+		{
+			system.collisionLayer = collisionLayer
+		}
+	}
+	
+	public func addObjectsToScene(scene: LGScene)
+	{
+		for object in objects
+		{
+			let entity = LGEntity( LGPosition(x: Double(object.x), y: Double(map.height * map.tileHeight) - Double(object.y)) )
+			
+			var properties = [String:String]()
+			
+			// Properties from the EntityType template
+			if object.type != nil
+			{
+				if let json = LGJSON.JSONFromFile(object.type)
+				{
+					if let dictionary = json.dictionaryValue
+					{
+						for key in dictionary.allKeys as [String]
+						{
+							properties[key] = json[key]?.stringValue
+						}
+					}
+				}
+			}
+			
+			// Properties unique to the entity
+			for (key, val) in object.properties
+			{
+				properties[key] = val
+			}
+			
+			// Deserialize the properties
+			for (type, serialized) in properties
+			{
+				if let component = LGDeserializer.deserialize(serialized, withType: type)
+				{
+					entity.put(component: component)
+				}
+				else
+				{
+					println("WARNING: Failed to deserialize a component of type '\(type)'")
+				}
+			}
+			
+			scene.addEntity(entity, named: object.name)
+		}
+	}
+	
+	public func parseFile(filename: String, filetype: String = "tmx")
 	{
 		let parser = NSXMLParser(contentsOfURL: NSBundle.mainBundle().URLForResource(filename, withExtension: filetype))
 		parser.delegate = self
 		parser.parse()
-		
-		return (map, objects)
 	}
 	
 	private func parseString(string: String, encoding: String, compression: String) -> [[LGTile]]
