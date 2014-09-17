@@ -81,6 +81,11 @@ extension LGPhysicsBody: LGDeserializable
 					body.onlyCollidesOnTop = onlyCollidesOnTop
 				}
 				
+				if let trigger = json["trigger"]?.boolValue
+				{
+					body.trigger = trigger
+				}
+				
 				if let velocity = json["velocity"]
 				{
 					if let x = velocity["x"]?.doubleValue

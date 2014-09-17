@@ -127,6 +127,11 @@ extension LGSprite: LGDeserializable
 					}
 				}
 				
+				if let layer = json["layer"]?.intValue
+				{
+					sprite!.layer = layer
+				}
+				
 				return sprite
 			}
 		}

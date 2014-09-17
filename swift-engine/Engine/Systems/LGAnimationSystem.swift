@@ -28,7 +28,7 @@ public final class LGAnimationSystem: LGSystem
 		
 		sprites.append(sprite)
 		animatables.append(animatable)
-		animations.append(animatable.currentAnimation)
+		animations.append(nil)
 	}
 	
 	override public func remove(index: Int)
@@ -56,19 +56,22 @@ public final class LGAnimationSystem: LGSystem
 					animatable.counter = 0
 				}
 				
-				if ++animatable.counter > animation.ticksPerFrame
+				if animation.end > animation.start
 				{
-					animatable.counter = 0
-					
-					if ++sprite.frame > animation.end
+					if ++animatable.counter > animation.ticksPerFrame
 					{
-						if animation.loops
+						animatable.counter = 0
+						
+						if ++sprite.frame > animation.end
 						{
-							sprite.frame = animation.start
-						}
-						else
-						{
-							sprite.frame = animation.end
+							if animation.loops
+							{
+								sprite.frame = animation.start
+							}
+							else
+							{
+								sprite.frame = animation.end
+							}
 						}
 					}
 				}
