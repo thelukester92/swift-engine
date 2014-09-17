@@ -178,7 +178,6 @@ public class LGScene
 		{
 			system.initialize()
 		}
-		initialized = true
 	}
 	
 	private func processRemovedEntities()
@@ -229,6 +228,7 @@ extension LGScene: LGUpdatable
 		if !initialized
 		{
 			initializeSystems()
+			initialized = true
 		}
 		
 		updateSystemsByPhase(.Input)

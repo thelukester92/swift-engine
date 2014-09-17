@@ -18,12 +18,13 @@ public final class LGTileSystem : LGSystem
 	
 	var nextLocalId = 0
 	
-	var minRow = 0
-	var maxRow = 0
-	var minCol = 0
-	var maxCol = 0
+	var minRow	= 0
+	var maxRow	= 0
+	var minCol	= 0
+	var maxCol	= 0
+	var loaded	= false
 	
-	var map: LGTileMap!
+	public var map: LGTileMap!
 	
 	var cameraPosition: LGPosition!
 	var cameraBody: LGPhysicsBody!
@@ -47,10 +48,8 @@ public final class LGTileSystem : LGSystem
 		camera			= entity.get(LGCamera)
 	}
 	
-	public func loadMap(map: LGTileMap)
+	override public func initialize()
 	{
-		self.map = map
-		
 		var cam: LGRect!
 		
 		if cameraPosition == nil || cameraBody == nil || camera == nil
@@ -69,6 +68,8 @@ public final class LGTileSystem : LGSystem
 		maxCol = minCol
 		
 		addTilesInsideCam(cam)
+		
+		loaded = true
 	}
 	
 	private func reuseTileEntity(#layer: LGTileLayer, row: Int, col: Int)
@@ -130,7 +131,7 @@ public final class LGTileSystem : LGSystem
 		position.y = Double(map.tileHeight * row)
 		
 		sprite.opacity		= layer.opacity
-		sprite.layer		= layer.renderLayer.toRaw()
+		sprite.layer		= layer.renderLayer
 		sprite.frame		= t.pos
 		sprite.offset.x		= 0
 		sprite.offset.y		= 0

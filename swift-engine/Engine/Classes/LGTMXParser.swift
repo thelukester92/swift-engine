@@ -10,6 +10,9 @@ import UIKit
 
 public class LGTMXParser: NSObject
 {
+	let firstBackgroundLayer	= -100
+	let firstForegroundLayer	= 1
+	
 	// Setup variables
 	var collisionLayerName	= "collision"
 	var foregroundLayerName	= "foreground"
@@ -22,13 +25,18 @@ public class LGTMXParser: NSObject
 	// Variables for parsing
 	var currentLayer: LGTileLayer!
 	var currentObject: LGTMXObject!
-	var currentRenderLayer	= LGRenderLayer.Background
+	
+	var currentRenderLayer: Int
+	
 	var currentElement		= ""
 	var currentData			= ""
 	var currentEncoding		= ""
 	var currentCompression	= ""
 	
-	public override init() {}
+	public override init()
+	{
+		currentRenderLayer = firstBackgroundLayer
+	}
 	
 	public convenience init(filename: String, filetype: String = "tmx")
 	{
@@ -40,7 +48,7 @@ public class LGTMXParser: NSObject
 	{
 		if map != nil
 		{
-			system.loadMap(map)
+			system.map = map
 		}
 	}
 	
@@ -225,10 +233,10 @@ extension LGTMXParser: NSXMLParserDelegate
 				
 				if attributes["name"] as String == foregroundLayerName
 				{
-					currentRenderLayer = .Foreground
+					currentRenderLayer = firstForegroundLayer
 				}
 				
-				currentLayer.renderLayer = currentRenderLayer
+				currentLayer.renderLayer = currentRenderLayer++
 			
 			case "data":
 				if let value = attributes["encoding"] as? String

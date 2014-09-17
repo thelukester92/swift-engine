@@ -25,7 +25,6 @@
 		A315057719995966000B8842 /* LGSprite.swift in Sources */ = {isa = PBXBuildFile; fileRef = A33CADA9194361C000AC8E27 /* LGSprite.swift */; };
 		A315057819995966000B8842 /* LGPhysicsBody.swift in Sources */ = {isa = PBXBuildFile; fileRef = A33CADB11943630F00AC8E27 /* LGPhysicsBody.swift */; };
 		A315057919995966000B8842 /* LGFollower.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3882F67198D5085009C454F /* LGFollower.swift */; };
-		A315057A19995966000B8842 /* LGRenderLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3FE99C4195A7E8A00D6A781 /* LGRenderLayer.swift */; };
 		A315057B19995966000B8842 /* LGUpdatePhase.swift in Sources */ = {isa = PBXBuildFile; fileRef = A318A2D71941311B00B88B62 /* LGUpdatePhase.swift */; };
 		A315057C19995966000B8842 /* LGAxis.swift in Sources */ = {isa = PBXBuildFile; fileRef = A32CF34D197417EA00B6C4D4 /* LGAxis.swift */; };
 		A315057D19995966000B8842 /* LGEntityObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = A31CEC2E19554BF1004F0395 /* LGEntityObserver.swift */; };
@@ -155,7 +154,6 @@
 		A3F01F6719AE46E100C4F505 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		A3FE99C0195A790A00D6A781 /* LGTile.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LGTile.swift; path = Classes/LGTile.swift; sourceTree = "<group>"; };
 		A3FE99C2195A7B2F00D6A781 /* LGTMXParser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LGTMXParser.swift; path = Classes/LGTMXParser.swift; sourceTree = "<group>"; };
-		A3FE99C4195A7E8A00D6A781 /* LGRenderLayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LGRenderLayer.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -243,7 +241,6 @@
 		A318A2CB19412F2800B88B62 /* Enums */ = {
 			isa = PBXGroup;
 			children = (
-				A3FE99C4195A7E8A00D6A781 /* LGRenderLayer.swift */,
 				A318A2D71941311B00B88B62 /* LGUpdatePhase.swift */,
 				A32CF34D197417EA00B6C4D4 /* LGAxis.swift */,
 			);
@@ -518,7 +515,6 @@
 				A315056A19995966000B8842 /* LGAnimation.swift in Sources */,
 				A315057E19995966000B8842 /* LGTouchObserver.swift in Sources */,
 				A315056D19995966000B8842 /* LGSpriteSheet.swift in Sources */,
-				A315057A19995966000B8842 /* LGRenderLayer.swift in Sources */,
 				A315057219995966000B8842 /* LGTMXParser.swift in Sources */,
 				A315057719995966000B8842 /* LGSprite.swift in Sources */,
 				A315056F19995966000B8842 /* LGTileLayer.swift in Sources */,

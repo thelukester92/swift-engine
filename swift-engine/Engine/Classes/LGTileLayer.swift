@@ -9,7 +9,7 @@
 public class LGTileLayer: LGSystem
 {
 	var opacity		= 1.0
-	var renderLayer	= LGRenderLayer.Background
+	var renderLayer	= 0
 	
 	var isVisible	= true
 	var isCollision	= false
