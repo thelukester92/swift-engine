@@ -36,6 +36,7 @@ public final class LGTileSystem : LGSystem
 		self.updatePhase = .Render
 	}
 	
+	// TODO: Get camera not from accepts, but by name?
 	override public func accepts(entity: LGEntity) -> Bool
 	{
 		return entity.has(LGCamera) && entity.has(LGPosition) && entity.has(LGPhysicsBody)
