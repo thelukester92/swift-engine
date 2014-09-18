@@ -16,11 +16,11 @@ To begin using the engine, clone the repository and include the source files in 
 
 ## Create a scene
 
-Subclass the base `LGScene` to create your scene. The recommended entry point is the `didMoveToView` method. In that method, you can add systems and entities to the scene.
+Subclass the base `LGScene` to create your scene. The recommended entry point is the `initialize` method. In that method, you can add systems and entities to the scene.
 
 ### Add systems
 
-To add a system to a scene, call the scene's `addSystem` method and pass in an instance of the system you want to add. You can add multiple systems at once using the `addSystems` method. Most systems can be initialized without any parameters, but some require some parameters (usually a reference to the scene).
+To add a system to a scene, call the scene's `addSystem` method and pass in an instance of the system you want to add. You can add multiple systems at once using the `addSystems` method. Most systems can be initialized without any parameters, but some may require parameters.
 
 	addSystem( LGPhysicsSystem() )
 
@@ -34,19 +34,35 @@ To add an entity to a scene, create the entity as an aggregation of components a
 	let playerSprite = LGSprite(textureName: "Player", rows: 1, cols: 9)
 	player.put(playerSprite)
 
+## Create a game
+
+Subclass the base `LGGame` to create a game. This is essentially the state machine that holds the scenes for later. You can override two methods to get started: `createScenes` and `registerDeserializers`. In `createScenes`, pass in the class name and a name for the scene so you can call it back later. The first added scene will be loaded by default. In `registerDeserializers`, pass in the class name of a deserializable component. This method is optional.
+
+	override func createScenes()
+	{
+		addScene(MenuScene.self, named: "menu")
+		addScene(LevelScene.self, named: "level")
+	}
+
+	override func registerDeserializers()
+	{
+		LGDeserializer.registerDeserializable(MyComponentOne)
+		LGDeserializer.registerDeserializable(MyComponentTwo)
+	}
+
 ### All together
 
 Here's what the scene should look like all together:
 
 	class MyScene: LGScene
 	{
-		override func didMoveToView(view: SKView)
+		override func initialize()
 		{
 			// Create and add systems
 			
 			self.addSystems(
-				LGRenderingSystem(scene: self),
-				LGCameraSystem(scene: self),
+				LGRenderingSystem(),
+				LGCameraSystem(),
 				LGPhysicsSystem()
 			)
 			
@@ -65,11 +81,13 @@ Here's what the scene should look like all together:
 
 ## Start the engine
 
-To start the engine, create an instance of `LGEngine` and an instance of your scene in your project's root view controller. It is important that the view controller uses `SKView` as its kind of view, as this project currently uses SpriteKit for rendering. In the `viewDidLoad` method of the view controller, add this code:
+To start the engine, create an instance of your game in your project's app delegate. In the `application: didFinishLaunchingWithOptions` method of the app delegate, add this code:
 
-	let scene = MyScene()
-	let engine = LGEngine(view: self.view as SKView)
-	engine.gotoScene(scene)
+	let viewController = Anachronism()
+	
+	window = UIWindow(frame: UIScreen.mainScreen().bounds)
+	window.rootViewController = viewController
+	window.makeKeyAndVisible()
 
 # How can I contribute?
 
