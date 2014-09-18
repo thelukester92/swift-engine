@@ -8,10 +8,21 @@
 
 public final class LGEntity
 {
+	struct Static
+	{
+		// TODO: Move this into scene or something -- right now, ID increases across scenes
+		static var EntityCount = 0
+	}
+	
 	var components: [String: LGComponent] = [:]
 	weak var scene: LGScene?
 	
-	public init() {}
+	var globalId: Int
+	
+	public init()
+	{
+		globalId = Static.EntityCount++
+	}
 	
 	public convenience init(_ firstComponent: LGComponent, _ components: LGComponent...)
 	{
@@ -59,4 +70,17 @@ public final class LGEntity
 		components[type.type()] = nil
 		scene?.changed(self)
 	}
+}
+
+extension LGEntity: Hashable
+{
+	public var hashValue: Int
+	{
+		return globalId
+	}
+}
+
+public func == (left: LGEntity, right: LGEntity) -> Bool
+{
+	return left.hashValue == right.hashValue
 }

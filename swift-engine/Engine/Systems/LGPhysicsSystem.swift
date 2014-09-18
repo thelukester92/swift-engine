@@ -16,13 +16,14 @@ public final class LGPhysicsSystem: LGSystem
 	public var collisionLayer: LGTileLayer!
 	
 	// Entities by type
-	final var dynamicEntities	= [Int]()
-	final var staticEntities	= [Int]()
+	var dynamicEntities	= [Int]()
+	var staticEntities	= [Int]()
 	
-	// Cached components
-	final var position	= [LGPosition]()
-	final var body		= [LGPhysicsBody]()
-	final var tent		= [LGVector]()
+	// Cached
+	var position		= [LGPosition]()
+	var body			= [LGPhysicsBody]()
+	var tent			= [LGVector]()
+	var collidedWith	= [[Int:LGEntity]]()
 	
 	// Partitions
 	var dynamicGrid: LGSpatialGrid!
@@ -77,6 +78,7 @@ public final class LGPhysicsSystem: LGSystem
 		position.append(pos)
 		body.append(bod)
 		tent.append(LGVector())
+		collidedWith.append([Int:LGEntity]())
 	}
 	
 	override public func remove(index: Int)
@@ -86,6 +88,7 @@ public final class LGPhysicsSystem: LGSystem
 		body.removeAtIndex(index)
 		position.removeAtIndex(index)
 		tent.removeAtIndex(index)
+		collidedWith.removeAtIndex(index)
 		
 		reindex()
 	}
@@ -95,7 +98,16 @@ public final class LGPhysicsSystem: LGSystem
 		for id in 0 ..< entities.count
 		{
 			applyPhysics(id)
-			body[id].resetCollided()
+			
+			// Save previous collision list
+			collidedWith[id] = body[id].collidedWith
+			
+			// Reset previous collision list
+			body[id].collidedTop	= false
+			body[id].collidedBottom	= false
+			body[id].collidedLeft	= false
+			body[id].collidedRight	= false
+			body[id].collidedWith.removeAll()
 		}
 		
 		dynamicGrid.populate(dynamicEntities)
@@ -117,6 +129,25 @@ public final class LGPhysicsSystem: LGSystem
 			position[id].y = tent[id].y
 			
 			updateFollowers(id)
+			
+			for a in collidedWith[id].values
+			{
+				var contained = false
+				for b in body[id].collidedWith.values
+				{
+					if a === b
+					{
+						contained = true
+						break
+					}
+				}
+				
+				// If old collisions (collidedWith[id]) have collisions that aren't in new collisions (body[id].collidedWith)...
+				if !contained
+				{
+					onCollisionEnd(id, a)
+				}
+			}
 		}
 	}
 	
@@ -268,7 +299,7 @@ public final class LGPhysicsSystem: LGSystem
 				break
 		}
 		
-		callback(a, b)
+		onCollision(a, b)
 		
 		// Block chained collisions
 		
@@ -380,7 +411,7 @@ public final class LGPhysicsSystem: LGSystem
 			
 			if body[id].trigger || (other >= 0 && body[other].trigger)
 			{
-				callback(id, other)
+				onCollision(id, other)
 				break
 			}
 			
@@ -458,7 +489,7 @@ public final class LGPhysicsSystem: LGSystem
 					break
 			}
 			
-			callback(id, other)
+			onCollision(id, other)
 			
 			// Chain collisions
 			
@@ -539,17 +570,48 @@ public final class LGPhysicsSystem: LGSystem
 	
 	// MARK: Callback Methods
 	
-	func callback(a: Int, _ b: Int)
+	func onCollision(a: Int, _ b: Int)
 	{
 		if b >= 0
 		{
-			body[a].didCollide?(entities[a], entities[b])
-			body[b].didCollide?(entities[b], entities[a])
+			body[a].onCollision?(entities[a], entities[b])
+			body[b].onCollision?(entities[b], entities[a])
+			
+			body[a].collidedWith[entities[b].globalId] = entities[b]
+			body[b].collidedWith[entities[a].globalId] = entities[a]
+			
+			var contained = false
+			for entity in collidedWith[b].values
+			{
+				if entity === entities[a]
+				{
+					contained = true
+					break
+				}
+			}
+			
+			if !contained
+			{
+				collidedWith[b][entities[a].globalId] = entities[a]
+				onCollisionStart(a, b)
+			}
 		}
 		else
 		{
-			body[a].didCollide?(entities[a], nil)
+			body[a].onCollision?(entities[a], nil)
 		}
+	}
+	
+	func onCollisionStart(a: Int, _ b: Int)
+	{
+		body[a].onCollisionStart?(entities[a], entities[b])
+		body[b].onCollisionStart?(entities[b], entities[a])
+	}
+	
+	func onCollisionEnd(a: Int, _ b: LGEntity)
+	{
+		// Only one call is necessary, because it will be called once for each collidee
+		body[a].onCollisionEnd?(entities[a], b)
 	}
 	
 	// MARK: Helper Methods

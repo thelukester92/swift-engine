@@ -26,7 +26,10 @@ public final class LGPhysicsBody: LGComponent
 	public var height: Double
 	public var dynamic: Bool
 	
-	public var didCollide: ((LGEntity, LGEntity?) -> ())?
+	public var onCollision: ((LGEntity, LGEntity?) -> ())?
+	public var onCollisionStart: ((LGEntity, LGEntity) -> ())?
+	public var onCollisionEnd: ((LGEntity, LGEntity) -> ())?
+	
 	public var trigger = false
 	
 	// TODO: allow other kinds of directional collisions
@@ -36,6 +39,7 @@ public final class LGPhysicsBody: LGComponent
 	public var collidedBottom	= false
 	public var collidedLeft		= false
 	public var collidedRight	= false
+	public var collidedWith		= [Int:LGEntity]()
 	
 	public init(width: Double = 0, height: Double = 0, dynamic: Bool = true)
 	{
@@ -47,14 +51,6 @@ public final class LGPhysicsBody: LGComponent
 	public convenience init(size: LGVector, dynamic: Bool = true)
 	{
 		self.init(width: size.x, height: size.y, dynamic: dynamic)
-	}
-	
-	public func resetCollided()
-	{
-		collidedTop		= false
-		collidedBottom	= false
-		collidedLeft	= false
-		collidedRight	= false
 	}
 }
 
