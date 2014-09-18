@@ -36,7 +36,7 @@ To add an entity to a scene, create the entity as an aggregation of components a
 
 ## Create a game
 
-Subclass the base `LGGame` to create a game. This is essentially the state machine that holds the scenes for later. You can override two methods to get started: `createScenes` and `registerDeserializers`. In `createScenes`, pass in the class name and a name for the scene so you can call it back later. The first added scene will be loaded by default. In `registerDeserializers`, pass in the class name of a deserializable component. This method is optional.
+Subclass the base `LGGame` to create a game. This is essentially the state machine that holds the scenes for later. You can override the `createScenes` method to get started. In `createScenes`, pass in the class name and a name for the scene so you can call it back later. The first added scene will be loaded by default.
 
 	override func createScenes()
 	{
@@ -44,15 +44,17 @@ Subclass the base `LGGame` to create a game. This is essentially the state machi
 		addScene(LevelScene.self, named: "level")
 	}
 
-	override func registerDeserializers()
-	{
-		LGDeserializer.registerDeserializable(MyComponentOne)
-		LGDeserializer.registerDeserializable(MyComponentTwo)
-	}
-
 ### All together
 
 Here's what the scene should look like all together:
+
+	class MyGame: LGGame
+	{
+		override func createScenes()
+		{
+			addScene(MyScene.self, named: "myScene")
+		}
+	}
 
 	class MyScene: LGScene
 	{
@@ -83,7 +85,7 @@ Here's what the scene should look like all together:
 
 To start the engine, create an instance of your game in your project's app delegate. In the `application: didFinishLaunchingWithOptions` method of the app delegate, add this code:
 
-	let viewController = Anachronism()
+	let viewController = MyGame()
 	
 	window = UIWindow(frame: UIScreen.mainScreen().bounds)
 	window.rootViewController = viewController
