@@ -35,7 +35,7 @@ public final class LGSprite: LGComponent
 		self.size		= size
 	}
 	
-	public convenience init(textureName: String, rows: Int, cols: Int)
+	public convenience init(textureName: String, rows: Int = 1, cols: Int = 1)
 	{
 		self.init(spriteType: SpriteType.Texture(name: textureName, rows: rows, cols: cols))
 	}

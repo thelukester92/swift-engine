@@ -51,6 +51,8 @@
 		A340FF631999037A003E4809 /* PlayerOutputSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = A340FF621999037A003E4809 /* PlayerOutputSystem.swift */; };
 		A340FF6519990460003E4809 /* PlatformSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = A340FF6419990460003E4809 /* PlatformSystem.swift */; };
 		A34FC6AE19B8CF3B00C7E375 /* LGDeserializer.swift in Sources */ = {isa = PBXBuildFile; fileRef = A34FC6AD19B8CF3B00C7E375 /* LGDeserializer.swift */; };
+		A398C8A319CB2A0F007EE71E /* LGBackgroundSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = A398C8A219CB2A0F007EE71E /* LGBackgroundSystem.swift */; };
+		A398C8AD19CB2AD1007EE71E /* LGBackground.swift in Sources */ = {isa = PBXBuildFile; fileRef = A398C8AC19CB2AD1007EE71E /* LGBackground.swift */; };
 		A3B2AEA9193EBFE20097B3A7 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3B2AEA8193EBFE20097B3A7 /* AppDelegate.swift */; };
 		A3B2AEAF193EBFE20097B3A7 /* PlatformerGame.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3B2AEAE193EBFE20097B3A7 /* PlatformerGame.swift */; };
 		A3B2AEB4193EBFE20097B3A7 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A3B2AEB3193EBFE20097B3A7 /* Images.xcassets */; };
@@ -136,6 +138,8 @@
 		A3870DE7196AE566000B4352 /* Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "Bridging-Header.h"; path = "Game/Bridging-Header.h"; sourceTree = "<group>"; };
 		A3882F67198D5085009C454F /* LGFollower.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LGFollower.swift; sourceTree = "<group>"; };
 		A3981C9719511C5C0072E4A3 /* LGTileSystem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LGTileSystem.swift; sourceTree = "<group>"; };
+		A398C8A219CB2A0F007EE71E /* LGBackgroundSystem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LGBackgroundSystem.swift; sourceTree = "<group>"; };
+		A398C8AC19CB2AD1007EE71E /* LGBackground.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LGBackground.swift; sourceTree = "<group>"; };
 		A3A581CE19744A3200489EAC /* LGRenderingSystem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LGRenderingSystem.swift; sourceTree = "<group>"; };
 		A3B2AEA3193EBFE20097B3A7 /* swift-engine.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "swift-engine.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		A3B2AEA7193EBFE20097B3A7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = Info.plist; path = Game/Info.plist; sourceTree = "<group>"; };
@@ -228,6 +232,7 @@
 			isa = PBXGroup;
 			children = (
 				A340FF5A1998F457003E4809 /* LGAnimatable.swift */,
+				A398C8AC19CB2AD1007EE71E /* LGBackground.swift */,
 				A30CC720198B03FB0013C7AC /* LGCamera.swift */,
 				A33CADA71943613200AC8E27 /* LGPosition.swift */,
 				A33CADA9194361C000AC8E27 /* LGSprite.swift */,
@@ -251,6 +256,7 @@
 			isa = PBXGroup;
 			children = (
 				A340FF5C1998F469003E4809 /* LGAnimationSystem.swift */,
+				A398C8A219CB2A0F007EE71E /* LGBackgroundSystem.swift */,
 				A31C8114198C3D7000A7CE46 /* LGCameraSystem.swift */,
 				A3542B9E196CBC8000ED00E8 /* LGPhysicsSystem.swift */,
 				A3A581CE19744A3200489EAC /* LGRenderingSystem.swift */,
@@ -511,6 +517,7 @@
 				A3EB958C19B61B38001FF4D1 /* LGJSON.swift in Sources */,
 				A315058019995966000B8842 /* LGAnimationSystem.swift in Sources */,
 				A315058919995966000B8842 /* LGSystem.swift in Sources */,
+				A398C8AD19CB2AD1007EE71E /* LGBackground.swift in Sources */,
 				A3F01F6619AE44E700C4F505 /* LGSoundSystem.swift in Sources */,
 				A315056A19995966000B8842 /* LGAnimation.swift in Sources */,
 				A315057E19995966000B8842 /* LGTouchObserver.swift in Sources */,
@@ -518,6 +525,7 @@
 				A315057219995966000B8842 /* LGTMXParser.swift in Sources */,
 				A315057719995966000B8842 /* LGSprite.swift in Sources */,
 				A315056F19995966000B8842 /* LGTileLayer.swift in Sources */,
+				A398C8A319CB2A0F007EE71E /* LGBackgroundSystem.swift in Sources */,
 				A315058119995966000B8842 /* LGCameraSystem.swift in Sources */,
 				A319FB9719B5118500DFD723 /* LGDeserializable.swift in Sources */,
 				A315057419995966000B8842 /* LGAnimatable.swift in Sources */,

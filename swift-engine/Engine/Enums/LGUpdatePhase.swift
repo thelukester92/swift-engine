@@ -8,5 +8,5 @@
 
 public enum LGUpdatePhase
 {
-	case Input, Physics, Main, Render, None
+	case Input, Physics, Main, PreRender, Render, None
 }

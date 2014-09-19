@@ -234,6 +234,7 @@ extension LGScene: LGUpdatable
 		updateSystemsByPhase(.Input)
 		updateSystemsByPhase(.Physics)
 		updateSystemsByPhase(.Main)
+		updateSystemsByPhase(.PreRender)
 		updateSystemsByPhase(.Render)
 		
 		processRemovedEntities()

@@ -36,7 +36,7 @@ public final class LGCameraSystem: LGSystem
 				cameraPosition.y = min(max(cameraPosition.y, boundary.y), boundary.extremeY - cameraBody.height)
 			}
 			
-			scene.rootNode.position = CGPoint(x: -CGFloat(cameraPosition.x), y: -CGFloat(cameraPosition.y))
+			scene.rootNode.position = CGPoint(x: -CGFloat(Int(cameraPosition.x)), y: -CGFloat(Int(cameraPosition.y)))
 		}
 	}
 }
