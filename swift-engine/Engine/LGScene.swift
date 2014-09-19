@@ -19,6 +19,7 @@ public class LGScene
 	final var entitiesByName	= [String:LGEntity]()
 	
 	var initialized				= false
+	public var paused			= false
 	
 	public var game: LGGame
 	var scene: LGSpriteKitScene
@@ -225,18 +226,21 @@ extension LGScene: LGUpdatable
 {
 	public final func update()
 	{
-		if !initialized
+		if !paused
 		{
-			initializeSystems()
-			initialized = true
+			if !initialized
+			{
+				initializeSystems()
+				initialized = true
+			}
+			
+			updateSystemsByPhase(.Input)
+			updateSystemsByPhase(.Physics)
+			updateSystemsByPhase(.Main)
+			updateSystemsByPhase(.PreRender)
+			updateSystemsByPhase(.Render)
+			
+			processRemovedEntities()
 		}
-		
-		updateSystemsByPhase(.Input)
-		updateSystemsByPhase(.Physics)
-		updateSystemsByPhase(.Main)
-		updateSystemsByPhase(.PreRender)
-		updateSystemsByPhase(.Render)
-		
-		processRemovedEntities()
 	}
 }
