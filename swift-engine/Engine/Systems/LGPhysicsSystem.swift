@@ -25,6 +25,11 @@ public final class LGPhysicsSystem: LGSystem
 	var tent			= [LGVector]()
 	var collidedWith	= [[Int:LGEntity]]()
 	
+	// Events to call
+	var collisionEvents: [(a: Int, b: Int)] = []
+	var collisionStartEvents: [(a: Int, b: Int)] = []
+	var collisionEndEvents: [(a: Int, b: LGEntity)] = []
+	
 	// Partitions
 	var dynamicGrid: LGSpatialGrid!
 	var staticGrid: LGSpatialGrid!
@@ -95,6 +100,10 @@ public final class LGPhysicsSystem: LGSystem
 	
 	override public func update()
 	{
+		collisionEvents.removeAll(keepCapacity: false)
+		collisionStartEvents.removeAll(keepCapacity: false)
+		collisionEndEvents.removeAll(keepCapacity: false)
+		
 		for id in 0 ..< entities.count
 		{
 			applyPhysics(id)
@@ -145,10 +154,12 @@ public final class LGPhysicsSystem: LGSystem
 				// If old collisions (collidedWith[id]) have collisions that aren't in new collisions (body[id].collidedWith)...
 				if !contained
 				{
-					onCollisionEnd(id, a)
+					addCollisionEnd(id, a)
 				}
 			}
 		}
+		
+		triggerEvents()
 	}
 	
 	func reindex()
@@ -299,7 +310,7 @@ public final class LGPhysicsSystem: LGSystem
 				break
 		}
 		
-		onCollision(a, b)
+		addCollision(a, b)
 		
 		// Block chained collisions
 		
@@ -374,6 +385,7 @@ public final class LGPhysicsSystem: LGSystem
 			}
 			
 			// y-axis
+			// TODO: Add tiles that only collide on top
 			
 			rows = [ tileAtY(tent[id].y - 1), tileAtY(tent[id].y + body[id].height + 1) ]
 			cols = [ tileAtX(tent[id].x), tileAtX(tent[id].x + body[id].width) ]
@@ -411,7 +423,7 @@ public final class LGPhysicsSystem: LGSystem
 			
 			if body[id].trigger || (other >= 0 && body[other].trigger)
 			{
-				onCollision(id, other)
+				addCollision(id, other)
 				break
 			}
 			
@@ -489,7 +501,7 @@ public final class LGPhysicsSystem: LGSystem
 					break
 			}
 			
-			onCollision(id, other)
+			addCollision(id, other)
 			
 			// Chain collisions
 			
@@ -568,15 +580,30 @@ public final class LGPhysicsSystem: LGSystem
 		}
 	}
 	
+	func triggerEvents()
+	{
+		for event in collisionStartEvents
+		{
+			onCollisionStart(event.a, event.b)
+		}
+		
+		for event in collisionEvents
+		{
+			onCollision(event.a, event.b)
+		}
+		
+		for event in collisionEndEvents
+		{
+			onCollisionEnd(event.a, event.b)
+		}
+	}
+	
 	// MARK: Callback Methods
 	
-	func onCollision(a: Int, _ b: Int)
+	func addCollision(a: Int, _ b: Int)
 	{
 		if b >= 0
 		{
-			body[a].onCollision?(entities[a], entities[b])
-			body[b].onCollision?(entities[b], entities[a])
-			
 			body[a].collidedWith[entities[b].globalId] = entities[b]
 			body[b].collidedWith[entities[a].globalId] = entities[a]
 			
@@ -593,8 +620,19 @@ public final class LGPhysicsSystem: LGSystem
 			if !contained
 			{
 				collidedWith[b][entities[a].globalId] = entities[a]
-				onCollisionStart(a, b)
+				addCollisionStart(a, b)
 			}
+		}
+		
+		collisionEvents.append(a: a, b: b)
+	}
+	
+	func onCollision(a: Int, _ b: Int)
+	{
+		if b >= 0
+		{
+			body[a].onCollision?(entities[a], entities[b])
+			body[b].onCollision?(entities[b], entities[a])
 		}
 		else
 		{
@@ -602,10 +640,20 @@ public final class LGPhysicsSystem: LGSystem
 		}
 	}
 	
+	func addCollisionStart(a: Int, _ b: Int)
+	{
+		collisionStartEvents.append(a: a, b: b)
+	}
+	
 	func onCollisionStart(a: Int, _ b: Int)
 	{
 		body[a].onCollisionStart?(entities[a], entities[b])
 		body[b].onCollisionStart?(entities[b], entities[a])
+	}
+	
+	func addCollisionEnd(a: Int, _ b: LGEntity)
+	{
+		collisionEndEvents.append(a: a, b: b)
 	}
 	
 	func onCollisionEnd(a: Int, _ b: LGEntity)
