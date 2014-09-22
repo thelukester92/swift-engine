@@ -34,6 +34,21 @@ public class LGTileLayer: LGSystem
 		return nil
 	}
 	
+	
+	public func collisionTypeAt(#row: Int, col: Int) -> CollisionType
+	{
+		if isCollision
+		{
+			if let tile = tileAt(row: row, col: col)
+			{
+				return CollisionType.fromRaw(tile.pos) ?? .Collision
+			}
+		}
+		
+		return .Collision
+	}
+	
+	// Deprecated -- use collisionTypeAt(row: col:) instead
 	public func collidesAt(#row: Int, col: Int) -> Bool
 	{
 		if isCollision
@@ -56,5 +71,10 @@ public class LGTileLayer: LGSystem
 			}
 		}
 		return false
+	}
+	
+	public enum CollisionType: Int
+	{
+		case None = 0, Collision, OnlyCollidesOnTop
 	}
 }

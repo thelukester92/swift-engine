@@ -30,6 +30,19 @@ public class LGScene
 		return scene.view!
 	}
 	
+	public var backgroundColor: SKColor
+	{
+		get
+		{
+			return scene.backgroundColor
+		}
+		
+		set
+		{
+			scene.backgroundColor = newValue
+		}
+	}
+	
 	required public init(game: LGGame)
 	{
 		self.game	= game

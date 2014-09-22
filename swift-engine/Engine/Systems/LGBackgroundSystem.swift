@@ -72,18 +72,21 @@ public final class LGBackgroundSystem: LGSystem
 	
 	override public func update()
 	{
-		let sceneOffset = Double(scene.rootNode.position.x)
+		let sceneOffset = LGVector(x: Double(scene.rootNode.position.x), y: Double(scene.rootNode.position.y))
 		
 		for id in 0 ..< backgrounds.count
 		{
 			let width = bgSprites[id][0].size.x
 			
-			var baseX = -backgrounds[id].distance * sceneOffset
-			baseX -= width * Double(Int((sceneOffset + baseX) / width))
+			var baseX = -backgrounds[id].distance * sceneOffset.x
+			baseX -= width * Double(Int((sceneOffset.x + baseX) / width))
+			
+			let baseY = -backgrounds[id].distance * sceneOffset.y
 			
 			for i in 0 ..< bgPositions[id].count
 			{
 				bgPositions[id][i].x = baseX + width * Double(i)
+				bgPositions[id][i].y = baseY
 			}
 		}
 	}

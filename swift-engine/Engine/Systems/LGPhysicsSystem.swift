@@ -225,6 +225,8 @@ public final class LGPhysicsSystem: LGSystem
 	
 	func resolveDynamicCollisions(id: Int)
 	{
+		// NOTE: Entities that only collide on top are ignored here, because they can only cause collisions during static chaining
+		
 		for other in dynamicGrid.entitiesNearRect(tentRect(id))
 		{
 			if id != other && !body[id].onlyCollidesOnTop && !body[other].onlyCollidesOnTop && overlap(id, other, axis: .X)
@@ -376,16 +378,19 @@ public final class LGPhysicsSystem: LGSystem
 			{
 				for row in rows[0]...rows[1]
 				{
-					if collisionLayer.collidesAt(row: row, col: col)
+					switch collisionLayer.collisionTypeAt(row: row, col: col)
 					{
-						resolveStaticCollision(id, tileRect(row, col), axis: .X)
-						break outerLoop
+						case .Collision:
+							resolveStaticCollision(id, tileRect(row, col), axis: .X)
+							break outerLoop
+						
+						default:
+							break
 					}
 				}
 			}
 			
 			// y-axis
-			// TODO: Add tiles that only collide on top
 			
 			rows = [ tileAtY(tent[id].y - 1), tileAtY(tent[id].y + body[id].height + 1) ]
 			cols = [ tileAtX(tent[id].x), tileAtX(tent[id].x + body[id].width) ]
@@ -397,10 +402,24 @@ public final class LGPhysicsSystem: LGSystem
 			{
 				for col in cols[0]...cols[1]
 				{
-					if collisionLayer.collidesAt(row: row, col: col)
+					switch collisionLayer.collisionTypeAt(row: row, col: col)
 					{
-						resolveStaticCollision(id, tileRect(row, col), axis: .Y)
-						break outerLoop
+						case .Collision:
+							resolveStaticCollision(id, tileRect(row, col), axis: .Y)
+							break outerLoop
+						
+						case .OnlyCollidesOnTop:
+							let rect = tileRect(row, col)
+							if rect.y > tent[id].y || position[id].y < rect.y + rect.height
+							{
+								break
+							}
+							
+							resolveStaticCollision(id, rect, axis: .Y)
+							break outerLoop
+						
+						default:
+							break
 					}
 				}
 			}
