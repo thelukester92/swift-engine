@@ -81,8 +81,8 @@ public final class LGRenderingSystem: LGSystem
 					}
 				}
 				
-				node.position.x	= CGFloat(position.x + sprite.offset.x + Double(sprite.size.x / 2))
-				node.position.y	= CGFloat(position.y + sprite.offset.y + Double(sprite.size.y / 2))
+				node.position.x	= CGFloat(Int(position.x + sprite.offset.x + Double(sprite.size.x / 2)))
+				node.position.y	= CGFloat(Int(position.y + sprite.offset.y + Double(sprite.size.y / 2)))
 				node.xScale		= CGFloat(sprite.scale.x)
 				node.yScale		= CGFloat(sprite.scale.y)
 				node.zRotation	= CGFloat(sprite.rotation)

@@ -11,7 +11,7 @@ import UIKit
 public class LGTMXParser: NSObject
 {
 	let firstBackgroundLayer	= -100
-	let firstForegroundLayer	= 1
+	let firstForegroundLayer	= 100
 	
 	// Setup variables
 	var collisionLayerName	= "collision"

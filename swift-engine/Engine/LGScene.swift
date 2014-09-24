@@ -25,6 +25,8 @@ public class LGScene
 	var scene: LGSpriteKitScene
 	var rootNode: SKNode
 	
+	public var time				= 0
+	
 	public var view: SKView
 	{
 		return scene.view!
@@ -254,6 +256,8 @@ extension LGScene: LGUpdatable
 			updateSystemsByPhase(.Render)
 			
 			processRemovedEntities()
+			
+			time++
 		}
 	}
 }
