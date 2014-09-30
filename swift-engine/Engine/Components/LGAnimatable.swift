@@ -46,35 +46,48 @@ public final class LGAnimatable: LGComponent
 
 extension LGAnimatable: LGDeserializable
 {
-	public class func deserialize(serialized: String) -> LGComponent?
+	public class var requiredProps: [String]
 	{
-		if let json = LGJSON.JSONFromString(serialized)
+		return [ "animations" ]
+	}
+	
+	public class var optionalProps: [String]
+	{
+		return [ "defaultAnimation" ]
+	}
+	
+	public class func instantiate() -> LGDeserializable
+	{
+		return LGAnimatable()
+	}
+	
+	public func setProp(prop: String, val: LGJSON) -> Bool
+	{
+		switch prop
 		{
-			if let anims = json["animations"]
-			{
-				var animations = [String:LGAnimation]()
-				
-				for key in anims.dictionaryValue!.allKeys as [String]
+			case "animations":
+				// TODO: replace with for key in val
+				for key in val.dictionaryValue!.allKeys as [String]
 				{
 					var animation: LGAnimation?
 					
-					if let frame = anims[key]?["frame"]?.intValue
+					if let frame = val[key]?["frame"]?.intValue
 					{
 						animation = LGAnimation(frame: frame)
 					}
 					
-					if let start = anims[key]?["start"]?.intValue
+					if let start = val[key]?["start"]?.intValue
 					{
-						if let end = anims[key]?["end"]?.intValue
+						if let end = val[key]?["end"]?.intValue
 						{
 							animation = LGAnimation(start: start, end: end)
 							
-							if let loops = anims[key]?["loops"]?.boolValue
+							if let loops = val[key]?["loops"]?.boolValue
 							{
 								animation!.loops = loops
 							}
 							
-							if let ticksPerFrame = anims[key]?["ticksPerFrame"]?.intValue
+							if let ticksPerFrame = val[key]?["ticksPerFrame"]?.intValue
 							{
 								animation!.ticksPerFrame = ticksPerFrame
 							}
@@ -87,10 +100,16 @@ extension LGAnimatable: LGDeserializable
 					}
 				}
 				
-				return LGAnimatable(animations: animations, defaultAnimation: json["defaultAnimation"]?.stringValue)
-			}
+				return true
+			
+			case "defaultAnimation":
+				currentAnimation = animations[val.stringValue!]
+				return true
+			
+			default:
+				break
 		}
 		
-		return nil
+		return false
 	}
 }

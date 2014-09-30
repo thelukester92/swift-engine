@@ -60,82 +60,88 @@ public final class LGSprite: LGComponent
 
 extension LGSprite: LGDeserializable
 {
-	public class func deserialize(serialized: String) -> LGComponent?
+	public class var requiredProps: [String]
 	{
-		if let json = LGJSON.JSONFromString(serialized)
+		return []
+	}
+	
+	public class var optionalProps: [String]
+	{
+		return [ "spriteType", "offset", "layer" ]
+	}
+	
+	public class func instantiate() -> LGDeserializable
+	{
+		return LGSprite(red: 0, green: 0, blue: 1, size: LGVector(x: 32, y: 32))
+	}
+	
+	public func setProp(prop: String, val: LGJSON) -> Bool
+	{
+		switch prop
 		{
-			var sprite: LGSprite?
-			
-			// Texture sprite
-			
-			let textureName	= json["textureName"]?.stringValue
-			let rows		= json["rows"]?.intValue
-			let cols		= json["cols"]?.intValue
-			
-			if textureName != nil && rows != nil && cols != nil
-			{
-				sprite = LGSprite(textureName: textureName!, rows: rows!, cols: cols!)
-			}
-			
-			// Color sprite
-			
-			if sprite == nil
-			{
-				let red		= json["red"]?.doubleValue
-				let blue	= json["blue"]?.doubleValue
-				let green	= json["green"]?.doubleValue
+			case "spriteType":
+				// Textured sprite
 				
-				let size	= json["size"]
-				let x		= size?["x"]?.doubleValue
-				let y		= size?["y"]?.doubleValue
+				let textureName	= val["textureName"]?.stringValue
+				let rows		= val["rows"]?.intValue
+				let cols		= val["cols"]?.intValue
 				
-				if red != nil && blue != nil && green != nil && x != nil && y != nil
+				if textureName != nil && rows != nil && cols != nil
 				{
-					let vector = LGVector(x: x!, y: y!)
-					sprite = LGSprite(red: red!, green: green!, blue: blue!, size: vector)
+					spriteType = .Texture(name: textureName!, rows: rows!, cols: cols!)
+					return true
 				}
-			}
-			
-			// Text sprite
-			
-			if sprite == nil
-			{
-				let text = json["text"]?.stringValue
-				let font = json["font"]?.stringValue
-				let size = json["fontSize"]?.doubleValue
+				
+				// Colored sprite
+				
+				let red		= val["red"]?.doubleValue
+				let green	= val["green"]?.doubleValue
+				let blue	= val["blue"]?.doubleValue
+				
+				let x		= val["size"]?["x"]?.doubleValue
+				let y		= val["size"]?["y"]?.doubleValue
+				
+				if red != nil && green != nil && blue != nil && x != nil && y != nil
+				{
+					spriteType	= .Color(r: red!, g: green!, b: blue!)
+					size.x		= x!
+					size.y		= y!
+					return true
+				}
+				
+				// Text sprite
+				
+				let text		= val["text"]?.stringValue
+				let font		= val["font"]?.stringValue
+				let fontSize	= val["fontSize"]?.doubleValue
 				
 				if text != nil
 				{
-					sprite = LGSprite(text: text!, font: font, fontSize: size)
+					spriteType = .Text(text: text!, font: font ?? "Menlo-Regular", fontSize: fontSize ?? 24)
+					return true
 				}
-			}
 			
-			// Other values
-			
-			if sprite != nil
-			{
-				if let offset = json["offset"]
+			case "offset":
+				if let x = val["x"]?.doubleValue
 				{
-					if let x = offset["x"]?.doubleValue
-					{
-						sprite!.offset.x = x
-					}
-					
-					if let y = offset["y"]?.doubleValue
-					{
-						sprite!.offset.y = y
-					}
+					offset.x = x
 				}
 				
-				if let layer = json["layer"]?.intValue
+				if let y = val["y"]?.doubleValue
 				{
-					sprite!.layer = layer
+					offset.y = y
 				}
 				
-				return sprite
-			}
+				return true
+			
+			case "layer":
+				layer = val.intValue!
+				return true
+			
+			default:
+				break
 		}
 		
-		return nil
+		return false
 	}
 }

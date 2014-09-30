@@ -6,8 +6,11 @@
 //  Copyright (c) 2014 Luke Godfrey. See LICENSE.
 //
 
-public protocol LGDeserializable
+public protocol LGDeserializable: LGComponent
 {
-	class func type() -> String
-	class func deserialize(serialized: String) -> LGComponent?
+	class var requiredProps: [String] { get }
+	class var optionalProps: [String] { get }
+	
+	class func instantiate() -> LGDeserializable
+	func setProp(prop: String, val: LGJSON) -> Bool
 }

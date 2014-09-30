@@ -97,3 +97,18 @@ public class LGJSON
 		return nil
 	}
 }
+
+extension LGJSON: SequenceType
+{
+	// TODO: fix this... it's exc bad access
+	public func generate() -> GeneratorOf<String>
+	{
+		let dict = dictionaryValue!.allKeys as [String]
+		var i = 0
+		
+		return GeneratorOf<String>
+		{
+			return dict[i++]
+		}
+	}
+}

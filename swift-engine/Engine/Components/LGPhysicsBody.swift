@@ -41,7 +41,7 @@ public final class LGPhysicsBody: LGComponent
 	public var collidedRight	= false
 	public var collidedWith		= [Int:LGEntity]()
 	
-	public init(width: Double = 0, height: Double = 0, dynamic: Bool = true)
+	public init(width: Double, height: Double, dynamic: Bool = true)
 	{
 		self.width		= width
 		self.height		= height
@@ -52,53 +52,71 @@ public final class LGPhysicsBody: LGComponent
 	{
 		self.init(width: size.x, height: size.y, dynamic: dynamic)
 	}
+	
+	public convenience init()
+	{
+		self.init(width: 0, height: 0)
+	}
 }
 
 extension LGPhysicsBody: LGDeserializable
 {
-	public class func deserialize(serialized: String) -> LGComponent?
+	public class var requiredProps: [String]
 	{
-		if let json = LGJSON.JSONFromString(serialized)
+		return [ "width", "height" ]
+	}
+	
+	public class var optionalProps: [String]
+	{
+		return [ "dynamic", "onlyCollidesOnTop", "trigger", "velocity" ]
+	}
+	
+	public class func instantiate() -> LGDeserializable
+	{
+		return LGPhysicsBody()
+	}
+	
+	public func setProp(prop: String, val: LGJSON) -> Bool
+	{
+		switch prop
 		{
-			let width	= json["width"]?.doubleValue
-			let height	= json["height"]?.doubleValue
+			case "width":
+				width = val.doubleValue!
+				return true
 			
-			if width != nil && height != nil
-			{
-				let body = LGPhysicsBody(width: width!, height: height!)
-				
-				if let dynamic = json["dynamic"]?.boolValue
+			case "height":
+				height = val.doubleValue!
+				return true
+			
+			case "dynamic":
+				dynamic = val.boolValue!
+				return true
+			
+			case "onlyCollidesOnTop":
+				onlyCollidesOnTop = val.boolValue!
+				return true
+			
+			case "trigger":
+				trigger = val.boolValue!
+				return true
+			
+			case "velocity":
+				if let x = val["x"]?.doubleValue
 				{
-					body.dynamic = dynamic
+					velocity.x = x
 				}
 				
-				if let onlyCollidesOnTop = json["onlyCollidesOnTop"]?.boolValue
+				if let y = val["y"]?.doubleValue
 				{
-					body.onlyCollidesOnTop = onlyCollidesOnTop
+					velocity.y = y
 				}
 				
-				if let trigger = json["trigger"]?.boolValue
-				{
-					body.trigger = trigger
-				}
-				
-				if let velocity = json["velocity"]
-				{
-					if let x = velocity["x"]?.doubleValue
-					{
-						body.velocity.x = x
-					}
-					
-					if let y = velocity["y"]?.doubleValue
-					{
-						body.velocity.y = y
-					}
-				}
-				
-				return body
-			}
+				return true
+			
+			default:
+				break
 		}
 		
-		return nil
+		return false
 	}
 }
