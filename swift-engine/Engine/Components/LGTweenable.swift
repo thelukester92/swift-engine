@@ -40,8 +40,23 @@ public final class LGTweenable: LGComponent
 	}
 }
 
-extension LGTweenable: LGScriptable
+extension LGTweenable: LGDeserializable
 {
+	public class var requiredProps: [String]
+	{
+		return []
+	}
+	
+	public class var optionalProps: [String]
+	{
+		return []
+	}
+	
+	public class func instantiate() -> LGDeserializable
+	{
+		return LGTweenable()
+	}
+	
 	public func setProp(prop: String, val: LGJSON) -> Bool
 	{
 		switch prop

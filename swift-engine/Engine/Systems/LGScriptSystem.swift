@@ -1,12 +1,12 @@
 //
-//  LGScriptable.swift
+//  LGScriptSystem.swift
 //  swift-engine
 //
 //  Created by Luke Godfrey on 9/29/14.
 //  Copyright (c) 2014 Luke Godfrey. See LICENSE.
 //
 
-public protocol LGScriptable
+public final class LGScriptSystem: LGSystem
 {
-	func setProp(prop: String, val: LGJSON) -> Bool
+	
 }
