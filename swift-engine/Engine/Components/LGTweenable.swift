@@ -39,3 +39,33 @@ public final class LGTweenable: LGComponent
 		case Linear, EaseIn, EaseOut, EaseInOut
 	}
 }
+
+extension LGTweenable: LGScriptable
+{
+	public func setProp(prop: String, val: LGJSON) -> Bool
+	{
+		switch prop
+		{
+			case "target":
+				let vec = target ?? LGVector()
+				
+				if let x = val["x"]?.doubleValue
+				{
+					vec.x = x
+				}
+				
+				if let y = val["y"]?.doubleValue
+				{
+					vec.y = y
+				}
+				
+				target = vec
+				return true
+			
+			default:
+				break
+		}
+		
+		return false
+	}
+}

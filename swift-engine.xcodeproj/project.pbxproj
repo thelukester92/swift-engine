@@ -48,6 +48,7 @@
 		A319FB9719B5118500DFD723 /* LGDeserializable.swift in Sources */ = {isa = PBXBuildFile; fileRef = A319FB9619B5118500DFD723 /* LGDeserializable.swift */; };
 		A326119519870157000FBDF6 /* Player.swift in Sources */ = {isa = PBXBuildFile; fileRef = A326119419870157000FBDF6 /* Player.swift */; };
 		A32611971987017E000FBDF6 /* PlayerInputSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = A32611961987017E000FBDF6 /* PlayerInputSystem.swift */; };
+		A3344A4719DA48B900A19258 /* LGScriptable.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3344A4619DA48B900A19258 /* LGScriptable.swift */; };
 		A340FF631999037A003E4809 /* PlayerOutputSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = A340FF621999037A003E4809 /* PlayerOutputSystem.swift */; };
 		A340FF6519990460003E4809 /* PlatformSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = A340FF6419990460003E4809 /* PlatformSystem.swift */; };
 		A34FC6AE19B8CF3B00C7E375 /* LGDeserializer.swift in Sources */ = {isa = PBXBuildFile; fileRef = A34FC6AD19B8CF3B00C7E375 /* LGDeserializer.swift */; };
@@ -124,6 +125,7 @@
 		A32CF34D197417EA00B6C4D4 /* LGAxis.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LGAxis.swift; sourceTree = "<group>"; };
 		A32CF34F19741AB800B6C4D4 /* LGVector.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LGVector.swift; path = Classes/LGVector.swift; sourceTree = "<group>"; };
 		A32F0F2C1955D7680083CBF3 /* LGTileLayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LGTileLayer.swift; path = Classes/LGTileLayer.swift; sourceTree = "<group>"; };
+		A3344A4619DA48B900A19258 /* LGScriptable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LGScriptable.swift; sourceTree = "<group>"; };
 		A33CADA5194360AF00AC8E27 /* LGSpriteSheet.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LGSpriteSheet.swift; path = Classes/LGSpriteSheet.swift; sourceTree = "<group>"; };
 		A33CADA71943613200AC8E27 /* LGPosition.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LGPosition.swift; sourceTree = "<group>"; };
 		A33CADA9194361C000AC8E27 /* LGSprite.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LGSprite.swift; sourceTree = "<group>"; };
@@ -280,6 +282,7 @@
 			children = (
 				A319FB9619B5118500DFD723 /* LGDeserializable.swift */,
 				A31CEC2E19554BF1004F0395 /* LGEntityObserver.swift */,
+				A3344A4619DA48B900A19258 /* LGScriptable.swift */,
 				A326118D1986FD23000FBDF6 /* LGTouchObserver.swift */,
 				A340FF601998FF43003E4809 /* LGUpdatable.swift */,
 			);
@@ -554,6 +557,7 @@
 				A315056E19995966000B8842 /* LGTile.swift in Sources */,
 				A315058219995966000B8842 /* LGPhysicsSystem.swift in Sources */,
 				A34FC6AE19B8CF3B00C7E375 /* LGDeserializer.swift in Sources */,
+				A3344A4719DA48B900A19258 /* LGScriptable.swift in Sources */,
 				A315057C19995966000B8842 /* LGAxis.swift in Sources */,
 				A315058719995966000B8842 /* LGEngine.swift in Sources */,
 				A315057619995966000B8842 /* LGPosition.swift in Sources */,
