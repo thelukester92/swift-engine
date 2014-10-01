@@ -36,6 +36,11 @@ public final class LGEntity
 		return components[type.type()] as? T
 	}
 	
+	public func getByTypeName(typeName: String) -> LGComponent?
+	{
+		return components[typeName]
+	}
+	
 	public func has(type: String) -> Bool
 	{
 		return components[type] != nil

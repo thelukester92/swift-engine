@@ -57,19 +57,19 @@ extension LGTweenable: LGDeserializable
 		return LGTweenable()
 	}
 	
-	public func setProp(prop: String, val: LGJSON) -> Bool
+	public func setValue(value: LGJSON, forKey key: String) -> Bool
 	{
-		switch prop
+		switch key
 		{
 			case "target":
 				let vec = target ?? LGVector()
 				
-				if let x = val["x"]?.doubleValue
+				if let x = value["x"]?.doubleValue
 				{
 					vec.x = x
 				}
 				
-				if let y = val["y"]?.doubleValue
+				if let y = value["y"]?.doubleValue
 				{
 					vec.y = y
 				}
@@ -82,5 +82,10 @@ extension LGTweenable: LGDeserializable
 		}
 		
 		return false
+	}
+	
+	public func valueForKey(key: String) -> LGJSON
+	{
+		return LGJSON(value: nil)
 	}
 }

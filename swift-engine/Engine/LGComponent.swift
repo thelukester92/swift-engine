@@ -6,7 +6,8 @@
 //  Copyright (c) 2014 Luke Godfrey. See LICENSE.
 //
 
-public protocol LGComponent
+// TODO: remove @objc when Swift allows protocol checking
+@objc public protocol LGComponent
 {
 	// In real life, only class func type() is needed... but dynamicType.type() doesn't work yet
 	class func type() -> String

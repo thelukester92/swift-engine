@@ -20,6 +20,9 @@ public final class LGEngine
 		view.showsFPS = true
 		view.showsNodeCount = true
 		view.ignoresSiblingOrder = true
+		
+		// TODO: Remove this
+		LGLuaBridge.sharedBridge()
 	}
 	
 	public func gotoScene(scene: LGScene)

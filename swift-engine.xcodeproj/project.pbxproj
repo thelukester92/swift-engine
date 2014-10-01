@@ -89,6 +89,10 @@
 		A3A1006E19DC468C006F1B2A /* lundump.c in Sources */ = {isa = PBXBuildFile; fileRef = A3A1004919DC468C006F1B2A /* lundump.c */; settings = {COMPILER_FLAGS = "-w"; }; };
 		A3A1006F19DC468C006F1B2A /* lvm.c in Sources */ = {isa = PBXBuildFile; fileRef = A3A1004B19DC468C006F1B2A /* lvm.c */; settings = {COMPILER_FLAGS = "-w"; }; };
 		A3A1007019DC468C006F1B2A /* lzio.c in Sources */ = {isa = PBXBuildFile; fileRef = A3A1004D19DC468C006F1B2A /* lzio.c */; settings = {COMPILER_FLAGS = "-w"; }; };
+		A3A1008319DC4D5D006F1B2A /* LGLuaBridge.h in Headers */ = {isa = PBXBuildFile; fileRef = A3A1008119DC4D5D006F1B2A /* LGLuaBridge.h */; };
+		A3A1008419DC4D5D006F1B2A /* LGLuaBridge.mm in Sources */ = {isa = PBXBuildFile; fileRef = A3A1008219DC4D5D006F1B2A /* LGLuaBridge.mm */; };
+		A3A1008719DC4E69006F1B2A /* LGGameLibrary.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3A1008619DC4E69006F1B2A /* LGGameLibrary.swift */; };
+		A3A1008A19DC56C5006F1B2A /* LGLuaBridge.lua in Resources */ = {isa = PBXBuildFile; fileRef = A3A1008819DC5414006F1B2A /* LGLuaBridge.lua */; };
 		A3A5261E19DC422A0094344D /* libLua.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A3A5260A19DC420F0094344D /* libLua.a */; };
 		A3B2AEA9193EBFE20097B3A7 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3B2AEA8193EBFE20097B3A7 /* AppDelegate.swift */; };
 		A3B2AEAF193EBFE20097B3A7 /* PlatformerGame.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3B2AEAE193EBFE20097B3A7 /* PlatformerGame.swift */; };
@@ -249,6 +253,11 @@
 		A3A1004C19DC468C006F1B2A /* lvm.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = lvm.h; sourceTree = "<group>"; };
 		A3A1004D19DC468C006F1B2A /* lzio.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = lzio.c; sourceTree = "<group>"; };
 		A3A1004E19DC468C006F1B2A /* lzio.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = lzio.h; sourceTree = "<group>"; };
+		A3A1008119DC4D5D006F1B2A /* LGLuaBridge.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LGLuaBridge.h; sourceTree = "<group>"; };
+		A3A1008219DC4D5D006F1B2A /* LGLuaBridge.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = LGLuaBridge.mm; sourceTree = "<group>"; };
+		A3A1008519DC4DF2006F1B2A /* BridgingHeader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BridgingHeader.h; sourceTree = "<group>"; };
+		A3A1008619DC4E69006F1B2A /* LGGameLibrary.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LGGameLibrary.swift; sourceTree = "<group>"; };
+		A3A1008819DC5414006F1B2A /* LGLuaBridge.lua */ = {isa = PBXFileReference; lastKnownFileType = text; name = LGLuaBridge.lua; path = "swift-engine/Engine/LGLuaBridge.lua"; sourceTree = SOURCE_ROOT; };
 		A3A5260A19DC420F0094344D /* libLua.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libLua.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		A3A581CE19744A3200489EAC /* LGRenderingSystem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LGRenderingSystem.swift; sourceTree = "<group>"; };
 		A3B2AEA3193EBFE20097B3A7 /* swift-engine.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "swift-engine.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -304,6 +313,7 @@
 			isa = PBXGroup;
 			children = (
 				A315054E199958C6000B8842 /* Info.plist */,
+				A3A1008819DC5414006F1B2A /* LGLuaBridge.lua */,
 			);
 			name = "Supporting Files";
 			path = ../../LGSwiftEngine;
@@ -335,6 +345,7 @@
 				A33CADA41943609D00AC8E27 /* Classes */,
 				A318A2CA19412F2800B88B62 /* Components */,
 				A318A2CB19412F2800B88B62 /* Enums */,
+				A3A1007C19DC4B74006F1B2A /* Objective-C */,
 				A31CEC2D19554BD9004F0395 /* Protocols */,
 				A318A2CC19412F2800B88B62 /* Systems */,
 				A315054D199958C6000B8842 /* Supporting Files */,
@@ -427,6 +438,7 @@
 			children = (
 				A340FF581998F448003E4809 /* LGAnimation.swift */,
 				A34FC6AD19B8CF3B00C7E375 /* LGDeserializer.swift */,
+				A3A1008619DC4E69006F1B2A /* LGGameLibrary.swift */,
 				A3EB958B19B61B38001FF4D1 /* LGJSON.swift */,
 				A340FF5E1998FE36003E4809 /* LGSpriteKitScene.swift */,
 				A33CADA5194360AF00AC8E27 /* LGSpriteSheet.swift */,
@@ -513,6 +525,16 @@
 				A3A1004E19DC468C006F1B2A /* lzio.h */,
 			);
 			path = Lua;
+			sourceTree = "<group>";
+		};
+		A3A1007C19DC4B74006F1B2A /* Objective-C */ = {
+			isa = PBXGroup;
+			children = (
+				A3A1008519DC4DF2006F1B2A /* BridgingHeader.h */,
+				A3A1008119DC4D5D006F1B2A /* LGLuaBridge.h */,
+				A3A1008219DC4D5D006F1B2A /* LGLuaBridge.mm */,
+			);
+			path = "Objective-C";
 			sourceTree = "<group>";
 		};
 		A3B2AE9A193EBFE10097B3A7 = {
@@ -604,6 +626,7 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A3A1008319DC4D5D006F1B2A /* LGLuaBridge.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -712,6 +735,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A3A1008A19DC56C5006F1B2A /* LGLuaBridge.lua in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -756,6 +780,7 @@
 				A30D91F119AFB8BC00EDEDEA /* LGRect.swift in Sources */,
 				A3C2692F19CE7D8800387261 /* LGTweenable.swift in Sources */,
 				A315056C19995966000B8842 /* LGSpriteKitScene.swift in Sources */,
+				A3A1008419DC4D5D006F1B2A /* LGLuaBridge.mm in Sources */,
 				A315058619995966000B8842 /* LGEntity.swift in Sources */,
 				A3C2693119CE7E8900387261 /* LGTweeningSystem.swift in Sources */,
 				A315058319995966000B8842 /* LGRenderingSystem.swift in Sources */,
@@ -763,6 +788,7 @@
 				A315057819995966000B8842 /* LGPhysicsBody.swift in Sources */,
 				A315058419995966000B8842 /* LGTileSystem.swift in Sources */,
 				A315057319995966000B8842 /* LGVector.swift in Sources */,
+				A3A1008719DC4E69006F1B2A /* LGGameLibrary.swift in Sources */,
 				A315058A19995966000B8842 /* LGGame.swift in Sources */,
 				A315056E19995966000B8842 /* LGTile.swift in Sources */,
 				A315058219995966000B8842 /* LGPhysicsSystem.swift in Sources */,
@@ -856,6 +882,7 @@
 		A3150564199958C7000B8842 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CURRENT_PROJECT_VERSION = 1;
 				DEFINES_MODULE = YES;
@@ -874,6 +901,7 @@
 				MTL_ENABLE_DEBUG_INFO = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
+				SWIFT_OBJC_BRIDGING_HEADER = "swift-engine/Engine/Objective-C/BridgingHeader.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Ounchecked";
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
@@ -883,6 +911,7 @@
 		A3150565199958C7000B8842 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CURRENT_PROJECT_VERSION = 1;
 				DEFINES_MODULE = YES;
@@ -897,6 +926,7 @@
 				MTL_ENABLE_DEBUG_INFO = NO;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
+				SWIFT_OBJC_BRIDGING_HEADER = "swift-engine/Engine/Objective-C/BridgingHeader.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Ounchecked";
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";

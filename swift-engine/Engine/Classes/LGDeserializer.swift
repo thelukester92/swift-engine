@@ -70,7 +70,7 @@ public class LGDeserializer
 				{
 					if let val = json[prop]
 					{
-						if component.setProp(prop, val: val)
+						if component.setValue(val, forKey: prop)
 						{
 							continue
 						}
@@ -84,7 +84,7 @@ public class LGDeserializer
 				{
 					if let val = json[prop]
 					{
-						component.setProp(prop, val: val)
+						component.setValue(val, forKey: prop)
 					}
 				}
 				

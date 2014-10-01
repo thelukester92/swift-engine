@@ -76,37 +76,37 @@ extension LGPhysicsBody: LGDeserializable
 		return LGPhysicsBody()
 	}
 	
-	public func setProp(prop: String, val: LGJSON) -> Bool
+	public func setValue(value: LGJSON, forKey key: String) -> Bool
 	{
-		switch prop
+		switch key
 		{
 			case "width":
-				width = val.doubleValue!
+				width = value.doubleValue!
 				return true
 			
 			case "height":
-				height = val.doubleValue!
+				height = value.doubleValue!
 				return true
 			
 			case "dynamic":
-				dynamic = val.boolValue!
+				dynamic = value.boolValue!
 				return true
 			
 			case "onlyCollidesOnTop":
-				onlyCollidesOnTop = val.boolValue!
+				onlyCollidesOnTop = value.boolValue!
 				return true
 			
 			case "trigger":
-				trigger = val.boolValue!
+				trigger = value.boolValue!
 				return true
 			
 			case "velocity":
-				if let x = val["x"]?.doubleValue
+				if let x = value["x"]?.doubleValue
 				{
 					velocity.x = x
 				}
 				
-				if let y = val["y"]?.doubleValue
+				if let y = value["y"]?.doubleValue
 				{
 					velocity.y = y
 				}
@@ -118,5 +118,10 @@ extension LGPhysicsBody: LGDeserializable
 		}
 		
 		return false
+	}
+	
+	public func valueForKey(key: String) -> LGJSON
+	{
+		return LGJSON(value: nil)
 	}
 }

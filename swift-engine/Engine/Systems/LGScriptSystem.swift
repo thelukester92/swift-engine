@@ -8,5 +8,8 @@
 
 public final class LGScriptSystem: LGSystem
 {
-	
+	override public func initialize()
+	{
+		LGGameLibrary.runScript("LGLuaBridge.lua", withScene: scene)
+	}
 }

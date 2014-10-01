@@ -75,16 +75,16 @@ extension LGSprite: LGDeserializable
 		return LGSprite(red: 0, green: 0, blue: 1, size: LGVector(x: 32, y: 32))
 	}
 	
-	public func setProp(prop: String, val: LGJSON) -> Bool
+	public func setValue(value: LGJSON, forKey key: String) -> Bool
 	{
-		switch prop
+		switch key
 		{
 			case "spriteType":
 				// Textured sprite
 				
-				let textureName	= val["textureName"]?.stringValue
-				let rows		= val["rows"]?.intValue
-				let cols		= val["cols"]?.intValue
+				let textureName	= value["textureName"]?.stringValue
+				let rows		= value["rows"]?.intValue
+				let cols		= value["cols"]?.intValue
 				
 				if textureName != nil && rows != nil && cols != nil
 				{
@@ -94,12 +94,12 @@ extension LGSprite: LGDeserializable
 				
 				// Colored sprite
 				
-				let red		= val["red"]?.doubleValue
-				let green	= val["green"]?.doubleValue
-				let blue	= val["blue"]?.doubleValue
+				let red		= value["red"]?.doubleValue
+				let green	= value["green"]?.doubleValue
+				let blue	= value["blue"]?.doubleValue
 				
-				let x		= val["size"]?["x"]?.doubleValue
-				let y		= val["size"]?["y"]?.doubleValue
+				let x		= value["size"]?["x"]?.doubleValue
+				let y		= value["size"]?["y"]?.doubleValue
 				
 				if red != nil && green != nil && blue != nil && x != nil && y != nil
 				{
@@ -111,9 +111,9 @@ extension LGSprite: LGDeserializable
 				
 				// Text sprite
 				
-				let text		= val["text"]?.stringValue
-				let font		= val["font"]?.stringValue
-				let fontSize	= val["fontSize"]?.doubleValue
+				let text		= value["text"]?.stringValue
+				let font		= value["font"]?.stringValue
+				let fontSize	= value["fontSize"]?.doubleValue
 				
 				if text != nil
 				{
@@ -122,12 +122,12 @@ extension LGSprite: LGDeserializable
 				}
 			
 			case "offset":
-				if let x = val["x"]?.doubleValue
+				if let x = value["x"]?.doubleValue
 				{
 					offset.x = x
 				}
 				
-				if let y = val["y"]?.doubleValue
+				if let y = value["y"]?.doubleValue
 				{
 					offset.y = y
 				}
@@ -135,7 +135,7 @@ extension LGSprite: LGDeserializable
 				return true
 			
 			case "layer":
-				layer = val.intValue!
+				layer = value.intValue!
 				return true
 			
 			default:
@@ -143,5 +143,10 @@ extension LGSprite: LGDeserializable
 		}
 		
 		return false
+	}
+	
+	public func valueForKey(key: String) -> LGJSON
+	{
+		return LGJSON(value: nil)
 	}
 }

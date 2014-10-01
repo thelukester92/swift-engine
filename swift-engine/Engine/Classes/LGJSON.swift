@@ -8,7 +8,8 @@
 
 import Foundation
 
-public class LGJSON
+// TODO: remove @objc when Swift allows protocol checking
+@objc public class LGJSON
 {
 	public class func JSONFromData(data: NSData) -> LGJSON?
 	{
@@ -42,24 +43,39 @@ public class LGJSON
 	
 	var value: AnyObject?
 	
+	public var isNil: Bool
+	{
+		return value == nil
+	}
+	
+	public var numberValue: NSNumber?
+	{
+		return value as? NSNumber
+	}
+	
 	public var boolValue: Bool?
 	{
-		return (value as? NSNumber)?.boolValue
+		return numberValue?.boolValue
 	}
 	
 	public var intValue: Int?
 	{
-		return (value as? NSNumber)?.integerValue
+		return numberValue?.integerValue
 	}
 	
 	public var doubleValue: Double?
 	{
-		return (value as? NSNumber)?.doubleValue
+		return numberValue?.doubleValue
 	}
 	
 	public var stringValue: String?
 	{
-		return (value as? String) ?? NSString(data: NSJSONSerialization.dataWithJSONObject(value!, options: nil, error: nil)!, encoding: NSUTF8StringEncoding)
+		if arrayValue != nil || dictionaryValue != nil
+		{
+			return NSString(data: NSJSONSerialization.dataWithJSONObject(value!, options: nil, error: nil)!, encoding: NSUTF8StringEncoding)
+		}
+		
+		return value as? String
 	}
 	
 	public var arrayValue: NSArray?

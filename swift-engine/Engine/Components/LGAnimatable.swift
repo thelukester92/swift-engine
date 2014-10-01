@@ -61,33 +61,33 @@ extension LGAnimatable: LGDeserializable
 		return LGAnimatable()
 	}
 	
-	public func setProp(prop: String, val: LGJSON) -> Bool
+	public func setValue(value: LGJSON, forKey key: String) -> Bool
 	{
-		switch prop
+		switch key
 		{
 			case "animations":
 				// TODO: replace with for key in val
-				for key in val.dictionaryValue!.allKeys as [String]
+				for vKey in value.dictionaryValue!.allKeys as [String]
 				{
 					var animation: LGAnimation?
 					
-					if let frame = val[key]?["frame"]?.intValue
+					if let frame = value[vKey]?["frame"]?.intValue
 					{
 						animation = LGAnimation(frame: frame)
 					}
 					
-					if let start = val[key]?["start"]?.intValue
+					if let start = value[vKey]?["start"]?.intValue
 					{
-						if let end = val[key]?["end"]?.intValue
+						if let end = value[vKey]?["end"]?.intValue
 						{
 							animation = LGAnimation(start: start, end: end)
 							
-							if let loops = val[key]?["loops"]?.boolValue
+							if let loops = value[vKey]?["loops"]?.boolValue
 							{
 								animation!.loops = loops
 							}
 							
-							if let ticksPerFrame = val[key]?["ticksPerFrame"]?.intValue
+							if let ticksPerFrame = value[vKey]?["ticksPerFrame"]?.intValue
 							{
 								animation!.ticksPerFrame = ticksPerFrame
 							}
@@ -96,14 +96,14 @@ extension LGAnimatable: LGDeserializable
 					
 					if animation != nil
 					{
-						animations[key] = animation
+						animations[vKey] = animation
 					}
 				}
 				
 				return true
 			
 			case "defaultAnimation":
-				currentAnimation = animations[val.stringValue!]
+				currentAnimation = animations[value.stringValue!]
 				return true
 			
 			default:
@@ -111,5 +111,10 @@ extension LGAnimatable: LGDeserializable
 		}
 		
 		return false
+	}
+	
+	public func valueForKey(key: String) -> LGJSON
+	{
+		return LGJSON(value: nil)
 	}
 }

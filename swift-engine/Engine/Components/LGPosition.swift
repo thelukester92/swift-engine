@@ -34,3 +34,43 @@ public final class LGPosition: LGComponent
 		self.init(x: 0, y: 0)
 	}
 }
+
+extension LGPosition: LGDeserializable
+{
+	public class var requiredProps: [String]
+	{
+		return []
+	}
+	
+	public class var optionalProps: [String]
+	{
+		return []
+	}
+	
+	public class func instantiate() -> LGDeserializable
+	{
+		return LGPosition()
+	}
+	
+	public func setValue(value: LGJSON, forKey key: String) -> Bool
+	{
+		return false
+	}
+	
+	public func valueForKey(key: String) -> LGJSON
+	{
+		switch key
+		{
+			case "x":
+				return LGJSON(value: NSNumber(double: x))
+			
+			case "y":
+				return LGJSON(value: NSNumber(double: y))
+			
+			default:
+				break
+		}
+		
+		return LGJSON(value: nil)
+	}
+}
