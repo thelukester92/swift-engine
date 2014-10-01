@@ -262,12 +262,12 @@ extension LGTMXParser: NSXMLParserDelegate
 					currentObject.type = value
 				}
 				
-				if let value = attributes["width"]!.integerValue
+				if let value = attributes["width"]?.integerValue
 				{
 					currentObject.width = value
 				}
 				
-				if let value = attributes["height"]!.integerValue
+				if let value = attributes["height"]?.integerValue
 				{
 					currentObject.height = value
 				}
