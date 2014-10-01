@@ -7,12 +7,17 @@
 		<key>LGSwiftEngine.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>1</integer>
+			<integer>2</integer>
+		</dict>
+		<key>Lua.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>3</integer>
 		</dict>
 		<key>swift-engine.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>0</integer>
+			<integer>1</integer>
 		</dict>
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
@@ -23,6 +28,16 @@
 			<true/>
 		</dict>
 		<key>A3150554199958C7000B8842</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>A3A5260919DC420F0094344D</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>A3A5261319DC420F0094344D</key>
 		<dict>
 			<key>primary</key>
 			<true/>

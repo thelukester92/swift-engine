@@ -14,6 +14,20 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
+               BlueprintIdentifier = "A3A5260919DC420F0094344D"
+               BuildableName = "libLua.a"
+               BlueprintName = "Lua"
+               ReferencedContainer = "container:swift-engine.xcodeproj">
+            </BuildableReference>
+         </BuildActionEntry>
+         <BuildActionEntry
+            buildForTesting = "YES"
+            buildForRunning = "YES"
+            buildForProfiling = "YES"
+            buildForArchiving = "YES"
+            buildForAnalyzing = "YES">
+            <BuildableReference
+               BuildableIdentifier = "primary"
                BlueprintIdentifier = "A315054A199958C6000B8842"
                BuildableName = "LGSwiftEngine.framework"
                BlueprintName = "LGSwiftEngine"
@@ -29,6 +43,15 @@
       buildConfiguration = "Debug">
       <Testables>
       </Testables>
+      <MacroExpansion>
+         <BuildableReference
+            BuildableIdentifier = "primary"
+            BlueprintIdentifier = "A315054A199958C6000B8842"
+            BuildableName = "LGSwiftEngine.framework"
+            BlueprintName = "LGSwiftEngine"
+            ReferencedContainer = "container:swift-engine.xcodeproj">
+         </BuildableReference>
+      </MacroExpansion>
    </TestAction>
    <LaunchAction
       selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
