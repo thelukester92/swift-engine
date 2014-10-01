@@ -84,6 +84,10 @@ static int game_getProp(lua_State *L)
 	{
 		lua_pushnil(L);
 	}
+	else if(json.dictionaryValue != nil)
+	{
+		
+	}
 	else if(json.stringValue != nil)
 	{
 		lua_pushstring(L, [json.stringValue cStringUsingEncoding:NSUTF8StringEncoding]);
@@ -100,10 +104,36 @@ static int game_getProp(lua_State *L)
 	return 1;
 }
 
+static int game_setProp(lua_State *L)
+{
+	luaL_argcheck(L, lua_isstring(L, 1), 1, "Must be a string!");
+	luaL_argcheck(L, lua_isstring(L, 2), 2, "Must be a string!");
+	luaL_argcheck(L, lua_isstring(L, 3), 3, "Must be a string!");
+	
+	NSString *entity	= [NSString stringWithCString:lua_tostring(L, 1) encoding:NSUTF8StringEncoding];
+	NSString *component	= [NSString stringWithCString:lua_tostring(L, 2) encoding:NSUTF8StringEncoding];
+	NSString *prop		= [NSString stringWithCString:lua_tostring(L, 3) encoding:NSUTF8StringEncoding];
+	LGJSON *value		= [[LGJSON alloc] init];
+	
+	if(lua_type(L, 4) == LUA_TSTRING)
+	{
+		[value setValue:[NSString stringWithCString:lua_tostring(L, 4) encoding:NSUTF8StringEncoding]];
+	}
+	else if(lua_type(L, 4) == LUA_TNUMBER)
+	{
+		[value setValue:[NSNumber numberWithDouble:lua_tonumber(L, 4)]];
+	}
+	
+	[LGGameLibrary setProp:prop entity:entity component:component value:value];
+	
+	return 0;
+}
+
 static const char *gamelib_name = "game";
 static const luaL_Reg gamelib[] =
 {
 	{ "getProp", game_getProp },
+	{ "setProp", game_setProp },
 	{ NULL, NULL }
 };
 

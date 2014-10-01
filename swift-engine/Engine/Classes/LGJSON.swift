@@ -9,7 +9,7 @@
 import Foundation
 
 // TODO: remove @objc when Swift allows protocol checking
-@objc public class LGJSON
+@objc public class LGJSON: NSObject
 {
 	public class func JSONFromData(data: NSData) -> LGJSON?
 	{
@@ -88,9 +88,14 @@ import Foundation
 		return value as? NSDictionary
 	}
 	
-	public init(value: AnyObject? = nil)
+	public init(value: AnyObject?)
 	{
 		self.value = value
+	}
+	
+	override public convenience init()
+	{
+		self.init(value: nil)
 	}
 	
 	public subscript(name: String) -> LGJSON?

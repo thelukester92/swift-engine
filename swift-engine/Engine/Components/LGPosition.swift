@@ -54,6 +54,20 @@ extension LGPosition: LGDeserializable
 	
 	public func setValue(value: LGJSON, forKey key: String) -> Bool
 	{
+		switch key
+		{
+			case "x":
+				x = value.doubleValue ?? x
+				return true
+			
+			case "y":
+				y = value.doubleValue ?? y
+				return true
+			
+			default:
+				break
+		}
+		
 		return false
 	}
 	

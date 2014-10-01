@@ -1,7 +1,7 @@
 --[[
 	LGLuaBridge
 	This script initializes a new Lua-side scene for scripting.
-	It should be run each time a new scene needs to use Lua.
+	It should be run before a scene needs to use Lua.
 --]]
 
 -- MARK: Scene singleton
@@ -48,14 +48,15 @@ function Component:new(e, t)
 	return o
 end
 
-function Component.mt.__tostring(self)
-	return "Component { entity = " .. self.entity .. ", type = " .. self.type .. " }"
-end
-
 function Component.mt.__index(table, key)
 	return game.getProp(table.entity, table.type, key)
 end
 
+function Component.mt.__newindex(table, key, value)
+	game.setProp(table.entity, table.type, key, value)
+end
+
 -- MARK: Test
 
-print(scene.gate1.LGPosition.y)
+scene.gate1.LGTweenable.axis = "y"
+scene.gate1.LGTweenable.targetY = 16

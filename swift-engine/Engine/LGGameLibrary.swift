@@ -34,6 +34,17 @@
 		return nil
 	}
 	
+	class func setProp(prop: String, entity: String, component: String, value: LGJSON)
+	{
+		if scene != nil
+		{
+			if let deserializable = scene!.entityNamed(entity)?.getByTypeName(component) as? LGDeserializable
+			{
+				deserializable.setValue(value, forKey: prop)
+			}
+		}
+	}
+	
 	// MARK: Swift to Objective-C
 	
 	class func runScript(script: String, withScene scene: LGScene? = nil)

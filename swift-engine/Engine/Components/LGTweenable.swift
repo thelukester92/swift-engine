@@ -27,6 +27,7 @@ public final class LGTweenable: LGComponent
 	}
 	
 	public var original: LGVector!
+	public var axis = LGAxis.Both
 	public var easing = EasingType.Linear
 	public var duration = 60.0
 	public var time = 0.0
@@ -62,20 +63,39 @@ extension LGTweenable: LGDeserializable
 		switch key
 		{
 			case "target":
-				let vec = target ?? LGVector()
-				
-				if let x = value["x"]?.doubleValue
-				{
-					vec.x = x
-				}
-				
-				if let y = value["y"]?.doubleValue
-				{
-					vec.y = y
-				}
-				
-				target = vec
+				target		= target ?? LGVector()
+				target!.x	= value["x"]?.doubleValue ?? target!.x
+				target!.y	= value["y"]?.doubleValue ?? target!.y
 				return true
+			
+			case "targetX":
+				target		= target ?? LGVector()
+				target!.x	= value.doubleValue ?? target!.x
+				return true
+			
+			case "targetY":
+				target		= target ?? LGVector()
+				target!.y	= value.doubleValue ?? target!.y
+				return true
+			
+			case "axis":
+				switch value.stringValue
+				{
+					case .Some(let val) where val == "x":
+						axis = .X
+						return true
+					
+					case .Some(let val) where val == "y":
+						axis = .Y
+						return true
+					
+					case .Some(let val) where val == "both":
+						axis = .Both
+						return true
+					
+					default:
+						break
+				}
 			
 			default:
 				break
