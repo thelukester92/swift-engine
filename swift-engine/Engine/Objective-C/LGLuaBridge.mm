@@ -52,8 +52,6 @@
 	
 	luaL_newlib(luaState, gamelib);
 	lua_setglobal(luaState, gamelib_name);
-	
-	[self runScript:@"print('Lua bridge initialized!');"];
 }
 
 #pragma mark Game Library

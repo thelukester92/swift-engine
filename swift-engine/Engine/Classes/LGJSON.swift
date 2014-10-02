@@ -41,7 +41,7 @@ import Foundation
 		return nil
 	}
 	
-	var value: AnyObject?
+	public var value: AnyObject?
 	
 	public var isNil: Bool
 	{
