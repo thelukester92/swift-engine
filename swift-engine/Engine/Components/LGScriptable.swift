@@ -19,9 +19,15 @@ public final class LGScriptable: LGComponent
 	}
 	
 	public var scripts = [String:String]()
-	public var events = [String]()
+	public var events = [Event]()
 	
 	public init() {}
+	
+	public struct Event
+	{
+		public var name: String
+		public var params: [AnyObject]?
+	}
 }
 
 extension LGScriptable: LGDeserializable
@@ -48,7 +54,7 @@ extension LGScriptable: LGDeserializable
 			case "nextEvent":
 				if let val = value.stringValue
 				{
-					events.append(val)
+					events.append(Event(name: val, params: nil))
 				}
 			
 			default:

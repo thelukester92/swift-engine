@@ -65,12 +65,11 @@
 		LGLuaBridge.sharedBridge().runScript(script)
 	}
 	
-	public class func runScript(var script: String, withParams param: AnyObject, _ params: AnyObject ...)
+	public class func runScript(var script: String, withParams params: [AnyObject])
 	{
-		let allParams = [param] + params
-		for i in 0 ..< allParams.count
+		for i in 0 ..< params.count
 		{
-			script = script.stringByReplacingOccurrencesOfString("$\(i)", withString: "\(allParams[i])")
+			script = script.stringByReplacingOccurrencesOfString("$\(i)", withString: "\(params[i])")
 		}
 		runScript(script)
 	}

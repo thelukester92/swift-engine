@@ -10,6 +10,13 @@ import Foundation
 
 public final class LGPhysicsSystem: LGSystem
 {
+	public enum Event: String
+	{
+		case Collision		= "collision"
+		case CollisionStart	= "collisionStart"
+		case CollisionEnd	= "collisionEnd"
+	}
+	
 	// Configuration variables
 	public var gravity: LGVector
 	public var terminalVelocity: Double
@@ -22,6 +29,7 @@ public final class LGPhysicsSystem: LGSystem
 	// Cached
 	var position		= [LGPosition]()
 	var body			= [LGPhysicsBody]()
+	var scriptable		= [LGScriptable?]()
 	var tent			= [LGVector]()
 	var collidedWith	= [[Int:LGEntity]]()
 	
@@ -82,6 +90,7 @@ public final class LGPhysicsSystem: LGSystem
 		
 		position.append(pos)
 		body.append(bod)
+		scriptable.append(entity.get(LGScriptable))
 		tent.append(LGVector())
 		collidedWith.append([Int:LGEntity]())
 	}
@@ -91,11 +100,18 @@ public final class LGPhysicsSystem: LGSystem
 		super.remove(index)
 		
 		body.removeAtIndex(index)
+		scriptable.removeAtIndex(index)
 		position.removeAtIndex(index)
 		tent.removeAtIndex(index)
 		collidedWith.removeAtIndex(index)
 		
 		reindex()
+	}
+	
+	// Update values that may have been added/removed in change
+	override public func change(index: Int)
+	{
+		scriptable[index] = entities[index].get(LGScriptable)
 	}
 	
 	override public func update()
@@ -650,12 +666,12 @@ public final class LGPhysicsSystem: LGSystem
 	{
 		if b >= 0
 		{
-			body[a].onCollision?(entities[a], entities[b])
-			body[b].onCollision?(entities[b], entities[a])
+			scriptable[a]?.events.append(LGScriptable.Event(name: Event.Collision.toRaw(), params: [entities[a].globalId, entities[b].globalId]))
+			scriptable[b]?.events.append(LGScriptable.Event(name: Event.Collision.toRaw(), params: [entities[b].globalId, entities[a].globalId]))
 		}
 		else
 		{
-			body[a].onCollision?(entities[a], nil)
+			scriptable[a]?.events.append(LGScriptable.Event(name: Event.Collision.toRaw(), params: [entities[a].globalId, "nil"]))
 		}
 	}
 	
@@ -666,8 +682,8 @@ public final class LGPhysicsSystem: LGSystem
 	
 	func onCollisionStart(a: Int, _ b: Int)
 	{
-		body[a].onCollisionStart?(entities[a], entities[b])
-		body[b].onCollisionStart?(entities[b], entities[a])
+		scriptable[a]?.events.append(LGScriptable.Event(name: Event.CollisionStart.toRaw(), params: [entities[a].globalId, entities[b].globalId]))
+		scriptable[b]?.events.append(LGScriptable.Event(name: Event.CollisionStart.toRaw(), params: [entities[b].globalId, entities[a].globalId]))
 	}
 	
 	func addCollisionEnd(a: Int, _ b: LGEntity)
@@ -678,7 +694,7 @@ public final class LGPhysicsSystem: LGSystem
 	func onCollisionEnd(a: Int, _ b: LGEntity)
 	{
 		// Only one call is necessary, because it will be called once for each collidee
-		body[a].onCollisionEnd?(entities[a], b)
+		scriptable[a]?.events.append(LGScriptable.Event(name: Event.CollisionEnd.toRaw(), params: [entities[a].globalId, b.globalId]))
 	}
 	
 	// MARK: Helper Methods

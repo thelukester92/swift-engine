@@ -17,8 +17,17 @@ function scene.mt.__index(table, key)
 		i = game.getEntityId(i)
 	end
 
-	table[key] = Entity:new(i)
-	return table[key]
+	if i ~= nil then
+		table[key] = Entity:new(i)
+
+		if key ~= i then
+			table[i] = table[key]
+		end
+
+		return table[key]
+	end
+
+	return nil
 end
 
 -- MARK: Entity class

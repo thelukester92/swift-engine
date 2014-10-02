@@ -29,7 +29,7 @@ public class LGSystem
 	{
 		for i in 0 ..< entities.count
 		{
-			if entities[i] === entity
+			if entities[i] == entity
 			{
 				remove(i)
 				break
@@ -41,6 +41,20 @@ public class LGSystem
 	{
 		entities.removeAtIndex(index)
 	}
+	
+	public func change(entity: LGEntity)
+	{
+		for i in 0 ..< entities.count
+		{
+			if entities[i] == entity
+			{
+				change(i)
+				break
+			}
+		}
+	}
+	
+	public func change(index: Int) {}
 	
 	public func initialize() {}
 	public func update() {}
@@ -75,6 +89,11 @@ extension LGSystem: LGEntityObserver
 				{
 					// No longer a valid entity in this system; remove it
 					remove(i)
+				}
+				else
+				{
+					// Alert the system that this entity changed
+					change(entity)
 				}
 				
 				break

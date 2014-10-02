@@ -39,9 +39,16 @@ public final class LGScriptSystem: LGSystem
 		{
 			for event in scriptable.events
 			{
-				if let script = scriptable.scripts[event]
+				if let script = scriptable.scripts[event.name]
 				{
-					LGGameLibrary.runScript(script)
+					if let params = event.params
+					{
+						LGGameLibrary.runScript(script, withParams: params)
+					}
+					else
+					{
+						LGGameLibrary.runScript(script)
+					}
 				}
 			}
 			scriptable.events.removeAll(keepCapacity: false)

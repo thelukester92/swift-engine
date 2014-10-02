@@ -26,10 +26,6 @@ public final class LGPhysicsBody: LGComponent
 	public var height: Double
 	public var dynamic: Bool
 	
-	public var onCollision: ((LGEntity, LGEntity?) -> ())?
-	public var onCollisionStart: ((LGEntity, LGEntity) -> ())?
-	public var onCollisionEnd: ((LGEntity, LGEntity) -> ())?
-	
 	public var trigger = false
 	
 	// TODO: allow other kinds of directional collisions
