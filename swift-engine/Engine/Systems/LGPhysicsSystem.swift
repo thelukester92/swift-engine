@@ -209,6 +209,7 @@ public final class LGPhysicsSystem: LGSystem
 		
 		// Update the entity's velocity as a follower
 		
+		let delta = LGVector()
 		if let follower = entities[id].get(LGFollower)
 		{
 			switch follower.followerType
@@ -216,12 +217,12 @@ public final class LGPhysicsSystem: LGSystem
 				case .Velocity(let lastVelocity):
 					if follower.axis == LGAxis.X || follower.axis == LGAxis.Both
 					{
-						body[id].velocity.x += lastVelocity.x
+						delta.x += lastVelocity.x
 					}
 					
 					if follower.axis == LGAxis.Y || follower.axis == LGAxis.Both
 					{
-						body[id].velocity.y += lastVelocity.y
+						delta.y += lastVelocity.y
 					}
 				
 				case .Position:
@@ -235,8 +236,8 @@ public final class LGPhysicsSystem: LGSystem
 		
 		// Set the entity's tentative position
 		
-		tent[id].x = position[id].x + body[id].velocity.x
-		tent[id].y = position[id].y + body[id].velocity.y
+		tent[id].x = position[id].x + body[id].velocity.x + delta.x
+		tent[id].y = position[id].y + body[id].velocity.y + delta.y
 	}
 	
 	func resolveDynamicCollisions(id: Int)
@@ -245,7 +246,7 @@ public final class LGPhysicsSystem: LGSystem
 		
 		for other in dynamicGrid.entitiesNearRect(tentRect(id))
 		{
-			if id != other && !body[id].onlyCollidesOnTop && !body[other].onlyCollidesOnTop && overlap(id, other, axis: .X)
+			if id != other && !body[id].onlyCollidesVertically && !body[other].onlyCollidesVertically && overlap(id, other, axis: .X)
 			{
 				resolveDynamicCollision(id, other, axis: .X)
 			}
@@ -253,7 +254,7 @@ public final class LGPhysicsSystem: LGSystem
 		
 		for other in dynamicGrid.entitiesNearRect(tentRect(id))
 		{
-			if id != other && !body[id].onlyCollidesOnTop && !body[other].onlyCollidesOnTop && overlap(id, other, axis: .Y)
+			if id != other && !body[id].onlyCollidesVertically && !body[other].onlyCollidesVertically && overlap(id, other, axis: .Y)
 			{
 				resolveDynamicCollision(id, other, axis: .Y)
 			}
@@ -468,19 +469,14 @@ public final class LGPhysicsSystem: LGSystem
 				
 				if axis == LGAxis.X
 				{
-					if body[id].onlyCollidesOnTop || body[other].onlyCollidesOnTop
+					if body[other].onlyCollidesVertically
 					{
 						return
 					}
 				}
 				else if axis == LGAxis.Y
 				{
-					if body[id].onlyCollidesOnTop && (tent[id].y > tent[other].y || position[other].y < position[id].y + body[id].height)
-					{
-						return
-					}
-					
-					if body[other].onlyCollidesOnTop && (tent[other].y > tent[id].y || position[id].y < position[other].y + body[other].height)
+					if body[other].onlyCollidesVertically && (tent[other].y > tent[id].y || position[id].y < position[other].y + body[other].height)
 					{
 						return
 					}
@@ -574,20 +570,14 @@ public final class LGPhysicsSystem: LGSystem
 					case .Velocity(var lastVelocity):
 						if let followingBody = following.get(LGPhysicsBody)
 						{
-							switch follower.axis
+							if follower.axis == LGAxis.X || follower.axis == LGAxis.Both
 							{
-								case .X:
-									lastVelocity.x = followingBody.velocity.x
-								
-								case .Y:
-									lastVelocity.y = followingBody.velocity.y
-								
-								case .Both:
-									lastVelocity.x = followingBody.velocity.x
-									lastVelocity.y = followingBody.velocity.y
-								
-								case .None:
-									break
+								lastVelocity.x = followingBody.velocity.x
+							}
+							
+							if follower.axis == LGAxis.Y || follower.axis == LGAxis.Both
+							{
+								lastVelocity.y = followingBody.velocity.y
 							}
 						}
 					

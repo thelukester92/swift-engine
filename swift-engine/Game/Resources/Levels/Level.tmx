@@ -61,7 +61,7 @@
   <object name="player" type="Player" x="128" y="320"/>
   <object name="platform" x="128" y="352">
    <properties>
-    <property name="LGPhysicsBody" value="{ &quot;width&quot; : 32, &quot;height&quot; : 32, &quot;onlyCollidesOnTop&quot; : true, &quot;velocity&quot; : { &quot;x&quot; : 1 } }"/>
+    <property name="LGPhysicsBody" value="{ &quot;width&quot; : 32, &quot;height&quot; : 32, &quot;onlyCollidesVertically&quot; : true, &quot;velocity&quot; : { &quot;x&quot; : 1 } }"/>
     <property name="LGSprite" value="{ &quot;red&quot; : 0, &quot;green&quot; : 0.4, &quot;blue&quot; : 0.4, &quot;size&quot; : { &quot;x&quot; : 32, &quot;y&quot; : 32 } }"/>
    </properties>
   </object>

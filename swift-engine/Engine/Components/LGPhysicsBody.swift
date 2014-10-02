@@ -29,7 +29,7 @@ public final class LGPhysicsBody: LGComponent
 	public var trigger = false
 	
 	// TODO: allow other kinds of directional collisions
-	public var onlyCollidesOnTop = false
+	public var onlyCollidesVertically = false
 	
 	public var collidedTop		= false
 	public var collidedBottom	= false
@@ -64,7 +64,7 @@ extension LGPhysicsBody: LGDeserializable
 	
 	public class var optionalProps: [String]
 	{
-		return [ "dynamic", "onlyCollidesOnTop", "trigger", "velocity" ]
+		return [ "dynamic", "onlyCollidesVertically", "trigger", "velocity" ]
 	}
 	
 	public class func instantiate() -> LGDeserializable
@@ -88,8 +88,8 @@ extension LGPhysicsBody: LGDeserializable
 				dynamic = value.boolValue!
 				return true
 			
-			case "onlyCollidesOnTop":
-				onlyCollidesOnTop = value.boolValue!
+			case "onlyCollidesVertically":
+				onlyCollidesVertically = value.boolValue!
 				return true
 			
 			case "trigger":
