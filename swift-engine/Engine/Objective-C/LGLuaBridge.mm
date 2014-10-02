@@ -37,17 +37,7 @@
 
 - (void)runScript:(NSString *)script
 {
-	int error;
-	
-	if([[script pathExtension] isEqualToString:@"lua"])
-	{
-		NSString *scriptFile = [[NSBundle bundleForClass:self.class] pathForResource:script ofType:nil];
-		error = luaL_dofile(luaState, [scriptFile cStringUsingEncoding:NSUTF8StringEncoding]);
-	}
-	else
-	{
-		error = luaL_dostring(luaState, [script cStringUsingEncoding:NSUTF8StringEncoding]);
-	}
+	int error = luaL_dostring(luaState, [script cStringUsingEncoding:NSUTF8StringEncoding]);
 	
 	if(error)
 	{

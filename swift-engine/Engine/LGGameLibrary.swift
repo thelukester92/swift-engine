@@ -60,17 +60,43 @@
 	
 	// MARK: Swift to Objective-C
 	
-	public class func runScript(script: String)
+	public class func loadScript(inout script: String)
 	{
+		if(script.pathExtension == "lua")
+		{
+			// Check for framework scripts first
+			var scriptFile = NSBundle(forClass: LGGameLibrary.self).pathForResource(script, ofType: nil)
+			
+			// Check for user scripts (game side)
+			if(scriptFile == nil)
+			{
+				scriptFile = NSBundle.mainBundle().pathForResource(script, ofType: nil)
+			}
+			
+			if(scriptFile != nil)
+			{
+				script = NSString(contentsOfFile: scriptFile!, encoding: NSUTF8StringEncoding, error: nil)
+			}
+			else
+			{
+				println("Error! Nonexistant Lua script: \(script)");
+			}
+		}
+	}
+	
+	public class func runScript(var script: String)
+	{
+		loadScript(&script)
 		LGLuaBridge.sharedBridge().runScript(script)
 	}
 	
 	public class func runScript(var script: String, withParams params: [AnyObject])
 	{
+		loadScript(&script)
 		for i in 0 ..< params.count
 		{
 			script = script.stringByReplacingOccurrencesOfString("$\(i)", withString: "\(params[i])")
 		}
-		runScript(script)
+		LGLuaBridge.sharedBridge().runScript(script)
 	}
 }
