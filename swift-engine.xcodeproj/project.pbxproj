@@ -352,9 +352,9 @@
 				A318A2CD19412F3400B88B62 /* LGComponent.swift */,
 				A318A2CF19412F4A00B88B62 /* LGEntity.swift */,
 				A318A2D11941303C00B88B62 /* LGEngine.swift */,
+				A340FF6619990571003E4809 /* LGGame.swift */,
 				A318A2D3194130DE00B88B62 /* LGScene.swift */,
 				A318A2D5194130FF00B88B62 /* LGSystem.swift */,
-				A340FF6619990571003E4809 /* LGGame.swift */,
 			);
 			path = Engine;
 			sourceTree = "<group>";

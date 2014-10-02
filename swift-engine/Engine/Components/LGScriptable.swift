@@ -39,7 +39,7 @@ extension LGScriptable: LGDeserializable
 	
 	public class var optionalProps: [String]
 	{
-		return []
+		return [ "scripts" ]
 	}
 	
 	public class func instantiate() -> LGDeserializable
@@ -51,6 +51,12 @@ extension LGScriptable: LGDeserializable
 	{
 		switch key
 		{
+			case "scripts":
+				for (k, v) in value
+				{
+					scripts[k] = v.stringValue
+				}
+			
 			case "nextEvent":
 				if let val = value.stringValue
 				{

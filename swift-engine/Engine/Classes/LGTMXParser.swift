@@ -32,6 +32,7 @@ public class LGTMXParser: NSObject
 	var currentData			= ""
 	var currentEncoding		= ""
 	var currentCompression	= ""
+	var currentPropName		= ""
 	
 	public override init()
 	{
@@ -273,12 +274,17 @@ extension LGTMXParser: NSXMLParserDelegate
 				}
 			
 			case "property":
-				// TODO: add custom properties to map, tile, and layer
+				// TODO: allow custom properties in map, tile, and layer
 				if currentObject != nil
 				{
 					let name = attributes["name"] as String
-					let value = attributes["value"] as String
-					currentObject.properties[name] = value
+					
+					if let value = attributes["value"] as? String
+					{
+						currentObject.properties[name] = value
+					}
+					
+					currentPropName = name
 				}
 			
 			// TODO: add case "objectgroup" if multiple object layers are desired
@@ -293,6 +299,11 @@ extension LGTMXParser: NSXMLParserDelegate
 	public func parser(parser: NSXMLParser!, foundCharacters string: String!)
 	{
 		if currentElement == "data"
+		{
+			currentData += string
+		}
+		
+		if currentElement == "property"
 		{
 			currentData += string
 		}
@@ -316,6 +327,11 @@ extension LGTMXParser: NSXMLParserDelegate
 			case "object":
 				objects.append(currentObject)
 				currentObject = nil
+			
+			case "property":
+				currentObject.properties[currentPropName] = currentData
+				currentData = ""
+				currentPropName = ""
 			
 			default:
 				break

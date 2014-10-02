@@ -67,27 +67,27 @@ extension LGAnimatable: LGDeserializable
 		{
 			case "animations":
 				// TODO: replace with for key in val
-				for vKey in value.dictionaryValue!.allKeys as [String]
+				for (vKey, val) in value
 				{
 					var animation: LGAnimation?
 					
-					if let frame = value[vKey]?["frame"]?.intValue
+					if let frame = val["frame"]?.intValue
 					{
 						animation = LGAnimation(frame: frame)
 					}
 					
-					if let start = value[vKey]?["start"]?.intValue
+					if let start = val["start"]?.intValue
 					{
-						if let end = value[vKey]?["end"]?.intValue
+						if let end = val["end"]?.intValue
 						{
 							animation = LGAnimation(start: start, end: end)
 							
-							if let loops = value[vKey]?["loops"]?.boolValue
+							if let loops = val["loops"]?.boolValue
 							{
 								animation!.loops = loops
 							}
 							
-							if let ticksPerFrame = value[vKey]?["ticksPerFrame"]?.intValue
+							if let ticksPerFrame = val["ticksPerFrame"]?.intValue
 							{
 								animation!.ticksPerFrame = ticksPerFrame
 							}

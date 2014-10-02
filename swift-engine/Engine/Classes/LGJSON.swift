@@ -121,15 +121,19 @@ import Foundation
 
 extension LGJSON: SequenceType
 {
-	// TODO: fix this... it's exc bad access
-	public func generate() -> GeneratorOf<String>
+	public func generate() -> GeneratorOf<(String, LGJSON)>
 	{
-		let dict = dictionaryValue!.allKeys as [String]
+		let keys = dictionaryValue != nil ? dictionaryValue!.allKeys as [String] : [String]()
 		var i = 0
 		
-		return GeneratorOf<String>
+		return GeneratorOf<(String, LGJSON)>
 		{
-			return dict[i++]
+			if i < keys.count
+			{
+				return (keys[i], LGJSON(value: self.dictionaryValue![keys[i++]]))
+			}
+			
+			return .None
 		}
 	}
 }

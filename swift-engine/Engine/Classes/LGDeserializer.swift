@@ -39,7 +39,10 @@ public class LGDeserializer
 		{
 			LGDeserializer.registerDeserializable(LGAnimatable)
 			LGDeserializer.registerDeserializable(LGPhysicsBody)
+			LGDeserializer.registerDeserializable(LGPosition)
 			LGDeserializer.registerDeserializable(LGSprite)
+			LGDeserializer.registerDeserializable(LGScriptable)
+			LGDeserializer.registerDeserializable(LGTweenable)
 			
 			Static.initialized = true
 		}
