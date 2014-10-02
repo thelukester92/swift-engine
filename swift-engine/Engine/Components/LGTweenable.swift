@@ -18,26 +18,29 @@ public final class LGTweenable: LGComponent
 		return LGTweenable.type()
 	}
 	
-	public var target: LGVector?
+	public var originalX: Double!
+	public var originalY: Double!
+	public var isNew = false
+	
+	public var targetX: Double?
 	{
-		didSet
-		{
-			isNew = true
-		}
+		didSet { isNew = true }
 	}
 	
-	public var original: LGVector!
-	public var axis = LGAxis.Both
-	public var easing = EasingType.Linear
+	public var targetY: Double?
+	{
+		didSet { isNew = true }
+	}
+	
+	public var easingType = EasingType.Linear
 	public var duration = 60.0
 	public var time = 0.0
-	public var isNew = false
 	
 	public init() {}
 	
-	public enum EasingType
+	public enum EasingType: Int
 	{
-		case Linear, EaseIn, EaseOut, EaseInOut
+		case Linear = 0, EaseIn, EaseOut, EaseInOut
 	}
 }
 
@@ -50,7 +53,7 @@ extension LGTweenable: LGDeserializable
 	
 	public class var optionalProps: [String]
 	{
-		return []
+		return [ "targetX", "targetY", "easingType", "duration", "time" ]
 	}
 	
 	public class func instantiate() -> LGDeserializable
@@ -62,50 +65,59 @@ extension LGTweenable: LGDeserializable
 	{
 		switch key
 		{
-			case "target":
-				target		= target ?? LGVector()
-				target!.x	= value["x"]?.doubleValue ?? target!.x
-				target!.y	= value["y"]?.doubleValue ?? target!.y
-				return true
-			
 			case "targetX":
-				target		= target ?? LGVector()
-				target!.x	= value.doubleValue ?? target!.x
-				return true
+				targetX = value.doubleValue ?? targetX
 			
 			case "targetY":
-				target		= target ?? LGVector()
-				target!.y	= value.doubleValue ?? target!.y
-				return true
+				targetY = value.doubleValue ?? targetY
 			
-			case "axis":
-				switch value.stringValue
-				{
-					case .Some(let val) where val == "x":
-						axis = .X
-						return true
-					
-					case .Some(let val) where val == "y":
-						axis = .Y
-						return true
-					
-					case .Some(let val) where val == "both":
-						axis = .Both
-						return true
-					
-					default:
-						break
-				}
+			case "easingType":
+				easingType = EasingType.fromRaw(value.intValue ?? 0) ?? .Linear
+			
+			case "duration":
+				duration = value.doubleValue ?? duration
+			
+			case "time":
+				time = value.doubleValue ?? duration
 			
 			default:
-				break
+				return false
 		}
 		
-		return false
+		return true
 	}
 	
 	public func valueForKey(key: String) -> LGJSON
 	{
-		return LGJSON(value: nil)
+		var value = LGJSON()
+		
+		switch key
+		{
+			case "targetX":
+				if targetX != nil
+				{
+					value.value = NSNumber(double: targetX!)
+				}
+				
+			case "targetY":
+				if targetY != nil
+				{
+					value.value = NSNumber(double: targetY!)
+				}
+				
+			case "easingType":
+				value.value = NSNumber(integer: easingType.toRaw())
+				
+			case "duration":
+				value.value = NSNumber(double: duration)
+				
+			case "time":
+				value.value = NSNumber(double: time)
+				
+			default:
+				break
+		}
+		
+		return value
 	}
 }

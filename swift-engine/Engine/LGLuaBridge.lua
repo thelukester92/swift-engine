@@ -27,10 +27,6 @@ function Entity:new(n)
 	return o
 end
 
-function Entity.mt.__tostring(self)
-	return "Entity { name = " .. self.name .. " }"
-end
-
 function Entity.mt.__index(table, key)
 	table[key] = Component:new(table.name, key)
 	return table[key]
@@ -58,5 +54,4 @@ end
 
 -- MARK: Test
 
-scene.gate1.LGTweenable.axis = "y"
-scene.gate1.LGTweenable.targetY = 16
+-- scene.gate1.LGTweenable.targetY = 16

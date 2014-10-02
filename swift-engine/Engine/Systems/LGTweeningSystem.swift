@@ -43,47 +43,47 @@ public final class LGTweeningSystem: LGSystem
 			
 			if tweenable.isNew
 			{
-				tweenable.original = LGVector(x: position.x, y: position.y)
+				tweenable.originalX = position.x
+				tweenable.originalY = position.y
 				tweenable.time = 0
 				tweenable.isNew = false
 			}
 			
-			if tweenable.target != nil
+			if tweenable.targetX != nil || tweenable.targetY != nil
 			{
-				var pos = LGVector(x: position.x, y: position.y)
-				
 				if tweenable.time < tweenable.duration
 				{
-					let delta = LGVector(x: tweenable.target!.x - tweenable.original.x, y: tweenable.target!.y - tweenable.original.y)
+					let deltaX = tweenable.targetX != nil ? tweenable.targetX! - tweenable.originalX : 0
+					let deltaY = tweenable.targetY != nil ? tweenable.targetY! - tweenable.originalY : 0
 					
-					switch tweenable.easing
+					switch tweenable.easingType
 					{
 						case .Linear:
-							pos.x += delta.x / tweenable.duration
-							pos.y += delta.y / tweenable.duration
+							position.x += deltaX / tweenable.duration
+							position.y += deltaY / tweenable.duration
 						
 						case .EaseIn:
 							let value	= tweenable.time / tweenable.duration
-							pos.x		= tweenable.original.x + delta.x * value * value * value
-							pos.y		= tweenable.original.y + delta.y * value * value * value
+							position.x	= tweenable.originalX + deltaX * value * value * value
+							position.y	= tweenable.originalY + deltaY * value * value * value
 						
 						case .EaseOut:
 							let value	= tweenable.time / tweenable.duration - 1
-							pos.x		= tweenable.original.x + delta.x * (value * value * value + 1)
-							pos.y		= tweenable.original.y + delta.y * (value * value * value + 1)
+							position.x	= tweenable.originalX + deltaX * (value * value * value + 1)
+							position.y	= tweenable.originalY + deltaY * (value * value * value + 1)
 						
 						case .EaseInOut:
 							var value = 2 * tweenable.time / tweenable.duration
 							if value < 1
 							{
-								pos.x = tweenable.original.x + delta.x / 2 * value * value * value
-								pos.y = tweenable.original.y + delta.y / 2 * value * value * value
+								position.x = tweenable.originalX + deltaX / 2 * value * value * value
+								position.y = tweenable.originalY + deltaY / 2 * value * value * value
 							}
 							else
 							{
 								value -= 2
-								pos.x = tweenable.original.x + delta.x / 2 * (value * value * value + 2)
-								pos.y = tweenable.original.y + delta.y / 2 * (value * value * value + 2)
+								position.x = tweenable.originalX + deltaX / 2 * (value * value * value + 2)
+								position.y = tweenable.originalY + deltaY / 2 * (value * value * value + 2)
 							}
 					}
 					
@@ -91,18 +91,8 @@ public final class LGTweeningSystem: LGSystem
 				}
 				else
 				{
-					pos.x = tweenable.target!.x
-					pos.y = tweenable.target!.y
-				}
-				
-				if tweenable.axis == LGAxis.X || tweenable.axis == LGAxis.Both
-				{
-					position.x = pos.x
-				}
-				
-				if tweenable.axis == LGAxis.Y || tweenable.axis == LGAxis.Both
-				{
-					position.y = pos.y
+					position.x = tweenable.targetX ?? position.x
+					position.y = tweenable.targetY ?? position.y
 				}
 			}
 		}
