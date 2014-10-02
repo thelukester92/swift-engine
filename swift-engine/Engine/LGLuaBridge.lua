@@ -51,7 +51,3 @@ end
 function Component.mt.__newindex(table, key, value)
 	game.setProp(table.entity, table.type, key, value)
 end
-
--- MARK: Test
-
--- scene.gate1.LGTweenable.targetY = 16
