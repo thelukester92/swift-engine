@@ -17,7 +17,7 @@ public final class LGEntity
 	var components: [String: LGComponent] = [:]
 	weak var scene: LGScene?
 	
-	var globalId: Int
+	public let globalId: Int
 	
 	public init()
 	{

@@ -12,7 +12,8 @@ public final class LGScriptSystem: LGSystem
 	
 	override public func initialize()
 	{
-		LGGameLibrary.runScript("LGLuaBridge.lua", withScene: scene)
+		LGGameLibrary.scene = scene
+		LGGameLibrary.runScript("LGLuaBridge.lua")
 	}
 	
 	override public func accepts(entity: LGEntity) -> Bool
@@ -40,7 +41,7 @@ public final class LGScriptSystem: LGSystem
 			{
 				if let script = scriptable.scripts[event]
 				{
-					LGGameLibrary.runScript(script, withScene: scene)
+					LGGameLibrary.runScript(script)
 				}
 			}
 			scriptable.events.removeAll(keepCapacity: false)

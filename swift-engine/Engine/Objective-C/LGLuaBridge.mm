@@ -70,11 +70,11 @@
 
 static int game_getProp(lua_State *L)
 {
-	luaL_argcheck(L, lua_isstring(L, 1), 1, "Must be a string!");
+	luaL_argcheck(L, lua_isnumber(L, 1), 1, "Must be a number!");
 	luaL_argcheck(L, lua_isstring(L, 2), 2, "Must be a string!");
 	luaL_argcheck(L, lua_isstring(L, 3), 3, "Must be a string!");
 	
-	NSString *entity	= [NSString stringWithCString:lua_tostring(L, 1) encoding:NSUTF8StringEncoding];
+	int entity			= [[NSNumber numberWithInteger:lua_tonumber(L, 1)] intValue];
 	NSString *component	= [NSString stringWithCString:lua_tostring(L, 2) encoding:NSUTF8StringEncoding];
 	NSString *prop		= [NSString stringWithCString:lua_tostring(L, 3) encoding:NSUTF8StringEncoding];
 	
@@ -83,10 +83,6 @@ static int game_getProp(lua_State *L)
 	if(json == nil || json.isNil)
 	{
 		lua_pushnil(L);
-	}
-	else if(json.dictionaryValue != nil)
-	{
-		
 	}
 	else if(json.stringValue != nil)
 	{
@@ -106,11 +102,11 @@ static int game_getProp(lua_State *L)
 
 static int game_setProp(lua_State *L)
 {
-	luaL_argcheck(L, lua_isstring(L, 1), 1, "Must be a string!");
+	luaL_argcheck(L, lua_isnumber(L, 1), 1, "Must be a number!");
 	luaL_argcheck(L, lua_isstring(L, 2), 2, "Must be a string!");
 	luaL_argcheck(L, lua_isstring(L, 3), 3, "Must be a string!");
 	
-	NSString *entity	= [NSString stringWithCString:lua_tostring(L, 1) encoding:NSUTF8StringEncoding];
+	int entity			= [[NSNumber numberWithInt:lua_tonumber(L, 1)] intValue];
 	NSString *component	= [NSString stringWithCString:lua_tostring(L, 2) encoding:NSUTF8StringEncoding];
 	NSString *prop		= [NSString stringWithCString:lua_tostring(L, 3) encoding:NSUTF8StringEncoding];
 	LGJSON *value		= [[LGJSON alloc] init];
@@ -129,12 +125,32 @@ static int game_setProp(lua_State *L)
 	return 0;
 }
 
+static int game_getEntityId(lua_State *L)
+{
+	luaL_argcheck(L, lua_isstring(L, 1), 1, "Must be a string!");
+	
+	NSString *name		= [NSString stringWithCString:lua_tostring(L, 1) encoding:NSUTF8StringEncoding];
+	NSNumber *entity	= [LGGameLibrary getEntityId:name];
+	
+	if(entity != nil)
+	{
+		lua_pushnumber(L, [entity intValue]);
+	}
+	else
+	{
+		lua_pushnil(L);
+	}
+	
+	return 1;
+}
+
 static const char *gamelib_name = "game";
 static const luaL_Reg gamelib[] =
 {
-	{ "getProp", game_getProp },
-	{ "setProp", game_setProp },
-	{ NULL, NULL }
+	{ "getProp",		game_getProp },
+	{ "setProp",		game_setProp },
+	{ "getEntityId",	game_getEntityId },
+	{ NULL,				NULL }
 };
 
 @end

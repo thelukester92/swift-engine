@@ -53,7 +53,7 @@ extension LGAnimatable: LGDeserializable
 	
 	public class var optionalProps: [String]
 	{
-		return [ "defaultAnimation" ]
+		return [ "currentAnimation" ]
 	}
 	
 	public class func instantiate() -> LGDeserializable
@@ -99,18 +99,15 @@ extension LGAnimatable: LGDeserializable
 						animations[vKey] = animation
 					}
 				}
-				
-				return true
 			
-			case "defaultAnimation":
-				currentAnimation = animations[value.stringValue!]
-				return true
+			case "currentAnimation":
+				currentAnimation = value.stringValue != nil ? animations[value.stringValue!] : currentAnimation
 			
 			default:
-				break
+				return false
 		}
 		
-		return false
+		return true
 	}
 	
 	public func valueForKey(key: String) -> LGJSON

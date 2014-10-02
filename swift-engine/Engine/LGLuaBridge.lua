@@ -11,7 +11,13 @@ scene.mt = {}
 setmetatable(scene, scene.mt)
 
 function scene.mt.__index(table, key)
-	table[key] = Entity:new(key)
+	local i = key
+
+	if type(i) == "string" then
+		i = game.getEntityId(i)
+	end
+
+	table[key] = Entity:new(i)
 	return table[key]
 end
 
@@ -21,14 +27,14 @@ Entity = {}
 Entity.mt = {}
 setmetatable(Entity, Entity.mt)
 
-function Entity:new(n)
-	local o = { name = n }
+function Entity:new(i)
+	local o = { id = i }
 	setmetatable(o, Entity.mt)
 	return o
 end
 
 function Entity.mt.__index(table, key)
-	table[key] = Component:new(table.name, key)
+	table[key] = Component:new(table.id, key)
 	return table[key]
 end
 

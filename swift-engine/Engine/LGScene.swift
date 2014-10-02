@@ -16,6 +16,7 @@ public class LGScene
 	final var entities			= [LGEntity]()
 	final var removed			= [LGEntity]()
 	
+	final var entitiesById		= [Int:LGEntity]()
 	final var entitiesByName	= [String:LGEntity]()
 	
 	var initialized				= false
@@ -58,6 +59,7 @@ public class LGScene
 	public func addEntity(entity: LGEntity, named name: String? = nil)
 	{
 		entity.scene = self
+		entitiesById[entity.globalId] = entity
 		
 		if let n = name
 		{
@@ -78,6 +80,11 @@ public class LGScene
 		{
 			addEntity(entity)
 		}
+	}
+	
+	public func entityById(id: Int) -> LGEntity?
+	{
+		return entitiesById[id]
 	}
 	
 	public func entityNamed(name: String) -> LGEntity?

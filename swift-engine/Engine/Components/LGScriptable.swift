@@ -23,3 +23,43 @@ public final class LGScriptable: LGComponent
 	
 	public init() {}
 }
+
+extension LGScriptable: LGDeserializable
+{
+	public class var requiredProps: [String]
+	{
+		return []
+	}
+	
+	public class var optionalProps: [String]
+	{
+		return []
+	}
+	
+	public class func instantiate() -> LGDeserializable
+	{
+		return LGScriptable()
+	}
+	
+	public func setValue(value: LGJSON, forKey key: String) -> Bool
+	{
+		switch key
+		{
+			case "nextEvent":
+				if let val = value.stringValue
+				{
+					events.append(val)
+				}
+			
+			default:
+				return false
+		}
+		
+		return true
+	}
+	
+	public func valueForKey(key: String) -> LGJSON
+	{
+		return LGJSON(value: nil)
+	}
+}
