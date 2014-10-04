@@ -65,45 +65,25 @@ public class LGTMXParser: NSObject
 	{
 		for object in objects
 		{
-			let entity = LGEntity( LGPosition(x: Double(object.x), y: Double(map.height * map.tileHeight) - Double(object.y)) )
-			
-			var properties = [String:String]()
-			
-			// Properties from the EntityType template
-			if object.type != nil
+			if let entity = LGEntity.EntityFromTemplate(object.type)
 			{
-				if let json = LGJSON.JSONFromFile(object.type)
+				entity.put(component: LGPosition(x: Double(object.x), y: Double(map.height * map.tileHeight) - Double(object.y)))
+				
+				// Properties unique to the entity
+				for (type, serialized) in object.properties
 				{
-					if let dictionary = json.dictionaryValue
+					if let component = LGDeserializer.deserialize(serialized, withType: type)
 					{
-						for key in dictionary.allKeys as [String]
-						{
-							properties[key] = json[key]?.stringValue
-						}
+						entity.put(component: component)
+					}
+					else
+					{
+						println("WARNING: Failed to deserialize a component of type '\(type)'")
 					}
 				}
+				
+				scene.addEntity(entity, named: object.name)
 			}
-			
-			// Properties unique to the entity
-			for (key, val) in object.properties
-			{
-				properties[key] = val
-			}
-			
-			// Deserialize the properties
-			for (type, serialized) in properties
-			{
-				if let component = LGDeserializer.deserialize(serialized, withType: type)
-				{
-					entity.put(component: component)
-				}
-				else
-				{
-					println("WARNING: Failed to deserialize a component of type '\(type)'")
-				}
-			}
-			
-			scene.addEntity(entity, named: object.name)
 		}
 	}
 	

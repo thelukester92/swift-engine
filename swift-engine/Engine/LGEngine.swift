@@ -17,8 +17,8 @@ public final class LGEngine
 	{
 		self.view = view
 		
-		view.showsFPS = true
-		view.showsNodeCount = true
+		// view.showsFPS = true
+		// view.showsNodeCount = true
 		view.ignoresSiblingOrder = true
 		
 		// TODO: Remove this

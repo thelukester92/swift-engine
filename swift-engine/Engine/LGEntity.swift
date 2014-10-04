@@ -19,6 +19,36 @@ public final class LGEntity
 	
 	public let globalId: Int
 	
+	public class func EntityFromTemplate(template: String) -> LGEntity?
+	{
+		if let json = LGJSON.JSONFromFile(template)
+		{
+			let entity = LGEntity()
+			
+			for (type, value) in json
+			{
+				if let serialized = value.stringValue
+				{
+					if let component = LGDeserializer.deserialize(serialized, withType: type)
+					{
+						entity.put(component: component)
+						continue
+					}
+					else
+					{
+						println("WARNING: Failed to deserialize a component of type '\(type)'")
+					}
+				}
+				
+				return nil
+			}
+			
+			return entity
+		}
+		
+		return nil
+	}
+	
 	public init()
 	{
 		globalId = Static.EntityCount++
