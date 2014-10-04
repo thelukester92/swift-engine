@@ -21,6 +21,9 @@ public final class LGScriptable: LGComponent
 	public var scripts = [String:String]()
 	public var events = [Event]()
 	
+	// For script vars
+	public var props = [String:LGJSON]()
+	
 	public init() {}
 	
 	public struct Event
@@ -64,7 +67,7 @@ extension LGScriptable: LGDeserializable
 				}
 			
 			default:
-				return false
+				props[key] = value
 		}
 		
 		return true
@@ -72,6 +75,11 @@ extension LGScriptable: LGDeserializable
 	
 	public func valueForKey(key: String) -> LGJSON
 	{
+		if let val = props[key]
+		{
+			return val
+		}
+		
 		return LGJSON(value: nil)
 	}
 }
