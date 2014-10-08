@@ -248,7 +248,7 @@ public final class LGTileSystem : LGSystem
 		
 		// TODO: check for out-of-bounds before doing all these loops (currently checked in layer.visibleAt)
 		
-		if Int(cam.x / Double(map.tileWidth)) < minCol
+		while Int(cam.x / Double(map.tileWidth)) < minCol
 		{
 			minCol--
 			
