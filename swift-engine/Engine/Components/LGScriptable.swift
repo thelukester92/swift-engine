@@ -30,6 +30,18 @@ public final class LGScriptable: LGComponent
 	{
 		public var name: String
 		public var params: [AnyObject]?
+		
+		public init(name: String, params: [AnyObject]?)
+		{
+			self.name = name
+			self.params = params
+		}
+		
+		public init(name: String)
+		{
+			self.name = name
+			self.params = nil
+		}
 	}
 }
 

@@ -8,6 +8,11 @@
 
 public final class LGAnimationSystem: LGSystem
 {
+	public enum Event: String
+	{
+		case AnimationEnd = "animationEnd"
+	}
+	
 	var sprites		= [LGSprite]()
 	var animatables	= [LGAnimatable]()
 	var animations	= [LGAnimation?]()
@@ -71,6 +76,11 @@ public final class LGAnimationSystem: LGSystem
 							else
 							{
 								sprite.frame = animation.end
+							}
+							
+							if let scriptable = entities[id].get(LGScriptable)
+							{
+								scriptable.events.append(LGScriptable.Event(name: Event.AnimationEnd.toRaw()))
 							}
 						}
 					}
