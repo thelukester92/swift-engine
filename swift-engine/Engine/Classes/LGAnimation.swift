@@ -8,10 +8,10 @@
 
 public final class LGAnimation: Equatable
 {
-	var start: Int
-	var end: Int
-	var loops: Bool
-	var ticksPerFrame: Int
+	public var start: Int
+	public var end: Int
+	public var loops: Bool
+	public var ticksPerFrame: Int
 	
 	public init(start: Int, end: Int, loops: Bool, ticksPerFrame: Int)
 	{

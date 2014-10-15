@@ -227,6 +227,15 @@ public class LGScene
 					}
 				}
 				
+				for (id, other) in entitiesById
+				{
+					if other === entity
+					{
+						entitiesById[id] = nil
+						break
+					}
+				}
+				
 				// Remove entity from entities array
 				
 				for i in 0 ..< entities.count
