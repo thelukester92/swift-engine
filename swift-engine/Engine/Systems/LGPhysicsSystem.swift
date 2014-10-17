@@ -213,20 +213,20 @@ public final class LGPhysicsSystem: LGSystem
 		if let follower = entities[id].get(LGFollower)
 		{
 			switch follower.followerType
-			{
-				case .Velocity(let lastVelocity):
-					if follower.axis == LGAxis.X || follower.axis == LGAxis.Both
-					{
-						delta.x += lastVelocity.x
-					}
-					
-					if follower.axis == LGAxis.Y || follower.axis == LGAxis.Both
-					{
-						delta.y += lastVelocity.y
-					}
+				{
+			case .Velocity(let lastVelocity):
+				if follower.axis == LGAxis.X || follower.axis == LGAxis.Both
+				{
+					delta.x += lastVelocity.x
+				}
 				
-				case .Position:
-					break
+				if follower.axis == LGAxis.Y || follower.axis == LGAxis.Both
+				{
+					delta.y += lastVelocity.y
+				}
+				
+			case .Position:
+				break
 			}
 		}
 		
@@ -264,69 +264,69 @@ public final class LGPhysicsSystem: LGSystem
 	func resolveDynamicCollision(a: Int, _ b: Int, axis: LGAxis)
 	{
 		switch axis
-		{
-			case .X:
-				// Calculate resolution and update velocity
-				
-				var resolution = 0.0
-				if tent[a].x > tent[b].x
-				{
-					resolution = tent[b].x + body[b].width - tent[a].x + 1
-					
-					body[a].velocity.x = max(0, body[a].velocity.x)
-					body[b].velocity.x = min(0, body[b].velocity.x)
-					
-					body[a].collidedLeft	= true
-					body[b].collidedRight	= true
-				}
-				else
-				{
-					resolution = tent[b].x - (tent[a].x + body[a].width) - 1
-					
-					body[a].velocity.x = min(0, body[a].velocity.x)
-					body[b].velocity.x = max(0, body[b].velocity.x)
-					
-					body[a].collidedRight	= true
-					body[b].collidedLeft	= true
-				}
-				
-				// Update position (tentative)
-				
-				tent[a].x += resolution / 2
-				tent[b].x -= resolution / 2
+			{
+		case .X:
+			// Calculate resolution and update velocity
 			
-			case .Y:
-				// Calculate resolution and update velocity
+			var resolution = 0.0
+			if tent[a].x > tent[b].x
+			{
+				resolution = tent[b].x + body[b].width - tent[a].x + 1
 				
-				var resolution = 0.0
-				if tent[a].y > tent[b].y
-				{
-					resolution = tent[b].y + body[b].height - tent[a].y + 1
-					
-					body[a].velocity.y = max(0, body[a].velocity.y)
-					body[b].velocity.y = min(0, body[b].velocity.y)
-					
-					body[a].collidedBottom	= true
-					body[b].collidedTop		= true
-				}
-				else
-				{
-					resolution = tent[b].y - (tent[a].y + body[a].height) - 1
-					
-					body[a].velocity.y = min(0, body[a].velocity.y)
-					body[b].velocity.y = max(0, body[b].velocity.y)
-					
-					body[a].collidedTop		= true
-					body[b].collidedBottom	= true
-				}
+				body[a].velocity.x = max(0, body[a].velocity.x)
+				body[b].velocity.x = min(0, body[b].velocity.x)
 				
-				// Update position (tentative)
+				body[a].collidedLeft	= true
+				body[b].collidedRight	= true
+			}
+			else
+			{
+				resolution = tent[b].x - (tent[a].x + body[a].width) - 1
 				
-				tent[a].y += resolution / 2
-				tent[b].y -= resolution / 2
+				body[a].velocity.x = min(0, body[a].velocity.x)
+				body[b].velocity.x = max(0, body[b].velocity.x)
+				
+				body[a].collidedRight	= true
+				body[b].collidedLeft	= true
+			}
 			
-			default:
-				break
+			// Update position (tentative)
+			
+			tent[a].x += resolution / 2
+			tent[b].x -= resolution / 2
+			
+		case .Y:
+			// Calculate resolution and update velocity
+			
+			var resolution = 0.0
+			if tent[a].y > tent[b].y
+			{
+				resolution = tent[b].y + body[b].height - tent[a].y + 1
+				
+				body[a].velocity.y = max(0, body[a].velocity.y)
+				body[b].velocity.y = min(0, body[b].velocity.y)
+				
+				body[a].collidedBottom	= true
+				body[b].collidedTop		= true
+			}
+			else
+			{
+				resolution = tent[b].y - (tent[a].y + body[a].height) - 1
+				
+				body[a].velocity.y = min(0, body[a].velocity.y)
+				body[b].velocity.y = max(0, body[b].velocity.y)
+				
+				body[a].collidedTop		= true
+				body[b].collidedBottom	= true
+			}
+			
+			// Update position (tentative)
+			
+			tent[a].y += resolution / 2
+			tent[b].y -= resolution / 2
+			
+		default:
+			break
 		}
 		
 		addCollision(a, b)
@@ -391,18 +391,18 @@ public final class LGPhysicsSystem: LGSystem
 			// Loop through cols by endpoint; sweep rows
 			
 			outerLoop:
-			for col in cols
+				for col in cols
 			{
 				for row in rows[0]...rows[1]
 				{
 					switch collisionLayer.collisionTypeAt(row: row, col: col)
-					{
-						case .Collision:
-							resolveStaticCollision(id, tileRect(row, col), axis: .X)
-							break outerLoop
+						{
+					case .Collision:
+						resolveStaticCollision(id, tileRect(row, col), axis: .X)
+						break outerLoop
 						
-						default:
-							break
+					default:
+						break
 					}
 				}
 			}
@@ -415,28 +415,28 @@ public final class LGPhysicsSystem: LGSystem
 			// Loop through rows by endpoint; sweep cols
 			
 			outerLoop:
-			for row in rows
+				for row in rows
 			{
 				for col in cols[0]...cols[1]
 				{
 					switch collisionLayer.collisionTypeAt(row: row, col: col)
-					{
-						case .Collision:
-							resolveStaticCollision(id, tileRect(row, col), axis: .Y)
-							break outerLoop
+						{
+					case .Collision:
+						resolveStaticCollision(id, tileRect(row, col), axis: .Y)
+						break outerLoop
 						
-						case .OnlyCollidesOnTop:
-							let rect = tileRect(row, col)
-							if rect.y > tent[id].y || position[id].y < rect.y + rect.height
-							{
-								break
-							}
-							
-							resolveStaticCollision(id, rect, axis: .Y)
-							break outerLoop
-						
-						default:
+					case .OnlyCollidesOnTop:
+						let rect = tileRect(row, col)
+						if rect.y > tent[id].y || position[id].y < rect.y + rect.height
+						{
 							break
+						}
+						
+						resolveStaticCollision(id, rect, axis: .Y)
+						break outerLoop
+						
+					default:
+						break
 					}
 				}
 			}
@@ -495,41 +495,41 @@ public final class LGPhysicsSystem: LGSystem
 			// Resolve the collision
 			
 			switch axis
-			{
-				case .X:
-					if tent[id].x > rect.x
-					{
-						tent[id].x = rect.x + rect.width + 1
-						body[id].velocity.x = max(0, body[id].velocity.x)
-						
-						body[id].collidedLeft = true
-					}
-					else
-					{
-						tent[id].x = rect.x - body[id].width - 1
-						body[id].velocity.x = min(0, body[id].velocity.x)
-						
-						body[id].collidedRight = true
-					}
+				{
+			case .X:
+				if tent[id].x > rect.x
+				{
+					tent[id].x = rect.x + rect.width + 1
+					body[id].velocity.x = max(0, body[id].velocity.x)
+					
+					body[id].collidedLeft = true
+				}
+				else
+				{
+					tent[id].x = rect.x - body[id].width - 1
+					body[id].velocity.x = min(0, body[id].velocity.x)
+					
+					body[id].collidedRight = true
+				}
 				
-				case .Y:
-					if tent[id].y > rect.y
-					{
-						tent[id].y = rect.y + rect.height + 1
-						body[id].velocity.y = max(0, body[id].velocity.y)
-						
-						body[id].collidedBottom = true
-					}
-					else
-					{
-						tent[id].y = rect.y - body[id].height - 1
-						body[id].velocity.y = min(0, body[id].velocity.y)
-						
-						body[id].collidedTop = true
-					}
+			case .Y:
+				if tent[id].y > rect.y
+				{
+					tent[id].y = rect.y + rect.height + 1
+					body[id].velocity.y = max(0, body[id].velocity.y)
+					
+					body[id].collidedBottom = true
+				}
+				else
+				{
+					tent[id].y = rect.y - body[id].height - 1
+					body[id].velocity.y = min(0, body[id].velocity.y)
+					
+					body[id].collidedTop = true
+				}
 				
-				default:
-					break
+			default:
+				break
 			}
 			
 			addCollision(id, other)
@@ -566,40 +566,40 @@ public final class LGPhysicsSystem: LGSystem
 			else if let following = follower.following
 			{
 				switch follower.followerType
-				{
-					case .Velocity(var lastVelocity):
-						if let followingBody = following.get(LGPhysicsBody)
+					{
+				case .Velocity(var lastVelocity):
+					if let followingBody = following.get(LGPhysicsBody)
+					{
+						if follower.axis == LGAxis.X || follower.axis == LGAxis.Both
 						{
-							if follower.axis == LGAxis.X || follower.axis == LGAxis.Both
-							{
-								lastVelocity.x = followingBody.velocity.x
-							}
-							
-							if follower.axis == LGAxis.Y || follower.axis == LGAxis.Both
-							{
-								lastVelocity.y = followingBody.velocity.y
-							}
+							lastVelocity.x = followingBody.velocity.x
 						}
+						
+						if follower.axis == LGAxis.Y || follower.axis == LGAxis.Both
+						{
+							lastVelocity.y = followingBody.velocity.y
+						}
+					}
 					
-					case .Position(let offset):
-						if let followingPosition = following.get(LGPosition)
-						{
-							switch follower.axis
+				case .Position(let offset):
+					if let followingPosition = following.get(LGPosition)
+					{
+						switch follower.axis
 							{
-								case .X:
-									position[id].x = followingPosition.x + offset.x
-								
-								case .Y:
-									position[id].y = followingPosition.y + offset.y
-								
-								case .Both:
-									position[id].x = followingPosition.x + offset.x
-									position[id].y = followingPosition.y + offset.y
-								
-								case .None:
-									break
-							}
+						case .X:
+							position[id].x = followingPosition.x + offset.x
+							
+						case .Y:
+							position[id].y = followingPosition.y + offset.y
+							
+						case .Both:
+							position[id].x = followingPosition.x + offset.x
+							position[id].y = followingPosition.y + offset.y
+							
+						case .None:
+							break
 						}
+					}
 				}
 			}
 		}
@@ -629,8 +629,8 @@ public final class LGPhysicsSystem: LGSystem
 	{
 		if b >= 0
 		{
-			body[a].collidedWith[entities[b].globalId] = entities[b]
-			body[b].collidedWith[entities[a].globalId] = entities[a]
+			body[a].collidedWith[entities[b].id] = entities[b]
+			body[b].collidedWith[entities[a].id] = entities[a]
 			
 			var contained = false
 			for entity in collidedWith[b].values
@@ -644,7 +644,7 @@ public final class LGPhysicsSystem: LGSystem
 			
 			if !contained
 			{
-				collidedWith[b][entities[a].globalId] = entities[a]
+				collidedWith[b][entities[a].id] = entities[a]
 				addCollisionStart(a, b)
 			}
 		}
@@ -656,12 +656,12 @@ public final class LGPhysicsSystem: LGSystem
 	{
 		if b >= 0
 		{
-			scriptable[a]?.events.append(LGScriptable.Event(name: Event.Collision.toRaw(), params: [entities[a].globalId, entities[b].globalId]))
-			scriptable[b]?.events.append(LGScriptable.Event(name: Event.Collision.toRaw(), params: [entities[b].globalId, entities[a].globalId]))
+			scriptable[a]?.events.append(LGScriptable.Event(name: Event.Collision.toRaw(), params: [entities[a].id, entities[b].id]))
+			scriptable[b]?.events.append(LGScriptable.Event(name: Event.Collision.toRaw(), params: [entities[b].id, entities[a].id]))
 		}
 		else
 		{
-			scriptable[a]?.events.append(LGScriptable.Event(name: Event.Collision.toRaw(), params: [entities[a].globalId, "nil"]))
+			scriptable[a]?.events.append(LGScriptable.Event(name: Event.Collision.toRaw(), params: [entities[a].id, "nil"]))
 		}
 	}
 	
@@ -672,8 +672,8 @@ public final class LGPhysicsSystem: LGSystem
 	
 	func onCollisionStart(a: Int, _ b: Int)
 	{
-		scriptable[a]?.events.append(LGScriptable.Event(name: Event.CollisionStart.toRaw(), params: [entities[a].globalId, entities[b].globalId]))
-		scriptable[b]?.events.append(LGScriptable.Event(name: Event.CollisionStart.toRaw(), params: [entities[b].globalId, entities[a].globalId]))
+		scriptable[a]?.events.append(LGScriptable.Event(name: Event.CollisionStart.toRaw(), params: [entities[a].id, entities[b].id]))
+		scriptable[b]?.events.append(LGScriptable.Event(name: Event.CollisionStart.toRaw(), params: [entities[b].id, entities[a].id]))
 	}
 	
 	func addCollisionEnd(a: Int, _ b: LGEntity)
@@ -684,7 +684,7 @@ public final class LGPhysicsSystem: LGSystem
 	func onCollisionEnd(a: Int, _ b: LGEntity)
 	{
 		// Only one call is necessary, because it will be called once for each collidee
-		scriptable[a]?.events.append(LGScriptable.Event(name: Event.CollisionEnd.toRaw(), params: [entities[a].globalId, b.globalId]))
+		scriptable[a]?.events.append(LGScriptable.Event(name: Event.CollisionEnd.toRaw(), params: [entities[a].id, b.id]))
 	}
 	
 	// MARK: Helper Methods
@@ -692,23 +692,23 @@ public final class LGPhysicsSystem: LGSystem
 	func overlap(a: Int, _ b: Int, axis: LGAxis) -> Bool
 	{
 		switch axis
-		{
-			case .X:
-				return !(tent[a].x >= tent[b].x + body[b].width + 1
-					|| tent[a].x <= tent[b].x - body[a].width - 1
-					|| position[a].y > position[b].y + body[b].height
-					|| position[a].y < position[b].y - body[a].height
-				)
+			{
+		case .X:
+			return !(tent[a].x >= tent[b].x + body[b].width + 1
+				|| tent[a].x <= tent[b].x - body[a].width - 1
+				|| position[a].y > position[b].y + body[b].height
+				|| position[a].y < position[b].y - body[a].height
+			)
 			
-			case .Y:
-				return !(tent[a].x > tent[b].x + body[b].width
-					|| tent[a].x < tent[b].x - body[a].width
-					|| tent[a].y >= tent[b].y + body[b].height + 1
-					|| tent[a].y <= tent[b].y - body[a].height - 1
-				)
+		case .Y:
+			return !(tent[a].x > tent[b].x + body[b].width
+				|| tent[a].x < tent[b].x - body[a].width
+				|| tent[a].y >= tent[b].y + body[b].height + 1
+				|| tent[a].y <= tent[b].y - body[a].height - 1
+			)
 			
-			default:
-				return false
+		default:
+			return false
 		}
 	}
 	

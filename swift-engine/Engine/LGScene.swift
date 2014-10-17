@@ -19,14 +19,14 @@ public class LGScene
 	final var entitiesById		= [Int:LGEntity]()
 	final var entitiesByName	= [String:LGEntity]()
 	
-	var initialized				= false
+	public var nextId			= 0
+	public var time				= 0
 	public var paused			= false
+	var initialized				= false
 	
 	public var game: LGGame
 	var scene: LGSpriteKitScene
 	var rootNode: SKNode
-	
-	public var time				= 0
 	
 	public var view: SKView
 	{
@@ -39,7 +39,6 @@ public class LGScene
 		{
 			return scene.backgroundColor
 		}
-		
 		set
 		{
 			scene.backgroundColor = newValue
@@ -58,8 +57,11 @@ public class LGScene
 	
 	public func addEntity(entity: LGEntity, named name: String? = nil)
 	{
-		entity.scene = self
-		entitiesById[entity.globalId] = entity
+		entity.scene			= self
+		entity.id				= nextId
+		entitiesById[nextId]	= entity
+		
+		nextId++
 		
 		if let n = name
 		{
@@ -113,7 +115,7 @@ public class LGScene
 		// Register for an update phase
 		
 		if system.updatePhase != .None
-			{
+		{
 			if var phase = systemsByPhase[system.updatePhase]
 			{
 				phase.append(system)
@@ -165,7 +167,7 @@ public class LGScene
 		for i in 0 ..< systemsByPhase[system.updatePhase]!.count
 		{
 			var phase: [LGSystem] = systemsByPhase[system.updatePhase]!
-
+			
 			if phase[i] === system
 			{
 				phase.removeAtIndex(i)

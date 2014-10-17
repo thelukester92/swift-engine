@@ -8,16 +8,11 @@
 
 public final class LGEntity
 {
-	struct Static
-	{
-		// TODO: Move this into scene or something -- right now, ID increases across scenes
-		static var EntityCount = 0
-	}
+	public let INVALID = -1
+	public var id: Int
 	
 	var components: [String: LGComponent] = [:]
 	weak var scene: LGScene?
-	
-	public let globalId: Int
 	
 	public class func EntityFromTemplate(template: String) -> LGEntity?
 	{
@@ -51,7 +46,7 @@ public final class LGEntity
 	
 	public init()
 	{
-		globalId = Static.EntityCount++
+		id = INVALID
 	}
 	
 	public convenience init(_ firstComponent: LGComponent, _ components: LGComponent...)
@@ -108,10 +103,10 @@ public final class LGEntity
 }
 
 extension LGEntity: Hashable
-{
-	public var hashValue: Int
 	{
-		return globalId
+	public var hashValue: Int
+		{
+		return id
 	}
 }
 

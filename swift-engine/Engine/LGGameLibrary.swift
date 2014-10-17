@@ -51,7 +51,7 @@
 		{
 			if let entity = scene!.entityNamed(name)
 			{
-				return NSNumber(integer: entity.globalId)
+				return NSNumber(integer: entity.id)
 			}
 		}
 		
