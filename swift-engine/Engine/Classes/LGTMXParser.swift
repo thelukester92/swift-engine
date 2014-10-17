@@ -65,34 +65,32 @@ public class LGTMXParser: NSObject
 	{
 		for object in objects
 		{
-			if let entity = LGEntity.EntityFromTemplate(object.type)
+			let entity = LGEntity.EntityFromTemplate(object.type)? ?? LGEntity()
+			entity.put(component: LGPosition(x: Double(object.x), y: Double(map.height * map.tileHeight) - Double(object.y + object.height)))
+			
+			// Properties unique to the entity
+			for (type, serialized) in object.properties
 			{
-				entity.put(component: LGPosition(x: Double(object.x), y: Double(map.height * map.tileHeight) - Double(object.y + object.height)))
-				
-				// Properties unique to the entity
-				for (type, serialized) in object.properties
+				if let component = LGDeserializer.deserialize(serialized, withType: type)
 				{
-					if let component = LGDeserializer.deserialize(serialized, withType: type)
-					{
-						entity.put(component: component)
-					}
-					else
-					{
-						println("WARNING: Failed to deserialize a component of type '\(type)'")
-					}
+					entity.put(component: component)
 				}
-				
-				// Trigger, if not already a physics object
-				if !entity.has(LGPhysicsBody) && object.width > 0 && object.height > 0
+				else
 				{
-					let body = LGPhysicsBody(width: Double(object.width), height: Double(object.height), dynamic: false)
-					body.trigger = true
-					
-					entity.put(component: body)
+					println("WARNING: Failed to deserialize a component of type '\(type)'")
 				}
-				
-				scene.addEntity(entity, named: object.name)
 			}
+			
+			// Trigger, if not already a physics object
+			if !entity.has(LGPhysicsBody) && object.width > 0 && object.height > 0
+			{
+				let body = LGPhysicsBody(width: Double(object.width), height: Double(object.height), dynamic: false)
+				body.trigger = true
+				
+				entity.put(component: body)
+			}
+			
+			scene.addEntity(entity, named: object.name)
 		}
 	}
 	

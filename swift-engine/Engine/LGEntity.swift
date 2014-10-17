@@ -14,31 +14,34 @@ public final class LGEntity
 	var components: [String: LGComponent] = [:]
 	weak var scene: LGScene?
 	
-	public class func EntityFromTemplate(template: String) -> LGEntity?
+	public class func EntityFromTemplate(template: String?) -> LGEntity?
 	{
-		if let json = LGJSON.JSONFromFile(template)
+		if template != nil
 		{
-			let entity = LGEntity()
-			
-			for (type, value) in json
+			if let json = LGJSON.JSONFromFile(template!)
 			{
-				if let serialized = value.stringValue
+				let entity = LGEntity()
+				
+				for (type, value) in json
 				{
-					if let component = LGDeserializer.deserialize(serialized, withType: type)
+					if let serialized = value.stringValue
 					{
-						entity.put(component: component)
-						continue
+						if let component = LGDeserializer.deserialize(serialized, withType: type)
+						{
+							entity.put(component: component)
+							continue
+						}
+						else
+						{
+							println("WARNING: Failed to deserialize a component of type '\(type)'")
+						}
 					}
-					else
-					{
-						println("WARNING: Failed to deserialize a component of type '\(type)'")
-					}
+					
+					return nil
 				}
 				
-				return nil
+				return entity
 			}
-			
-			return entity
 		}
 		
 		return nil
