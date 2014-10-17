@@ -10,29 +10,37 @@ import SpriteKit
 
 public class LGGame: UIViewController
 {
-	public final var sceneTypes = [String:LGScene.Type]()
-	public var engine: LGEngine!
-	public var currentScene: String!
+	public typealias SceneGenerator = () -> LGScene
+	public final var sceneGenerators = [String:SceneGenerator]()
+	
+	public var currentScene: LGScene!
+	public var currentSceneName: String!
 	
 	public func registerDeserializers() {}
 	public func createScenes() {}
 	
-	public func addScene<T: LGScene>(sceneType: T.Type, named name: String)
+	public func addScene(generator: @autoclosure () -> LGScene, named name: String)
 	{
-		if currentScene == nil
+		if currentSceneName == nil
 		{
-			currentScene = name
+			currentSceneName = name
 		}
 		
-		sceneTypes[name] = sceneType
+		sceneGenerators[name] = generator
 	}
 	
 	public func gotoScene(name: String)
 	{
-		if let sceneType = sceneTypes[name]
+		if let generator = sceneGenerators[name]
 		{
-			currentScene = name
-			engine.gotoScene(sceneType(game: self))
+			currentSceneName = name
+			currentScene = generator()
+			
+			currentScene.scene.scaleMode = .AspectFill
+			(self.view as SKView).presentScene(currentScene.scene)
+			
+			currentScene.initialize()
+			currentScene.update()
 		}
 	}
 	
@@ -45,11 +53,9 @@ public class LGGame: UIViewController
 		registerDeserializers()
 		createScenes()
 		
-		engine = LGEngine(view: self.view as SKView)
-		
-		if currentScene != nil
+		if currentSceneName != nil
 		{
-			gotoScene(currentScene)
+			gotoScene(currentSceneName)
 		}
 	}
 	
