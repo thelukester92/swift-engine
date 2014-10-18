@@ -62,30 +62,30 @@ public class LGSystem
 
 extension LGSystem: LGEntityObserver
 {
-	func added(entity: LGEntity)
+	public func added(manager: LGEntityManager, id: Int)
 	{
-		if accepts(entity)
+		if accepts(manager.entities[id])
 		{
-			add(entity)
+			add(manager.entities[id])
 		}
 	}
 	
-	func removed(entity: LGEntity)
+	public func removed(manager: LGEntityManager, id: Int)
 	{
-		remove(entity)
+		remove(manager.entities[id])
 	}
 	
-	func changed(entity: LGEntity)
+	public func changed(manager: LGEntityManager, id: Int)
 	{
 		var contained = false
 		
 		for i in 0 ..< entities.count
 		{
-			if entities[i] === entity
+			if entities[i] == manager.entities[id]
 			{
 				contained = true
 				
-				if !accepts(entity)
+				if !accepts(manager.entities[id])
 				{
 					// No longer a valid entity in this system; remove it
 					remove(i)
@@ -93,17 +93,17 @@ extension LGSystem: LGEntityObserver
 				else
 				{
 					// Alert the system that this entity changed
-					change(entity)
+					change(i)
 				}
 				
 				break
 			}
 		}
 		
-		if !contained && accepts(entity)
+		if !contained && accepts(manager.entities[id])
 		{
 			// Now a valid entity in this system; add it
-			add(entity)
+			add(manager.entities[id])
 		}
 	}
 }

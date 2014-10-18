@@ -6,9 +6,9 @@
 //  Copyright (c) 2014 Luke Godfrey. See LICENSE.
 //
 
-protocol LGEntityObserver
+public protocol LGEntityObserver
 {
-	func added(entity: LGEntity)
-	func removed(entity: LGEntity)
-	func changed(entity: LGEntity)
+	func added(manager: LGEntityManager, id: Int)
+	func removed(manager: LGEntityManager, id: Int)
+	func changed(manager: LGEntityManager, id: Int)
 }

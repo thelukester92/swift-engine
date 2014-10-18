@@ -52,6 +52,8 @@
 		A340FF631999037A003E4809 /* PlayerOutputSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = A340FF621999037A003E4809 /* PlayerOutputSystem.swift */; };
 		A340FF6519990460003E4809 /* PlatformSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = A340FF6419990460003E4809 /* PlatformSystem.swift */; };
 		A34FC6AE19B8CF3B00C7E375 /* LGDeserializer.swift in Sources */ = {isa = PBXBuildFile; fileRef = A34FC6AD19B8CF3B00C7E375 /* LGDeserializer.swift */; };
+		A36EB8F819F219A000160845 /* LGMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = A36EB8F719F219A000160845 /* LGMapper.swift */; };
+		A36EB8FA19F219E500160845 /* LGEntityManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A36EB8F919F219E500160845 /* LGEntityManager.swift */; };
 		A398C8A319CB2A0F007EE71E /* LGBackgroundSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = A398C8A219CB2A0F007EE71E /* LGBackgroundSystem.swift */; };
 		A398C8AD19CB2AD1007EE71E /* LGBackground.swift in Sources */ = {isa = PBXBuildFile; fileRef = A398C8AC19CB2AD1007EE71E /* LGBackground.swift */; };
 		A3A1004F19DC468C006F1B2A /* lapi.c in Sources */ = {isa = PBXBuildFile; fileRef = A3A1001419DC468C006F1B2A /* lapi.c */; settings = {COMPILER_FLAGS = "-w"; }; };
@@ -187,6 +189,8 @@
 		A340FF6619990571003E4809 /* LGGame.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LGGame.swift; sourceTree = "<group>"; };
 		A34FC6AD19B8CF3B00C7E375 /* LGDeserializer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LGDeserializer.swift; path = Classes/LGDeserializer.swift; sourceTree = "<group>"; };
 		A3542B9E196CBC8000ED00E8 /* LGPhysicsSystem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LGPhysicsSystem.swift; sourceTree = "<group>"; };
+		A36EB8F719F219A000160845 /* LGMapper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LGMapper.swift; path = Classes/LGMapper.swift; sourceTree = "<group>"; };
+		A36EB8F919F219E500160845 /* LGEntityManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LGEntityManager.swift; sourceTree = "<group>"; };
 		A3870DE7196AE566000B4352 /* Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "Bridging-Header.h"; path = "Game/Bridging-Header.h"; sourceTree = "<group>"; };
 		A3882F67198D5085009C454F /* LGFollower.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LGFollower.swift; sourceTree = "<group>"; };
 		A3981C9719511C5C0072E4A3 /* LGTileSystem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LGTileSystem.swift; sourceTree = "<group>"; };
@@ -402,6 +406,7 @@
 			isa = PBXGroup;
 			children = (
 				A319FB9619B5118500DFD723 /* LGDeserializable.swift */,
+				A36EB8F919F219E500160845 /* LGEntityManager.swift */,
 				A31CEC2E19554BF1004F0395 /* LGEntityObserver.swift */,
 				A326118D1986FD23000FBDF6 /* LGTouchObserver.swift */,
 				A340FF601998FF43003E4809 /* LGUpdatable.swift */,
@@ -437,6 +442,7 @@
 				A34FC6AD19B8CF3B00C7E375 /* LGDeserializer.swift */,
 				A3A1008619DC4E69006F1B2A /* LGGameLibrary.swift */,
 				A3EB958B19B61B38001FF4D1 /* LGJSON.swift */,
+				A36EB8F719F219A000160845 /* LGMapper.swift */,
 				A340FF5E1998FE36003E4809 /* LGSpriteKitScene.swift */,
 				A33CADA5194360AF00AC8E27 /* LGSpriteSheet.swift */,
 				A3FE99C0195A790A00D6A781 /* LGTile.swift */,
@@ -791,8 +797,10 @@
 				A34FC6AE19B8CF3B00C7E375 /* LGDeserializer.swift in Sources */,
 				A315057C19995966000B8842 /* LGAxis.swift in Sources */,
 				A315057619995966000B8842 /* LGPosition.swift in Sources */,
+				A36EB8F819F219A000160845 /* LGMapper.swift in Sources */,
 				A315058819995966000B8842 /* LGScene.swift in Sources */,
 				A315057019995966000B8842 /* LGTileMap.swift in Sources */,
+				A36EB8FA19F219E500160845 /* LGEntityManager.swift in Sources */,
 				A315057D19995966000B8842 /* LGEntityObserver.swift in Sources */,
 				A315057119995966000B8842 /* LGTMXObject.swift in Sources */,
 				A315057B19995966000B8842 /* LGUpdatePhase.swift in Sources */,
