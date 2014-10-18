@@ -10,17 +10,21 @@ import SpriteKit
 
 public final class LGRenderingSystem: LGSystem
 {
-	var positions	= [LGPosition]()
-	var sprites		= [LGSprite]()
+	var positions	= LGComponentMapper<LGPosition>()
+	var sprites		= LGComponentMapper<LGSprite>()
+	var frames		= LGMapper<Int> { return -1 }
+	
+	// TODO: Make a LGManualMapper<T> that allows the creator function to be more explicit??
 	var nodes		= [SKSpriteNode]()
-	var frames		= [Int]()
 	
 	var spriteSheets = [String:LGSpriteSheet]()
 	
 	override public init()
 	{
 		super.init()
-		self.updatePhase = .Render
+		updatePhase = .Render
+		
+		observers = [ positions, sprites, frames ]
 	}
 	
 	override public func accepts(entity: LGEntity) -> Bool
@@ -32,16 +36,9 @@ public final class LGRenderingSystem: LGSystem
 	{
 		super.add(entity)
 		
-		let position	= entity.get(LGPosition)!
-		let sprite		= entity.get(LGSprite)!
-		let node		= generateNodeForSprite(sprite)
-		
+		let node = generateNodeForSprite(entity.get(LGSprite)!)
 		scene.addChild(node)
-		
-		positions.append(position)
-		sprites.append(sprite)
 		nodes.append(node)
-		frames.append(-1)
 	}
 	
 	override public func remove(index: Int)
@@ -49,11 +46,7 @@ public final class LGRenderingSystem: LGSystem
 		super.remove(index)
 		
 		nodes[index].removeFromParent()
-		
-		positions.removeAtIndex(index)
-		sprites.removeAtIndex(index)
 		nodes.removeAtIndex(index)
-		frames.removeAtIndex(index)
 	}
 	
 	override public func update()

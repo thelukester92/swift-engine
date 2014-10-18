@@ -61,6 +61,8 @@ public class LGScene: LGEntityManager
 		entity.id				= nextId
 		entitiesById[nextId]	= entity
 		
+		entities.append(entity)
+		
 		if let n = name
 		{
 			entitiesByName[n] = entity
@@ -68,10 +70,8 @@ public class LGScene: LGEntityManager
 		
 		for system in systems
 		{
-			system.added(self, id: nextId)
+			system.added(self, id: entities.count - 1)
 		}
-		
-		entities.append(entity)
 		
 		nextId++
 	}

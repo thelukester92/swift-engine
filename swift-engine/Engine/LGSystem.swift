@@ -6,9 +6,10 @@
 //  Copyright (c) 2014 Luke Godfrey. See LICENSE.
 //
 
-public class LGSystem
+public class LGSystem: LGEntityManager
 {
 	public final var entities	= [LGEntity]()
+	public final var observers	= [LGEntityObserver]()
 	public var updatePhase		= LGUpdatePhase.Main
 	
 	public var scene: LGScene!
@@ -23,6 +24,10 @@ public class LGSystem
 	public func add(entity: LGEntity)
 	{
 		entities.append(entity)
+		for observer in observers
+		{
+			observer.added(self, id: entities.count - 1)
+		}
 	}
 	
 	public func remove(entity: LGEntity)
@@ -40,6 +45,10 @@ public class LGSystem
 	public func remove(index: Int)
 	{
 		entities.removeAtIndex(index)
+		for observer in observers
+		{
+			observer.removed(self, id: index)
+		}
 	}
 	
 	public func change(entity: LGEntity)
@@ -54,7 +63,13 @@ public class LGSystem
 		}
 	}
 	
-	public func change(index: Int) {}
+	public func change(index: Int)
+	{
+		for observer in observers
+		{
+			observer.changed(self, id: index)
+		}
+	}
 	
 	public func initialize() {}
 	public func update() {}

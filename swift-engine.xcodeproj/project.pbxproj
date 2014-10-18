@@ -54,6 +54,7 @@
 		A34FC6AE19B8CF3B00C7E375 /* LGDeserializer.swift in Sources */ = {isa = PBXBuildFile; fileRef = A34FC6AD19B8CF3B00C7E375 /* LGDeserializer.swift */; };
 		A36EB8F819F219A000160845 /* LGMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = A36EB8F719F219A000160845 /* LGMapper.swift */; };
 		A36EB8FA19F219E500160845 /* LGEntityManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A36EB8F919F219E500160845 /* LGEntityManager.swift */; };
+		A36EB8FC19F224B100160845 /* LGComponentMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = A36EB8FB19F224B100160845 /* LGComponentMapper.swift */; };
 		A398C8A319CB2A0F007EE71E /* LGBackgroundSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = A398C8A219CB2A0F007EE71E /* LGBackgroundSystem.swift */; };
 		A398C8AD19CB2AD1007EE71E /* LGBackground.swift in Sources */ = {isa = PBXBuildFile; fileRef = A398C8AC19CB2AD1007EE71E /* LGBackground.swift */; };
 		A3A1004F19DC468C006F1B2A /* lapi.c in Sources */ = {isa = PBXBuildFile; fileRef = A3A1001419DC468C006F1B2A /* lapi.c */; settings = {COMPILER_FLAGS = "-w"; }; };
@@ -191,6 +192,7 @@
 		A3542B9E196CBC8000ED00E8 /* LGPhysicsSystem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LGPhysicsSystem.swift; sourceTree = "<group>"; };
 		A36EB8F719F219A000160845 /* LGMapper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LGMapper.swift; path = Classes/LGMapper.swift; sourceTree = "<group>"; };
 		A36EB8F919F219E500160845 /* LGEntityManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LGEntityManager.swift; sourceTree = "<group>"; };
+		A36EB8FB19F224B100160845 /* LGComponentMapper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LGComponentMapper.swift; path = Classes/LGComponentMapper.swift; sourceTree = "<group>"; };
 		A3870DE7196AE566000B4352 /* Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "Bridging-Header.h"; path = "Game/Bridging-Header.h"; sourceTree = "<group>"; };
 		A3882F67198D5085009C454F /* LGFollower.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LGFollower.swift; sourceTree = "<group>"; };
 		A3981C9719511C5C0072E4A3 /* LGTileSystem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LGTileSystem.swift; sourceTree = "<group>"; };
@@ -439,6 +441,7 @@
 			isa = PBXGroup;
 			children = (
 				A340FF581998F448003E4809 /* LGAnimation.swift */,
+				A36EB8FB19F224B100160845 /* LGComponentMapper.swift */,
 				A34FC6AD19B8CF3B00C7E375 /* LGDeserializer.swift */,
 				A3A1008619DC4E69006F1B2A /* LGGameLibrary.swift */,
 				A3EB958B19B61B38001FF4D1 /* LGJSON.swift */,
@@ -788,6 +791,7 @@
 				A315058319995966000B8842 /* LGRenderingSystem.swift in Sources */,
 				A315057919995966000B8842 /* LGFollower.swift in Sources */,
 				A315057819995966000B8842 /* LGPhysicsBody.swift in Sources */,
+				A36EB8FC19F224B100160845 /* LGComponentMapper.swift in Sources */,
 				A315058419995966000B8842 /* LGTileSystem.swift in Sources */,
 				A315057319995966000B8842 /* LGVector.swift in Sources */,
 				A3A1008719DC4E69006F1B2A /* LGGameLibrary.swift in Sources */,
@@ -999,7 +1003,7 @@
 				METAL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
-				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_OPTIMIZATION_LEVEL = "-Ounchecked";
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -1035,6 +1039,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				METAL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
+				SWIFT_OPTIMIZATION_LEVEL = "-Ounchecked";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
 			};
