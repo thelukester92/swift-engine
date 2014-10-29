@@ -656,12 +656,12 @@ public final class LGPhysicsSystem: LGSystem
 	{
 		if b >= 0
 		{
-			scriptable[a]?.events.append(LGScriptable.Event(name: Event.Collision.toRaw(), params: [entities[a].id, entities[b].id]))
-			scriptable[b]?.events.append(LGScriptable.Event(name: Event.Collision.toRaw(), params: [entities[b].id, entities[a].id]))
+			scriptable[a]?.events.append(LGScriptable.Event(name: Event.Collision.rawValue, params: [entities[a].id, entities[b].id]))
+			scriptable[b]?.events.append(LGScriptable.Event(name: Event.Collision.rawValue, params: [entities[b].id, entities[a].id]))
 		}
 		else
 		{
-			scriptable[a]?.events.append(LGScriptable.Event(name: Event.Collision.toRaw(), params: [entities[a].id, "nil"]))
+			scriptable[a]?.events.append(LGScriptable.Event(name: Event.Collision.rawValue, params: [entities[a].id, "nil"]))
 		}
 	}
 	
@@ -672,8 +672,8 @@ public final class LGPhysicsSystem: LGSystem
 	
 	func onCollisionStart(a: Int, _ b: Int)
 	{
-		scriptable[a]?.events.append(LGScriptable.Event(name: Event.CollisionStart.toRaw(), params: [entities[a].id, entities[b].id]))
-		scriptable[b]?.events.append(LGScriptable.Event(name: Event.CollisionStart.toRaw(), params: [entities[b].id, entities[a].id]))
+		scriptable[a]?.events.append(LGScriptable.Event(name: Event.CollisionStart.rawValue, params: [entities[a].id, entities[b].id]))
+		scriptable[b]?.events.append(LGScriptable.Event(name: Event.CollisionStart.rawValue, params: [entities[b].id, entities[a].id]))
 	}
 	
 	func addCollisionEnd(a: Int, _ b: LGEntity)
@@ -684,7 +684,7 @@ public final class LGPhysicsSystem: LGSystem
 	func onCollisionEnd(a: Int, _ b: LGEntity)
 	{
 		// Only one call is necessary, because it will be called once for each collidee
-		scriptable[a]?.events.append(LGScriptable.Event(name: Event.CollisionEnd.toRaw(), params: [entities[a].id, b.id]))
+		scriptable[a]?.events.append(LGScriptable.Event(name: Event.CollisionEnd.rawValue, params: [entities[a].id, b.id]))
 	}
 	
 	// MARK: Helper Methods

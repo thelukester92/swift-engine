@@ -33,7 +33,7 @@ import Foundation
 	
 	public class func JSONFromFile(name: String) -> LGJSON?
 	{
-		if let data = NSData.dataWithContentsOfFile(NSBundle.mainBundle().pathForResource(name, ofType: "json")!, options: nil, error: nil)
+		if let data = NSData(contentsOfFile:NSBundle.mainBundle().pathForResource(name, ofType: "json")!, options: nil, error: nil)
 		{
 			return JSONFromData(data)
 		}

@@ -80,7 +80,7 @@ public final class LGAnimationSystem: LGSystem
 							
 							if let scriptable = entities[id].get(LGScriptable)
 							{
-								scriptable.events.append(LGScriptable.Event(name: Event.AnimationEnd.toRaw()))
+								scriptable.events.append(LGScriptable.Event(name: Event.AnimationEnd.rawValue))
 							}
 						}
 					}

@@ -96,7 +96,7 @@ public class LGTMXParser: NSObject
 	
 	public func parseFile(filename: String, filetype: String = "tmx")
 	{
-		let parser = NSXMLParser(contentsOfURL: NSBundle.mainBundle().URLForResource(filename, withExtension: filetype))
+		let parser = NSXMLParser(contentsOfURL: NSBundle.mainBundle().URLForResource(filename, withExtension: filetype))!
 		parser.delegate = self
 		parser.parse()
 	}
@@ -137,7 +137,7 @@ public class LGTMXParser: NSObject
 		{
 			// uncompressed base64
 			
-			let data = NSData(base64EncodedString: string, options: .IgnoreUnknownCharacters)
+			let data = NSData(base64EncodedString: string, options: .IgnoreUnknownCharacters)!
 			assert(data.length == map.width * map.height * 4)
 			
 			var bytes = [UInt8](count: data.length, repeatedValue: 0)

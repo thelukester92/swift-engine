@@ -72,7 +72,7 @@ extension LGTweenable: LGDeserializable
 				targetY = value.doubleValue ?? targetY
 			
 			case "easingType":
-				easingType = EasingType.fromRaw(value.intValue ?? 0) ?? .Linear
+				easingType = EasingType(rawValue: value.intValue ?? 0) ?? .Linear
 			
 			case "duration":
 				duration = value.doubleValue ?? duration
@@ -106,7 +106,7 @@ extension LGTweenable: LGDeserializable
 				}
 				
 			case "easingType":
-				value.value = NSNumber(integer: easingType.toRaw())
+				value.value = NSNumber(integer: easingType.rawValue)
 				
 			case "duration":
 				value.value = NSNumber(double: duration)

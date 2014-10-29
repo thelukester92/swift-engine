@@ -41,7 +41,7 @@ public class LGTileLayer: LGSystem
 		{
 			if let tile = tileAt(row: row, col: col)
 			{
-				return CollisionType.fromRaw(tile.pos) ?? .Collision
+				return CollisionType(rawValue: tile.pos) ?? .Collision
 			}
 		}
 		

@@ -75,7 +75,7 @@
 			
 			if(scriptFile != nil)
 			{
-				script = NSString(contentsOfFile: scriptFile!, encoding: NSUTF8StringEncoding, error: nil)
+				script = NSString(contentsOfFile: scriptFile!, encoding: NSUTF8StringEncoding, error: nil)!
 			}
 			else
 			{
