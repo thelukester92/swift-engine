@@ -25,7 +25,6 @@ public final class LGSprite: LGComponent
 	public var scale		= LGVector(1.0)
 	public var offset		= LGVector()
 	public var opacity		= 1.0
-	public var rotation		= 0.0
 	public var layer		= 0
 	public var isVisible	= true
 	

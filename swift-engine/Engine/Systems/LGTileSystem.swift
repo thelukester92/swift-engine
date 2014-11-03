@@ -130,6 +130,7 @@ public final class LGTileSystem : LGSystem
 		
 		position.x = Double(map.tileWidth * col)
 		position.y = Double(map.tileHeight * row)
+		position.rotation = 0.0
 		
 		sprite.opacity		= layer.opacity
 		sprite.layer		= layer.renderLayer
@@ -138,23 +139,22 @@ public final class LGTileSystem : LGSystem
 		sprite.offset.y		= 0
 		sprite.scale.x		= 1.0
 		sprite.scale.y		= 1.0
-		sprite.rotation		= 0.0
 		sprite.isVisible	= true
 		
 		if t.flippedDiagonal
 		{
 			if t.flippedHorizontal
 			{
-				sprite.rotation = -M_PI_2
+				position.rotation = -M_PI_2
 			}
 			else if t.flippedVertical
 			{
-				sprite.rotation = M_PI_2
+				position.rotation = M_PI_2
 			}
 			else
 			{
-				sprite.rotation	= -M_PI_2
-				sprite.scale.y	= -1
+				position.rotation = -M_PI_2
+				sprite.scale.y = -1
 			}
 		}
 		else

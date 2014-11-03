@@ -38,6 +38,7 @@ public class LGGame: UIViewController
 			
 			currentScene.scene.scaleMode = .AspectFill
 			(self.view as SKView).presentScene(currentScene.scene)
+			(self.view as SKView).showsNodeCount = true
 			
 			currentScene.initialize()
 			currentScene.update()

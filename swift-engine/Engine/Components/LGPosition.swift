@@ -6,6 +6,8 @@
 //  Copyright (c) 2014 Luke Godfrey. See LICENSE.
 //
 
+// TODO: rename this to LGTransform
+
 import SpriteKit
 
 public final class LGPosition: LGComponent
@@ -22,11 +24,13 @@ public final class LGPosition: LGComponent
 		
 	public var x: Double
 	public var y: Double
+	public var rotation: Double
 	
-	public init(x: Double, y: Double)
+	public init(x: Double, y: Double, rotation: Double = 0.0)
 	{
-		self.x = x
-		self.y = y
+		self.x			= x
+		self.y			= y
+		self.rotation	= rotation
 	}
 	
 	public convenience init()
@@ -64,6 +68,10 @@ extension LGPosition: LGDeserializable
 				y = value.doubleValue ?? y
 				return true
 			
+			case "rotation":
+				rotation = value.doubleValue ?? rotation
+				return true
+			
 			default:
 				break
 		}
@@ -80,6 +88,9 @@ extension LGPosition: LGDeserializable
 			
 			case "y":
 				return LGJSON(value: NSNumber(double: y))
+			
+			case "rotation":
+				return LGJSON(value: NSNumber(double: rotation))
 			
 			default:
 				break

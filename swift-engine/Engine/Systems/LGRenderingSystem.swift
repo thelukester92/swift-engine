@@ -85,7 +85,7 @@ public final class LGRenderingSystem: LGSystem
 				node.position.y	= CGFloat(Int(position.y + sprite.offset.y + Double(sprite.size.y / 2)))
 				node.xScale		= CGFloat(sprite.scale.x)
 				node.yScale		= CGFloat(sprite.scale.y)
-				node.zRotation	= CGFloat(sprite.rotation)
+				node.zRotation	= CGFloat(position.rotation)
 				node.zPosition	= CGFloat(sprite.layer)
 				node.alpha		= CGFloat(sprite.opacity)
 				node.hidden		= false
