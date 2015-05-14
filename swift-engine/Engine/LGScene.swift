@@ -8,13 +8,13 @@
 
 import SpriteKit
 
-public class LGScene
+public class LGScene: LGEntityManager
 {
 	final var systems			= [LGSystem]()
 	final var systemsByPhase	= [LGUpdatePhase: [LGSystem]]()
 	
-	final var entities			= [LGEntity]()
-	final var removed			= [LGEntity]()
+	public final var entities	= [LGEntity]()
+	final var removed			= [Int]()
 	
 	final var entitiesById		= [Int:LGEntity]()
 	final var entitiesByName	= [String:LGEntity]()
@@ -61,7 +61,7 @@ public class LGScene
 		entity.id				= nextId
 		entitiesById[nextId]	= entity
 		
-		nextId++
+		entities.append(entity)
 		
 		if let n = name
 		{
@@ -70,10 +70,10 @@ public class LGScene
 		
 		for system in systems
 		{
-			system.added(entity)
+			system.added(self, id: entities.count - 1)
 		}
 		
-		entities.append(entity)
+		nextId++
 	}
 	
 	public func addEntities(entitiesToAdd: LGEntity...)
@@ -96,14 +96,32 @@ public class LGScene
 	
 	public func removeEntity(entity: LGEntity)
 	{
-		removed.append(entity)
+		for id in 0 ..< entities.count
+		{
+			if entities[id] == entity
+			{
+				removed.append(id)
+				break
+			}
+		}
 	}
 	
 	public func changed(entity: LGEntity)
 	{
+		var id = 0
+		
+		for i in 0 ..< entities.count
+		{
+			if entities[i] == entity
+			{
+				id = i
+				break
+			}
+		}
+		
 		for system in systems
 		{
-			system.changed(entity)
+			system.changed(self, id: id)
 		}
 	}
 	
@@ -136,11 +154,11 @@ public class LGScene
 		
 		// Notify the system of any entities that already exist
 		
-		for entity in entities
+		for id in 0 ..< entities.count
 		{
-			if system.accepts(entity)
+			if system.accepts(entities[id])
 			{
-				system.added(entity)
+				system.added(self, id: id)
 			}
 		}
 	}
@@ -209,45 +227,31 @@ public class LGScene
 	{
 		if removed.count > 0
 		{
-			for entity in removed
+			for id in removed
 			{
 				// Alert systems that entity has been removed
 				
 				for system in systems
 				{
-					system.removed(entity)
+					system.removed(self, id: id)
 				}
 				
 				// Remove named entity
 				
 				for (name, other) in entitiesByName
 				{
-					if other === entity
+					if other == entities[id]
 					{
 						entitiesByName[name] = nil
 						break
 					}
 				}
 				
-				for (id, other) in entitiesById
-				{
-					if other === entity
-					{
-						entitiesById[id] = nil
-						break
-					}
-				}
+				entitiesById[id] = nil
 				
 				// Remove entity from entities array
 				
-				for i in 0 ..< entities.count
-				{
-					if entities[i] === entity
-					{
-						entities.removeAtIndex(i)
-						break
-					}
-				}
+				entities.removeAtIndex(id)
 			}
 			
 			removed = []

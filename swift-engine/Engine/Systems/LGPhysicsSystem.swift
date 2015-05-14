@@ -26,12 +26,12 @@ public final class LGPhysicsSystem: LGSystem
 	var dynamicEntities	= [Int]()
 	var staticEntities	= [Int]()
 	
-	// Cached
-	var position		= [LGPosition]()
-	var body			= [LGPhysicsBody]()
-	var scriptable		= [LGScriptable?]()
-	var tent			= [LGVector]()
-	var collidedWith	= [[Int:LGEntity]]()
+	// Mappers
+	var position		= LGComponentMapper<LGPosition>()
+	var body			= LGComponentMapper<LGPhysicsBody>()
+	var scriptable		= LGOptionalComponentMapper<LGScriptable>()
+	var tent			= LGMapper<LGVector> { LGVector() }
+	var collidedWith	= LGMapper<[Int:LGEntity]> { [:] }
 	
 	// Events to call
 	var collisionEvents: [(a: Int, b: Int)] = []
@@ -52,6 +52,8 @@ public final class LGPhysicsSystem: LGSystem
 		
 		dynamicGrid	= LGSpatialGrid(system: self)
 		staticGrid	= LGSpatialGrid(system: self)
+		
+		observers = [ position, body, scriptable, tent, collidedWith ]
 	}
 	
 	// MARK: LGSystem Overrides
@@ -70,7 +72,6 @@ public final class LGPhysicsSystem: LGSystem
 	{
 		super.add(entity)
 		
-		let pos	= entity.get(LGPosition)!
 		let bod	= entity.get(LGPhysicsBody)!
 		
 		// Assign local entity ID based on entities.count
@@ -85,26 +86,13 @@ public final class LGPhysicsSystem: LGSystem
 		{
 			staticEntities.append(localId)
 		}
-		
-		// Cache entity information
-		
-		position.append(pos)
-		body.append(bod)
-		scriptable.append(entity.get(LGScriptable))
-		tent.append(LGVector())
-		collidedWith.append([Int:LGEntity]())
 	}
 	
 	override public func remove(index: Int)
 	{
 		super.remove(index)
 		
-		body.removeAtIndex(index)
-		scriptable.removeAtIndex(index)
-		position.removeAtIndex(index)
-		tent.removeAtIndex(index)
-		collidedWith.removeAtIndex(index)
-		
+		// TODO :remove reindex
 		reindex()
 	}
 	
@@ -213,7 +201,7 @@ public final class LGPhysicsSystem: LGSystem
 		if let follower = entities[id].get(LGFollower)
 		{
 			switch follower.followerType
-				{
+			{
 			case .Velocity(let lastVelocity):
 				if follower.axis == LGAxis.X || follower.axis == LGAxis.Both
 				{
