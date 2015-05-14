@@ -1,3 +1,5 @@
+**I have discontinued this project indefinitely. Thank you for checking it out! I am leaving it up for educational purposes.**
+
 # Swift Engine
 
 The Swift engine is an [Entity-Component-System](http://en.wikipedia.org/wiki/Entity_component_system) game engine. Is is among the first game engines written in the [Swift programming language](https://developer.apple.com/swift/), and is specifically designed to facilitate the rapid development of iPhone and iPad games. The project is currently a complete alpha version. This project is licensed under the MIT License, which means you are free to use, modify, and distribute copies of the source code.
